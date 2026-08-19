@@ -382,6 +382,16 @@
     .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
     .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .examples-grid.four-up { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .examples-grid.study-overview-grid { grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:10px; }
+    .study-feature-card { min-width:0; min-height:108px; display:grid; grid-template-columns:38px minmax(0,1fr) 18px; align-items:center; gap:12px; padding:15px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+    .study-feature-card:hover { transform:translateY(-2px); border-color:rgba(var(--accent-rgb),.3); box-shadow:var(--shadow-soft); }
+    .study-feature-icon { width:38px; height:38px; display:grid; place-items:center; border-radius:11px; background:rgba(var(--accent-rgb),.08); color:var(--accent); }
+    .study-feature-icon .icon { width:19px; height:19px; }
+    .study-feature-copy { min-width:0; }
+    .study-feature-copy strong { display:block; margin-bottom:5px; font-size:14px; font-weight:660; }
+    .study-feature-copy small { display:-webkit-box; overflow:hidden; color:var(--muted); font-size:10px; line-height:1.45; white-space:normal; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    .study-feature-arrow { color:var(--subtle); }
+    .study-feature-arrow .icon { width:15px; height:15px; transform:rotate(-90deg); }
     .example-card {
       min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; min-height: 0; padding: 15px;
       border: 1px solid var(--line); border-radius: 17px; background: var(--surface); text-align: left; cursor: pointer;
@@ -723,7 +733,7 @@
             <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
             <span class="toolbar-spacer"></span>
             <button class="tool-button" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
-            <button class="send-button" id="sendButton" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="sendLabel">Solve</span></button>
+            <button class="send-button" id="sendButton" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="sendLabel">Ask</span></button>
           </div>
 
           <div class="popover" id="modelPopover" role="menu" hidden>
@@ -774,7 +784,7 @@
 
         <section class="examples-section" aria-labelledby="examplesTitle">
           <div class="examples-heading">
-            <div class="examples-copy"><span id="examplesKicker">Selected capability</span><h2 id="examplesTitle">Solver examples</h2></div>
+            <div class="examples-copy"><span id="examplesKicker">Explore study tools</span><h2 id="examplesTitle">Choose how you want to learn</h2></div>
             <p class="examples-description" id="examplesDescription"></p>
           </div>
           <div class="examples-grid" id="examplesGrid"></div>
@@ -1001,6 +1011,15 @@
       exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
+    const studyFeatureDescriptions = {
+      solver: 'Get clear, step-by-step answers across subjects.',
+      graph: 'Visualize equations, functions, and data.',
+      video: 'Turn difficult concepts into visual explainers.',
+      flashcards: 'Build active-recall cards from your materials.',
+      quiz: 'Practice with adaptive questions and feedback.',
+      guide: 'Organize notes into a focused review guide.',
+      podcast: 'Learn from a conversational audio lesson.'
+    };
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1021,7 +1040,7 @@
     const writingResultContent = document.getElementById('writingResultContent');
     const toast = document.getElementById('toast');
     const dialog = document.getElementById('exampleDialog');
-    let selectedCapability = 'solver';
+    let selectedCapability = null;
     let selectedExample = null;
     let toastTimer;
     let dragDepth = 0;
@@ -1060,6 +1079,48 @@
       capabilityStrip.querySelectorAll('[data-capability]').forEach(button => button.addEventListener('click', () => selectCapability(button.dataset.capability)));
     }
 
+    function renderStudyOverview() {
+      document.getElementById('examplesKicker').textContent = 'Explore study tools';
+      examplesTitle.textContent = 'Choose how you want to learn';
+      examplesDescription.textContent = 'Start with a question or pick the study tool that fits your goal.';
+      examplesGrid.classList.remove('four-up');
+      examplesGrid.classList.add('study-overview-grid');
+      examplesGrid.innerHTML = capabilityGroups.study.map(key => {
+        const capability = capabilityData[key];
+        return `<button class="study-feature-card" data-study-feature="${key}" aria-label="Explore ${capability.label}">
+          <span class="study-feature-icon">${icon(capability.icon)}</span>
+          <span class="study-feature-copy"><strong>${capability.label}</strong><small>${studyFeatureDescriptions[key]}</small></span>
+          <span class="study-feature-arrow">${icon('i-chevron')}</span>
+        </button>`;
+      }).join('');
+      examplesGrid.querySelectorAll('[data-study-feature]').forEach(card => card.addEventListener('click', () => {
+        selectCapability(card.dataset.studyFeature, false);
+        document.getElementById('composerShell').scrollIntoView({behavior:'smooth',block:'center'});
+      }));
+    }
+
+    function resetStudyWorkspace() {
+      selectedCapability = null;
+      selectedExample = null;
+      mathToolsHost.innerHTML = '';
+      document.getElementById('mathButton').classList.remove('active');
+      document.getElementById('mathButton').setAttribute('aria-expanded','false');
+      linkPopover.hidden = true;
+      document.getElementById('linkButton').classList.remove('active');
+      document.getElementById('linkButton').setAttribute('aria-expanded','false');
+      if (!calculatorPanel.hidden) closeAdvancedCalculator(document.getElementById('calculatorButton'));
+      document.documentElement.style.setProperty('--accent', '#2368f0');
+      document.documentElement.style.setProperty('--accent-rgb', '35, 104, 240');
+      promptInput.placeholder = 'Type, paste, upload, or drag and drop anything you want to learn';
+      promptInput.value = '';
+      sendLabel.textContent = 'Ask';
+      updateComposerTools(null);
+      renderCapabilities();
+      renderStudyOverview();
+      document.getElementById('examCatalog').hidden = true;
+      updateSubmit();
+    }
+
     function selectWorkspaceMode(mode, announce = true) {
       if (!capabilityGroups[mode]) return;
       workspaceMode = mode;
@@ -1069,7 +1130,8 @@
       document.querySelectorAll('[data-workspace-mode]').forEach(button => {
         button.setAttribute('aria-selected', String(button.dataset.workspaceMode === mode));
       });
-      selectCapability(capabilityGroups[mode][0], false);
+      if (mode === 'study') resetStudyWorkspace();
+      else selectCapability(capabilityGroups[mode][0], false);
       if (announce) showToast(mode === 'study' ? 'Study workspace selected' : mode === 'exam' ? 'Exam Prep workspace selected' : 'Writing workspace selected');
     }
 
@@ -1118,8 +1180,10 @@
 
     function renderExamples() {
       const capability = capabilityData[selectedCapability];
+      document.getElementById('examplesKicker').textContent = 'Selected capability';
       examplesTitle.textContent = selectedCapability === 'mock' ? 'What’s in Your Exam Prep Plan' : `${capability.label} examples`;
       examplesDescription.textContent = capability.description;
+      examplesGrid.classList.remove('study-overview-grid');
       examplesGrid.classList.toggle('four-up', capability.examples.length === 4);
       examplesGrid.innerHTML = capability.examples.map((example, index) => `
         <button class="example-card" data-example-index="${index}" aria-label="Preview ${example.title}">
@@ -1315,7 +1379,9 @@
         chip.querySelector('button').addEventListener('click', () => chip.remove());
         attachmentRow.appendChild(chip);
       });
-      if (files.length && !promptInput.value.trim()) promptInput.value = `Use my uploaded material to ${capabilityData[selectedCapability].action.toLowerCase()} this.`;
+      if (files.length && !promptInput.value.trim()) promptInput.value = selectedCapability
+        ? `Use my uploaded material to ${capabilityData[selectedCapability].action.toLowerCase()} this.`
+        : 'Help me learn from my uploaded material.';
       updateSubmit();
       if (files.length) showToast(`${files.length} file${files.length === 1 ? '' : 's'} added`);
     }
@@ -1491,8 +1557,27 @@
       updateSubmit();
     }
 
+    function inferStudyCapability(value) {
+      const prompt = value.toLowerCase();
+      if (/\b(graph|plot|chart|visuali[sz]e|coordinate|parabola)\b/.test(prompt)) return 'graph';
+      if (/\b(video|animate|animation|visual explainer|watch)\b/.test(prompt)) return 'video';
+      if (/\b(flash ?cards?|memorize|active recall)\b/.test(prompt)) return 'flashcards';
+      if (/\b(quiz|test me|practice questions?|knowledge check)\b/.test(prompt)) return 'quiz';
+      if (/\b(study guide|review guide|summary|organize notes?|revision plan)\b/.test(prompt)) return 'guide';
+      if (/\b(podcast|audio|listen|spoken lesson)\b/.test(prompt)) return 'podcast';
+      return 'solver';
+    }
+
     promptInput.addEventListener('keydown', event => { if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !sendButton.disabled) sendButton.click(); });
-    sendButton.addEventListener('click', () => { if (sendButton.disabled) return; showToast(`${capabilityData[selectedCapability].action} started with Solvely AI`); setTimeout(() => openExample(0), 420); });
+    sendButton.addEventListener('click', () => {
+      if (sendButton.disabled) return;
+      if (!selectedCapability) {
+        const inferredCapability = inferStudyCapability(promptInput.value);
+        selectCapability(inferredCapability, true);
+        showToast(`Using ${capabilityData[inferredCapability].label} for this request`);
+      } else showToast(`${capabilityData[selectedCapability].action} started with Solvely AI`);
+      setTimeout(() => openExample(0), 420);
+    });
 
     function calculatorMarkup() {
       const keys = [['⌫','back'],['AC','clear'],['^','^'],['÷','÷'],['7','7'],['8','8'],['9','9'],['×','×'],['4','4'],['5','5'],['6','6'],['−','−'],['1','1'],['2','2'],['3','3'],['+','+'],['(−)','neg'],['0','0'],['.','.'],['=','=']];
@@ -1706,7 +1791,9 @@
         attachmentRow.appendChild(chip);
         if (!promptInput.value.trim()) promptInput.value = isYouTube
           ? `Use this YouTube video as the source: ${parsed.href}`
-          : `Use the material at ${parsed.href} to ${capabilityData[selectedCapability].action.toLowerCase()} this.`;
+          : selectedCapability
+            ? `Use the material at ${parsed.href} to ${capabilityData[selectedCapability].action.toLowerCase()} this.`
+            : `Help me learn from the material at ${parsed.href}.`;
         updateSubmit();
         linkInput.value = '';
         linkPopover.hidden = true;
