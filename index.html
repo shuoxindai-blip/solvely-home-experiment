@@ -1,0 +1,1795 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Solvely brings problem solving, graphing, study tools, podcasts, and exam preparation into one AI learning workspace." />
+  <title>Solvely — One place to learn anything</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232a5eea'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='white' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='white'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      color-scheme: light;
+      --sidebar-width: 272px;
+      --bg: #ffffff;
+      --sidebar: #f7f8fa;
+      --surface: #ffffff;
+      --surface-soft: #f7f8fb;
+      --surface-hover: #f1f3f7;
+      --text: #16181d;
+      --muted: #6d7380;
+      --subtle: #979ca7;
+      --line: #e4e7ec;
+      --line-strong: #d5d9e1;
+      --accent: #2368f0;
+      --accent-rgb: 35, 104, 240;
+      --accent-soft: #edf4ff;
+      --success: #16865d;
+      --shadow: 0 14px 40px rgba(27, 39, 70, .09), 0 2px 7px rgba(27, 39, 70, .05);
+      --shadow-soft: 0 4px 16px rgba(27, 39, 70, .07);
+    }
+
+    body.dark {
+      color-scheme: dark;
+      --bg: #111317;
+      --sidebar: #17191e;
+      --surface: #1c1f25;
+      --surface-soft: #23262d;
+      --surface-hover: #292d35;
+      --text: #f4f5f7;
+      --muted: #a5aab5;
+      --subtle: #7d838f;
+      --line: #30343d;
+      --line-strong: #3b404a;
+      --accent-soft: #1d2d4f;
+      --shadow: 0 18px 48px rgba(0, 0, 0, .28), 0 2px 8px rgba(0, 0, 0, .22);
+      --shadow-soft: 0 7px 20px rgba(0, 0, 0, .22);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, textarea, input { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(var(--accent-rgb), .24); outline-offset: 2px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+    .icon-sm { width: 17px; height: 17px; }
+
+    .app { min-height: 100vh; }
+    .sidebar {
+      position: fixed; inset: 0 auto 0 0; z-index: 30; width: var(--sidebar-width); display: flex; flex-direction: column;
+      padding: 0 13px 12px; background: rgba(248, 250, 252, .94); border-right: 1px solid #e3e8f0;
+      backdrop-filter: blur(18px); transition: width .24s ease, transform .22s ease;
+    }
+    body.dark .sidebar { background: rgba(19,27,42,.96); border-color:#344157; }
+    .brand-row { height: 54px; flex: 0 0 54px; display: flex; align-items: center; gap: 10px; padding: 0 10px 0 3px; }
+    .brand-mark { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; }
+    .brand-logo { width: 26px; height: 26px; display: block; overflow: visible; filter: drop-shadow(0 3px 6px rgba(45,73,215,.16)); }
+    .brand { min-width: 0; overflow: hidden; color: var(--text); font-size: 16px; line-height: 1; font-weight: 760; letter-spacing: -.35px; white-space: nowrap; }
+    .sidebar-collapse, .mobile-menu { width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: #95a0b1; cursor: pointer; }
+    .sidebar-collapse { margin-left: auto; }
+    .sidebar-collapse .icon { width: 22px; height: 22px; }
+    .sidebar-collapse:hover, .mobile-menu:hover { background: var(--surface-hover); color: var(--text); }
+    .sidebar-nav { display: grid; gap: 4px; margin-top: 17px; }
+    .nav-button { width: 100%; height: 48px; padding: 0 15px; border: 0; border-radius: 24px; background: transparent; display: flex; align-items: center; gap: 13px; color: #303a4d; font-size: 16px; font-weight: 540; text-align: left; cursor: pointer; transition: background .16s ease, color .16s ease, box-shadow .16s ease; }
+    body.dark .nav-button { color:#dbe4f3; }
+    .nav-button:hover { background: #eef3f9; }
+    body.dark .nav-button:hover { background:#263248; }
+    .nav-button.active { background: white; color: #087cf4; box-shadow: 0 3px 8px rgba(49,65,92,.15); }
+    body.dark .nav-button.active { background:#263248; color:#64aaff; }
+    .nav-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-spacer { flex: 1; }
+    .side-meta { display: grid; gap: 10px; }
+    .chats { display:flex; align-items:center; gap:12px; padding:0 17px; height:42px; color:#586275; font-size:15px; }
+    body.dark .chats { color:#b8c3d5; }
+    .app-download-card { padding:13px 11px 11px; border:1px solid #e1e6ee; border-radius:18px; background:#fff; text-align:center; box-shadow:0 8px 24px rgba(38,51,73,.06); }
+    .app-download-copy { margin:0 0 9px; color:#151922; font-size:15px; line-height:1.35; letter-spacing:-.01em; }
+    .app-download-copy strong, .app-download-copy span { display:block; }
+    .app-download-copy strong { font-weight:720; }
+    .app-download-copy span { margin-top:2px; font-weight:560; }
+    .app-qr-link { width:132px; height:132px; margin:0 auto 10px; display:block; border-radius:8px; background:#fff; }
+    .app-qr-link img { width:100%; height:100%; display:block; }
+    .app-store-links { display:flex; align-items:center; justify-content:center; gap:7px; }
+    .app-store-link { height:32px; display:flex; align-items:center; justify-content:center; border-radius:7px; transition:transform .16s ease,opacity .16s ease; }
+    .app-store-link.apple-store { width:96px; }
+    .app-store-link.google-play { width:107px; }
+    .app-store-link:hover { transform:translateY(-1px); opacity:.9; }
+    .app-store-link img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
+    body.dark .app-download-card { border-color:#344157; background:#202a3a; }
+    body.dark .app-download-copy { color:#f3f6fb; }
+    .upgrade { position:relative; margin:0 1px; height:47px; border:0; border-radius:8px; cursor:pointer; background:linear-gradient(90deg,#ffd24b,#ffca49); color:#111827; font-size:18px; font-weight:750; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:inset 0 -1px 0 rgba(153,92,0,.12); }
+    .discount { position:absolute; left:-8px; width:52px; height:52px; display:grid; place-items:center; clip-path:polygon(50% 0%,61% 9%,76% 5%,83% 19%,98% 23%,94% 39%,100% 50%,91% 61%,95% 77%,79% 82%,74% 97%,59% 91%,49% 100%,38% 91%,22% 96%,17% 81%,2% 76%,8% 61%,0 50%,8% 38%,3% 23%,18% 18%,23% 3%,39% 9%); background:#ff4e43; color:white; font-size:11px; line-height:11px; font-weight:800; transform:rotate(-7deg); }
+    .user-row { margin:0 -13px -12px; padding:16px 21px; border-top:1px solid #e2e7ef; display:flex; align-items:center; gap:10px; }
+    body.dark .user-row { border-color:#344157; }
+    .avatar { width:27px; height:27px; border-radius:50%; display:grid; place-items:center; color:white; background:#1085f7; }
+    .user-name { color:#4b5568; font-size:14px; }
+    body.dark .user-name { color:#dbe4f3; }
+    .theme-toggle { margin-left:auto; border:0; background:transparent; cursor:pointer; color:#384457; display:grid; place-items:center; border-radius:9px; width:34px; height:34px; }
+    body.dark .theme-toggle { color:#dbe4f3; }
+    .theme-toggle:hover { background:#e8edf3; }
+    .sidebar-collapsed .sidebar { width:80px; }
+    .sidebar-collapsed .brand, .sidebar-collapsed .nav-label, .sidebar-collapsed .user-name, .sidebar-collapsed .chats span, .sidebar-collapsed .upgrade-label, .sidebar-collapsed .discount { display:none; }
+    .sidebar-collapsed .app-download-card { display:none; }
+    .sidebar-collapsed .nav-button { justify-content:center; padding:0; }
+    .sidebar-collapsed .brand-row { padding:0; justify-content:center; }
+    .sidebar-collapsed .sidebar-collapse { display:none; }
+    .sidebar-collapsed .chats { justify-content:center; padding:0; }
+    .sidebar-collapsed .upgrade { margin:0 5px; }
+    .sidebar-collapsed .user-row { justify-content:center; padding-inline:12px; }
+    .sidebar-collapsed .theme-toggle { display:none; }
+
+    main { min-height: 100vh; margin-left: var(--sidebar-width); transition: margin-left .24s ease; }
+    .sidebar-collapsed main { margin-left: 80px; }
+    .topbar { display:none; height:56px; align-items:center; padding:0 14px; }
+    .mobile-menu { display: none; }
+    .topbar-title { color: var(--muted); font-size: 13px; }
+    .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .topbar-button { height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
+    .topbar-button:hover { background: var(--surface-hover); color: var(--text); }
+
+    .workspace { width: min(1040px, calc(100% - 56px)); margin: 0 auto; padding: 26px 0 48px; }
+    .hero { max-width: 760px; margin: 20px auto 24px; text-align: center; }
+    .hero-kicker { margin: 0 0 9px; color: var(--accent); font-size: 11px; font-weight: 720; letter-spacing: .11em; text-transform: uppercase; }
+    .hero h1 { margin: 0; font-size: clamp(30px, 3.1vw, 42px); line-height: 1.14; letter-spacing: -.045em; font-weight: 720; }
+    .workspace-mode-switch { width:max-content; margin:18px auto 0; padding:4px; display:flex; align-items:center; gap:2px; border-radius:999px; background:#f1f2f4; }
+    .workspace-mode-button { min-width:112px; height:44px; padding:0 18px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; background:transparent; color:#8b9099; font:650 15px/1 inherit; cursor:pointer; transition:background .18s ease,color .18s ease,box-shadow .18s ease; }
+    .workspace-mode-button .icon { width:19px; height:19px; }
+    .workspace-mode-button:hover:not([aria-selected="true"]) { background:rgba(255,255,255,.42); color:#555b65; }
+    .workspace-mode-button[aria-selected="true"] { background:#fff; color:#181a1f; box-shadow:0 2px 8px rgba(22,25,31,.08),0 0 0 1px rgba(22,25,31,.025); }
+    body.dark .workspace-mode-switch { background:#263043; }
+    body.dark .workspace-mode-button { color:#aeb9ca; }
+    body.dark .workspace-mode-button[aria-selected="true"] { background:#f3f6fb; color:#1a2230; }
+
+    .composer-shell {
+      position: relative; z-index: 6; border: 1px solid var(--line-strong); border-radius: 24px; background: var(--surface);
+      box-shadow: var(--shadow); transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+    .composer-shell:focus-within { border-color: rgba(var(--accent-rgb), .54); box-shadow: 0 17px 48px rgba(var(--accent-rgb), .11), 0 0 0 3px rgba(var(--accent-rgb), .08); }
+    .composer-shell.dragging { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), .13), var(--shadow); }
+    .composer-shell.dragging::after {
+      content: "Drop files to add them"; position: absolute; inset: 7px; z-index: 10; display: grid; place-items: center;
+      border: 2px dashed rgba(var(--accent-rgb), .55); border-radius: 18px; background: rgba(var(--accent-rgb), .07); color: var(--accent); font-size: 14px; font-weight: 680; backdrop-filter: blur(6px);
+    }
+
+    .capability-strip { display: flex; gap: 6px; padding: 11px 12px 9px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); }
+    .capability-strip::-webkit-scrollbar { display: none; }
+    .capability-button {
+      min-width: max-content; height: 36px; display: inline-flex; align-items: center; gap: 7px; padding: 0 10px;
+      border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--muted); font-size: 12px; font-weight: 580; cursor: pointer;
+    }
+    .capability-button:hover { background: var(--surface-hover); color: var(--text); }
+    .capability-button[aria-selected="true"] { border-color: rgba(var(--accent-rgb), .18); background: rgba(var(--accent-rgb), .09); color: var(--accent); }
+    .capability-button .icon { width: 17px; height: 17px; }
+
+    .composer-input-wrap { padding: 17px 18px 12px; }
+    .composer-input {
+      width: 100%; min-height: 77px; max-height: 160px; resize: none; border: 0; outline: 0; padding: 0;
+      background: transparent; color: var(--text); font-size: 17px; line-height: 1.55;
+    }
+    .composer-input::placeholder { color: var(--subtle); }
+
+    .writing-composer-content { display:none; }
+    .composer-shell.writing-layout { border-radius:16px; border-color:transparent; box-shadow:0 2px 20px rgba(0,0,0,.08); }
+    .composer-shell.writing-layout:focus-within { border-color:transparent; box-shadow:0 2px 20px rgba(0,0,0,.08); }
+    .composer-shell.writing-layout > .composer-input-wrap,
+    .composer-shell.writing-layout > .attachment-row,
+    .composer-shell.writing-layout > .composer-toolbar,
+    .composer-shell.writing-layout > .popover,
+    .composer-shell.writing-layout > .math-tools-host,
+    .composer-shell.writing-layout > .link-popover { display:none !important; }
+    .composer-shell.writing-layout .writing-composer-content { display:block; }
+    .composer-shell.writing-layout .capability-strip { height:48px; align-items:center; gap:32px; padding:0 24px; border-bottom:1px solid #e6e8ea; overflow-x:auto; }
+    .composer-shell.writing-layout .capability-button { position:relative; height:48px; padding:0; border:0; border-radius:0; background:transparent; color:#8a8d94; font-size:16px; font-weight:600; }
+    .composer-shell.writing-layout .capability-button .icon { display:none; }
+    .composer-shell.writing-layout .capability-button:hover { background:transparent; color:#111; }
+    .composer-shell.writing-layout .capability-button[aria-selected="true"] { border:0; background:transparent; color:#111; }
+    .composer-shell.writing-layout .capability-button[aria-selected="true"]::after { content:""; position:absolute; left:0; right:0; bottom:5px; height:3px; border-radius:999px; background:#5d79ff; }
+    .writing-split { min-height:480px; display:grid; grid-template-columns:1fr 1fr; }
+    .writing-draft-panel, .writing-result-panel { min-width:0; padding:24px; }
+    .writing-draft-panel { position:relative; display:flex; flex-direction:column; border-right:1px solid #e6e8ea; }
+    .writing-panel-head { min-height:28px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .writing-panel-head h2 { margin:0; color:#111; font-size:20px; line-height:1.4; font-weight:650; letter-spacing:-.02em; }
+    .writing-head-actions { display:flex; align-items:center; gap:22px; }
+    .writing-head-action { display:inline-flex; align-items:center; gap:7px; padding:0; border:0; background:transparent; color:#555a66; font:500 15px/1.4 inherit; cursor:pointer; white-space:nowrap; }
+    .writing-head-action:hover { color:#111; }
+    .writing-head-action .icon { width:19px; height:19px; }
+    .writing-editor-wrap { position:relative; min-height:326px; flex:1; overflow:hidden; padding:6px; border:1.5px solid rgba(96,120,255,.12); border-radius:12px; background:#fff; box-shadow:0 0 60px rgba(96,120,255,.12); }
+    .writing-editor { width:100%; height:100%; min-height:311px; padding:8px; resize:none; border:0; outline:0; background:transparent; color:#474c58; font:400 16px/24px Inter,ui-sans-serif,system-ui,sans-serif; }
+    .writing-editor::placeholder { color:#c0c1c5; }
+    .writing-sample-button { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); height:42px; padding:0 18px; display:inline-flex; align-items:center; gap:7px; border:1px solid #e6e8ea; border-radius:999px; background:#fff; color:#252a34; font:600 14px/1 inherit; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.03); }
+    .writing-sample-button:hover { background:#f8f9fb; }
+    .writing-sample-button .icon { width:17px; height:17px; }
+    .writing-sample-button[hidden] { display:none; }
+    .writing-draft-footer { margin-top:18px; display:flex; align-items:center; gap:16px; }
+    .writing-word-count { color:#555a66; font-size:14px; }
+    .writing-action-button { width:180px; height:42px; margin-left:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; background:#007aff; color:#fff; font:600 16px/1.4 inherit; cursor:pointer; }
+    .writing-action-button:disabled { background:#9fc8ff; cursor:not-allowed; }
+    .writing-action-button .icon { width:18px; height:18px; }
+    .writing-result-panel { color:#555a66; }
+    .writing-result-panel h2 { margin:0 0 12px; color:#111; font-size:20px; line-height:1.4; font-weight:650; letter-spacing:-.02em; }
+    .writing-result-content { min-height:340px; color:#555a66; font-size:16px; line-height:1.6; white-space:pre-wrap; }
+    .writing-result-content.has-result { color:#2d3440; }
+    .writing-history-popover { position:absolute; z-index:12; top:62px; right:24px; width:240px; padding:12px; border:1px solid #e6e8ea; border-radius:12px; background:#fff; box-shadow:0 12px 34px rgba(0,0,0,.12); }
+    .writing-history-popover[hidden] { display:none; }
+    .writing-history-popover strong { display:block; margin-bottom:7px; color:#111; font-size:13px; }
+    .writing-history-popover p { margin:0; color:#737986; font-size:12px; line-height:1.45; }
+    body.dark .composer-shell.writing-layout { background:#1b212d; box-shadow:0 2px 20px rgba(0,0,0,.3); }
+    body.dark .composer-shell.writing-layout .capability-strip, body.dark .writing-draft-panel { border-color:#333; }
+    body.dark .composer-shell.writing-layout .capability-button { color:#858b96; }
+    body.dark .composer-shell.writing-layout .capability-button:hover, body.dark .composer-shell.writing-layout .capability-button[aria-selected="true"], body.dark .writing-panel-head h2, body.dark .writing-result-panel h2 { color:#fff; }
+    body.dark .writing-editor-wrap, body.dark .writing-sample-button, body.dark .writing-history-popover { border-color:#333; background:#1b212d; box-shadow:0 0 60px rgba(0,0,0,.12); }
+    body.dark .writing-editor, body.dark .writing-result-content.has-result { color:#e6ebf4; }
+    .attachment-row { display: flex; flex-wrap: wrap; gap: 7px; min-height: 0; padding: 0 18px; }
+    .attachment-row:empty { display: none; }
+    .attachment-chip { display: inline-flex; align-items: center; gap: 7px; max-width: 220px; height: 30px; padding: 0 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); color: var(--muted); font-size: 11px; }
+    .attachment-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .attachment-chip button { width: 18px; height: 18px; display: grid; place-items: center; border: 0; background: transparent; color: var(--subtle); cursor: pointer; }
+
+    .composer-toolbar { min-height: 54px; display: flex; align-items: center; gap: 5px; margin: 0 12px; padding: 7px 0 9px; border-top: 1px solid var(--line); }
+    .tool-button, .model-button, .send-button {
+      height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 0; border-radius: 11px; cursor: pointer;
+    }
+    .tool-button { width: 38px; background: transparent; color: var(--muted); }
+    .tool-button[hidden], .model-button[hidden] { display: none; }
+    .tool-button:hover, .tool-button.active { background: var(--surface-hover); color: var(--text); }
+    .tool-button.active { color: var(--accent); }
+    .model-button { padding: 0 11px; background: transparent; color: var(--muted); font-size: 11px; }
+    .model-button:hover { background: var(--surface-hover); color: var(--text); }
+    .model-button .brand-mini { width: 21px; height: 21px; display: grid; place-items: center; border-radius: 7px; background: var(--accent); color: white; }
+    .model-button .brand-mini .icon { width: 14px; height: 14px; }
+    .toolbar-spacer { flex: 1; }
+    .link-popover { position:absolute; left:18px; bottom:64px; z-index:80; width:min(420px,calc(100% - 36px)); padding:12px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 18px 44px rgba(23,34,56,.16); }
+    .link-popover-row { display:flex; gap:8px; }
+    .link-popover input { min-width:0; flex:1; height:42px; padding:0 13px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); font:inherit; outline:none; }
+    .link-popover input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12); }
+    .link-popover button { height:42px; padding:0 16px; border:0; border-radius:11px; background:var(--accent); color:#fff; font:700 14px/1 inherit; cursor:pointer; }
+    .link-popover p { margin:8px 2px 0; color:var(--muted); font-size:12px; }
+    .send-button { min-width: 80px; padding: 0 14px; background: var(--accent); color: white; font-size: 12px; font-weight: 680; }
+    .send-button:disabled { background: var(--surface-hover); color: var(--subtle); cursor: default; }
+    .send-button:not(:disabled):hover { filter: brightness(.96); transform: translateY(-1px); }
+    .send-button .icon { width: 16px; height: 16px; }
+
+    .popover {
+      position: absolute; z-index: 20; left: 126px; bottom: 58px; width: 260px; padding: 7px; border: 1px solid var(--line); border-radius: 14px;
+      background: var(--surface); box-shadow: var(--shadow); transform-origin: bottom left;
+    }
+    .popover[hidden] { display: none; }
+    .model-option { width: 100%; display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 8px; padding: 9px; border: 0; border-radius: 10px; background: transparent; text-align: left; cursor: pointer; }
+    .model-option:hover { background: var(--surface-hover); }
+    .model-option .model-letter { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: var(--surface-soft); color: var(--accent); font-size: 11px; font-weight: 750; }
+    .model-option strong, .model-option small { display: block; }
+    .model-option strong { font-size: 12px; }
+    .model-option small { margin-top: 2px; color: var(--subtle); font-size: 9px; }
+    .model-check { color: var(--accent); font-weight: 800; }
+    .model-menu-title { margin: 7px 9px 5px; color: var(--subtle); font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .model-option.active { background: var(--accent-soft); }
+
+    .math-panel { margin: 0 12px 12px; padding: 10px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-soft); }
+    .math-panel[hidden] { display: none; }
+    .math-panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; color: var(--muted); font-size: 11px; font-weight: 650; }
+    .math-panel-head button { width: 27px; height: 27px; display: grid; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; }
+    .math-panel-head button:hover { background: var(--surface-hover); }
+    .math-grid { display: grid; grid-template-columns: repeat(10, minmax(38px, 1fr)); gap: 6px; }
+    .math-key { height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); font-family: Georgia, serif; cursor: pointer; }
+    .math-key:hover { border-color: rgba(var(--accent-rgb), .4); color: var(--accent); }
+
+    .calculator {
+      position: fixed; z-index: 50; right: 24px; bottom: 24px; width: 310px; padding: 12px; border: 1px solid var(--line); border-radius: 17px;
+      background: var(--surface); box-shadow: var(--shadow);
+    }
+    .calculator[hidden] { display: none; }
+    .calculator-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .calculator-head strong { font-size: 12px; }
+    .calculator-head button { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; }
+    .calculator-display { min-height: 60px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 10px 12px; overflow: hidden; border: 1px solid var(--line); border-radius: 11px; background: var(--surface-soft); font-size: 25px; font-weight: 650; }
+    .calculator-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 9px; }
+    .calc-key { height: 38px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-soft); color: var(--text); cursor: pointer; }
+    .calc-key:hover { background: var(--surface-hover); }
+    .calc-key.operator { background: var(--accent-soft); color: var(--accent); }
+
+    .math-tools-host:empty { display:none; }
+    .math-keyboard { margin:0 12px 12px; border:1px solid var(--line); border-radius:13px; background:var(--surface); overflow:hidden; box-shadow:var(--shadow-soft); }
+    .math-keyboard-head { height:45px; display:flex; align-items:center; gap:4px; padding:0 12px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; }
+    .math-keyboard-head::-webkit-scrollbar { display:none; }
+    .math-category { height:44px; flex:0 0 auto; padding:0 12px; border:0; background:transparent; color:var(--muted); cursor:pointer; font-family:Georgia,serif; font-size:14px; }
+    .math-category.active { color:var(--accent); box-shadow:inset 0 -2px var(--accent); }
+    .math-close { margin-left:auto; width:31px; height:31px; flex:0 0 auto; border:0; border-radius:8px; background:transparent; cursor:pointer; display:grid; place-items:center; color:var(--muted); }
+    .math-close:hover { background:var(--surface-hover); }
+    .math-keyboard-body { display:flex; flex-direction:column; gap:12px; padding:12px; }
+    .math-key-grid { display:grid; grid-template-columns:repeat(var(--math-columns,10),minmax(0,1fr)); gap:8px; }
+    .math-key { min-width:0; height:42px; border:1px solid var(--line); border-radius:8px; background:var(--surface-soft); color:var(--text); cursor:pointer; font-family:Georgia,serif; font-size:17px; display:grid; place-items:center; }
+    .math-key:hover { border-color:rgba(var(--accent-rgb),.48); background:var(--accent-soft); color:var(--accent); }
+    .math-key:active { transform:translateY(1px); }
+    .math-key .math-template { display:inline-flex; align-items:center; justify-content:center; min-width:26px; line-height:1; }
+    .math-key .math-fraction { display:inline-grid; grid-template-rows:1fr 1fr; min-width:22px; line-height:1; text-align:center; }
+    .math-key .math-fraction > span:first-child { padding:0 5px 3px; border-bottom:1.5px solid currentColor; }
+    .math-key .math-fraction > span:last-child { padding:3px 5px 0; }
+    .math-key .math-root { display:inline-flex; align-items:flex-end; font-size:22px; line-height:1; }
+    .math-key .math-radicand { min-width:16px; padding:3px 4px 0; border-top:1.5px solid currentColor; font-size:15px; }
+    .math-key .math-nth-root { display:inline-flex; align-items:flex-start; }
+    .math-key .math-nth-root > sup { margin-right:-2px; font-size:10px; }
+    .math-key .math-bounded { display:inline-grid; grid-template-columns:auto auto; grid-template-rows:10px 18px 10px; align-items:center; justify-items:center; line-height:1; }
+    .math-key .math-bounded > sup { grid-column:2; grid-row:1; font-size:9px; }
+    .math-key .math-bounded > b { grid-column:1 / 3; grid-row:2; font-size:23px; font-weight:400; }
+    .math-key .math-bounded > sub { grid-column:2; grid-row:3; font-size:9px; }
+    .math-key .math-binomial { display:inline-grid; grid-template-rows:1fr 1fr; padding:0 7px; position:relative; line-height:1; font-size:12px; }
+    .math-key .math-binomial::before,.math-key .math-binomial::after { position:absolute; top:50%; transform:translateY(-50%); font-size:25px; }
+    .math-key .math-binomial::before { content:"("; left:0; }
+    .math-key .math-binomial::after { content:")"; right:0; }
+    .math-key .math-function { font-style:normal; }
+    .math-key .math-vector { position:relative; padding-top:5px; font-style:italic; }
+    .math-key .math-vector::before { content:"→"; position:absolute; left:50%; top:-8px; transform:translateX(-50%); font-style:normal; font-size:14px; }
+    .math-key .math-dot-product { display:inline-flex; align-items:center; gap:3px; font-style:italic; }
+
+    .calculator-panel { position:fixed; z-index:100; left:24px; top:180px; width:360px; height:500px; padding:12px; border:1px solid var(--line); border-radius:18px; background:var(--surface); box-shadow:0 18px 48px rgba(34,50,80,.20); display:flex; flex-direction:column; overflow:hidden; transition:width .2s ease,height .2s ease,border-radius .2s ease,box-shadow .2s ease; }
+    .calculator-panel[hidden] { display:none; }
+    .calc-head { flex:0 0 38px; display:flex; align-items:center; gap:7px; user-select:none; cursor:grab; touch-action:none; }
+    .calc-head.dragging { cursor:grabbing; }
+    .calc-grip { color:var(--subtle); letter-spacing:2px; font-size:17px; }
+    .calc-head-actions { margin-left:auto; display:flex; align-items:center; gap:2px; }
+    .calc-head-btn { border:0; background:transparent; width:30px; height:30px; border-radius:8px; display:grid; place-items:center; cursor:pointer; color:var(--muted); }
+    .calc-head-btn:hover { color:var(--accent); background:var(--surface-hover); }
+    .calc-expand { display:none; }
+    .calculator-panel.graph-mode .calc-expand { display:grid; }
+    .calc-tabs { flex:0 0 38px; display:grid; grid-template-columns:1fr 1fr; height:38px; padding:3px; background:var(--surface-soft); border-radius:8px; }
+    .calc-tab { border:0; background:transparent; border-radius:6px; cursor:pointer; color:var(--muted); }
+    .calc-tab.active { background:var(--surface); color:var(--text); box-shadow:0 1px 4px rgba(39,52,78,.12); }
+    .calc-basic { flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+    .calc-basic[hidden] { display:none !important; }
+    .calc-display { flex:0 0 76px; padding:13px 3px 8px; display:flex; align-items:flex-end; justify-content:flex-end; overflow:hidden; color:var(--text); font-size:32px; font-weight:450; }
+    .calc-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .calc-key { height:45px; border:0; border-radius:50%; background:var(--surface-soft); cursor:pointer; color:var(--text); font-size:18px; }
+    .calc-key.operator { background:#1688eb; color:#fff; }
+    .calc-key:hover { filter:brightness(.96); }
+    .calc-graph { position:relative; flex:1 1 auto; min-height:0; width:100%; margin-top:10px; border:1px solid var(--line); border-radius:14px; background:#fff; overflow:hidden; }
+    .calc-graph[hidden] { display:none !important; }
+    .calculator-panel.expanded { width:min(900px,calc(100vw - 24px)); height:min(820px,calc(100vh - 24px)); padding:16px 20px 18px; border-radius:26px; box-shadow:0 28px 80px rgba(25,38,60,.30); }
+    .calculator-panel.expanded .calc-tabs { align-self:center; width:min(430px,72%); flex-basis:54px; height:54px; margin-bottom:2px; border-radius:14px; }
+    .calculator-panel.expanded .calc-tab { border-radius:11px; font-size:17px; font-weight:600; }
+    .calculator-panel.expanded .calc-graph { border-radius:20px; }
+    .geogebra-host { width:100% !important; height:100% !important; min-height:0; background:#fff; }
+    .geogebra-host > div,.geogebra-host iframe { width:100% !important; max-width:100%; height:100% !important; }
+    .geogebra-status { position:absolute; inset:0; z-index:2; display:grid; place-items:center; padding:28px; color:#6d788a; background:#fff; text-align:center; font-size:15px; }
+    .geogebra-status[hidden] { display:none; }
+    .geogebra-status.error { color:#b33b49; }
+    .geogebra-attribution { flex:0 0 16px; margin-top:4px; text-align:right; font-size:10px; line-height:16px; color:var(--subtle); }
+    .geogebra-attribution a { color:inherit; text-decoration:none; }
+
+    .examples-section { margin-top: 28px; }
+    .examples-heading { display: flex; align-items: flex-end; gap: 24px; margin-bottom: 13px; }
+    .examples-copy { min-width: 0; }
+    .examples-copy span { display: block; margin-bottom: 4px; color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .examples-copy h2 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
+    .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
+    .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .examples-grid.four-up { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .example-card {
+      min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; min-height: 0; padding: 15px;
+      border: 1px solid var(--line); border-radius: 17px; background: var(--surface); text-align: left; cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .example-card:hover { transform: translateY(-2px); border-color: rgba(var(--accent-rgb), .3); box-shadow: var(--shadow-soft); }
+    .example-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--accent); font-size: 9px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
+    .example-meta .icon { width: 15px; height: 15px; }
+    .example-card h3 { margin: 9px 0 10px; overflow: hidden; font-size: 15px; line-height: 1.25; font-weight: 660; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
+    .example-preview { min-height: 104px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-soft); }
+    .example-cta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 11px; color: var(--accent); font-size: 11px; font-weight: 650; }
+    .example-cta .icon { width: 14px; height: 14px; }
+
+    .preview-equation { height: 104px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 9px; padding: 12px; }
+    .equation-main { display: grid; place-items: center; border-radius: 9px; background: var(--surface); color: var(--text); font-family: Georgia, serif; font-size: 18px; }
+    .equation-steps { display: grid; align-content: center; gap: 7px; }
+    .equation-steps i { display: block; height: 6px; border-radius: 4px; background: rgba(var(--accent-rgb), .15); }
+    .equation-steps i:nth-child(2) { width: 78%; }
+    .equation-steps i:nth-child(3) { width: 57%; background: rgba(22, 134, 93, .2); }
+    .preview-graph svg, .preview-video svg { width: 100%; height: 104px; display: block; }
+    .preview-video { position: relative; }
+    .play-badge { position: absolute; inset: 0; margin: auto; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.14); }
+    .play-badge .icon { width: 19px; height: 19px; margin-left: 1px; }
+    .preview-flashcards { position: relative; height: 104px; padding: 12px; background: linear-gradient(140deg, rgba(var(--accent-rgb), .09), rgba(121, 91, 232, .1)); }
+    .mini-card { position: absolute; width: 62%; height: 74px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 5px 15px rgba(41,52,77,.08); }
+    .mini-card:nth-child(1) { left: 24px; top: 14px; transform: rotate(-4deg); }
+    .mini-card:nth-child(2) { right: 22px; top: 15px; transform: rotate(5deg); }
+    .mini-card strong { display: block; margin-bottom: 7px; font-size: 10px; }
+    .mini-card i { display: block; height: 5px; margin-top: 5px; border-radius: 4px; background: var(--line); }
+    .preview-quiz { height: 104px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; padding: 12px; }
+    .quiz-option { display: flex; align-items: center; gap: 7px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 9px; }
+    .quiz-option::before { content: ""; width: 12px; height: 12px; border: 1px solid var(--line-strong); border-radius: 50%; }
+    .quiz-option.correct { border-color: rgba(22,134,93,.35); background: rgba(22,134,93,.08); color: var(--success); }
+    .quiz-option.correct::before { border-color: var(--success); box-shadow: inset 0 0 0 3px var(--surface); background: var(--success); }
+    .preview-guide { height: 104px; display: grid; align-content: center; gap: 8px; padding: 12px; }
+    .guide-line { display: grid; grid-template-columns: 17px 1fr auto; align-items: center; gap: 7px; }
+    .guide-line b { width: 17px; height: 17px; display: grid; place-items: center; border-radius: 5px; background: rgba(var(--accent-rgb), .1); color: var(--accent); font-size: 8px; }
+    .guide-line i { height: 6px; border-radius: 4px; background: var(--line-strong); }
+    .guide-line span { color: var(--subtle); font-size: 8px; }
+    .preview-podcast { height: 104px; display: grid; grid-template-columns: 50px 1fr; align-items: center; gap: 11px; padding: 12px; }
+    .podcast-art { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 13px; background: linear-gradient(145deg, #775ee8, #3d84ee); color: white; }
+    .waveform { display: flex; align-items: center; gap: 3px; height: 28px; }
+    .waveform i { width: 3px; border-radius: 3px; background: var(--accent); opacity: .7; }
+    .waveform i:nth-child(1), .waveform i:nth-child(9) { height: 8px; }
+    .waveform i:nth-child(2), .waveform i:nth-child(8) { height: 14px; }
+    .waveform i:nth-child(3), .waveform i:nth-child(7) { height: 23px; }
+    .waveform i:nth-child(4), .waveform i:nth-child(6) { height: 18px; }
+    .waveform i:nth-child(5) { height: 28px; }
+    .podcast-time { color: var(--subtle); font-size: 8px; }
+    .preview-exam { height: 104px; display: grid; grid-template-columns: 1fr 68px; gap: 9px; padding: 11px; }
+    .exam-sheet { display: grid; align-content: center; gap: 6px; padding: 9px; border-radius: 9px; background: var(--surface); }
+    .exam-sheet i { height: 5px; border-radius: 4px; background: var(--line); }
+    .exam-sheet i:nth-child(2) { width: 85%; }
+    .exam-sheet i:nth-child(3) { width: 68%; }
+    .exam-score { display: grid; place-items: center; border-radius: 10px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
+    .exam-score strong { font-size: 20px; }
+    .exam-score span { display: block; margin-top: -17px; font-size: 7px; font-weight: 650; text-transform: uppercase; }
+
+    .example-dialog { width: min(680px, calc(100vw - 30px)); max-height: min(720px, calc(100vh - 30px)); padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--text); box-shadow: 0 28px 90px rgba(0,0,0,.22); }
+    .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
+    .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
+    .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
+    .dialog-head-copy { min-width: 0; }
+    .dialog-head-copy span { color: var(--accent); font-size: 9px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
+    .dialog-head-copy h2 { margin: 4px 0 4px; font-size: 20px; }
+    .dialog-head-copy p { margin: 0; color: var(--muted); font-size: 12px; }
+    .dialog-close { margin-left: auto; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; }
+    .dialog-close:hover { background: var(--surface-hover); }
+    .dialog-body { padding: 20px 22px; overflow: auto; }
+    .dialog-preview { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-soft); }
+    .dialog-preview .example-preview { min-height: 245px; border: 0; border-radius: 0; }
+    .dialog-preview .preview-equation, .dialog-preview .preview-flashcards, .dialog-preview .preview-quiz, .dialog-preview .preview-guide, .dialog-preview .preview-podcast, .dialog-preview .preview-exam { height: 245px; }
+    .dialog-preview .preview-graph svg, .dialog-preview .preview-video svg { height: 245px; }
+    .dialog-preview .mini-card { height: 145px; padding: 18px; }
+    .dialog-preview .mini-card:nth-child(1) { left: 80px; top: 48px; }
+    .dialog-preview .mini-card:nth-child(2) { right: 80px; top: 50px; }
+    .dialog-prompt { margin-top: 15px; padding: 13px 14px; border-left: 3px solid var(--accent); background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .dialog-interaction { margin-top:14px; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
+    .dialog-interaction h3 { margin:0 0 10px; font-size:14px; }
+    .interaction-button { min-height:38px; padding:0 13px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--text); cursor:pointer; font-size:12px; font-weight:620; }
+    .interaction-button.primary { border-color:var(--accent); background:var(--accent); color:white; }
+    .interaction-progress { height:7px; margin:12px 0 6px; overflow:hidden; border-radius:5px; background:var(--line); }
+    .interaction-progress span { display:block; width:8%; height:100%; border-radius:inherit; background:var(--accent); transition:width .18s linear; }
+    .interaction-time { color:var(--muted); font-size:11px; }
+    .flash-interactive { position:relative; height:190px; padding:0; border:0; background:transparent; perspective:900px; cursor:pointer; width:100%; }
+    .flash-interactive-inner { position:absolute; inset:0; transition:transform .45s ease; transform-style:preserve-3d; }
+    .flash-interactive.flipped .flash-interactive-inner { transform:rotateY(180deg); }
+    .flash-face { position:absolute; inset:0; display:grid; place-items:center; align-content:center; gap:10px; padding:24px; border:1px solid var(--line); border-radius:15px; background:var(--surface); backface-visibility:hidden; text-align:center; }
+    .flash-face.back { transform:rotateY(180deg); background:var(--accent-soft); }
+    .flash-face small { color:var(--muted); }
+    .quiz-interactive { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .quiz-answer { min-height:42px; padding:8px 11px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; }
+    .quiz-answer.correct { border-color:#3ba47a; background:rgba(22,134,93,.1); color:#147452; }
+    .quiz-answer.wrong { border-color:#dc6571; background:rgba(220,65,80,.09); color:#b73343; }
+    .quiz-feedback { grid-column:1 / -1; margin:3px 0 0; color:var(--muted); font-size:11px; }
+    .guide-check { width:100%; display:grid; grid-template-columns:24px 1fr auto; align-items:center; gap:9px; min-height:44px; margin-top:7px; padding:7px 9px; border:1px solid var(--line); border-radius:10px; background:var(--surface); text-align:left; cursor:pointer; }
+    .guide-check span { width:24px; height:24px; display:grid; place-items:center; border-radius:7px; background:var(--accent-soft); color:var(--accent); font-size:11px; font-weight:750; }
+    .guide-check small { color:var(--muted); }
+    .guide-check.done { opacity:.62; }
+    .guide-check.done strong { text-decoration:line-through; }
+    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 15px 22px 20px; border-top: 1px solid var(--line); }
+    .dialog-button { height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
+    .dialog-button.primary { border-color: var(--accent); background: var(--accent); color: white; font-weight: 650; }
+
+    .exam-catalog { margin-top:34px; padding-top:27px; border-top:1px solid var(--line); }
+    .exam-catalog[hidden] { display:none; }
+    .exam-catalog-heading { display:flex; align-items:flex-end; gap:24px; margin-bottom:15px; }
+    .exam-catalog-heading span { display:block; margin-bottom:5px; color:#0f8a67; font-size:10px; font-weight:750; letter-spacing:.09em; }
+    .exam-catalog-heading h2 { margin:0; font-size:21px; letter-spacing:-.02em; }
+    .exam-catalog-heading p { margin:0 0 1px auto; max-width:470px; color:var(--muted); font-size:12px; line-height:1.45; text-align:right; }
+    .exam-catalog-toolbar { display:flex; gap:10px; margin-bottom:13px; }
+    .exam-search-wrap { flex:1; height:43px; display:flex; align-items:center; gap:9px; padding:0 13px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--muted); }
+    .exam-search-wrap input { width:100%; border:0; outline:0; background:transparent; color:var(--text); }
+    .exam-filter-wrap { position:relative; width:160px; }
+    .exam-filter-wrap select { width:100%; height:43px; appearance:none; padding:0 38px 0 13px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); }
+    .exam-filter-wrap .icon { position:absolute; right:12px; top:12px; pointer-events:none; color:var(--muted); }
+    .course-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .course-card { min-height:132px; padding:14px; border:1px solid var(--line); border-radius:15px; background:var(--surface); text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
+    .course-card:hover { transform:translateY(-2px); border-color:rgba(15,138,103,.38); box-shadow:var(--shadow-soft); }
+    .course-family { display:inline-flex; padding:4px 7px; border-radius:6px; background:rgba(15,138,103,.1); color:#0f8a67; font-size:9px; font-weight:780; letter-spacing:.06em; }
+    .course-card h3 { margin:9px 0 5px; font-size:14px; }
+    .course-card p { margin:0; color:var(--muted); font-size:10px; line-height:1.5; }
+    .course-stats { display:flex; gap:9px; margin-top:10px; color:#0f8a67; font-size:9px; font-weight:650; }
+    .course-empty { padding:24px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; z-index: 90; max-width: calc(100vw - 36px); padding: 11px 15px; border: 1px solid var(--line); border-radius: 12px; background: var(--text); color: var(--bg); box-shadow: var(--shadow); font-size: 12px; transform: translate(-50%, 18px); opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .chat-button { position: fixed; right: 22px; bottom: 22px; z-index: 25; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--text); color: var(--bg); box-shadow: var(--shadow); cursor: pointer; }
+    .chat-button:hover { transform: translateY(-2px); }
+
+    @media (max-width: 1080px) {
+      .workspace { width: min(920px, calc(100% - 38px)); }
+      .math-grid { grid-template-columns: repeat(6, minmax(38px, 1fr)); }
+      .math-keyboard { overflow-x:auto; }
+      .math-keyboard-head,.math-keyboard-body { min-width:760px; }
+      .examples-description { display: none; }
+      .examples-grid.four-up { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .course-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .sidebar { transform: translateX(-100%); width: 272px; box-shadow: var(--shadow); }
+      .mobile-sidebar-open .sidebar { transform: translateX(0); }
+      .sidebar-collapsed .sidebar { width: 272px; }
+      main, .sidebar-collapsed main { margin-left: 0; }
+      .topbar { display:flex; padding: 0 14px; }
+      .mobile-menu { display: grid; margin-right: 8px; }
+      .sidebar-collapse { display: none; }
+      .workspace { width: min(720px, calc(100% - 28px)); padding-top: 16px; }
+      .hero { margin-top: 12px; }
+      .examples-grid { grid-template-columns: 1fr; }
+      .examples-grid.four-up { grid-template-columns:1fr; }
+      .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
+      .example-meta, .example-card h3, .example-cta { grid-column: 1; }
+      .example-preview { grid-column: 2; grid-row: 1 / 4; min-height: 118px; }
+      .math-grid { grid-template-columns: repeat(5, minmax(38px, 1fr)); }
+      .chat-button { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      .topbar-title, .topbar-actions .topbar-button:first-child { display: none; }
+      .workspace { width: calc(100% - 20px); padding-bottom: 28px; }
+      .hero { margin-bottom: 18px; }
+      .hero-kicker { display: none; }
+      .hero h1 { font-size: 28px; }
+      .workspace-mode-switch { margin-top:14px; }
+      .workspace-mode-button { min-width:100px; height:40px; padding-inline:15px; font-size:14px; }
+      .composer-shell { border-radius: 20px; }
+      .capability-strip { padding-inline: 9px; }
+      .composer-input-wrap { padding: 14px 14px 9px; }
+      .composer-input { min-height: 68px; font-size: 16px; }
+      .composer-toolbar { margin-inline: 9px; }
+      .writing-split { grid-template-columns:1fr; }
+      .writing-draft-panel { border-right:0; border-bottom:1px solid var(--line); }
+      .writing-result-panel { min-height:320px; }
+      .composer-shell.writing-layout .capability-strip { gap:22px; }
+      .model-button > span:not(.brand-mini) { display: none; }
+      .model-button { padding: 0 7px; }
+      .send-button { min-width: 42px; width: 42px; padding: 0; }
+      .send-button span { display: none; }
+      .examples-heading { align-items: center; }
+      .examples-copy h2 { font-size: 18px; }
+      .examples-grid { gap: 9px; }
+      .example-card { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto 116px auto; min-height: 0; }
+      .example-meta, .example-card h3, .example-preview, .example-cta { grid-column: 1; }
+      .example-preview { grid-row: 3; }
+      .popover { left: 10px; width: calc(100% - 20px); }
+      .math-grid { grid-template-columns: repeat(4, minmax(38px, 1fr)); }
+      .calculator { inset: auto 10px 10px; width: auto; }
+      .calculator-panel { width:min(360px,calc(100vw - 16px)); height:min(500px,calc(100vh - 16px)); }
+      .calculator-panel.expanded { width:calc(100vw - 8px); height:calc(100vh - 8px); padding:10px; border-radius:18px; }
+      .calculator-panel.expanded .calc-tabs { width:min(430px,90%); }
+      .exam-catalog-heading { display:block; }
+      .exam-catalog-heading p { margin:8px 0 0; text-align:left; }
+      .exam-catalog-toolbar { flex-direction:column; }
+      .exam-filter-wrap { width:100%; }
+      .course-grid { grid-template-columns:1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H11v18H7.5A3.5 3.5 0 0 0 4 23zM20 5.5A3.5 3.5 0 0 0 16.5 2H13v18h3.5A3.5 3.5 0 0 1 20 23z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="13" rx="4"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></symbol>
+    <symbol id="i-wand" viewBox="0 0 24 24"><path d="m15 4 5 5L8 21l-5-5zM6 3l1 3 3 1-3 1-1 3-1-3-3-1 3-1zM18 13l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></symbol>
+    <symbol id="i-exam" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 8h8M8 12h4M16 14l2 2M18 14l-2 2"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M18 14v8M14 18h8"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="m2 10 10-5 10 5-10 5zM6 12.5V17c3 2 9 2 12 0v-4.5M22 10v6"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v5h5M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-5 3 3 2-2 6 6"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
+    <symbol id="i-solver" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 9h3M8.5 7.5v3M14 8l4 8M18 8l-4 8"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 16.5A9 9 0 0 1 7.5 4 8 8 0 1 0 20 16.5Z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-8M22 20H2"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></symbol>
+    <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v12H8l-4 4z"/><path d="M8 10h8M8 13h5"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9v11h16V9M3 4h18l-2 5H5zM9 20v-6h6v6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M21.2 7.2a2.8 2.8 0 0 0-2-2C17.4 4.7 12 4.7 12 4.7s-5.4 0-7.2.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2.3 12a29 29 0 0 0 .5 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.2.5 7.2.5s5.4 0 7.2-.5a2.8 2.8 0 0 0 2-2 29 29 0 0 0 .5-4.8 29 29 0 0 0-.5-4.8Z"/><path d="m10 9 5 3-5 3Z"/></symbol>
+    <symbol id="i-game" viewBox="0 0 24 24"><path d="M7 8h10a5 5 0 0 1 4.6 6.9l-1.2 3a2.5 2.5 0 0 1-4.1.8L14.8 17H9.2l-1.5 1.7a2.5 2.5 0 0 1-4.1-.8l-1.2-3A5 5 0 0 1 7 8Z"/><path d="M7 12v4M5 14h4M16 13h.01M19 15h.01"/></symbol>
+    <symbol id="i-calculator" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M7 5h10v4H7zM8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></symbol>
+    <symbol id="i-variable" viewBox="0 0 24 24"><path d="M8 21s-4-3-4-9 4-9 4-9M16 3s4 3 4 9-4 9-4 9M15 9 9 15M9 9l6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  </svg>
+
+  <div class="app" id="app">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand-row">
+        <div class="brand-mark" aria-hidden="true">
+          <svg class="brand-logo" viewBox="0 0 52 52" role="img">
+            <defs>
+              <linearGradient id="brandSurface" x1="7" y1="5" x2="46" y2="49" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#073FE9"/>
+                <stop offset=".55" stop-color="#2538EE"/>
+                <stop offset="1" stop-color="#5833F4"/>
+              </linearGradient>
+              <linearGradient id="brandGlyph" x1="17" y1="18" x2="35" y2="35" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF"/>
+                <stop offset=".52" stop-color="#E9EEFF"/>
+                <stop offset="1" stop-color="#FFFFFF"/>
+              </linearGradient>
+            </defs>
+            <rect width="52" height="52" rx="11" fill="url(#brandSurface)"/>
+            <path d="M12 21v-5.2c0-3.2 2.6-5.8 5.8-5.8H23M29 10h5.2c3.2 0 5.8 2.6 5.8 5.8V21M40 31v5.2c0 3.2-2.6 5.8-5.8 5.8H29M23 42h-5.2c-3.2 0-5.8-2.6-5.8-5.8V31" fill="none" stroke="#fff" stroke-width="2.15" stroke-linecap="round"/>
+            <path d="M17.4 18.7c4.8-1.8 7 .8 9.2 7.2l2.3 6.5c1.1 3.2 3 3.7 6.1 1.4M34.6 19.2c-3.6-1.7-6 .7-8.1 4.8L23 31c-1.5 3-3.5 4.7-6.4 2.9" fill="none" stroke="url(#brandGlyph)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand">Solvely.ai</div>
+        <button class="sidebar-collapse" id="sidebarCollapse" aria-label="Collapse sidebar"><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M9 5v14M14.5 8.5 11 12l3.5 3.5"/></svg></button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-button active"><svg class="icon"><use href="#i-home"/></svg><span class="nav-label">Home</span></button>
+        <button class="nav-button" data-toast="AI Study would open here"><svg class="icon"><use href="#i-book"/></svg><span class="nav-label">AI Study</span></button>
+        <button class="nav-button" data-toast="AI Live Notes would open here"><svg class="icon"><use href="#i-mic"/></svg><span class="nav-label">AI Live Notes</span></button>
+        <button class="nav-button" data-toast="AI Writing Tools would open here"><svg class="icon"><use href="#i-wand"/></svg><span class="nav-label">AI Writing Tools</span></button>
+        <button class="nav-button" data-toast="Exam Predictor would open here"><svg class="icon"><use href="#i-exam"/></svg><span class="nav-label">Exam Predictor</span></button>
+        <button class="nav-button" data-toast="Mini Games would open here"><svg class="icon"><use href="#i-game"/></svg><span class="nav-label">Mini Games</span></button>
+        <button class="nav-button" data-toast="History page would open here"><svg class="icon"><use href="#i-history"/></svg><span class="nav-label">History</span></button>
+      </nav>
+
+      <div class="sidebar-spacer"></div>
+      <div class="side-meta">
+        <section class="app-download-card" aria-label="Download the Solvely app">
+          <p class="app-download-copy"><strong>Download the app.</strong><span>Get 2 free solves.</span></p>
+          <a class="app-qr-link" href="https://solvely.ai/mobile" target="_blank" rel="noopener" aria-label="Open the Solvely mobile app download page"><img src="assets/solvely-mobile-qr.svg" alt="QR code for the Solvely mobile app" width="132" height="132" /></a>
+          <div class="app-store-links">
+            <a class="app-store-link apple-store" href="https://apps.apple.com/us/app/solvely-ai-study-tools/id6446930976" target="_blank" rel="noopener" aria-label="Download Solvely on the App Store"><img src="assets/download-on-app-store.svg" alt="Download on the App Store" width="96" height="32" /></a>
+            <a class="app-store-link google-play" href="https://play.google.com/store/apps/details?id=com.solvely.photo.math.solver.calculator.ai" target="_blank" rel="noopener" aria-label="Get Solvely on Google Play"><img src="assets/get-it-on-google-play-trimmed.png" alt="Get it on Google Play" width="107" height="32" /></a>
+          </div>
+        </section>
+        <button class="upgrade" data-toast="Upgrade flow opened"><span class="discount">57%<br>OFF</span><span class="upgrade-label">⬆ Upgrade</span></button>
+        <div class="user-row">
+          <div class="avatar"><svg class="icon icon-sm"><use href="#i-user"/></svg></div>
+          <span class="user-name">Anna</span>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><svg class="icon"><use href="#i-moon"/></svg></button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation"><svg class="icon"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        <span class="topbar-title">AI learning workspace</span>
+        <div class="topbar-actions">
+          <button class="topbar-button" data-toast="2 recent chats">2 chats</button>
+          <button class="topbar-button" data-toast="Invite and sharing options would open here">Share</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <header class="hero">
+          <p class="hero-kicker">Learn Your Way · All in One Place</p>
+          <h1>What can Solvely help you with?</h1>
+          <div class="workspace-mode-switch" id="workspaceModeSwitch" role="tablist" aria-label="Choose workspace mode">
+            <button class="workspace-mode-button" role="tab" aria-selected="true" data-workspace-mode="study"><svg class="icon"><use href="#i-book"/></svg><span>Study</span></button>
+            <button class="workspace-mode-button" role="tab" aria-selected="false" data-workspace-mode="writing"><svg class="icon"><use href="#i-wand"/></svg><span>Writing</span></button>
+          </div>
+        </header>
+
+        <section class="composer-shell" id="composerShell" aria-label="Solvely learning composer">
+          <div class="capability-strip" id="capabilityStrip" role="tablist" aria-label="Choose a learning capability"></div>
+
+          <div class="composer-input-wrap">
+            <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Type, paste, upload, or drag and drop anything you want to learn"></textarea>
+          </div>
+          <div class="attachment-row" id="attachmentRow"></div>
+          <div class="composer-toolbar">
+            <button class="tool-button" id="attachButton" aria-label="Attach files" title="Attach files"><svg class="icon"><use href="#i-upload"/></svg></button>
+            <button class="tool-button" id="imageButton" aria-label="Upload images" title="Upload images"><svg class="icon"><use href="#i-image"/></svg></button>
+            <button class="tool-button" id="linkButton" aria-label="Paste a study material link" aria-expanded="false" title="Paste link"><svg class="icon"><use href="#i-link"/></svg></button>
+            <button class="tool-button" id="mathButton" aria-label="Open math input" aria-expanded="false" title="Math input"><svg class="icon"><use href="#i-variable"/></svg></button>
+            <button class="tool-button" id="calculatorButton" aria-label="Open calculator" aria-expanded="false" title="Calculator"><svg class="icon"><use href="#i-calculator"/></svg></button>
+            <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
+            <span class="toolbar-spacer"></span>
+            <button class="tool-button" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
+            <button class="send-button" id="sendButton" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="sendLabel">Solve</span></button>
+          </div>
+
+          <div class="popover" id="modelPopover" role="menu" hidden>
+            <p class="model-menu-title">Solvely AI</p>
+            <button class="model-option active" role="menuitem" data-model="Solvely AI"><span class="model-letter">S</span><span><strong>Solvely AI</strong><small>Instant answers, reliable results</small></span><span class="model-check">✓</span></button>
+            <button class="model-option" role="menuitem" data-model="Multi-model"><span class="model-letter">M</span><span><strong>Multi-model</strong><small>Cross-checked for highest accuracy</small></span><span class="model-check"></span></button>
+            <p class="model-menu-title">Third-Party Model</p>
+            <button class="model-option" role="menuitem" data-model="GPT Pro"><span class="model-letter">G</span><span><strong>GPT Pro</strong><small>Strong in math and logic</small></span><span class="model-check"></span></button>
+            <button class="model-option" role="menuitem" data-model="Gemini Pro"><span class="model-letter">G</span><span><strong>Gemini Pro</strong><small>Deep, insightful, cross-domain</small></span><span class="model-check"></span></button>
+            <button class="model-option" role="menuitem" data-model="Claude Opus"><span class="model-letter">C</span><span><strong>Claude Opus</strong><small>Eloquent, thoughtful, linguist</small></span><span class="model-check"></span></button>
+          </div>
+
+          <div class="math-tools-host" id="mathToolsHost"></div>
+          <div class="link-popover" id="linkPopover" hidden>
+            <div class="link-popover-row"><input id="linkInput" type="url" inputmode="url" aria-label="Study material URL" placeholder="https://example.com/study-material" /><button id="addLinkButton" type="button">Add link</button></div>
+            <p id="linkPopoverHelp">Public webpages, videos, and document links are supported.</p>
+          </div>
+          <div class="writing-composer-content" id="writingComposerContent">
+            <div class="writing-split">
+              <section class="writing-draft-panel" aria-labelledby="writingDraftTitle">
+                <div class="writing-panel-head">
+                  <h2 id="writingDraftTitle">Your Draft</h2>
+                  <div class="writing-head-actions">
+                    <button class="writing-head-action" id="writingUploadButton" type="button"><svg class="icon"><use href="#i-upload"/></svg><span>Upload File</span></button>
+                    <button class="writing-head-action" id="writingHistoryButton" type="button" aria-expanded="false"><svg class="icon"><use href="#i-history"/></svg><span>History</span></button>
+                  </div>
+                </div>
+                <div class="writing-editor-wrap">
+                  <textarea class="writing-editor" id="writingEditor" aria-label="Your draft" placeholder="Paste your text here, or upload a file (PDF, Word, TXT)..."></textarea>
+                  <button class="writing-sample-button" id="writingSampleButton" type="button"><svg class="icon"><use href="#i-spark"/></svg><span>Try a sample</span></button>
+                </div>
+                <div class="writing-draft-footer">
+                  <span class="writing-word-count" id="writingWordCount">0 words</span>
+                  <button class="writing-action-button" id="writingActionButton" type="button" disabled><svg class="icon"><use href="#i-spark"/></svg><span>Humanize</span></button>
+                </div>
+                <div class="writing-history-popover" id="writingHistoryPopover" hidden><strong>Recent writing</strong><p>No processed drafts yet. Your latest result will appear here.</p></div>
+              </section>
+              <section class="writing-result-panel" aria-labelledby="writingResultTitle">
+                <h2 id="writingResultTitle">Result</h2>
+                <div class="writing-result-content" id="writingResultContent">Humanize your text to see the result here.</div>
+              </section>
+            </div>
+          </div>
+          <input id="fileInput" type="file" multiple hidden />
+          <input id="imageInput" type="file" accept="image/*" multiple hidden />
+          <input id="writingFileInput" type="file" accept=".pdf,.doc,.docx,.txt,text/plain,application/pdf" hidden />
+        </section>
+
+        <section class="examples-section" aria-labelledby="examplesTitle">
+          <div class="examples-heading">
+            <div class="examples-copy"><span id="examplesKicker">Selected capability</span><h2 id="examplesTitle">Solver examples</h2></div>
+            <p class="examples-description" id="examplesDescription"></p>
+          </div>
+          <div class="examples-grid" id="examplesGrid"></div>
+        </section>
+        <section class="exam-catalog" id="examCatalog" aria-labelledby="examCatalogTitle" hidden>
+          <div class="exam-catalog-heading"><div><span>READY-MADE PREP</span><h2 id="examCatalogTitle">Standardized test courses</h2></div><p>Lessons, practice, exams, and score insights.</p></div>
+          <div class="exam-catalog-toolbar">
+            <label class="exam-search-wrap"><svg class="icon"><use href="#i-search"/></svg><input id="examCourseSearch" aria-label="Search standardized exam courses" placeholder="Search SAT, ACT, AP, Abitur..." /></label>
+            <label class="exam-filter-wrap"><span class="sr-only">Filter exam packages</span><select id="examCourseFilter" aria-label="Filter exam packages"><option value="all">All courses</option><option value="sat">SAT</option><option value="act">ACT</option><option value="ap">AP</option><option value="abitur">Abitur</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
+          </div>
+          <div class="course-grid" id="courseGrid" aria-label="Pre-made exam courses"></div>
+          <p class="course-empty" id="courseEmpty" hidden>No matching courses. Try another exam name.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <section class="calculator-panel" id="calculatorPanel" aria-label="Calculator" hidden></section>
+
+  <dialog class="example-dialog" id="exampleDialog">
+    <div class="dialog-head">
+      <div class="dialog-icon" id="dialogIcon"></div>
+      <div class="dialog-head-copy"><span id="dialogKicker"></span><h2 id="dialogTitle"></h2><p id="dialogDescription"></p></div>
+      <button class="dialog-close" id="dialogClose" aria-label="Close preview"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="dialog-body"><div class="dialog-preview" id="dialogPreview"></div><div class="dialog-interaction" id="dialogInteraction"></div><div class="dialog-prompt" id="dialogPrompt"></div></div>
+    <div class="dialog-actions"><button class="dialog-button" id="dialogCancel">Close</button><button class="dialog-button primary" id="useExampleButton">Use this example</button></div>
+  </dialog>
+
+  <button class="chat-button" id="chatButton" aria-label="Open support chat"><svg class="icon"><use href="#i-chat"/></svg></button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script id="geogebra-deploy-script" src="https://www.geogebra.org/apps/deployggb.js" defer></script>
+  <script>
+    const icon = id => `<svg class="icon"><use href="#${id}"/></svg>`;
+    const capabilityData = {
+      solver: {
+        label: 'Solver', icon: 'i-solver', action: 'Solve',
+        placeholder: 'Type, paste, or upload a problem to solve',
+        description: 'Get a checked answer with a clear, step-by-step explanation.',
+        examples: [
+          { tag: 'Algebra', title: 'Solve a quadratic equation', description: 'Factor, verify, and explain both roots.', prompt: 'Solve x² − 5x + 6 = 0 step by step and verify the roots.', preview: 'equation' },
+          { tag: 'Chemistry', title: 'Balance a chemical equation', description: 'Show coefficients and conservation checks.', prompt: 'Balance C₃H₈ + O₂ → CO₂ + H₂O and explain each step.', preview: 'quiz' },
+          { tag: 'Accounting', title: 'Analyze a journal entry', description: 'Identify accounts, debits, and credits.', prompt: 'A company buys $4,800 of equipment for cash. Create and explain the journal entry.', preview: 'guide' }
+        ]
+      },
+      graph: {
+        label: 'Graph', icon: 'i-chart', action: 'Graph',
+        placeholder: 'Enter an equation, function, table, or graphing question',
+        description: 'Turn equations and data into interactive visual explanations.',
+        examples: [
+          { tag: 'Algebra', title: 'Plot and factor a parabola', description: 'See roots, vertex, and axis of symmetry.', prompt: 'Graph y = x² − 4x + 3 and label its roots and vertex.', preview: 'graph' },
+          { tag: 'Precalculus', title: 'Compare two functions', description: 'Find intersections and explain rate changes.', prompt: 'Graph y = 2ˣ and y = 3x − 1 together and find their intersection.', preview: 'graph' },
+          { tag: 'Statistics', title: 'Visualize a data set', description: 'Create a plot and explain the distribution.', prompt: 'Graph the data 4, 7, 7, 9, 10, 12, 14 and explain its center and spread.', preview: 'exam' }
+        ]
+      },
+      video: {
+        label: 'Video', icon: 'i-play', action: 'Create video',
+        placeholder: 'Describe the concept or problem you want explained as a video',
+        description: 'Generate a short narrated walkthrough with diagrams and steps.',
+        examples: [
+          { tag: 'Geometry', title: 'Triangle angle walkthrough', description: 'Animate the reasoning from givens to answer.', prompt: 'Create a 90-second video explaining how to find the missing angle in a triangle.', preview: 'video' },
+          { tag: 'Biology', title: 'Cellular respiration', description: 'Visualize each stage and its energy output.', prompt: 'Create a short video explaining glycolysis, the Krebs cycle, and the electron transport chain.', preview: 'video' },
+          { tag: 'Physics', title: 'Newton’s second law', description: 'Connect force, mass, and acceleration visually.', prompt: 'Create a video that explains F = ma with a real-world example and diagram.', preview: 'video' }
+        ]
+      },
+      flashcards: {
+        label: 'Flashcards', icon: 'i-grid', action: 'Create cards',
+        placeholder: 'Paste notes or upload materials to turn into flashcards',
+        description: 'Build active-recall cards from the concepts that matter most.',
+        examples: [
+          { tag: 'Biology', title: 'How the brain works', description: 'Key regions, functions, and neural signals.', prompt: 'Create 20 flashcards about the major brain regions and their functions.', preview: 'flashcards' },
+          { tag: 'Chemistry', title: 'Organic functional groups', description: 'Structures, naming, and reactions.', prompt: 'Create flashcards for common organic chemistry functional groups.', preview: 'flashcards' },
+          { tag: 'History', title: 'AP World timeline', description: 'Events, causes, and historical significance.', prompt: 'Create flashcards for the key events of AP World History Unit 5.', preview: 'flashcards' }
+        ]
+      },
+      quiz: {
+        label: 'Quiz', icon: 'i-exam', action: 'Create quiz',
+        placeholder: 'Enter a topic or upload notes to generate a quiz',
+        description: 'Check understanding with adaptive questions and instant feedback.',
+        examples: [
+          { tag: 'Calculus', title: 'Derivatives knowledge check', description: 'Conceptual and calculation questions.', prompt: 'Create a 10-question quiz on derivatives with instant explanations.', preview: 'quiz' },
+          { tag: 'Biology', title: 'Cell biology chapter quiz', description: 'Organelles, membranes, and transport.', prompt: 'Quiz me on cell biology with 10 mixed-difficulty questions.', preview: 'quiz' },
+          { tag: 'Spanish', title: 'Vocabulary practice', description: 'Recall vocabulary in sentence context.', prompt: 'Create a Spanish vocabulary quiz about travel and transportation.', preview: 'quiz' }
+        ]
+      },
+      guide: {
+        label: 'Study Guide', icon: 'i-book', action: 'Build guide',
+        placeholder: 'Add a topic or materials to organize into a study guide',
+        description: 'Turn scattered material into a structured, reviewable guide.',
+        examples: [
+          { tag: 'Biology', title: 'Biology final review', description: 'Concept map, definitions, and review plan.', prompt: 'Build a study guide for a high-school biology final.', preview: 'guide' },
+          { tag: 'Linear Algebra', title: 'Matrices and vector spaces', description: 'Definitions, methods, and worked examples.', prompt: 'Create a study guide for matrices, determinants, and vector spaces.', preview: 'guide' },
+          { tag: 'US History', title: 'Civil Rights Movement', description: 'Timeline, leaders, laws, and themes.', prompt: 'Create a study guide on the US Civil Rights Movement.', preview: 'guide' }
+        ]
+      },
+      podcast: {
+        label: 'Podcast', icon: 'i-mic', action: 'Create podcast',
+        placeholder: 'Enter a topic or upload materials for an audio lesson',
+        description: 'Listen to a conversational lesson generated from your materials.',
+        examples: [
+          { tag: 'Biology', title: 'Photosynthesis in 8 minutes', description: 'A clear conversation from light to glucose.', prompt: 'Create an 8-minute podcast explaining photosynthesis.', preview: 'podcast' },
+          { tag: 'History', title: 'The French Revolution', description: 'Causes, turning points, and consequences.', prompt: 'Create a conversational podcast about the French Revolution.', preview: 'podcast' },
+          { tag: 'Accounting', title: 'Financial statements', description: 'How the three core statements connect.', prompt: 'Create a podcast explaining how financial statements work together.', preview: 'podcast' }
+        ]
+      },
+      mock: {
+        label: 'Exam Prep', icon: 'i-target', action: 'Start prep',
+        placeholder: 'Choose an exam or describe what you are preparing for',
+        description: 'Plan, practice, and track your exam progress.',
+        examples: [
+          { tag: 'Plan', title: 'Daily study plan', description: 'Focused tasks that adapt to your exam date.', prompt: 'Build a daily study plan for my upcoming exam.', preview: 'guide' },
+          { tag: 'Review', title: 'Core topics review', description: 'See readiness and prioritize weak topics.', prompt: 'Review my core exam topics and identify the biggest gaps.', preview: 'guide' },
+          { tag: 'Practice', title: 'Practice exams', description: 'Timed sections with performance scoring.', prompt: 'Create a timed full-length practice exam with score insights.', preview: 'exam' },
+          { tag: 'Assess', title: 'Progress tracking', description: 'Follow score trends and projected readiness.', prompt: 'Create an exam readiness and score progress tracker.', preview: 'graph' }
+        ]
+      },
+      essay: {
+        label: 'Essay Writer', icon: 'i-file', action: 'Start writing',
+        placeholder: 'Describe your essay topic, assignment, or argument',
+        description: 'Build a clear thesis, outline, and polished draft from one prompt.',
+        examples: [
+          { tag: 'Argument', title: 'Climate policy essay', description: 'Develop a position with evidence and counterarguments.', prompt: 'Write an argumentative essay outline about carbon pricing policies.', preview: 'guide' },
+          { tag: 'Literature', title: 'Character analysis', description: 'Turn textual evidence into a focused interpretation.', prompt: 'Help me write a character analysis of Lady Macbeth with a strong thesis.', preview: 'guide' },
+          { tag: 'Personal', title: 'College application story', description: 'Shape an authentic narrative with a memorable arc.', prompt: 'Help me outline a college essay about learning resilience through a team project.', preview: 'guide' }
+        ]
+      },
+      rewrite: {
+        label: 'Rewrite', icon: 'i-wand', action: 'Rewrite',
+        placeholder: 'Paste text to improve its clarity, tone, or structure',
+        description: 'Rewrite existing text while preserving meaning and your preferred voice.',
+        examples: [
+          { tag: 'Clarity', title: 'Simplify a dense paragraph', description: 'Make complex writing direct and readable.', prompt: 'Rewrite this academic paragraph in clear, concise language.', preview: 'guide' },
+          { tag: 'Tone', title: 'Make an email professional', description: 'Improve confidence, warmth, and precision.', prompt: 'Rewrite my email in a concise and professional tone.', preview: 'guide' },
+          { tag: 'Style', title: 'Strengthen an introduction', description: 'Create a sharper hook and logical flow.', prompt: 'Rewrite my essay introduction with a stronger hook and thesis transition.', preview: 'guide' }
+        ]
+      },
+      grammar: {
+        label: 'Grammar', icon: 'i-exam', action: 'Check grammar',
+        placeholder: 'Paste writing to check grammar, spelling, and punctuation',
+        description: 'Find errors, explain the rule, and suggest a corrected version.',
+        examples: [
+          { tag: 'Editing', title: 'Fix grammar and punctuation', description: 'Review every correction with a short explanation.', prompt: 'Check this paragraph for grammar and punctuation, then explain each correction.', preview: 'quiz' },
+          { tag: 'Academic', title: 'Improve sentence structure', description: 'Repair fragments, run-ons, and unclear clauses.', prompt: 'Check my academic writing for sentence structure and clarity issues.', preview: 'quiz' },
+          { tag: 'English', title: 'Practice common mistakes', description: 'Learn from targeted examples and feedback.', prompt: 'Create a short grammar practice set based on common ESL writing mistakes.', preview: 'quiz' }
+        ]
+      },
+      citation: {
+        label: 'Citations', icon: 'i-book', action: 'Create citations',
+        placeholder: 'Paste a source link, title, DOI, or publication details',
+        description: 'Format sources consistently and build a clean bibliography.',
+        examples: [
+          { tag: 'APA', title: 'Format an APA source', description: 'Generate an in-text citation and reference entry.', prompt: 'Create an APA 7 citation for my source and show the correct in-text format.', preview: 'guide' },
+          { tag: 'MLA', title: 'Build an MLA bibliography', description: 'Turn source details into Works Cited entries.', prompt: 'Format these sources as an MLA 9 Works Cited list.', preview: 'guide' },
+          { tag: 'Chicago', title: 'Create footnotes', description: 'Produce notes and bibliography formatting.', prompt: 'Convert my source details into Chicago notes and bibliography style.', preview: 'guide' }
+        ]
+      }
+    };
+
+    const writingToolData = {
+      humanizer: { label:'AI Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste your text here, or upload a file (PDF, Word, TXT)...', description:'Humanize your text to see the result here.', examples:[] },
+      detector: { label:'AI Detector', icon:'i-search', action:'Detect AI', placeholder:'Paste text to check whether it was written by AI...', description:'Run AI detection to see the analysis here.', examples:[] },
+      paraphraser: { label:'AI Paraphraser', icon:'i-wand', action:'Paraphrase', placeholder:'Paste your text here to paraphrase it...', description:'Paraphrase your text to see the result here.', examples:[] },
+      plagiarism: { label:'Plagiarism Checker', icon:'i-exam', action:'Check plagiarism', placeholder:'Paste your text here to check for matching content...', description:'Check your text to see the plagiarism result here.', examples:[] },
+      aiCitation: { label:'AI Citation', icon:'i-book', action:'Create citation', placeholder:'Paste source details, a DOI, or a URL here...', description:'Create a citation to see the formatted result here.', examples:[] },
+      research: { label:'AI Research', icon:'i-search', action:'Research', placeholder:'Describe the topic you want to research...', description:'Run AI research to see a structured result here.', examples:[] }
+    };
+    Object.assign(capabilityData, writingToolData);
+
+    const examCoursePackages = [
+      {family:'sat',label:'SAT',title:'SAT Prep 2026',topics:'100+',videos:'100+',questions:'4,800+',search:'digital college admissions math reading writing'},
+      {family:'act',label:'ACT',title:'ACT Prep 2026',topics:'230+',videos:'230+',questions:'6,600+',search:'college admissions english math reading science'},
+      {family:'ap',label:'AP',title:'AP Calculus AB',topics:'42+',videos:'42+',questions:'1,200+',search:'advanced placement math calculus'},
+      {family:'ap',label:'AP',title:'AP Biology',topics:'55+',videos:'55+',questions:'1,600+',search:'advanced placement biology science'},
+      {family:'ap',label:'AP',title:'AP United States History',topics:'45+',videos:'45+',questions:'1,400+',search:'advanced placement us history'},
+      {family:'ap',label:'AP',title:'AP World History: Modern',topics:'42+',videos:'42+',questions:'1,300+',search:'advanced placement world history modern'},
+      {family:'ap',label:'AP',title:'AP Psychology',topics:'40+',videos:'40+',questions:'1,200+',search:'advanced placement psychology'},
+      {family:'ap',label:'AP',title:'AP Chemistry',topics:'50+',videos:'50+',questions:'1,500+',search:'advanced placement chemistry science'},
+      {family:'ap',label:'AP',title:'AP Statistics',topics:'38+',videos:'38+',questions:'1,100+',search:'advanced placement statistics math data'},
+      {family:'ap',label:'AP',title:'AP Human Geography',topics:'35+',videos:'35+',questions:'1,000+',search:'advanced placement human geography'},
+      {family:'ap',label:'AP',title:'AP English Language and Composition',topics:'32+',videos:'32+',questions:'900+',search:'advanced placement english language composition'},
+      {family:'ap',label:'AP',title:'AP Computer Science A',topics:'40+',videos:'40+',questions:'1,000+',search:'advanced placement computer science programming'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Deutsch',topics:'26',videos:'26',questions:'1,100+',search:'german deutsch germany'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Mathematik',topics:'32',videos:'32',questions:'1,200+',search:'german mathematik mathematics math germany'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Englisch',topics:'24',videos:'24',questions:'950+',search:'german englisch english germany'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Französisch',topics:'21',videos:'21',questions:'850+',search:'german french französisch germany'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Biologie',topics:'25',videos:'25',questions:'1,100+',search:'german biology biologie germany'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Chemie',topics:'22',videos:'22',questions:'950+',search:'german chemistry chemie germany'},
+      {family:'abitur',label:'ABITUR',title:'Abitur Physik',topics:'20',videos:'20',questions:'850+',search:'german physics physik germany'}
+    ];
+
+    const capabilityGroups = {
+      study: ['solver', 'graph', 'video', 'flashcards', 'quiz', 'guide', 'podcast', 'mock'],
+      writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
+    };
+    let workspaceMode = 'study';
+    const app = document.getElementById('app');
+    const sidebar = document.querySelector('.sidebar');
+    const capabilityStrip = document.getElementById('capabilityStrip');
+    const promptInput = document.getElementById('promptInput');
+    const sendButton = document.getElementById('sendButton');
+    const sendLabel = document.getElementById('sendLabel');
+    const examplesGrid = document.getElementById('examplesGrid');
+    const examplesTitle = document.getElementById('examplesTitle');
+    const examplesDescription = document.getElementById('examplesDescription');
+    const attachmentRow = document.getElementById('attachmentRow');
+    const mathToolsHost = document.getElementById('mathToolsHost');
+    const calculatorPanel = document.getElementById('calculatorPanel');
+    const linkPopover = document.getElementById('linkPopover');
+    const linkInput = document.getElementById('linkInput');
+    const writingEditor = document.getElementById('writingEditor');
+    const writingActionButton = document.getElementById('writingActionButton');
+    const writingResultContent = document.getElementById('writingResultContent');
+    const toast = document.getElementById('toast');
+    const dialog = document.getElementById('exampleDialog');
+    let selectedCapability = 'solver';
+    let selectedExample = null;
+    let toastTimer;
+    let dragDepth = 0;
+    let calcExpression = '';
+    let geogebraApplet = null;
+    let geogebraApi = null;
+    let geogebraInitPromise = null;
+    let calculatorRestorePosition = null;
+    let mediaTimer = null;
+    let writingHistory = [];
+
+    function graphPreview() {
+      return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Parabola graph"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#grid)"/><path d="M18 76H305M150 7V96" stroke="var(--line-strong)" stroke-width="1.2"/><path d="M58 17 C92 92 119 94 151 53 S212 19 268 83" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><g fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><circle cx="89" cy="76" r="4"/><circle cx="222" cy="76" r="4"/><circle cx="151" cy="53" r="4"/></g></svg></div>`;
+    }
+
+    function videoPreview() {
+      return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg><span class="play-badge">${icon('i-play')}</span></div>`;
+    }
+
+    function previewMarkup(type) {
+      if (type === 'graph') return graphPreview();
+      if (type === 'video') return videoPreview();
+      if (type === 'equation') return `<div class="example-preview preview-equation"><div class="equation-main">x² − 5x + 6</div><div class="equation-steps"><i></i><i></i><i></i></div></div>`;
+      if (type === 'flashcards') return `<div class="example-preview preview-flashcards"><div class="mini-card"><strong>Question</strong><i></i><i></i></div><div class="mini-card"><strong>Answer</strong><i></i><i></i></div></div>`;
+      if (type === 'quiz') return `<div class="example-preview preview-quiz"><div class="quiz-option">Option A</div><div class="quiz-option correct">Option B</div><div class="quiz-option">Option C</div><div class="quiz-option">Option D</div></div>`;
+      if (type === 'guide') return `<div class="example-preview preview-guide"><div class="guide-line"><b>1</b><i></i><span>3 min</span></div><div class="guide-line"><b>2</b><i></i><span>5 min</span></div><div class="guide-line"><b>3</b><i></i><span>4 min</span></div></div>`;
+      if (type === 'podcast') return `<div class="example-preview preview-podcast"><div class="podcast-art">${icon('i-mic')}</div><div><div class="waveform">${'<i></i>'.repeat(9)}</div><span class="podcast-time">0:42 / 8:00</span></div></div>`;
+      return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84</strong><span>Score</span></div></div>`;
+    }
+
+    function renderCapabilities() {
+      capabilityStrip.innerHTML = capabilityGroups[workspaceMode].map(key => {
+        const capability = capabilityData[key];
+        return `<button class="capability-button" role="tab" aria-selected="${key === selectedCapability}" data-capability="${key}">${icon(capability.icon)}<span>${capability.label}</span></button>`;
+      }).join('');
+      capabilityStrip.querySelectorAll('[data-capability]').forEach(button => button.addEventListener('click', () => selectCapability(button.dataset.capability)));
+    }
+
+    function selectWorkspaceMode(mode, announce = true) {
+      if (!capabilityGroups[mode]) return;
+      workspaceMode = mode;
+      document.getElementById('composerShell').classList.toggle('writing-layout', mode === 'writing');
+      document.querySelector('.examples-section').hidden = mode === 'writing';
+      document.querySelectorAll('[data-workspace-mode]').forEach(button => {
+        button.setAttribute('aria-selected', String(button.dataset.workspaceMode === mode));
+      });
+      selectCapability(capabilityGroups[mode][0], false);
+      if (announce) showToast(mode === 'study' ? 'Study workspace selected' : 'Writing workspace selected');
+    }
+
+    function updateWritingEditorState() {
+      const words = writingEditor.value.trim() ? writingEditor.value.trim().split(/\s+/).length : 0;
+      document.getElementById('writingWordCount').textContent = `${words} word${words === 1 ? '' : 's'}`;
+      document.getElementById('writingSampleButton').hidden = writingEditor.value.length > 0;
+      writingActionButton.disabled = !writingEditor.value.trim();
+    }
+
+    function updateWritingTool(key, resetResult = true) {
+      const tool = writingToolData[key];
+      if (!tool) return;
+      document.getElementById('writingHistoryPopover').hidden = true;
+      document.getElementById('writingHistoryButton').setAttribute('aria-expanded', 'false');
+      writingEditor.placeholder = tool.placeholder;
+      writingActionButton.querySelector('span').textContent = tool.action;
+      document.getElementById('writingResultTitle').textContent = key === 'detector' ? 'Analysis' : key === 'plagiarism' ? 'Plagiarism Result' : key === 'aiCitation' ? 'Citation' : key === 'research' ? 'Research Result' : 'Result';
+      if (resetResult) {
+        writingResultContent.textContent = tool.description;
+        writingResultContent.classList.remove('has-result');
+      }
+      updateWritingEditorState();
+    }
+
+    function processWritingText(key, value) {
+      if (key === 'detector') {
+        const score = Math.max(18, Math.min(86, 26 + value.split(/\s+/).length % 53));
+        return `AI likelihood: ${score}%\n\nThis demo analysis found a mix of predictable and natural sentence patterns. Review repeated transitions and uniform sentence length for a more human voice.`;
+      }
+      if (key === 'paraphraser') return value
+        .replace(/\bbeautiful\b/gi, 'refreshing')
+        .replace(/\bimportant\b/gi, 'essential')
+        .replace(/\bOverall,?\b/g, 'Taken together,')
+        .replace(/During this time/gi, 'As the season unfolds');
+      if (key === 'plagiarism') return `No matching passages found in this demo check.\n\nOriginality estimate: 98%\nChecked ${value.trim().split(/\s+/).length} words.`;
+      if (key === 'aiCitation') return `APA 7\nAuthor, A. A. (2026). ${value.trim().slice(0,72)}${value.trim().length > 72 ? '…' : ''}. Publisher or Website.\n\nIn-text citation: (Author, 2026)`;
+      if (key === 'research') return `Research outline\n\n1. Define the central question\n2. Review credible primary and secondary sources\n3. Compare the strongest claims and evidence\n4. Identify open questions\n5. Summarize practical conclusions\n\nTopic: ${value.trim()}`;
+      return value
+        .replace(/\bMany individuals\b/g, 'A lot of people')
+        .replace(/\bDuring this time\b/g, 'Around this time')
+        .replace(/\bOverall, it is\b/g, 'All in all, spring is')
+        .replace(/\bhas a positive impact on\b/g, 'can lift')
+        .replace(/\bnew opportunities for growth and development\b/g, 'new chances to grow and begin again');
+    }
+
+    function renderExamples() {
+      const capability = capabilityData[selectedCapability];
+      examplesTitle.textContent = selectedCapability === 'mock' ? 'What’s in Your Exam Prep Plan' : `${capability.label} examples`;
+      examplesDescription.textContent = capability.description;
+      examplesGrid.classList.toggle('four-up', capability.examples.length === 4);
+      examplesGrid.innerHTML = capability.examples.map((example, index) => `
+        <button class="example-card" data-example-index="${index}" aria-label="Preview ${example.title}">
+          <span class="example-meta"><span>${example.tag}</span>${icon(capability.icon)}</span>
+          <h3>${example.title}</h3>
+          ${previewMarkup(example.preview)}
+          <span class="example-cta"><span>Try this example</span>${icon('i-chevron')}</span>
+        </button>`).join('');
+      examplesGrid.querySelectorAll('[data-example-index]').forEach(card => card.addEventListener('click', () => openExample(Number(card.dataset.exampleIndex))));
+    }
+
+    function renderCourseCatalog() {
+      const grid = document.getElementById('courseGrid');
+      const query = document.getElementById('examCourseSearch').value.trim().toLowerCase();
+      const family = document.getElementById('examCourseFilter').value;
+      const terms = query.split(/\s+/).filter(Boolean);
+      const courses = examCoursePackages.filter(course => {
+        const haystack = (course.title + ' ' + course.search).toLowerCase();
+        return (family === 'all' || course.family === family) && terms.every(term => haystack.includes(term));
+      });
+      grid.innerHTML = courses.map((course,index) =>
+        '<button class="course-card" data-course-index="' + examCoursePackages.indexOf(course) + '" aria-label="Open ' + course.title + ' course"><span class="course-family">' + course.label + '</span><h3>' + course.title + '</h3><p>' + course.topics + ' topics · ' + course.videos + ' video lessons<br>' + course.questions + ' practice questions</p><span class="course-stats"><span>Full test</span><span>Score insights</span></span></button>'
+      ).join('');
+      document.getElementById('courseEmpty').hidden = courses.length !== 0;
+      grid.querySelectorAll('[data-course-index]').forEach(card => card.addEventListener('click', () => {
+        const course = examCoursePackages[Number(card.dataset.courseIndex)];
+        promptInput.value = 'Build a complete ' + course.title + ' preparation plan with lessons, practice, and practice exams.';
+        updateSubmit();
+        promptInput.focus();
+        document.getElementById('composerShell').scrollIntoView({behavior:'smooth',block:'center'});
+        showToast(course.title + ' selected');
+      }));
+    }
+
+    function updateComposerTools(key) {
+      const linkButton = document.getElementById('linkButton');
+      const mathButton = document.getElementById('mathButton');
+      const calculatorButton = document.getElementById('calculatorButton');
+      const modelButton = document.getElementById('modelButton');
+      const youtubeCapabilities = ['guide', 'flashcards', 'quiz', 'podcast'];
+      const writingCapability = capabilityGroups.writing.includes(key);
+      const showMathTools = ['solver', 'graph', 'video'].includes(key);
+      const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : writingCapability ? 'link' : 'none';
+
+      mathButton.hidden = !showMathTools;
+      calculatorButton.hidden = !showMathTools;
+      modelButton.hidden = key !== 'solver';
+      linkButton.hidden = linkKind === 'none';
+      linkButton.dataset.linkKind = linkKind;
+      linkButton.querySelector('use').setAttribute('href', linkKind === 'youtube' ? '#i-youtube' : '#i-link');
+      linkButton.setAttribute('aria-label', linkKind === 'youtube' ? 'Paste a YouTube link' : 'Paste a reference link');
+      linkButton.title = linkKind === 'youtube' ? 'Paste YouTube link' : 'Paste link';
+      linkInput.placeholder = linkKind === 'youtube' ? 'https://youtube.com/watch?v=...' : 'https://example.com/reference';
+      linkInput.setAttribute('aria-label', linkKind === 'youtube' ? 'YouTube URL' : 'Reference URL');
+      document.getElementById('linkPopoverHelp').textContent = linkKind === 'youtube'
+        ? 'Paste a public YouTube video to turn it into study material.'
+        : 'Public webpages and document links are supported.';
+
+      if (modelButton.hidden) {
+        document.getElementById('modelPopover').hidden = true;
+        modelButton.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function selectCapability(key, preservePrompt = true) {
+      if (!capabilityData[key]) return;
+      selectedCapability = key;
+      const capability = capabilityData[key];
+      mathToolsHost.innerHTML = '';
+      document.getElementById('mathButton').classList.remove('active');
+      document.getElementById('mathButton').setAttribute('aria-expanded','false');
+      linkPopover.hidden = true;
+      document.getElementById('linkButton').classList.remove('active');
+      document.getElementById('linkButton').setAttribute('aria-expanded','false');
+      if (!calculatorPanel.hidden) closeAdvancedCalculator(document.getElementById('calculatorButton'));
+      document.documentElement.style.setProperty('--accent', key === 'podcast' ? '#7458df' : key === 'mock' ? '#0f8a67' : '#2368f0');
+      document.documentElement.style.setProperty('--accent-rgb', key === 'podcast' ? '116, 88, 223' : key === 'mock' ? '15, 138, 103' : '35, 104, 240');
+      promptInput.placeholder = capability.placeholder;
+      sendLabel.textContent = capability.action;
+      if (!preservePrompt) promptInput.value = '';
+      updateComposerTools(key);
+      if (writingToolData[key]) updateWritingTool(key);
+      renderCapabilities();
+      renderExamples();
+      const catalog = document.getElementById('examCatalog');
+      catalog.hidden = key !== 'mock';
+      if (key === 'mock') renderCourseCatalog();
+      updateSubmit();
+    }
+
+    function interactionMarkup(type) {
+      if (type === 'graph') return '<h3>Interactive graph</h3><button class="interaction-button primary" data-open-graphing>Open in Graphing Calculator</button>';
+      if (type === 'video') return '<h3>Generated explanation</h3><button class="interaction-button" data-media-toggle>Play explanation</button><div class="interaction-progress"><span data-media-progress></span></div><span class="interaction-time" data-media-time>0:05 / 1:18</span>';
+      if (type === 'flashcards') return '<button class="flash-interactive" data-flashcard aria-label="Flip flashcard"><span class="flash-interactive-inner"><span class="flash-face front"><small>QUESTION</small><strong>What is the most important idea in this topic?</strong><small>Click to reveal</small></span><span class="flash-face back"><small>ANSWER</small><strong>The core concept, explained in active-recall form.</strong><small>Click to return</small></span></span></button>';
+      if (type === 'quiz') return '<h3>Check your understanding</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">Option A</button><button class="quiz-answer" data-answer="correct">Option B</button><button class="quiz-answer" data-answer="wrong">Option C</button><button class="quiz-answer" data-answer="wrong">Option D</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer for instant feedback.</p></div>';
+      if (type === 'guide') return '<h3>Review checklist</h3><button class="guide-check" data-guide-check><span>1</span><strong>Understand the core concept</strong><small>3 min</small></button><button class="guide-check" data-guide-check><span>2</span><strong>Review the worked example</strong><small>5 min</small></button><button class="guide-check" data-guide-check><span>3</span><strong>Practice active recall</strong><small>4 min</small></button>';
+      if (type === 'podcast') return '<h3>Audio lesson</h3><button class="interaction-button" data-media-toggle>Play podcast</button><div class="interaction-progress"><span data-media-progress></span></div><span class="interaction-time" data-media-time>0:42 / 8:00</span>';
+      if (type === 'exam') return '<h3>Timed practice</h3><button class="interaction-button primary" data-start-exam>Start practice exam</button><p class="interaction-time" data-exam-status style="margin:10px 0 0">Full-length timing and score insights are ready.</p>';
+      return '<h3>Step-by-step solution</h3><button class="interaction-button primary" data-reveal-step>Reveal next step</button><p class="interaction-time" data-step-status style="margin:10px 0 0">Step 1 of 3 · Factor the expression.</p>';
+    }
+    function bindDialogInteraction(type) {
+      const interaction = document.getElementById('dialogInteraction');
+      const graphButton = interaction.querySelector('[data-open-graphing]');
+      if (graphButton) graphButton.addEventListener('click', () => {
+        closeDialog();
+        const trigger = document.getElementById('calculatorButton');
+        if (calculatorPanel.hidden) trigger.click();
+        setTimeout(() => calculatorPanel.querySelector('[data-calc-tab="graph"]')?.click(),80);
+      });
+      const flashcard = interaction.querySelector('[data-flashcard]');
+      if (flashcard) flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
+      interaction.querySelectorAll('[data-answer]').forEach(answer => answer.addEventListener('click', () => {
+        interaction.querySelectorAll('[data-answer]').forEach(option => option.classList.remove('correct','wrong'));
+        const correct = answer.dataset.answer === 'correct';
+        answer.classList.add(correct ? 'correct' : 'wrong');
+        if (!correct) interaction.querySelector('[data-answer="correct"]').classList.add('correct');
+        interaction.querySelector('[data-quiz-feedback]').textContent = correct ? '✓ Correct — the answer has been checked.' : 'Not quite — the correct answer is highlighted.';
+      }));
+      interaction.querySelectorAll('[data-guide-check]').forEach((section,index) => section.addEventListener('click', () => {
+        section.classList.toggle('done');
+        section.querySelector('span').textContent = section.classList.contains('done') ? '✓' : String(index + 1);
+      }));
+      const mediaToggle = interaction.querySelector('[data-media-toggle]');
+      if (mediaToggle) {
+        let playing = false;
+        let progress = type === 'podcast' ? 9 : 7;
+        mediaToggle.addEventListener('click', () => {
+          playing = !playing;
+          mediaToggle.textContent = playing ? (type === 'podcast' ? 'Pause podcast' : 'Pause explanation') : (type === 'podcast' ? 'Play podcast' : 'Play explanation');
+          clearInterval(mediaTimer);
+          if (!playing) return;
+          mediaTimer = setInterval(() => {
+            progress = Math.min(100,progress + 1.2);
+            interaction.querySelector('[data-media-progress]').style.width = progress + '%';
+            const seconds = type === 'podcast' ? Math.round(progress * 4.8) : Math.round(progress * .78);
+            interaction.querySelector('[data-media-time]').textContent = Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2,'0') + (type === 'podcast' ? ' / 8:00' : ' / 1:18');
+            if (progress >= 100) clearInterval(mediaTimer);
+          },220);
+        });
+      }
+      const examButton = interaction.querySelector('[data-start-exam]');
+      if (examButton) examButton.addEventListener('click', () => {
+        examButton.disabled = true;
+        examButton.textContent = 'Exam in progress';
+        interaction.querySelector('[data-exam-status]').textContent = '59:59 remaining · answers and scoring are now active.';
+        showToast('Practice exam started');
+      });
+      const revealButton = interaction.querySelector('[data-reveal-step]');
+      if (revealButton) {
+        let step = 1;
+        revealButton.addEventListener('click', () => {
+          step = Math.min(3,step + 1);
+          const labels = ['Factor the expression.','Set each factor equal to zero.','Verify both roots in the original equation.'];
+          interaction.querySelector('[data-step-status]').textContent = 'Step ' + step + ' of 3 · ' + labels[step - 1];
+          if (step === 3) {
+            revealButton.textContent = 'Solution complete';
+            revealButton.disabled = true;
+          }
+        });
+      }
+    }
+
+    function openExample(index) {
+      const capability = capabilityData[selectedCapability];
+      selectedExample = capability.examples[index];
+      if (!selectedExample) return;
+      document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
+      document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
+      document.getElementById('dialogTitle').textContent = selectedExample.title;
+      document.getElementById('dialogDescription').textContent = selectedExample.description;
+      document.getElementById('dialogPreview').innerHTML = previewMarkup(selectedExample.preview);
+      document.getElementById('dialogInteraction').innerHTML = interactionMarkup(selectedExample.preview);
+      document.getElementById('dialogPrompt').textContent = selectedExample.prompt;
+      dialog.showModal();
+      bindDialogInteraction(selectedExample.preview);
+    }
+
+    function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; if (dialog.open) dialog.close(); }
+    function updateSubmit() { sendButton.disabled = !promptInput.value.trim(); }
+    function showToast(message) {
+      clearTimeout(toastTimer);
+      toast.textContent = message;
+      toast.classList.add('show');
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function addFiles(files) {
+      [...files].forEach(file => {
+        const chip = document.createElement('span');
+        chip.className = 'attachment-chip';
+        chip.innerHTML = `${icon(file.type.startsWith('image/') ? 'i-image' : 'i-file')}<span></span><button aria-label="Remove attachment">${icon('i-close')}</button>`;
+        chip.querySelector('span').textContent = file.name;
+        chip.querySelector('button').addEventListener('click', () => chip.remove());
+        attachmentRow.appendChild(chip);
+      });
+      if (files.length && !promptInput.value.trim()) promptInput.value = `Use my uploaded material to ${capabilityData[selectedCapability].action.toLowerCase()} this.`;
+      updateSubmit();
+      if (files.length) showToast(`${files.length} file${files.length === 1 ? '' : 's'} added`);
+    }
+
+    function insertAtCursor(value) {
+      const start = promptInput.selectionStart;
+      const end = promptInput.selectionEnd;
+      promptInput.value = promptInput.value.slice(0, start) + value + promptInput.value.slice(end);
+      promptInput.selectionStart = promptInput.selectionEnd = start + value.length;
+      promptInput.focus();
+      updateSubmit();
+    }
+
+    function handleCalculator(key) {
+      if (key === 'C') calcExpression = '';
+      else if (key === '⌫') calcExpression = calcExpression.slice(0, -1);
+      else if (key === '=') {
+        const safe = calcExpression.replaceAll('×','*').replaceAll('÷','/').replaceAll('−','-');
+        if (/^[0-9+*/().\-\s]+$/.test(safe)) {
+          try { calcExpression = String(Function(`"use strict";return (${safe})`)()); } catch { calcExpression = 'Error'; }
+        }
+      } else calcExpression = calcExpression === 'Error' ? key : calcExpression + key;
+      document.getElementById('calculatorDisplay').textContent = calcExpression || '0';
+    }
+
+    promptInput.addEventListener('input', () => { promptInput.style.height = 'auto'; promptInput.style.height = `${Math.min(promptInput.scrollHeight, 160)}px`; updateSubmit(); });
+    const createMathKey = (name, display, insert, latex = insert) => ({ name, display, insert, latex });
+    const fractionDisplay = (top = '□', bottom = '□') => '<span class="math-fraction"><span>' + top + '</span><span>' + bottom + '</span></span>';
+    const rootDisplay = (index = '') => index
+      ? '<span class="math-nth-root"><sup>' + index + '</sup><span class="math-root">√<span class="math-radicand">□</span></span></span>'
+      : '<span class="math-root">√<span class="math-radicand">□</span></span>';
+    const boundedDisplay = (symbol, upper = '□', lower = '□') => '<span class="math-bounded"><sup>' + upper + '</sup><b>' + symbol + '</b><sub>' + lower + '</sub></span>';
+    const functionDisplay = value => '<span class="math-function">' + value + '</span>';
+    const vectorDisplay = value => '<span class="math-vector">' + value + '</span>';
+    const mathCommonKeys = [
+      createMathKey('Fraction', fractionDisplay(), '\\frac{□}{□}'),
+      createMathKey('Superscript', '<span class="math-template"><i>x</i><sup>□</sup></span>', 'x^{□}'),
+      createMathKey('Subscript', '<span class="math-template"><i>x</i><sub>□</sub></span>', 'x_{□}'),
+      createMathKey('Square root', rootDisplay(), '\\sqrt{□}'),
+      createMathKey('Nth root', rootDisplay('□'), '\\sqrt[□]{□}'),
+      createMathKey('Logarithm with base', '<span class="math-template">' + functionDisplay('log') + '<sub>□</sub></span>', '\\log_{□}(□)'),
+      createMathKey('Definite integral', boundedDisplay('∫'), '\\int_{□}^{□}'),
+      createMathKey('Bounded summation', boundedDisplay('∑'), '\\sum_{□}^{□}'),
+      createMathKey('Pi', 'π', 'π', '\\pi'),
+      createMathKey('Infinity', '∞', '∞', '\\infty')
+    ];
+    const mathKeyCategories = {
+      popular: { label:'Popular', columns:10, keys:[
+        createMathKey('Addition','+','+'), createMathKey('Subtraction','−','−','-'), createMathKey('Multiplication','×','×','\\times'),
+        createMathKey('Division','÷','÷','\\div'), createMathKey('Factorial','!','!'), createMathKey('Common logarithm',functionDisplay('log'),'\\log(□)'),
+        createMathKey('Natural logarithm',functionDisplay('ln'),'\\ln(□)'), createMathKey('Square','<span class="math-template"><i>x</i><sup>2</sup></span>','x^{2}'),
+        createMathKey('Reciprocal','<span class="math-template"><i>x</i><sup>−1</sup></span>','x^{-1}'),
+        createMathKey('Binomial coefficient','<span class="math-binomial"><span>n</span><span>k</span></span>','\\binom{n}{k}'),
+        createMathKey('Pi','π','π','\\pi'), createMathKey('Vector',vectorDisplay('□'),'\\vec{□}'), createMathKey("Euler's number",'<i>e</i>','e'),
+        createMathKey('Exponential function','<span class="math-template"><i>e</i><sup>x</sup></span>','e^{x}'), createMathKey('Imaginary unit','<i>i</i>','i')
+      ]},
+      trig: { label:'sin cos', columns:8, keys:[
+        createMathKey('Theta','<i>θ</i>','θ','\\theta'), createMathKey('Degrees','<span class="math-template">□°</span>','□°','□^{\\circ}'),
+        createMathKey('Sine',functionDisplay('sin'),'\\sin(□)'), createMathKey('Cosine',functionDisplay('cos'),'\\cos(□)'), createMathKey('Tangent',functionDisplay('tan'),'\\tan(□)'),
+        createMathKey('Cotangent',functionDisplay('cot'),'\\cot(□)'), createMathKey('Cosecant',functionDisplay('csc'),'\\csc(□)'), createMathKey('Secant',functionDisplay('sec'),'\\sec(□)'),
+        createMathKey('Hyperbolic sine',functionDisplay('sinh'),'\\sinh(□)'), createMathKey('Hyperbolic cosine',functionDisplay('cosh'),'\\cosh(□)'),
+        createMathKey('Hyperbolic tangent',functionDisplay('tanh'),'\\tanh(□)'), createMathKey('Hyperbolic cotangent',functionDisplay('coth'),'\\coth(□)'),
+        createMathKey('Inverse sine',functionDisplay('arcsin'),'\\arcsin(□)'), createMathKey('Inverse cosine',functionDisplay('arccos'),'\\arccos(□)'),
+        createMathKey('Inverse tangent',functionDisplay('arctan'),'\\arctan(□)'), createMathKey('Inverse cosecant',functionDisplay('arccsc'),'\\operatorname{arccsc}(□)'),
+        createMathKey('Inverse secant',functionDisplay('arcsec'),'\\operatorname{arcsec}(□)'), createMathKey('Inverse cotangent',functionDisplay('arccot'),'\\operatorname{arccot}(□)'),
+        createMathKey('Approximately equal','≈','≈','\\approx'), createMathKey('Congruent','≅','≅','\\cong'), createMathKey('Perpendicular','⊥','⊥','\\perp'),
+        createMathKey('Parallel','∥','∥','\\parallel'), createMathKey('Vector',vectorDisplay('□'),'\\vec{□}'),
+        createMathKey('Vector dot product','<span class="math-dot-product">' + vectorDisplay('u') + '<b>·</b>' + vectorDisplay('v') + '</span>','\\vec{u}\\cdot\\vec{v}'),
+        createMathKey('Directed segment AB',vectorDisplay('AB'),'\\overrightarrow{AB}')
+      ]},
+      calculus: { label:'Calculus', columns:10, keys:[
+        createMathKey('Definite integral',boundedDisplay('∫'),'\\int_{□}^{□}'), createMathKey('Derivative with respect to x',fractionDisplay('<i>d</i>','<i>dx</i>'),'\\frac{d}{dx}'),
+        createMathKey('Partial derivative with respect to x',fractionDisplay('∂','∂x'),'\\frac{\\partial}{\\partial x}'),
+        createMathKey('Limit as x approaches a value','<span class="math-template">' + functionDisplay('lim') + '<sub>x→□</sub></span>','\\lim_{x\\to□}'),
+        createMathKey('Bounded summation',boundedDisplay('∑'),'\\sum_{□}^{□}'), createMathKey('Indexed bounded product',boundedDisplay('∏','□','i=□'),'\\prod_{i=□}^{□}'),
+        createMathKey('Bounded product',boundedDisplay('∏'),'\\prod_{□}^{□}'), createMathKey('Contour integral',boundedDisplay('∮'),'\\oint_{□}^{□}'),
+        createMathKey('Second derivative',fractionDisplay('<i>d</i><sup>2</sup>','<i>dx</i><sup>2</sup>'),'\\frac{d^{2}}{dx^{2}}'),
+        createMathKey('Second partial derivative',fractionDisplay('∂<sup>2</sup>','∂x<sup>2</sup>'),'\\frac{\\partial^{2}}{\\partial x^{2}}'),
+        createMathKey('Laplacian','∇²','∇²','\\nabla^{2}')
+      ]},
+      comparisons: { label:'≥ ≠', columns:10, keys:[
+        createMathKey('Greater than','&gt;','>','>'), createMathKey('Less than','&lt;','<','<'), createMathKey('Equal','=','='),
+        createMathKey('Greater than or equal','≥','≥','\\geq'), createMathKey('Less than or equal','≤','≤','\\leq'), createMathKey('Not equal','≠','≠','\\neq'),
+        createMathKey('Plus or minus','±','±','\\pm'), createMathKey('Identical or equivalent','≡','≡','\\equiv'), createMathKey('Much greater than','≫','≫','\\gg'),
+        createMathKey('Much less than','≪','≪','\\ll'), createMathKey('Similar to','∼','∼','\\sim'), createMathKey('Asymptotically equal','≃','≃','\\simeq'),
+        createMathKey('Approximately equal','≈','≈','\\approx'), createMathKey('Not approximately equal','≉','≉','\\not\\approx')
+      ]},
+      sets: { label:'∈ ⊂', columns:10, keys:[
+        createMathKey('For all','∀','∀','\\forall'), createMathKey('There exists','∃','∃','\\exists'), createMathKey('Empty set','∅','∅','\\varnothing'),
+        createMathKey('Element of','∈','∈','\\in'), createMathKey('Not an element of','∉','∉','\\notin'), createMathKey('Contains as member','∋','∋','\\ni'),
+        createMathKey('Proper subset','⊂','⊂','\\subset'), createMathKey('Subset or equal','⊆','⊆','\\subseteq'), createMathKey('Proper superset','⊃','⊃','\\supset'),
+        createMathKey('Union','∪','∪','\\cup'), createMathKey('Intersection','∩','∩','\\cap'), createMathKey('Disjoint union','⊔','⊔','\\sqcup'),
+        createMathKey('Logical and','∧','∧','\\land'), createMathKey('Logical or','∨','∨','\\lor'), createMathKey('Precedes','≺','≺','\\prec'),
+        createMathKey('Precedes or equal','≼','≼','\\preceq'), createMathKey('Succeeds','≻','≻','\\succ'), createMathKey('Logical not','¬','¬','\\neg'),
+        createMathKey('Indexed union',boundedDisplay('∪','b','a'),'\\bigcup_{a}^{b}'), createMathKey('Indexed intersection',boundedDisplay('∩','b','a'),'\\bigcap_{a}^{b}')
+      ]},
+      arrows: { label:'→', columns:10, keys:[
+        createMathKey('Left arrow','←','←','\\leftarrow'), createMathKey('Right arrow','→','→','\\rightarrow'), createMathKey('Left-right arrow','↔','↔','\\leftrightarrow'),
+        createMathKey('Left double arrow','⇐','⇐','\\Leftarrow'), createMathKey('Right double arrow','⇒','⇒','\\Rightarrow'),
+        createMathKey('Left-right double arrow','⇔','⇔','\\Leftrightarrow'), createMathKey('Maps to','↦','↦','\\mapsto'),
+        createMathKey('Up arrow','↑','↑','\\uparrow'), createMathKey('Down arrow','↓','↓','\\downarrow'), createMathKey('Up-down arrow','↕','↕','\\updownarrow'),
+        createMathKey('Descending diagonal dots','⋱','⋱','\\ddots'), createMathKey('Centered dots','⋯','⋯','\\cdots'),
+        createMathKey('Horizontal ellipsis','…','…','\\ldots'), createMathKey('Vertical dots','⋮','⋮','\\vdots')
+      ]},
+      greek: { label:'Ω Δ', columns:10, keys:[
+        createMathKey('Uppercase Sigma','Σ','Σ','\\Sigma'), createMathKey('Uppercase Pi','Π','Π','\\Pi'), createMathKey('Uppercase Gamma','Γ','Γ','\\Gamma'),
+        createMathKey('Uppercase Delta','Δ','Δ','\\Delta'), createMathKey('Nabla','∇','∇','\\nabla'), createMathKey('Uppercase Theta','Θ','Θ','\\Theta'),
+        createMathKey('Uppercase Lambda','Λ','Λ','\\Lambda'), createMathKey('Uppercase Phi','Φ','Φ','\\Phi'), createMathKey('Uppercase Psi','Ψ','Ψ','\\Psi'),
+        createMathKey('Uppercase Omega','Ω','Ω','\\Omega'), createMathKey('Uppercase Upsilon','Υ','Υ','\\Upsilon'), createMathKey('Uppercase Xi','Ξ','Ξ','\\Xi'),
+        createMathKey('Alpha','<i>α</i>','α','\\alpha'), createMathKey('Beta','<i>β</i>','β','\\beta'), createMathKey('Gamma','<i>γ</i>','γ','\\gamma'),
+        createMathKey('Delta','<i>δ</i>','δ','\\delta'), createMathKey('Epsilon','<i>ε</i>','ε','\\epsilon'), createMathKey('Zeta','<i>ζ</i>','ζ','\\zeta'),
+        createMathKey('Eta','<i>η</i>','η','\\eta'), createMathKey('Theta','<i>θ</i>','θ','\\theta'), createMathKey('Mu','<i>μ</i>','μ','\\mu'),
+        createMathKey('Nu','<i>ν</i>','ν','\\nu'), createMathKey('Xi','<i>ξ</i>','ξ','\\xi'), createMathKey('Rho','<i>ρ</i>','ρ','\\rho'),
+        createMathKey('Sigma','<i>σ</i>','σ','\\sigma'), createMathKey('Tau','<i>τ</i>','τ','\\tau'), createMathKey('Phi','<i>φ</i>','φ','\\phi'),
+        createMathKey('Chi','<i>χ</i>','χ','\\chi'), createMathKey('Psi','<i>ψ</i>','ψ','\\psi'), createMathKey('Omega','<i>ω</i>','ω','\\omega')
+      ]}
+    };
+    function escapeMathAttribute(value) {
+      return String(value).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+    }
+    function mathKeyMarkup(key) {
+      const name = escapeMathAttribute(key.name);
+      return '<button type="button" class="math-key" data-math-value="' + escapeMathAttribute(key.insert) + '" data-math-latex="' + escapeMathAttribute(key.latex) + '" aria-label="' + name + '" title="' + name + '">' + key.display + '</button>';
+    }
+    function mathKeyboardMarkup() {
+      const categories = Object.entries(mathKeyCategories).map(([id, category], index) =>
+        '<button type="button" class="math-category' + (index === 0 ? ' active' : '') + '" data-math-category="' + id + '" aria-selected="' + String(index === 0) + '">' + category.label + '</button>'
+      ).join('');
+      return '<div class="math-keyboard" aria-label="Math keyboard"><div class="math-keyboard-head" role="tablist" aria-label="Math symbol categories">' + categories + '<button type="button" class="math-close" data-close-math aria-label="Close math keyboard">' + icon('i-close') + '</button></div><div class="math-keyboard-body"><div class="math-key-grid math-common-grid" style="--math-columns:10" aria-label="Common math templates">' + mathCommonKeys.map(mathKeyMarkup).join('') + '</div><div class="math-key-grid math-category-grid" style="--math-columns:10" aria-label="Popular symbols">' + mathKeyCategories.popular.keys.map(mathKeyMarkup).join('') + '</div></div></div>';
+    }
+    function bindMathKeyEvents(scope) {
+      scope.querySelectorAll('[data-math-value]').forEach(key => key.addEventListener('click', () => insertAdvancedMath(key.dataset.mathValue)));
+    }
+    function renderMathCategory(categoryId) {
+      const category = mathKeyCategories[categoryId] || mathKeyCategories.popular;
+      const grid = mathToolsHost.querySelector('.math-category-grid');
+      if (!grid) return;
+      grid.style.setProperty('--math-columns', category.columns);
+      grid.setAttribute('aria-label', category.label + ' symbols');
+      grid.innerHTML = category.keys.map(mathKeyMarkup).join('');
+      bindMathKeyEvents(grid);
+    }
+    function toggleMathKeyboard(event) {
+      const button = event.currentTarget;
+      const opening = mathToolsHost.innerHTML.trim() === '';
+      mathToolsHost.innerHTML = opening ? mathKeyboardMarkup() : '';
+      button.classList.toggle('active', opening);
+      button.setAttribute('aria-expanded', String(opening));
+      if (!opening) return;
+      mathToolsHost.querySelector('[data-close-math]').addEventListener('click', () => {
+        mathToolsHost.innerHTML = '';
+        button.classList.remove('active');
+        button.setAttribute('aria-expanded','false');
+      });
+      bindMathKeyEvents(mathToolsHost);
+      mathToolsHost.querySelectorAll('.math-category').forEach(category => category.addEventListener('click', () => {
+        mathToolsHost.querySelectorAll('.math-category').forEach(item => {
+          const active = item === category;
+          item.classList.toggle('active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        renderMathCategory(category.dataset.mathCategory);
+      }));
+    }
+    function insertAdvancedMath(value) {
+      const start = promptInput.selectionStart ?? promptInput.value.length;
+      const end = promptInput.selectionEnd ?? start;
+      promptInput.value = promptInput.value.slice(0,start) + value + promptInput.value.slice(end);
+      const placeholder = value.indexOf('□');
+      promptInput.focus();
+      if (placeholder >= 0) promptInput.setSelectionRange(start + placeholder, start + placeholder + 1);
+      else promptInput.setSelectionRange(start + value.length,start + value.length);
+      updateSubmit();
+    }
+
+    promptInput.addEventListener('keydown', event => { if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !sendButton.disabled) sendButton.click(); });
+    sendButton.addEventListener('click', () => { if (sendButton.disabled) return; showToast(`${capabilityData[selectedCapability].action} started with Solvely AI`); setTimeout(() => openExample(0), 420); });
+
+    function calculatorMarkup() {
+      const keys = [['⌫','back'],['AC','clear'],['^','^'],['÷','÷'],['7','7'],['8','8'],['9','9'],['×','×'],['4','4'],['5','5'],['6','6'],['−','−'],['1','1'],['2','2'],['3','3'],['+','+'],['(−)','neg'],['0','0'],['.','.'],['=','=']];
+      const keyMarkup = keys.map(([label,value]) => '<button class="calc-key ' + (['÷','×','−','+','='].includes(value) ? 'operator' : '') + '" data-calc-value="' + value + '">' + label + '</button>').join('');
+      return '<div class="calc-head" data-calculator-drag-handle><span class="calc-grip">⠿</span><strong style="font-size:13px">Calculator</strong><div class="calc-head-actions"><button class="calc-head-btn calc-expand" data-toggle-calculator-size aria-label="Expand graphing calculator" title="Expand graphing calculator"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button><button class="calc-head-btn" data-close-calculator aria-label="Close calculator">' + icon('i-close') + '</button></div></div><div class="calc-tabs"><button class="calc-tab active" data-calc-tab="basic">Basic</button><button class="calc-tab" data-calc-tab="graph">Graphing</button></div><div class="calc-basic" data-calc-view="basic"><div class="calc-display" id="calcDisplay">0</div><div class="calc-grid">' + keyMarkup + '</div></div><div class="calc-graph" data-calc-view="graph" hidden><div class="geogebra-status" data-geogebra-status>Loading GeoGebra Graphing Calculator…</div><div id="ggb-element" class="geogebra-host" aria-label="GeoGebra Graphing Calculator"></div></div><div class="geogebra-attribution" data-geogebra-attribution hidden><a href="https://www.geogebra.org/" target="_blank" rel="noreferrer">Made with GeoGebra®</a></div>';
+    }
+    function waitForGeoGebraLibrary(timeout = 20000) {
+      if (typeof window.GGBApplet === 'function') return Promise.resolve();
+      return new Promise((resolve,reject) => {
+        const started = Date.now();
+        const check = () => {
+          if (typeof window.GGBApplet === 'function') resolve();
+          else if (Date.now() - started >= timeout) reject(new Error('GeoGebra library timed out'));
+          else setTimeout(check,120);
+        };
+        check();
+      });
+    }
+    function initializeGeoGebraGraphing() {
+      if (geogebraInitPromise) return geogebraInitPromise;
+      const host = calculatorPanel.querySelector('#ggb-element');
+      const status = calculatorPanel.querySelector('[data-geogebra-status]');
+      if (!host) return Promise.resolve();
+      geogebraInitPromise = waitForGeoGebraLibrary().then(() => {
+        const bounds = host.getBoundingClientRect();
+        geogebraApplet = new window.GGBApplet({
+          id:'solvelyGraphingApi', appName:'graphing', width:Math.max(280,Math.round(bounds.width)), height:Math.max(300,Math.round(bounds.height)),
+          showToolBar:true, showAlgebraInput:true, showMenuBar:false, showResetIcon:false, enableShiftDragZoom:true,
+          appletOnLoad(api) {
+            geogebraApi = api;
+            window.solvelyGeoGebraApi = api;
+            api.evalCommand('f(x)=sin(x)');
+            api.setGridVisible(1,true);
+            api.showAlgebraInput(true);
+            if (status) status.hidden = true;
+          }
+        },true);
+        geogebraApplet.inject('ggb-element');
+      }).catch(error => {
+        console.error(error);
+        if (status) {
+          status.textContent = 'GeoGebra could not load. Check the network connection and try again.';
+          status.classList.add('error');
+        }
+      });
+      return geogebraInitPromise;
+    }
+    function getGeoGebraApi() {
+      return [geogebraApi,window.solvelyGraphingApi,window.ggbApplet].find(api => api && typeof api.setSize === 'function') || null;
+    }
+    function resizeGeoGebra(attempt = 0) {
+      const host = calculatorPanel.querySelector('#ggb-element');
+      if (!host || host.closest('[hidden]')) return;
+      const api = getGeoGebraApi();
+      if (!api) {
+        if (attempt < 20) setTimeout(() => resizeGeoGebra(attempt + 1),100);
+        return;
+      }
+      const bounds = host.getBoundingClientRect();
+      if (bounds.width > 0 && bounds.height > 0) api.setSize(Math.round(bounds.width),Math.round(bounds.height));
+    }
+    function clampCalculatorPosition(left,top) {
+      const rect = calculatorPanel.getBoundingClientRect();
+      return { left:Math.min(Math.max(8,left),Math.max(8,window.innerWidth - rect.width - 8)), top:Math.min(Math.max(8,top),Math.max(8,window.innerHeight - rect.height - 8)) };
+    }
+    function positionCalculator(left,top) {
+      const next = clampCalculatorPosition(left,top);
+      calculatorPanel.style.left = next.left + 'px';
+      calculatorPanel.style.top = next.top + 'px';
+    }
+    function placeCalculatorNear(button) {
+      const trigger = button.getBoundingClientRect();
+      const panel = calculatorPanel.getBoundingClientRect();
+      positionCalculator(trigger.right - panel.width,trigger.bottom + 10);
+    }
+    function updateCalculatorSizeButton() {
+      const button = calculatorPanel.querySelector('[data-toggle-calculator-size]');
+      if (!button) return;
+      const expanded = calculatorPanel.classList.contains('expanded');
+      button.setAttribute('aria-label',expanded ? 'Restore graphing calculator size' : 'Expand graphing calculator');
+      button.title = expanded ? 'Restore size' : 'Expand graphing calculator';
+    }
+    function setCalculatorExpanded(expanded) {
+      if (expanded === calculatorPanel.classList.contains('expanded')) return;
+      if (expanded) {
+        const rect = calculatorPanel.getBoundingClientRect();
+        calculatorRestorePosition = {left:rect.left,top:rect.top};
+        calculatorPanel.classList.add('expanded');
+        setTimeout(() => {
+          const next = calculatorPanel.getBoundingClientRect();
+          positionCalculator((window.innerWidth - next.width) / 2,(window.innerHeight - next.height) / 2);
+          resizeGeoGebra();
+        },220);
+      } else {
+        calculatorPanel.classList.remove('expanded');
+        setTimeout(() => {
+          const restore = calculatorRestorePosition || {left:16,top:16};
+          positionCalculator(restore.left,restore.top);
+          resizeGeoGebra();
+        },220);
+      }
+      updateCalculatorSizeButton();
+    }
+    function initializeCalculatorDrag() {
+      const handle = calculatorPanel.querySelector('[data-calculator-drag-handle]');
+      if (!handle) return;
+      handle.addEventListener('pointerdown', event => {
+        if (event.button !== 0 || event.target.closest('button')) return;
+        const rect = calculatorPanel.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const offsetY = event.clientY - rect.top;
+        handle.classList.add('dragging');
+        const move = moveEvent => positionCalculator(moveEvent.clientX - offsetX,moveEvent.clientY - offsetY);
+        const end = () => {
+          handle.classList.remove('dragging');
+          window.removeEventListener('pointermove',move);
+          window.removeEventListener('pointerup',end);
+          window.removeEventListener('pointercancel',end);
+        };
+        window.addEventListener('pointermove',move);
+        window.addEventListener('pointerup',end);
+        window.addEventListener('pointercancel',end);
+      });
+    }
+    function closeAdvancedCalculator(button) {
+      calculatorPanel.hidden = true;
+      calculatorPanel.classList.remove('graph-mode','expanded');
+      calculatorRestorePosition = null;
+      button.classList.remove('active');
+      button.setAttribute('aria-expanded','false');
+    }
+    function toggleAdvancedCalculator(event) {
+      const button = event.currentTarget;
+      const opening = calculatorPanel.hidden;
+      if (!opening) {
+        closeAdvancedCalculator(button);
+        return;
+      }
+      calculatorPanel.hidden = false;
+      button.classList.add('active');
+      button.setAttribute('aria-expanded','true');
+      calculatorPanel.classList.remove('graph-mode','expanded');
+      geogebraApplet = null;
+      geogebraApi = null;
+      geogebraInitPromise = null;
+      calculatorPanel.innerHTML = calculatorMarkup();
+      calcExpression = '';
+      updateAdvancedCalculatorDisplay();
+      placeCalculatorNear(button);
+      initializeCalculatorDrag();
+      calculatorPanel.querySelector('[data-close-calculator]').addEventListener('click', () => closeAdvancedCalculator(button));
+      calculatorPanel.querySelector('[data-toggle-calculator-size]').addEventListener('click', () => setCalculatorExpanded(!calculatorPanel.classList.contains('expanded')));
+      calculatorPanel.querySelectorAll('[data-calc-value]').forEach(key => key.addEventListener('click', () => handleAdvancedCalculatorKey(key.dataset.calcValue)));
+      calculatorPanel.querySelectorAll('[data-calc-tab]').forEach(tab => tab.addEventListener('click', () => {
+        const graphing = tab.dataset.calcTab === 'graph';
+        calculatorPanel.querySelectorAll('[data-calc-tab]').forEach(item => item.classList.toggle('active',item === tab));
+        calculatorPanel.querySelectorAll('[data-calc-view]').forEach(view => view.hidden = view.dataset.calcView !== tab.dataset.calcTab);
+        calculatorPanel.classList.toggle('graph-mode',graphing);
+        if (!graphing) setCalculatorExpanded(false);
+        calculatorPanel.querySelector('[data-geogebra-attribution]').hidden = !graphing;
+        updateCalculatorSizeButton();
+        if (graphing) requestAnimationFrame(() => initializeGeoGebraGraphing().then(() => setTimeout(resizeGeoGebra,80)));
+      }));
+    }
+    function updateAdvancedCalculatorDisplay(value = calcExpression || '0') {
+      const display = document.getElementById('calcDisplay');
+      if (display) display.textContent = value;
+    }
+    function handleAdvancedCalculatorKey(value) {
+      if (value === 'clear') calcExpression = '';
+      else if (value === 'back') calcExpression = calcExpression.slice(0,-1);
+      else if (value === 'neg') calcExpression = calcExpression.startsWith('−') ? calcExpression.slice(1) : '−' + calcExpression;
+      else if (value === '=') {
+        const safe = calcExpression.replaceAll('×','*').replaceAll('÷','/').replaceAll('−','-').replaceAll('^','**');
+        if (/^[0-9+*/().\-\s*]+$/.test(safe)) {
+          try { calcExpression = String(Function('"use strict";return (' + safe + ')')()); }
+          catch { updateAdvancedCalculatorDisplay('Error'); return; }
+        }
+      } else calcExpression += value;
+      updateAdvancedCalculatorDisplay();
+    }
+
+    document.getElementById('attachButton').addEventListener('click', () => document.getElementById('fileInput').click());
+    document.getElementById('imageButton').addEventListener('click', () => document.getElementById('imageInput').click());
+    document.getElementById('linkButton').addEventListener('click', event => {
+      const opening = linkPopover.hidden;
+      linkPopover.hidden = !opening;
+      event.currentTarget.classList.toggle('active', opening);
+      event.currentTarget.setAttribute('aria-expanded', String(opening));
+      document.getElementById('modelPopover').hidden = true;
+      document.getElementById('modelButton').setAttribute('aria-expanded','false');
+      if (opening) setTimeout(() => linkInput.focus(), 0);
+    });
+    document.getElementById('addLinkButton').addEventListener('click', () => {
+      const value = linkInput.value.trim();
+      let normalized = value;
+      if (normalized && !/^https?:\/\//i.test(normalized)) normalized = 'https://' + normalized;
+      try {
+        const parsed = new URL(normalized);
+        if (!/^https?:$/.test(parsed.protocol)) throw new Error('Unsupported protocol');
+        const linkKind = document.getElementById('linkButton').dataset.linkKind;
+        const isYouTube = linkKind === 'youtube';
+        if (isYouTube && !/(^|\.)youtube\.com$|(^|\.)youtu\.be$/.test(parsed.hostname.toLowerCase())) throw new Error('Not a YouTube URL');
+        const chip = document.createElement('span');
+        chip.className = 'attachment-chip';
+        chip.innerHTML = `${icon(isYouTube ? 'i-youtube' : 'i-link')}<span></span><button aria-label="Remove link">${icon('i-close')}</button>`;
+        chip.querySelector('span').textContent = parsed.hostname.replace(/^www\./,'');
+        chip.title = parsed.href;
+        chip.dataset.url = parsed.href;
+        chip.querySelector('button').addEventListener('click', () => chip.remove());
+        attachmentRow.appendChild(chip);
+        if (!promptInput.value.trim()) promptInput.value = isYouTube
+          ? `Use this YouTube video as the source: ${parsed.href}`
+          : `Use the material at ${parsed.href} to ${capabilityData[selectedCapability].action.toLowerCase()} this.`;
+        updateSubmit();
+        linkInput.value = '';
+        linkPopover.hidden = true;
+        document.getElementById('linkButton').classList.remove('active');
+        document.getElementById('linkButton').setAttribute('aria-expanded','false');
+        showToast(isYouTube ? 'YouTube video added' : 'Study material link added');
+      } catch {
+        linkInput.setCustomValidity(document.getElementById('linkButton').dataset.linkKind === 'youtube' ? 'Enter a valid YouTube URL.' : 'Enter a valid public web address.');
+        linkInput.reportValidity();
+        linkInput.addEventListener('input', () => linkInput.setCustomValidity(''), {once:true});
+      }
+    });
+    linkInput.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); document.getElementById('addLinkButton').click(); } });
+    writingEditor.addEventListener('input', updateWritingEditorState);
+    writingEditor.addEventListener('keydown', event => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !writingActionButton.disabled) writingActionButton.click();
+    });
+    document.getElementById('writingSampleButton').addEventListener('click', () => {
+      writingEditor.value = 'Spring is a beautiful season that brings warmth and new life to the environment. During this time, flowers begin to bloom and trees turn green again. The weather becomes more pleasant, and people often spend more time outdoors. Many individuals feel happier and more energetic as the days grow longer. Spring also represents a fresh start and new opportunities for growth and development. Overall, it is a season that has a positive impact on both nature and human emotions.';
+      updateWritingEditorState();
+      writingEditor.focus();
+    });
+    document.getElementById('writingUploadButton').addEventListener('click', () => document.getElementById('writingFileInput').click());
+    document.getElementById('writingFileInput').addEventListener('change', event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      if (file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt')) {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => { writingEditor.value = String(reader.result || ''); updateWritingEditorState(); showToast(file.name + ' uploaded'); });
+        reader.readAsText(file);
+      } else {
+        writingEditor.value = `Uploaded file: ${file.name}\n\nPaste or review the extracted text here before processing.`;
+        updateWritingEditorState();
+        showToast(file.name + ' uploaded');
+      }
+      event.target.value = '';
+    });
+    document.getElementById('writingHistoryButton').addEventListener('click', event => {
+      const popover = document.getElementById('writingHistoryPopover');
+      popover.hidden = !popover.hidden;
+      event.currentTarget.setAttribute('aria-expanded', String(!popover.hidden));
+      const copy = popover.querySelector('p');
+      copy.textContent = writingHistory.length ? writingHistory.slice(-3).reverse().join('\n') : 'No processed drafts yet. Your latest result will appear here.';
+    });
+    writingActionButton.addEventListener('click', () => {
+      const value = writingEditor.value.trim();
+      if (!value) return;
+      const toolKey = selectedCapability;
+      writingActionButton.disabled = true;
+      const label = writingActionButton.querySelector('span');
+      const originalLabel = writingToolData[toolKey].action;
+      label.textContent = 'Processing…';
+      setTimeout(() => {
+        writingResultContent.textContent = processWritingText(toolKey, value);
+        writingResultContent.classList.add('has-result');
+        writingHistory.push(`${writingToolData[toolKey].label} · ${value.split(/\s+/).length} words`);
+        label.textContent = originalLabel;
+        writingActionButton.disabled = false;
+        showToast(originalLabel + ' complete');
+      }, 420);
+    });
+    document.getElementById('fileInput').addEventListener('change', event => addFiles(event.target.files));
+    document.getElementById('imageInput').addEventListener('change', event => addFiles(event.target.files));
+    document.getElementById('mathButton').addEventListener('click', toggleMathKeyboard);
+    document.getElementById('calculatorButton').addEventListener('click', toggleAdvancedCalculator);
+
+    document.getElementById('modelButton').addEventListener('click', event => {
+      const popover = document.getElementById('modelPopover');
+      popover.hidden = !popover.hidden;
+      event.currentTarget.setAttribute('aria-expanded', String(!popover.hidden));
+    });
+    document.querySelectorAll('[data-model]').forEach(option => option.addEventListener('click', () => {
+      document.getElementById('modelLabel').textContent = option.dataset.model;
+      document.querySelectorAll('[data-model]').forEach(item => item.classList.toggle('active', item === option));
+      document.querySelectorAll('[data-model] .model-check').forEach(check => check.textContent = '');
+      option.querySelector('.model-check').textContent = '✓';
+      document.getElementById('modelPopover').hidden = true;
+      document.getElementById('modelButton').setAttribute('aria-expanded','false');
+      showToast(`${option.dataset.model} selected`);
+    }));
+    document.getElementById('voiceButton').addEventListener('click', event => {
+      const listening = event.currentTarget.getAttribute('aria-pressed') !== 'true';
+      event.currentTarget.setAttribute('aria-pressed', String(listening));
+      event.currentTarget.classList.toggle('active', listening);
+      showToast(listening ? 'Voice input is listening' : 'Voice input stopped');
+    });
+
+    const composerShell = document.getElementById('composerShell');
+    composerShell.addEventListener('dragenter', event => { event.preventDefault(); dragDepth += 1; composerShell.classList.add('dragging'); });
+    composerShell.addEventListener('dragover', event => { event.preventDefault(); if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy'; });
+    composerShell.addEventListener('dragleave', event => { event.preventDefault(); dragDepth = Math.max(0, dragDepth - 1); if (!dragDepth) composerShell.classList.remove('dragging'); });
+    composerShell.addEventListener('drop', event => { event.preventDefault(); dragDepth = 0; composerShell.classList.remove('dragging'); addFiles(event.dataTransfer.files); });
+
+    document.getElementById('sidebarCollapse').addEventListener('click', () => app.classList.toggle('sidebar-collapsed'));
+    sidebar.addEventListener('mouseenter', () => {
+      if (app.classList.contains('sidebar-collapsed')) app.classList.remove('sidebar-collapsed');
+    });
+    document.getElementById('mobileMenu').addEventListener('click', () => app.classList.toggle('mobile-sidebar-open'));
+    document.getElementById('themeToggle').addEventListener('click', () => document.body.classList.toggle('dark'));
+    document.querySelectorAll('[data-toast]').forEach(button => button.addEventListener('click', () => showToast(button.dataset.toast)));
+    document.querySelectorAll('[data-recent-capability]').forEach(button => button.addEventListener('click', () => {
+      selectCapability(button.dataset.recentCapability);
+      promptInput.value = button.dataset.recentPrompt;
+      updateSubmit();
+      promptInput.focus();
+    }));
+    document.getElementById('chatButton').addEventListener('click', () => showToast('Solvely support is ready'));
+    document.getElementById('dialogClose').addEventListener('click', closeDialog);
+    document.getElementById('dialogCancel').addEventListener('click', closeDialog);
+    document.getElementById('useExampleButton').addEventListener('click', () => {
+      if (!selectedExample) return;
+      promptInput.value = selectedExample.prompt;
+      updateSubmit();
+      closeDialog();
+      promptInput.focus();
+      document.getElementById('composerShell').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    document.getElementById('examCourseSearch').addEventListener('input', renderCourseCatalog);
+    document.getElementById('examCourseFilter').addEventListener('change', renderCourseCatalog);
+    document.querySelectorAll('[data-workspace-mode]').forEach(button => button.addEventListener('click', () => selectWorkspaceMode(button.dataset.workspaceMode)));
+    dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(); });
+    dialog.addEventListener('close', () => { clearInterval(mediaTimer); mediaTimer = null; });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        document.getElementById('modelPopover').hidden = true;
+        if (app.classList.contains('mobile-sidebar-open')) app.classList.remove('mobile-sidebar-open');
+      }
+    });
+    window.addEventListener('resize', () => {
+      if (calculatorPanel.hidden) return;
+      const rect = calculatorPanel.getBoundingClientRect();
+      positionCalculator(rect.left, rect.top);
+      setTimeout(resizeGeoGebra, 230);
+    });
+
+    selectWorkspaceMode('study', false);
+  </script>
+</body>
+</html>
