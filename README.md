@@ -32,6 +32,5 @@ npx vercel deploy --prod
 
 - GitHub template: https://github.com/shuoxindai-blip/solvely-home-experiment
 - Experiment: https://solvely-home-experiment.vercel.app/
-- Control: https://solvely-home-demo.vercel.app/
 
-Use the GitHub repository’s **Use this template** button to create an independent copy. The experiment is maintained separately from the control so design changes do not overwrite the control group.
+Use the GitHub repository’s **Use this template** button to create an independent copy for further design iteration or deployment.
