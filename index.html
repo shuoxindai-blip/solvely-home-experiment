@@ -140,7 +140,7 @@
     .extension-cta { position: relative; height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 15px; border: 1px solid rgba(17, 66, 175, .14); border-radius: 12px; background: #2368f0; color: #fff; box-shadow: 0 6px 18px rgba(35, 104, 240, .20); font-size: 13px; font-weight: 700; line-height: 1; text-decoration: none; white-space: nowrap; transition: transform .16s ease, background .16s ease, box-shadow .16s ease; }
     .extension-cta:hover { background: #185ddd; box-shadow: 0 8px 22px rgba(35, 104, 240, .26); transform: translateY(-1px); }
     .extension-cta:active { transform: translateY(0); }
-    .extension-chrome-icon { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .extension-browser-icon { width: 18px; height: 18px; flex: 0 0 auto; fill: currentColor; }
     .extension-tooltip { position: absolute; top: calc(100% + 9px); right: 0; width: max-content; max-width: 180px; padding: 8px 10px; border: 1px solid rgba(25, 38, 63, .10); border-radius: 9px; background: #171b23; color: #fff; box-shadow: 0 10px 28px rgba(24, 33, 50, .18); font-size: 11px; font-weight: 600; line-height: 1; pointer-events: none; opacity: 0; transform: translateY(-4px); transition: opacity .14s ease, transform .14s ease; }
     .extension-tooltip::before { content: ""; position: absolute; right: 22px; top: -4px; width: 8px; height: 8px; background: #171b23; transform: rotate(45deg); }
     .extension-cta:hover .extension-tooltip, .extension-cta:focus-visible .extension-tooltip { opacity: 1; transform: translateY(0); }
@@ -170,6 +170,7 @@
     }
 
     .capability-strip { display: flex; gap: 6px; padding: 11px 12px 9px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); }
+    .capability-strip[hidden] { display: none; }
     .capability-strip::-webkit-scrollbar { display: none; }
     .capability-button {
       min-width: max-content; height: 36px; display: inline-flex; align-items: center; gap: 7px; padding: 0 10px;
@@ -530,7 +531,7 @@
       .topbar-actions { display:none; }
       .extension-entry { top: 10px; right: 14px; }
       .extension-cta { height: 36px; padding-inline: 12px; border-radius: 10px; font-size: 12px; }
-      .extension-chrome-icon { width: 17px; height: 17px; }
+      .extension-browser-icon { width: 17px; height: 17px; }
       .mobile-menu { display: grid; margin-right: 8px; }
       .sidebar-collapse { display: none; }
       .workspace { width: min(720px, calc(100% - 28px)); padding-top: 16px; }
@@ -679,10 +680,10 @@
     </aside>
 
     <main>
-      <div class="extension-entry" aria-label="Solvely Chrome extension">
-        <a class="extension-cta" href="https://chromewebstore.google.com/detail/aedglnfjjccpifohekdeoogffomjcikm" target="_blank" rel="noopener" aria-describedby="extensionTooltip">
-          <svg class="extension-chrome-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="3.3"/><path d="M3.8 8h8.7M8.1 20l4.4-8M20.2 8 16 15.3"/></svg>
-          <span>Add to Chrome</span>
+      <div class="extension-entry" id="extensionEntry" aria-label="Solvely browser extension">
+        <a class="extension-cta" id="extensionCta" href="https://chromewebstore.google.com/detail/aedglnfjjccpifohekdeoogffomjcikm" target="_blank" rel="noopener" aria-describedby="extensionTooltip" aria-label="Get the Chrome Extension">
+          <svg class="extension-browser-icon" id="extensionBrowserIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728Z"/></svg>
+          <span id="extensionCtaLabel">Get the Chrome Extension</span>
           <span class="extension-tooltip" id="extensionTooltip" role="tooltip">Solve anywhere on the web</span>
         </a>
       </div>
@@ -701,6 +702,7 @@
           <h1>What can Solvely help you with?</h1>
           <div class="workspace-mode-switch" id="workspaceModeSwitch" role="tablist" aria-label="Choose workspace mode">
             <button class="workspace-mode-button" role="tab" aria-selected="true" data-workspace-mode="study"><svg class="icon"><use href="#i-book"/></svg><span>Study</span></button>
+            <button class="workspace-mode-button" role="tab" aria-selected="false" data-workspace-mode="exam"><svg class="icon"><use href="#i-target"/></svg><span>Exam Prep</span></button>
             <button class="workspace-mode-button" role="tab" aria-selected="false" data-workspace-mode="writing"><svg class="icon"><use href="#i-wand"/></svg><span>Writing</span></button>
           </div>
         </header>
@@ -808,6 +810,36 @@
   <script id="geogebra-deploy-script" src="https://www.geogebra.org/apps/deployggb.js" defer></script>
   <script>
     const icon = id => `<svg class="icon"><use href="#${id}"/></svg>`;
+    const extensionTargets = {
+      chrome: {
+        label: 'Get the Chrome Extension',
+        href: 'https://chromewebstore.google.com/detail/aedglnfjjccpifohekdeoogffomjcikm',
+        viewBox: '0 0 24 24',
+        icon: '<path d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728Z"/>'
+      },
+      edge: {
+        label: 'Get the Edge Extension',
+        href: 'https://microsoftedge.microsoft.com/addons/detail/mmbhhcmacpojimkcgnkkfemajlfhdhoh',
+        viewBox: '0 0 16 16',
+        icon: '<path d="M9.482 9.341c-.069.062-.17.153-.17.309 0 .162.107.325.3.456.877.613 2.521.54 2.592.538h.002c.667 0 1.32-.18 1.894-.519A3.84 3.84 0 0 0 16 6.819c.018-1.316-.44-2.218-.666-2.664l-.04-.08C13.963 1.487 11.106 0 8 0A8 8 0 0 0 .473 5.29C1.488 4.048 3.183 3.262 5 3.262c2.83 0 5.01 1.885 5.01 4.797h-.004v.002c0 .338-.168.832-.487 1.244l.006-.006z"/><path d="M.01 7.753a8.14 8.14 0 0 0 .753 3.641 8 8 0 0 0 6.495 4.564 5 5 0 0 1-.785-.377h-.01l-.12-.075a5.5 5.5 0 0 1-1.56-1.463A5.543 5.543 0 0 1 6.81 5.8l.01-.004.025-.012c.208-.098.62-.292 1.167-.285q.194.001.384.033a4 4 0 0 0-.993-.698l-.01-.005C6.348 4.282 5.199 4.263 5 4.263c-2.44 0-4.824 1.634-4.99 3.49m10.263 7.912q.133-.04.265-.084-.153.047-.307.086z"/><path d="M10.228 15.667a5 5 0 0 0 .303-.086l.082-.025a8.02 8.02 0 0 0 4.162-3.3.25.25 0 0 0-.331-.35q-.322.168-.663.294a6.4 6.4 0 0 1-2.243.4c-2.957 0-5.532-2.031-5.532-4.644q.003-.203.046-.399a4.54 4.54 0 0 0-.46 5.898l.003.005c.315.441.707.821 1.158 1.121h.003l.144.09c.877.55 1.721 1.078 3.328.996"/>'
+      }
+    };
+
+    function configureExtensionCta() {
+      const override = new URLSearchParams(window.location.search).get('browser');
+      const brands = (navigator.userAgentData?.brands || []).map(brand => brand.brand).join(' ');
+      const isEdge = override === 'edge' || (override !== 'chrome' && (/Edg\//.test(navigator.userAgent) || /Microsoft Edge/i.test(brands)));
+      const target = extensionTargets[isEdge ? 'edge' : 'chrome'];
+      const cta = document.getElementById('extensionCta');
+      const browserIcon = document.getElementById('extensionBrowserIcon');
+      document.getElementById('extensionCtaLabel').textContent = target.label;
+      document.getElementById('extensionEntry').setAttribute('aria-label', `Solvely ${isEdge ? 'Edge' : 'Chrome'} extension`);
+      cta.href = target.href;
+      cta.setAttribute('aria-label', target.label);
+      browserIcon.setAttribute('viewBox', target.viewBox);
+      browserIcon.innerHTML = target.icon;
+    }
+
     const capabilityData = {
       solver: {
         label: 'Solver', icon: 'i-solver', action: 'Solve',
@@ -965,7 +997,8 @@
     ];
 
     const capabilityGroups = {
-      study: ['solver', 'graph', 'video', 'flashcards', 'quiz', 'guide', 'podcast', 'mock'],
+      study: ['solver', 'graph', 'video', 'flashcards', 'quiz', 'guide', 'podcast'],
+      exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
     let workspaceMode = 'study';
@@ -1031,12 +1064,13 @@
       if (!capabilityGroups[mode]) return;
       workspaceMode = mode;
       document.getElementById('composerShell').classList.toggle('writing-layout', mode === 'writing');
+      capabilityStrip.hidden = mode === 'exam';
       document.querySelector('.examples-section').hidden = mode === 'writing';
       document.querySelectorAll('[data-workspace-mode]').forEach(button => {
         button.setAttribute('aria-selected', String(button.dataset.workspaceMode === mode));
       });
       selectCapability(capabilityGroups[mode][0], false);
-      if (announce) showToast(mode === 'study' ? 'Study workspace selected' : 'Writing workspace selected');
+      if (announce) showToast(mode === 'study' ? 'Study workspace selected' : mode === 'exam' ? 'Exam Prep workspace selected' : 'Writing workspace selected');
     }
 
     function updateWritingEditorState() {
@@ -1808,6 +1842,7 @@
       setTimeout(resizeGeoGebra, 230);
     });
 
+    configureExtensionCta();
     selectWorkspaceMode('study', false);
   </script>
 </body>
