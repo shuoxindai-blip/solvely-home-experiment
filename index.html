@@ -787,9 +787,9 @@
           <input id="writingFileInput" type="file" accept=".pdf,.doc,.docx,.txt,text/plain,application/pdf" hidden />
         </section>
 
-        <section class="examples-section" aria-labelledby="examplesTitle">
+        <section class="examples-section" aria-label="Examples">
           <div class="examples-heading">
-            <div class="examples-copy"><span id="examplesKicker">Explore examples</span><h2 id="examplesTitle">See what Solvely can help you do</h2></div>
+            <div class="examples-copy"><span id="examplesKicker">Explore examples</span><h2 id="examplesTitle" hidden></h2></div>
             <p class="examples-description" id="examplesDescription"></p>
           </div>
           <div class="examples-grid" id="examplesGrid"></div>
@@ -1087,7 +1087,8 @@
 
     function renderStudyOverview() {
       document.getElementById('examplesKicker').textContent = 'Explore examples';
-      examplesTitle.textContent = 'See what Solvely can help you do';
+      examplesTitle.textContent = '';
+      examplesTitle.hidden = true;
       examplesDescription.textContent = 'Browse examples grouped by study tool.';
       examplesGrid.classList.remove('four-up');
       examplesGrid.classList.add('study-overview-grid');
@@ -1199,6 +1200,7 @@
     function renderExamples() {
       const capability = capabilityData[selectedCapability];
       document.getElementById('examplesKicker').textContent = 'Selected capability';
+      examplesTitle.hidden = false;
       examplesTitle.textContent = selectedCapability === 'mock' ? 'What’s in Your Exam Prep Plan' : `${capability.label} examples`;
       examplesDescription.textContent = capability.description;
       examplesGrid.classList.remove('study-overview-grid');
