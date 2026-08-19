@@ -382,16 +382,7 @@
     .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
     .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .examples-grid.four-up { grid-template-columns: repeat(4,minmax(0,1fr)); }
-    .examples-grid.study-overview-grid { grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:10px; }
-    .study-feature-card { min-width:0; min-height:108px; display:grid; grid-template-columns:38px minmax(0,1fr) 18px; align-items:center; gap:12px; padding:15px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
-    .study-feature-card:hover { transform:translateY(-2px); border-color:rgba(var(--accent-rgb),.3); box-shadow:var(--shadow-soft); }
-    .study-feature-icon { width:38px; height:38px; display:grid; place-items:center; border-radius:11px; background:rgba(var(--accent-rgb),.08); color:var(--accent); }
-    .study-feature-icon .icon { width:19px; height:19px; }
-    .study-feature-copy { min-width:0; }
-    .study-feature-copy strong { display:block; margin-bottom:5px; font-size:14px; font-weight:660; }
-    .study-feature-copy small { display:-webkit-box; overflow:hidden; color:var(--muted); font-size:10px; line-height:1.45; white-space:normal; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
-    .study-feature-arrow { color:var(--subtle); }
-    .study-feature-arrow .icon { width:15px; height:15px; transform:rotate(-90deg); }
+    .examples-grid.study-overview-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
     .example-card {
       min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; min-height: 0; padding: 15px;
       border: 1px solid var(--line); border-radius: 17px; background: var(--surface); text-align: left; cursor: pointer;
@@ -529,6 +520,7 @@
       .math-keyboard-head,.math-keyboard-body { min-width:760px; }
       .examples-description { display: none; }
       .examples-grid.four-up { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .examples-grid.study-overview-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .course-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
 
@@ -547,6 +539,7 @@
       .workspace { width: min(720px, calc(100% - 28px)); padding-top: 16px; }
       .hero { margin-top: 12px; }
       .examples-grid { grid-template-columns: 1fr; }
+      .examples-grid.study-overview-grid { grid-template-columns:1fr; }
       .examples-grid.four-up { grid-template-columns:1fr; }
       .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
       .example-meta, .example-card h3, .example-cta { grid-column: 1; }
@@ -784,7 +777,7 @@
 
         <section class="examples-section" aria-labelledby="examplesTitle">
           <div class="examples-heading">
-            <div class="examples-copy"><span id="examplesKicker">Explore study tools</span><h2 id="examplesTitle">Choose how you want to learn</h2></div>
+            <div class="examples-copy"><span id="examplesKicker">Explore examples</span><h2 id="examplesTitle">See what Solvely can help you do</h2></div>
             <p class="examples-description" id="examplesDescription"></p>
           </div>
           <div class="examples-grid" id="examplesGrid"></div>
@@ -1011,15 +1004,6 @@
       exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
-    const studyFeatureDescriptions = {
-      solver: 'Get clear, step-by-step answers across subjects.',
-      graph: 'Visualize equations, functions, and data.',
-      video: 'Turn difficult concepts into visual explainers.',
-      flashcards: 'Build active-recall cards from your materials.',
-      quiz: 'Practice with adaptive questions and feedback.',
-      guide: 'Organize notes into a focused review guide.',
-      podcast: 'Learn from a conversational audio lesson.'
-    };
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1042,6 +1026,7 @@
     const dialog = document.getElementById('exampleDialog');
     let selectedCapability = null;
     let selectedExample = null;
+    let selectedExampleCapability = null;
     let toastTimer;
     let dragDepth = 0;
     let calcExpression = '';
@@ -1080,28 +1065,30 @@
     }
 
     function renderStudyOverview() {
-      document.getElementById('examplesKicker').textContent = 'Explore study tools';
-      examplesTitle.textContent = 'Choose how you want to learn';
-      examplesDescription.textContent = 'Start with a question or pick the study tool that fits your goal.';
+      document.getElementById('examplesKicker').textContent = 'Explore examples';
+      examplesTitle.textContent = 'See what Solvely can help you do';
+      examplesDescription.textContent = 'Explore examples across every study tool.';
       examplesGrid.classList.remove('four-up');
       examplesGrid.classList.add('study-overview-grid');
-      examplesGrid.innerHTML = capabilityGroups.study.map(key => {
+      examplesGrid.innerHTML = capabilityGroups.study.flatMap(key => {
         const capability = capabilityData[key];
-        return `<button class="study-feature-card" data-study-feature="${key}" aria-label="Explore ${capability.label}">
-          <span class="study-feature-icon">${icon(capability.icon)}</span>
-          <span class="study-feature-copy"><strong>${capability.label}</strong><small>${studyFeatureDescriptions[key]}</small></span>
-          <span class="study-feature-arrow">${icon('i-chevron')}</span>
-        </button>`;
+        return capability.examples.map((example, index) => `
+          <button class="example-card" data-study-example-capability="${key}" data-study-example-index="${index}" aria-label="Preview ${capability.label}: ${example.title}">
+            <span class="example-meta"><span>${capability.label} · ${example.tag}</span></span>
+            <h3>${example.title}</h3>
+            ${previewMarkup(example.preview)}
+            <span class="example-cta"><span>Try this example</span>${icon('i-chevron')}</span>
+          </button>`);
       }).join('');
-      examplesGrid.querySelectorAll('[data-study-feature]').forEach(card => card.addEventListener('click', () => {
-        selectCapability(card.dataset.studyFeature, false);
-        document.getElementById('composerShell').scrollIntoView({behavior:'smooth',block:'center'});
+      examplesGrid.querySelectorAll('[data-study-example-capability]').forEach(card => card.addEventListener('click', () => {
+        openExample(Number(card.dataset.studyExampleIndex), card.dataset.studyExampleCapability);
       }));
     }
 
     function resetStudyWorkspace() {
       selectedCapability = null;
       selectedExample = null;
+      selectedExampleCapability = null;
       mathToolsHost.innerHTML = '';
       document.getElementById('mathButton').classList.remove('active');
       document.getElementById('mathButton').setAttribute('aria-expanded','false');
@@ -1346,10 +1333,12 @@
       }
     }
 
-    function openExample(index) {
-      const capability = capabilityData[selectedCapability];
+    function openExample(index, capabilityKey = selectedCapability) {
+      const capability = capabilityData[capabilityKey];
+      if (!capability) return;
       selectedExample = capability.examples[index];
       if (!selectedExample) return;
+      selectedExampleCapability = capabilityKey;
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
       document.getElementById('dialogTitle').textContent = selectedExample.title;
@@ -1905,6 +1894,7 @@
     document.getElementById('dialogCancel').addEventListener('click', closeDialog);
     document.getElementById('useExampleButton').addEventListener('click', () => {
       if (!selectedExample) return;
+      if (selectedExampleCapability && selectedExampleCapability !== selectedCapability) selectCapability(selectedExampleCapability, false);
       promptInput.value = selectedExample.prompt;
       updateSubmit();
       closeDialog();
