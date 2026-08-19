@@ -376,6 +376,7 @@
 
     .examples-section { margin-top: 28px; }
     .examples-heading { display: flex; align-items: flex-end; gap: 24px; margin-bottom: 13px; }
+    .examples-heading[hidden] { display:none; }
     .examples-copy { min-width: 0; }
     .examples-copy span { display: block; margin-bottom: 4px; color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .examples-copy h2 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
@@ -788,7 +789,7 @@
         </section>
 
         <section class="examples-section" aria-label="Examples">
-          <div class="examples-heading">
+          <div class="examples-heading" id="examplesHeading" hidden>
             <div class="examples-copy"><span id="examplesKicker">Explore examples</span><h2 id="examplesTitle" hidden></h2></div>
             <p class="examples-description" id="examplesDescription"></p>
           </div>
@@ -1033,6 +1034,7 @@
     const sendButton = document.getElementById('sendButton');
     const sendLabel = document.getElementById('sendLabel');
     const examplesGrid = document.getElementById('examplesGrid');
+    const examplesHeading = document.getElementById('examplesHeading');
     const examplesTitle = document.getElementById('examplesTitle');
     const examplesDescription = document.getElementById('examplesDescription');
     const attachmentRow = document.getElementById('attachmentRow');
@@ -1086,10 +1088,11 @@
     }
 
     function renderStudyOverview() {
-      document.getElementById('examplesKicker').textContent = 'Explore examples';
+      examplesHeading.hidden = true;
+      document.getElementById('examplesKicker').textContent = '';
       examplesTitle.textContent = '';
       examplesTitle.hidden = true;
-      examplesDescription.textContent = 'Browse examples grouped by study tool.';
+      examplesDescription.textContent = '';
       examplesGrid.classList.remove('four-up');
       examplesGrid.classList.add('study-overview-grid');
       examplesGrid.innerHTML = capabilityGroups.study.map(key => {
@@ -1199,6 +1202,7 @@
 
     function renderExamples() {
       const capability = capabilityData[selectedCapability];
+      examplesHeading.hidden = false;
       document.getElementById('examplesKicker').textContent = 'Selected capability';
       examplesTitle.hidden = false;
       examplesTitle.textContent = selectedCapability === 'mock' ? 'What’s in Your Exam Prep Plan' : `${capability.label} examples`;
