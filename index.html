@@ -382,7 +382,15 @@
     .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
     .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .examples-grid.four-up { grid-template-columns: repeat(4,minmax(0,1fr)); }
-    .examples-grid.study-overview-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .examples-grid.study-overview-grid { display:flex; flex-direction:column; gap:34px; }
+    .study-example-group { --accent:var(--group-accent); --accent-rgb:var(--group-rgb); min-width:0; }
+    .study-example-group + .study-example-group { padding-top:30px; border-top:1px solid var(--line); }
+    .study-example-group-heading { display:flex; align-items:baseline; gap:14px; margin-bottom:13px; }
+    .study-example-group-heading h3 { margin:0; color:var(--text); font-size:18px; line-height:1.25; letter-spacing:-.02em; }
+    .study-example-group-heading span { color:var(--group-accent); font-size:11px; font-weight:650; }
+    .study-example-group-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .study-example-group .example-card { background:linear-gradient(180deg,rgba(var(--group-rgb),.045),var(--surface) 38%); }
+    .study-example-group .example-card:hover { border-color:rgba(var(--group-rgb),.34); }
     .example-card {
       min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; min-height: 0; padding: 15px;
       border: 1px solid var(--line); border-radius: 17px; background: var(--surface); text-align: left; cursor: pointer;
@@ -520,7 +528,7 @@
       .math-keyboard-head,.math-keyboard-body { min-width:760px; }
       .examples-description { display: none; }
       .examples-grid.four-up { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .examples-grid.study-overview-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .study-example-group-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .course-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
 
@@ -539,7 +547,7 @@
       .workspace { width: min(720px, calc(100% - 28px)); padding-top: 16px; }
       .hero { margin-top: 12px; }
       .examples-grid { grid-template-columns: 1fr; }
-      .examples-grid.study-overview-grid { grid-template-columns:1fr; }
+      .study-example-group-grid { grid-template-columns:1fr; }
       .examples-grid.four-up { grid-template-columns:1fr; }
       .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
       .example-meta, .example-card h3, .example-cta { grid-column: 1; }
@@ -572,6 +580,10 @@
       .examples-heading { align-items: center; }
       .examples-copy h2 { font-size: 18px; }
       .examples-grid { gap: 9px; }
+      .examples-grid.study-overview-grid { gap:26px; }
+      .study-example-group + .study-example-group { padding-top:24px; }
+      .study-example-group-heading { display:block; margin-bottom:11px; }
+      .study-example-group-heading span { display:block; margin-top:4px; }
       .example-card { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto 116px auto; min-height: 0; }
       .example-meta, .example-card h3, .example-preview, .example-cta { grid-column: 1; }
       .example-preview { grid-row: 3; }
@@ -1004,6 +1016,15 @@
       exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
+    const studyOverviewGroups = {
+      solver: { caption:'Step-by-step answers', color:'#2368f0', rgb:'35,104,240' },
+      graph: { caption:'Visualize equations and data', color:'#0b8ca8', rgb:'11,140,168' },
+      video: { caption:'Concepts explained visually', color:'#6b56d9', rgb:'107,86,217' },
+      flashcards: { caption:'Practice active recall', color:'#4f68c9', rgb:'79,104,201' },
+      quiz: { caption:'Check your understanding', color:'#bd6822', rgb:'189,104,34' },
+      guide: { caption:'Organize what to review', color:'#16865d', rgb:'22,134,93' },
+      podcast: { caption:'Learn by listening', color:'#8a4fb5', rgb:'138,79,181' }
+    };
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1067,18 +1088,28 @@
     function renderStudyOverview() {
       document.getElementById('examplesKicker').textContent = 'Explore examples';
       examplesTitle.textContent = 'See what Solvely can help you do';
-      examplesDescription.textContent = 'Explore examples across every study tool.';
+      examplesDescription.textContent = 'Browse examples grouped by study tool.';
       examplesGrid.classList.remove('four-up');
       examplesGrid.classList.add('study-overview-grid');
-      examplesGrid.innerHTML = capabilityGroups.study.flatMap(key => {
+      examplesGrid.innerHTML = capabilityGroups.study.map(key => {
         const capability = capabilityData[key];
-        return capability.examples.map((example, index) => `
-          <button class="example-card" data-study-example-capability="${key}" data-study-example-index="${index}" aria-label="Preview ${capability.label}: ${example.title}">
-            <span class="example-meta"><span>${capability.label} · ${example.tag}</span></span>
-            <h3>${example.title}</h3>
-            ${previewMarkup(example.preview)}
-            <span class="example-cta"><span>Try this example</span>${icon('i-chevron')}</span>
-          </button>`);
+        const group = studyOverviewGroups[key];
+        return `
+          <section class="study-example-group" style="--group-accent:${group.color};--group-rgb:${group.rgb}" aria-labelledby="study-group-${key}">
+            <div class="study-example-group-heading">
+              <h3 id="study-group-${key}">${capability.label}</h3>
+              <span>${group.caption}</span>
+            </div>
+            <div class="study-example-group-grid">
+              ${capability.examples.map((example, index) => `
+                <button class="example-card" data-study-example-capability="${key}" data-study-example-index="${index}" aria-label="Preview ${capability.label}: ${example.title}">
+                  <span class="example-meta"><span>${example.tag}</span></span>
+                  <h3>${example.title}</h3>
+                  ${previewMarkup(example.preview)}
+                  <span class="example-cta"><span>Try this example</span>${icon('i-chevron')}</span>
+                </button>`).join('')}
+            </div>
+          </section>`;
       }).join('');
       examplesGrid.querySelectorAll('[data-study-example-capability]').forEach(card => card.addEventListener('click', () => {
         openExample(Number(card.dataset.studyExampleIndex), card.dataset.studyExampleCapability);
