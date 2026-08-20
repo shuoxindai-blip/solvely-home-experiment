@@ -390,7 +390,6 @@
     .study-example-group-heading h3 { margin:0; color:var(--text); font-size:18px; line-height:1.25; letter-spacing:-.02em; }
     .study-example-group-heading span { color:var(--group-accent); font-size:11px; font-weight:650; }
     .study-example-group-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-    .study-example-group.summary-row .study-example-group-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
     .study-example-group .example-card { background:linear-gradient(180deg,rgba(var(--group-rgb),.045),var(--surface) 38%); }
     .study-example-group .example-card:hover { border-color:rgba(var(--group-rgb),.34); }
     .example-card {
@@ -555,7 +554,6 @@
       .examples-description { display: none; }
       .examples-grid.four-up { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .study-example-group-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .study-example-group.summary-row .study-example-group-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .course-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
 
@@ -575,7 +573,6 @@
       .hero { margin-top: 12px; }
       .examples-grid { grid-template-columns: 1fr; }
       .study-example-group-grid { grid-template-columns:1fr; }
-      .study-example-group.summary-row .study-example-group-grid { grid-template-columns:1fr; }
       .examples-grid.four-up { grid-template-columns:1fr; }
       .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
       .example-meta, .example-card h3, .example-cta { grid-column: 1; }
@@ -1045,25 +1042,6 @@
       exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
-    const homepageSummaryRows = [
-      {
-        key:'solver', title:'Solver', caption:'Solve a problem', color:'#2368f0', rgb:'35,104,240',
-        items: capabilityData.solver.examples.map(example => ({ ...example, capability:'solver' }))
-      },
-      {
-        key:'study', title:'Study', caption:'Study my materials', color:'#6b56d9', rgb:'107,86,217',
-        items: [
-          { capability:'guide', tag:'Understand', title:'Study Guide', description:'Turn learning materials into a structured guide.', prompt:'Create a Study Guide about how the brain works from my materials.', preview:'guide', cta:'Open guide' },
-          { capability:'flashcards', tag:'Memorize', title:'Flashcards', description:'Practice the most important ideas with active recall.', prompt:'Create 32 flashcards about how the brain works.', preview:'flashcards', cta:'Try a card' },
-          { capability:'quiz', tag:'Practice', title:'Quiz', description:'Check understanding with instant feedback.', prompt:'Create a 10-question quiz about the major brain regions and their functions.', preview:'quiz', cta:'Answer a question' },
-          { capability:'podcast', tag:'Listen', title:'Podcast', description:'Listen to a conversational audio lesson.', prompt:'Create an 8-minute podcast explaining how the brain works.', preview:'podcast', cta:'Listen to preview' }
-        ]
-      },
-      {
-        key:'exam', title:'Exam Prep', caption:'Prepare for an exam', color:'#16865d', rgb:'22,134,93',
-        items: capabilityData.mock.examples.map(example => ({ ...example, capability:'mock' }))
-      }
-    ];
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1143,67 +1121,13 @@
       capabilityStrip.querySelectorAll('[data-capability]').forEach(button => button.addEventListener('click', () => selectCapability(button.dataset.capability)));
     }
 
-    function renderSummaryRows(rows) {
-      examplesHeading.hidden = true;
-      document.getElementById('examplesKicker').textContent = '';
-      examplesTitle.textContent = '';
-      examplesTitle.hidden = true;
-      examplesDescription.textContent = '';
-      examplesGrid.classList.remove('four-up');
-      examplesGrid.classList.add('study-overview-grid');
-      examplesGrid.innerHTML = rows.map(row => {
-        const rowIndex = homepageSummaryRows.indexOf(row);
-        return `
-          <section class="study-example-group summary-row" style="--group-accent:${row.color};--group-rgb:${row.rgb}" aria-labelledby="summary-group-${row.key}">
-            <div class="study-example-group-heading">
-              <h3 id="summary-group-${row.key}">${row.title}</h3>
-              <span>${row.caption}</span>
-            </div>
-            <div class="study-example-group-grid">
-              ${row.items.map((example, itemIndex) => `
-                <button class="example-card" data-summary-row="${rowIndex}" data-summary-item="${itemIndex}" aria-label="Preview ${row.title}: ${example.title}">
-                  <span class="example-meta"><span>${example.tag}</span></span>
-                  <h3>${example.title}</h3>
-                  ${previewMarkup(example.preview)}
-                  <span class="example-cta"><span>${example.cta || 'Try this example'}</span>${icon('i-chevron')}</span>
-                </button>`).join('')}
-            </div>
-          </section>`;
-      }).join('');
-      examplesGrid.querySelectorAll('[data-summary-row]').forEach(card => card.addEventListener('click', () => {
-        const row = homepageSummaryRows[Number(card.dataset.summaryRow)];
-        openExampleData(row.items[Number(card.dataset.summaryItem)], row.items[Number(card.dataset.summaryItem)].capability);
-      }));
-    }
-
-    function renderStudyOverview() { renderSummaryRows(homepageSummaryRows); }
-    function renderStudyMaterialOverview() { renderSummaryRows([homepageSummaryRows[1]]); }
-
-    function resetStudyWorkspace(showHomepageSummary = true) {
-      selectedCapability = showHomepageSummary ? 'solver' : null;
+    function resetStudyWorkspace() {
       selectedExample = null;
       selectedExampleCapability = null;
-      mathToolsHost.innerHTML = '';
-      document.getElementById('mathButton').classList.remove('active');
-      document.getElementById('mathButton').setAttribute('aria-expanded','false');
-      linkPopover.hidden = true;
-      document.getElementById('linkButton').classList.remove('active');
-      document.getElementById('linkButton').setAttribute('aria-expanded','false');
-      if (!calculatorPanel.hidden) closeAdvancedCalculator(document.getElementById('calculatorButton'));
-      document.documentElement.style.setProperty('--accent', '#2368f0');
-      document.documentElement.style.setProperty('--accent-rgb', '35, 104, 240');
-      promptInput.placeholder = showHomepageSummary ? capabilityData.solver.placeholder : 'Paste notes, upload materials, or add a link to start studying';
-      promptInput.value = '';
-      sendLabel.textContent = showHomepageSummary ? capabilityData.solver.action : 'Create study set';
-      updateComposerTools(showHomepageSummary ? 'solver' : 'guide');
-      renderCapabilities();
-      if (showHomepageSummary) renderStudyOverview();
-      else renderStudyMaterialOverview();
-      document.getElementById('examCatalog').hidden = true;
-      updateSubmit();
+      selectCapability('solver', false);
     }
 
-    function selectWorkspaceMode(mode, announce = true, initialLoad = false) {
+    function selectWorkspaceMode(mode, announce = true) {
       if (!capabilityGroups[mode]) return;
       workspaceMode = mode;
       document.getElementById('composerShell').classList.toggle('writing-layout', mode === 'writing');
@@ -1212,7 +1136,7 @@
       document.querySelectorAll('[data-workspace-mode]').forEach(button => {
         button.setAttribute('aria-selected', String(button.dataset.workspaceMode === mode));
       });
-      if (mode === 'study') resetStudyWorkspace(initialLoad);
+      if (mode === 'study') resetStudyWorkspace();
       else selectCapability(capabilityGroups[mode][0], false);
       if (announce) showToast(mode === 'study' ? 'Study workspace selected' : mode === 'exam' ? 'Exam Prep workspace selected' : 'Writing workspace selected');
     }
@@ -2025,7 +1949,7 @@
     });
 
     configureExtensionCta();
-    selectWorkspaceMode('study', false, true);
+    selectWorkspaceMode('study', false);
   </script>
 </body>
 </html>
