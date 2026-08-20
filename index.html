@@ -390,6 +390,7 @@
     .study-example-group-heading h3 { margin:0; color:var(--text); font-size:18px; line-height:1.25; letter-spacing:-.02em; }
     .study-example-group-heading span { color:var(--group-accent); font-size:11px; font-weight:650; }
     .study-example-group-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .study-example-group.summary-row .study-example-group-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
     .study-example-group .example-card { background:linear-gradient(180deg,rgba(var(--group-rgb),.045),var(--surface) 38%); }
     .study-example-group .example-card:hover { border-color:rgba(var(--group-rgb),.34); }
     .example-card {
@@ -437,6 +438,30 @@
     .waveform i { width: 3px; border-radius: 3px; background: var(--accent); opacity: .7; }
     .waveform i:nth-child(1), .waveform i:nth-child(9) { height: 8px; }
     .waveform i:nth-child(2), .waveform i:nth-child(8) { height: 14px; }
+    .preview-chemistry { height:104px; display:grid; place-items:center; background:#fff; }
+    .preview-chemistry img { width:86%; height:86%; display:block; object-fit:contain; }
+    .preview-accounting svg { width:100%; height:104px; display:block; }
+    .preview-exam-plan { height:104px; padding:9px; background:linear-gradient(145deg,#f8fbff,#f4f7ff); }
+    .summary-plan-week { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+    .summary-plan-day { padding:3px 1px; border-radius:5px; color:#7a879a; background:#fff; text-align:center; font-size:6px; font-weight:750; }
+    .summary-plan-day b { display:block; margin-top:2px; color:#36465e; font-size:8px; }
+    .summary-plan-day.active { color:#176cf1; background:#e7f1ff; }
+    .summary-plan-day.active b { color:#176cf1; }
+    .summary-plan-task { min-height:24px; margin-top:5px; padding:4px 6px; border:1px solid #e1e7f0; border-radius:6px; background:#fff; display:grid; grid-template-columns:12px 1fr auto; align-items:center; gap:5px; color:#41506a; font-size:7px; }
+    .summary-plan-task i { width:11px; height:11px; display:grid; place-items:center; border:1px solid #9eb8dd; border-radius:3px; color:white; font-size:6px; font-style:normal; }
+    .summary-plan-task.done i { border-color:#20a97d; background:#20a97d; }
+    .summary-plan-task em { color:#8a95a7; font-size:6px; font-style:normal; }
+    .preview-exam-review { height:104px; padding:10px; background:#f8fbff; }
+    .summary-review-top { display:flex; align-items:center; gap:9px; margin-bottom:7px; }
+    .summary-review-ring { width:40px; height:40px; flex:0 0 40px; position:relative; display:grid; place-items:center; border-radius:50%; background:conic-gradient(#7557e8 0 68%,#e7e3f8 68% 100%); }
+    .summary-review-ring::after { content:""; position:absolute; inset:6px; border-radius:50%; background:#fff; }
+    .summary-review-ring strong { position:relative; z-index:1; color:#5e42ce; font-size:9px; }
+    .summary-review-copy { color:#6f7d92; font-size:7px; line-height:1.35; }
+    .summary-review-copy strong { display:block; color:#26364e; font-size:9px; }
+    .summary-topic { display:grid; grid-template-columns:40px 1fr 22px; align-items:center; gap:5px; margin-top:5px; color:#5b687d; font-size:7px; }
+    .summary-topic i { height:4px; overflow:hidden; border-radius:9px; background:#e1e6ef; }
+    .summary-topic i b { display:block; height:100%; border-radius:inherit; background:#7557e8; }
+    .summary-topic em { color:#7557e8; font-size:6px; font-style:normal; text-align:right; }
     .waveform i:nth-child(3), .waveform i:nth-child(7) { height: 23px; }
     .waveform i:nth-child(4), .waveform i:nth-child(6) { height: 18px; }
     .waveform i:nth-child(5) { height: 28px; }
@@ -530,6 +555,7 @@
       .examples-description { display: none; }
       .examples-grid.four-up { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .study-example-group-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .study-example-group.summary-row .study-example-group-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .course-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
 
@@ -549,6 +575,7 @@
       .hero { margin-top: 12px; }
       .examples-grid { grid-template-columns: 1fr; }
       .study-example-group-grid { grid-template-columns:1fr; }
+      .study-example-group.summary-row .study-example-group-grid { grid-template-columns:1fr; }
       .examples-grid.four-up { grid-template-columns:1fr; }
       .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
       .example-meta, .example-card h3, .example-cta { grid-column: 1; }
@@ -862,9 +889,10 @@
         placeholder: 'Type, paste, or upload a problem to solve',
         description: 'Get a checked answer with a clear, step-by-step explanation.',
         examples: [
-          { tag: 'Algebra', title: 'Solve a quadratic equation', description: 'Factor, verify, and explain both roots.', prompt: 'Solve x² − 5x + 6 = 0 step by step and verify the roots.', preview: 'equation' },
-          { tag: 'Chemistry', title: 'Balance a chemical equation', description: 'Show coefficients and conservation checks.', prompt: 'Balance C₃H₈ + O₂ → CO₂ + H₂O and explain each step.', preview: 'quiz' },
-          { tag: 'Accounting', title: 'Analyze a journal entry', description: 'Identify accounts, debits, and credits.', prompt: 'A company buys $4,800 of equipment for cash. Create and explain the journal entry.', preview: 'guide' }
+          { tag: 'Algebra', title: 'Interactive graph', description: 'Explore the equation, intercepts, and vertex.', prompt: 'Graph y = x² − 4x + 3 and explain its intercepts and vertex.', preview: 'graph', cta: 'Try graphing' },
+          { tag: 'Geometry', title: 'Video explanation', description: 'Watch the geometry problem unfold step by step.', prompt: 'Create a short video explaining how to find the missing angle in this triangle.', preview: 'video', cta: 'Watch explanation' },
+          { tag: 'Chemistry', title: 'Structure visualization', description: 'Identify functional groups and explain the molecular structure.', prompt: 'Analyze this organic chemistry structure and identify its key functional groups.', preview: 'chemistry', cta: 'Explore structure' },
+          { tag: 'Accounting', title: 'Financial table analysis', description: 'Compare revenue, profit, expenses, and margin across periods.', prompt: 'Analyze this income statement and explain the most important year-over-year changes.', preview: 'accounting', cta: 'Analyze statement' }
         ]
       },
       graph: {
@@ -932,10 +960,10 @@
         placeholder: 'Choose an exam or describe what you are preparing for',
         description: 'Plan, practice, and track your exam progress.',
         examples: [
-          { tag: 'Plan', title: 'Daily study plan', description: 'Focused tasks that adapt to your exam date.', prompt: 'Build a daily study plan for my upcoming exam.', preview: 'guide' },
-          { tag: 'Review', title: 'Core topics review', description: 'See readiness and prioritize weak topics.', prompt: 'Review my core exam topics and identify the biggest gaps.', preview: 'guide' },
-          { tag: 'Practice', title: 'Practice exams', description: 'Timed sections with performance scoring.', prompt: 'Create a timed full-length practice exam with score insights.', preview: 'exam' },
-          { tag: 'Assess', title: 'Progress tracking', description: 'Follow score trends and projected readiness.', prompt: 'Create an exam readiness and score progress tracker.', preview: 'graph' }
+          { tag: 'Plan', title: 'Daily study plan', description: 'A focused schedule that adapts to your exam date.', prompt: 'Build a daily study plan for my upcoming exam.', preview: 'exam-plan', cta: 'View my plan' },
+          { tag: 'Review', title: 'Core topics', description: 'See readiness and prioritize weak topics.', prompt: 'Review my core exam topics and identify the biggest gaps.', preview: 'exam-review', cta: 'Review topics' },
+          { tag: 'Practice', title: 'Mock exams', description: 'Timed sections with performance scoring.', prompt: 'Create a timed full-length mock exam with score insights.', preview: 'exam-mock', cta: 'Take a mock exam' },
+          { tag: 'Assess', title: 'Progress tracking', description: 'Follow score trends and projected readiness.', prompt: 'Create an exam readiness and score progress tracker.', preview: 'exam-progress', cta: 'Track progress' }
         ]
       },
       essay: {
@@ -1017,15 +1045,25 @@
       exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
-    const studyOverviewGroups = {
-      solver: { caption:'Step-by-step answers', color:'#2368f0', rgb:'35,104,240' },
-      graph: { caption:'Visualize equations and data', color:'#0b8ca8', rgb:'11,140,168' },
-      video: { caption:'Concepts explained visually', color:'#6b56d9', rgb:'107,86,217' },
-      flashcards: { caption:'Practice active recall', color:'#4f68c9', rgb:'79,104,201' },
-      quiz: { caption:'Check your understanding', color:'#bd6822', rgb:'189,104,34' },
-      guide: { caption:'Organize what to review', color:'#16865d', rgb:'22,134,93' },
-      podcast: { caption:'Learn by listening', color:'#8a4fb5', rgb:'138,79,181' }
-    };
+    const homepageSummaryRows = [
+      {
+        key:'solver', title:'Solver', caption:'Solve a problem', color:'#2368f0', rgb:'35,104,240',
+        items: capabilityData.solver.examples.map(example => ({ ...example, capability:'solver' }))
+      },
+      {
+        key:'study', title:'Study', caption:'Study my materials', color:'#6b56d9', rgb:'107,86,217',
+        items: [
+          { capability:'guide', tag:'Understand', title:'Study Guide', description:'Turn learning materials into a structured guide.', prompt:'Create a Study Guide about how the brain works from my materials.', preview:'guide', cta:'Open guide' },
+          { capability:'flashcards', tag:'Memorize', title:'Flashcards', description:'Practice the most important ideas with active recall.', prompt:'Create 32 flashcards about how the brain works.', preview:'flashcards', cta:'Try a card' },
+          { capability:'quiz', tag:'Practice', title:'Quiz', description:'Check understanding with instant feedback.', prompt:'Create a 10-question quiz about the major brain regions and their functions.', preview:'quiz', cta:'Answer a question' },
+          { capability:'podcast', tag:'Listen', title:'Podcast', description:'Listen to a conversational audio lesson.', prompt:'Create an 8-minute podcast explaining how the brain works.', preview:'podcast', cta:'Listen to preview' }
+        ]
+      },
+      {
+        key:'exam', title:'Exam Prep', caption:'Prepare for an exam', color:'#16865d', rgb:'22,134,93',
+        items: capabilityData.mock.examples.map(example => ({ ...example, capability:'mock' }))
+      }
+    ];
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1068,9 +1106,27 @@
       return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg><span class="play-badge">${icon('i-play')}</span></div>`;
     }
 
+    function accountingPreview() {
+      return `<div class="example-preview preview-accounting"><svg viewBox="0 0 320 104" role="img" aria-label="Income statement analysis preview"><rect width="320" height="104" fill="#fff"/><rect x="10" y="9" width="300" height="17" rx="4" fill="#eef4ff"/><text x="18" y="20" font-size="7" font-weight="700" fill="#254b86">INCOME STATEMENT · FY 2025</text><g font-size="6.5" fill="#526077"><text x="18" y="41">Revenue</text><text x="218" y="41">$968.7</text><text x="287" y="41" fill="#16855b">+15%</text><text x="18" y="56">Gross profit</text><text x="218" y="56">$567.5</text><text x="287" y="56" fill="#16855b">+18.8%</text><text x="18" y="71">Expenses</text><text x="218" y="71">$318.4</text><text x="287" y="71" fill="#a65b13">+9%</text><text x="18" y="86" font-weight="700">Net income</text><text x="218" y="86" font-weight="700">$249.1</text><text x="287" y="86" font-weight="700" fill="#16855b">+34.3%</text></g><g stroke="#e1e6ee"><path d="M14 47H306M14 62H306M14 77H306"/></g></svg></div>`;
+    }
+
+    function examPlanPreview() {
+      return `<div class="example-preview preview-exam-plan"><div class="summary-plan-week">${['MON|17','TUE|18','WED|19','THU|20','FRI|21'].map((day,index) => { const [label,date] = day.split('|'); return `<span class="summary-plan-day${index === 1 ? ' active' : ''}">${label}<b>${date}</b></span>`; }).join('')}</div><div class="summary-plan-task done"><i>✓</i><span>Limits review</span><em>25 min</em></div><div class="summary-plan-task"><i></i><span>Practice FRQs</span><em>35 min</em></div></div>`;
+    }
+
+    function examReviewPreview() {
+      return `<div class="example-preview preview-exam-review"><div class="summary-review-top"><span class="summary-review-ring"><strong>68%</strong></span><span class="summary-review-copy"><strong>12 of 18 topics</strong>ready for the exam</span></div>${[['Algebra',82],['Geometry',64],['Data',48]].map(([label,value]) => `<div class="summary-topic"><span>${label}</span><i><b style="width:${value}%"></b></i><em>${value}%</em></div>`).join('')}</div>`;
+    }
+
     function previewMarkup(type) {
       if (type === 'graph') return graphPreview();
       if (type === 'video') return videoPreview();
+      if (type === 'chemistry') return `<div class="example-preview preview-chemistry"><img src="assets/chemistry-structure.png" alt="Organic chemistry structure visualization" /></div>`;
+      if (type === 'accounting') return accountingPreview();
+      if (type === 'exam-plan') return examPlanPreview();
+      if (type === 'exam-review') return examReviewPreview();
+      if (type === 'exam-mock') return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84%</strong><span>Score</span></div></div>`;
+      if (type === 'exam-progress') return graphPreview();
       if (type === 'equation') return `<div class="example-preview preview-equation"><div class="equation-main">x² − 5x + 6</div><div class="equation-steps"><i></i><i></i><i></i></div></div>`;
       if (type === 'flashcards') return `<div class="example-preview preview-flashcards"><div class="mini-card"><strong>Question</strong><i></i><i></i></div><div class="mini-card"><strong>Answer</strong><i></i><i></i></div></div>`;
       if (type === 'quiz') return `<div class="example-preview preview-quiz"><div class="quiz-option">Option A</div><div class="quiz-option correct">Option B</div><div class="quiz-option">Option C</div><div class="quiz-option">Option D</div></div>`;
@@ -1087,7 +1143,7 @@
       capabilityStrip.querySelectorAll('[data-capability]').forEach(button => button.addEventListener('click', () => selectCapability(button.dataset.capability)));
     }
 
-    function renderStudyOverview() {
+    function renderSummaryRows(rows) {
       examplesHeading.hidden = true;
       document.getElementById('examplesKicker').textContent = '';
       examplesTitle.textContent = '';
@@ -1095,33 +1151,36 @@
       examplesDescription.textContent = '';
       examplesGrid.classList.remove('four-up');
       examplesGrid.classList.add('study-overview-grid');
-      examplesGrid.innerHTML = capabilityGroups.study.map(key => {
-        const capability = capabilityData[key];
-        const group = studyOverviewGroups[key];
+      examplesGrid.innerHTML = rows.map(row => {
+        const rowIndex = homepageSummaryRows.indexOf(row);
         return `
-          <section class="study-example-group" style="--group-accent:${group.color};--group-rgb:${group.rgb}" aria-labelledby="study-group-${key}">
+          <section class="study-example-group summary-row" style="--group-accent:${row.color};--group-rgb:${row.rgb}" aria-labelledby="summary-group-${row.key}">
             <div class="study-example-group-heading">
-              <h3 id="study-group-${key}">${capability.label}</h3>
-              <span>${group.caption}</span>
+              <h3 id="summary-group-${row.key}">${row.title}</h3>
+              <span>${row.caption}</span>
             </div>
             <div class="study-example-group-grid">
-              ${capability.examples.map((example, index) => `
-                <button class="example-card" data-study-example-capability="${key}" data-study-example-index="${index}" aria-label="Preview ${capability.label}: ${example.title}">
+              ${row.items.map((example, itemIndex) => `
+                <button class="example-card" data-summary-row="${rowIndex}" data-summary-item="${itemIndex}" aria-label="Preview ${row.title}: ${example.title}">
                   <span class="example-meta"><span>${example.tag}</span></span>
                   <h3>${example.title}</h3>
                   ${previewMarkup(example.preview)}
-                  <span class="example-cta"><span>Try this example</span>${icon('i-chevron')}</span>
+                  <span class="example-cta"><span>${example.cta || 'Try this example'}</span>${icon('i-chevron')}</span>
                 </button>`).join('')}
             </div>
           </section>`;
       }).join('');
-      examplesGrid.querySelectorAll('[data-study-example-capability]').forEach(card => card.addEventListener('click', () => {
-        openExample(Number(card.dataset.studyExampleIndex), card.dataset.studyExampleCapability);
+      examplesGrid.querySelectorAll('[data-summary-row]').forEach(card => card.addEventListener('click', () => {
+        const row = homepageSummaryRows[Number(card.dataset.summaryRow)];
+        openExampleData(row.items[Number(card.dataset.summaryItem)], row.items[Number(card.dataset.summaryItem)].capability);
       }));
     }
 
-    function resetStudyWorkspace() {
-      selectedCapability = null;
+    function renderStudyOverview() { renderSummaryRows(homepageSummaryRows); }
+    function renderStudyMaterialOverview() { renderSummaryRows([homepageSummaryRows[1]]); }
+
+    function resetStudyWorkspace(showHomepageSummary = true) {
+      selectedCapability = showHomepageSummary ? 'solver' : null;
       selectedExample = null;
       selectedExampleCapability = null;
       mathToolsHost.innerHTML = '';
@@ -1133,17 +1192,18 @@
       if (!calculatorPanel.hidden) closeAdvancedCalculator(document.getElementById('calculatorButton'));
       document.documentElement.style.setProperty('--accent', '#2368f0');
       document.documentElement.style.setProperty('--accent-rgb', '35, 104, 240');
-      promptInput.placeholder = 'Type, paste, upload, or drag and drop anything you want to learn';
+      promptInput.placeholder = showHomepageSummary ? capabilityData.solver.placeholder : 'Paste notes, upload materials, or add a link to start studying';
       promptInput.value = '';
-      sendLabel.textContent = 'Ask';
-      updateComposerTools(null);
+      sendLabel.textContent = showHomepageSummary ? capabilityData.solver.action : 'Create study set';
+      updateComposerTools(showHomepageSummary ? 'solver' : 'guide');
       renderCapabilities();
-      renderStudyOverview();
+      if (showHomepageSummary) renderStudyOverview();
+      else renderStudyMaterialOverview();
       document.getElementById('examCatalog').hidden = true;
       updateSubmit();
     }
 
-    function selectWorkspaceMode(mode, announce = true) {
+    function selectWorkspaceMode(mode, announce = true, initialLoad = false) {
       if (!capabilityGroups[mode]) return;
       workspaceMode = mode;
       document.getElementById('composerShell').classList.toggle('writing-layout', mode === 'writing');
@@ -1152,7 +1212,7 @@
       document.querySelectorAll('[data-workspace-mode]').forEach(button => {
         button.setAttribute('aria-selected', String(button.dataset.workspaceMode === mode));
       });
-      if (mode === 'study') resetStudyWorkspace();
+      if (mode === 'study') resetStudyWorkspace(initialLoad);
       else selectCapability(capabilityGroups[mode][0], false);
       if (announce) showToast(mode === 'study' ? 'Study workspace selected' : mode === 'exam' ? 'Exam Prep workspace selected' : 'Writing workspace selected');
     }
@@ -1214,7 +1274,7 @@
           <span class="example-meta"><span>${example.tag}</span>${icon(capability.icon)}</span>
           <h3>${example.title}</h3>
           ${previewMarkup(example.preview)}
-          <span class="example-cta"><span>Try this example</span>${icon('i-chevron')}</span>
+          <span class="example-cta"><span>${example.cta || 'Try this example'}</span>${icon('i-chevron')}</span>
         </button>`).join('');
       examplesGrid.querySelectorAll('[data-example-index]').forEach(card => card.addEventListener('click', () => openExample(Number(card.dataset.exampleIndex))));
     }
@@ -1299,6 +1359,7 @@
     }
 
     function interactionMarkup(type) {
+      if (type.startsWith('exam-')) type = 'exam';
       if (type === 'graph') return '<h3>Interactive graph</h3><button class="interaction-button primary" data-open-graphing>Open in Graphing Calculator</button>';
       if (type === 'video') return '<h3>Generated explanation</h3><button class="interaction-button" data-media-toggle>Play explanation</button><div class="interaction-progress"><span data-media-progress></span></div><span class="interaction-time" data-media-time>0:05 / 1:18</span>';
       if (type === 'flashcards') return '<button class="flash-interactive" data-flashcard aria-label="Flip flashcard"><span class="flash-interactive-inner"><span class="flash-face front"><small>QUESTION</small><strong>What is the most important idea in this topic?</strong><small>Click to reveal</small></span><span class="flash-face back"><small>ANSWER</small><strong>The core concept, explained in active-recall form.</strong><small>Click to return</small></span></span></button>';
@@ -1373,8 +1434,15 @@
     function openExample(index, capabilityKey = selectedCapability) {
       const capability = capabilityData[capabilityKey];
       if (!capability) return;
-      selectedExample = capability.examples[index];
-      if (!selectedExample) return;
+      const example = capability.examples[index];
+      if (!example) return;
+      openExampleData(example, capabilityKey);
+    }
+
+    function openExampleData(example, capabilityKey) {
+      const capability = capabilityData[capabilityKey];
+      if (!capability || !example) return;
+      selectedExample = example;
       selectedExampleCapability = capabilityKey;
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
@@ -1957,7 +2025,7 @@
     });
 
     configureExtensionCta();
-    selectWorkspaceMode('study', false);
+    selectWorkspaceMode('study', false, true);
   </script>
 </body>
 </html>
