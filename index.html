@@ -381,6 +381,16 @@
     .examples-copy span { display: block; margin-bottom: 4px; color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .examples-copy h2 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
     .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
+    .multi-model-proof { margin-left:auto; display:flex; align-items:center; gap:10px; min-width:0; padding:7px 10px 7px 9px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.72); box-shadow:0 4px 14px rgba(32,49,83,.06); }
+    .multi-model-proof[hidden] { display:none; }
+    .multi-model-logos { display:flex; align-items:center; flex:0 0 auto; padding-left:5px; }
+    .multi-model-logo { position:relative; width:27px; height:27px; display:grid; place-items:center; margin-left:-5px; overflow:hidden; border:1.5px solid var(--surface); border-radius:50%; background:var(--surface); box-shadow:0 1px 5px rgba(31,45,72,.14); }
+    .multi-model-logo:first-child { margin-left:0; }
+    .multi-model-logo svg { width:16px; height:16px; display:block; }
+    .multi-model-logo.solvely svg { width:27px; height:27px; }
+    .multi-model-proof p { max-width:285px; margin:0; color:var(--muted); font-size:10.5px; font-weight:560; line-height:1.35; }
+    .multi-model-proof p strong { color:var(--text); font-weight:680; }
+    .multi-model-copy-short { display:none; }
     .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .examples-grid.four-up { grid-template-columns: repeat(4,minmax(0,1fr)); }
     .examples-grid.study-overview-grid { display:flex; flex-direction:column; gap:34px; }
@@ -602,8 +612,14 @@
       .model-button { padding: 0 7px; }
       .send-button { min-width: 42px; width: 42px; padding: 0; }
       .send-button span { display: none; }
-      .examples-heading { align-items: center; }
+      .examples-heading { align-items:center; gap:12px; }
       .examples-copy h2 { font-size: 18px; }
+      .multi-model-proof { padding:6px 8px 6px 7px; }
+      .multi-model-logo { width:25px; height:25px; }
+      .multi-model-logo svg { width:15px; height:15px; }
+      .multi-model-logo.solvely svg { width:25px; height:25px; }
+      .multi-model-copy-long { display:none; }
+      .multi-model-copy-short { display:inline; }
       .examples-grid { gap: 9px; }
       .examples-grid.study-overview-grid { gap:26px; }
       .study-example-group + .study-example-group { padding-top:24px; }
@@ -623,6 +639,12 @@
       .exam-catalog-toolbar { flex-direction:column; }
       .exam-filter-wrap { width:100%; }
       .course-grid { grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 430px) {
+      .examples-heading { flex-wrap:wrap; }
+      .multi-model-proof { width:100%; margin-left:0; }
+      .multi-model-proof p { max-width:none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -814,6 +836,23 @@
         <section class="examples-section" aria-label="Examples">
           <div class="examples-heading" id="examplesHeading" hidden>
             <div class="examples-copy"><span id="examplesKicker">Explore examples</span><h2 id="examplesTitle" hidden></h2></div>
+            <div class="multi-model-proof" id="multiModelProof" aria-label="Cross-checked with ChatGPT, Gemini, Claude, and Solvely AI for highest accuracy" hidden>
+              <div class="multi-model-logos" aria-hidden="true">
+                <span class="multi-model-logo" title="ChatGPT">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.205 8.765v-2.26c0-.19.071-.333.238-.428l4.543-2.616c.619-.357 1.356-.523 2.117-.523 2.854 0 4.662 2.212 4.662 4.567 0 .166 0 .356-.024.547l-4.71-2.76a.8.8 0 0 0-.856 0zm10.609 8.801v-5.4c0-.333-.143-.57-.429-.737l-5.97-3.473 1.95-1.118a.43.43 0 0 1 .476 0l4.544 2.617c1.308.761 2.188 2.378 2.188 3.948 0 1.808-1.07 3.473-2.76 4.163M7.802 12.809l-1.95-1.142c-.167-.095-.239-.238-.239-.428V6.006c0-2.545 1.95-4.472 4.591-4.472 1 0 1.927.333 2.712.928L8.23 5.174c-.285.166-.428.404-.428.737zM12 15.235l-2.795-1.57v-3.33L12 8.765l2.795 1.57v3.33zm1.796 7.23c-1 0-1.927-.332-2.712-.927l4.686-2.712c.285-.166.428-.404.428-.737v-6.898l1.974 1.142c.167.095.238.238.238.428v5.233c0 2.545-1.974 4.472-4.614 4.472m-5.638-5.303-4.543-2.617c-1.308-.761-2.188-2.378-2.188-3.948A4.48 4.48 0 0 1 4.21 6.434v5.424c0 .333.143.57.428.737l5.947 3.449-1.95 1.118a.43.43 0 0 1-.477 0m-.261 3.9c-2.688 0-4.662-2.021-4.662-4.519 0-.19.024-.38.047-.57l4.686 2.711q.429.249.856 0l5.97-3.449v2.26c0 .19-.07.333-.237.428l-4.543 2.616c-.619.357-1.356.524-2.117.524m5.899 2.83a5.95 5.95 0 0 0 5.828-4.756c2.663-.69 4.376-3.188 4.376-5.733 0-1.665-.713-3.282-1.998-4.448.119-.5.19-.999.19-1.498 0-3.401-2.759-5.947-5.946-5.947-.642 0-1.26.096-1.88.31A5.96 5.96 0 0 0 10.205.107a5.95 5.95 0 0 0-5.827 4.757C1.713 5.554 0 8.052 0 10.597c0 1.665.714 3.282 1.998 4.448-.119.5-.19.999-.19 1.498 0 3.401 2.759 5.947 5.946 5.947.642 0 1.26-.095 1.88-.31a5.96 5.96 0 0 0 4.162 1.713"/></svg>
+                </span>
+                <span class="multi-model-logo" title="Gemini">
+                  <svg viewBox="0 0 28 28"><defs><radialGradient id="crossCheckGeminiGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(2.779 11.38) rotate(18.683) scale(29.803 238.737)"><stop offset=".067" stop-color="#9168C0"/><stop offset=".343" stop-color="#5684D1"/><stop offset=".672" stop-color="#1BA1E3"/></radialGradient></defs><path d="M14 28c0-1.937-.373-3.757-1.12-5.46a14 14 0 0 0-2.975-4.445A14 14 0 0 0 5.46 15.12C3.757 14.373 1.937 14 0 14c1.937 0 3.757-.362 5.46-1.085a14 14 0 0 0 4.445-3.01A14 14 0 0 0 12.88 5.46C13.627 3.757 14 1.937 14 0c0 1.937.362 3.757 1.085 5.46a14 14 0 0 0 3.01 4.445 14 14 0 0 0 4.445 3.01C24.243 13.638 26.063 14 28 14c-1.937 0-3.757.373-5.46 1.12a14 14 0 0 0-4.445 2.975 14 14 0 0 0-3.01 4.445C14.362 24.243 14 26.063 14 28Z" fill="url(#crossCheckGeminiGradient)"/></svg>
+                </span>
+                <span class="multi-model-logo" title="Claude">
+                  <svg viewBox="0 0 24 24"><path fill="#d97757" d="M11.376 24 10.776 23.544 10.44 22.8 10.776 21.312 11.16 19.392 11.472 17.856 11.76 15.96 11.928 15.336 11.904 15.288 11.784 15.312 10.344 17.28 8.16 20.232 6.432 22.056 6.024 22.224 5.304 21.864 5.376 21.192 5.784 20.616 8.16 17.568 9.6 15.672 10.536 14.592 10.512 14.448 10.464 14.448 4.128 18.576 3 18.72 2.496 18.264 2.568 17.52 2.808 17.28 4.704 15.96 9.432 13.32 9.504 13.08 9.432 12.96 9.192 12.96 8.4 12.912 5.712 12.84 3.384 12.744 1.104 12.624.528 12.504 0 11.784.048 11.424.528 11.112 1.224 11.16 2.736 11.28 5.016 11.424 6.672 11.52 9.12 11.784 9.504 11.784 9.552 11.616 9.432 11.52 9.336 11.424 6.96 9.84 4.416 8.16 3.072 7.176 2.352 6.672 1.992 6.216 1.848 5.208 2.496 4.488 3.384 4.56 3.6 4.608 4.488 5.304 6.384 6.768 8.88 8.616 9.24 8.904 9.408 8.808 9.408 8.736 9.24 8.472 7.896 6.024 6.456 3.528 5.808 2.496 5.64 1.872 5.544 1.152 6.288.144 6.696 0 7.704.144 8.112.504 8.736 1.92 9.72 4.152 11.28 7.176 11.736 8.088 11.976 8.904 12.072 9.168 12.24 9.168 12.24 9.024 12.36 7.296 12.6 5.208 12.84 2.52 12.912 1.752 13.296.84 14.04.36 14.616.624 15.096 1.32 15.024 1.752 14.76 3.6 14.184 6.504 13.824 8.472 14.04 8.472 14.28 8.208 15.264 6.912 16.92 4.848 17.64 4.032 18.504 3.12 19.056 2.688 20.088 2.688 20.832 3.816 20.496 4.992 19.44 6.336 18.552 7.464 17.28 9.168 16.512 10.536 16.584 10.632 16.752 10.632 19.608 10.008 21.168 9.744 22.992 9.432 23.832 9.816 23.928 10.2 23.592 11.016 21.624 11.496 19.32 11.952 15.888 12.768 15.84 12.792 15.888 12.864 17.424 13.008 18.096 13.056 19.728 13.056 22.752 13.272 23.544 13.8 24 14.424 23.928 14.928 22.704 15.528 21.072 15.144 17.232 14.232 15.936 13.92 15.744 13.92 15.744 14.016 16.848 15.096 18.84 16.896 21.36 19.224 21.48 19.8 21.168 20.28 20.832 20.232 18.624 18.552 17.76 17.808 15.84 16.2 15.72 16.2 15.72 16.368 16.152 17.016 18.504 20.544 18.624 21.624 18.456 21.96 17.832 22.176 17.184 22.056 15.792 20.136 14.376 17.952 13.224 16.008 13.104 16.104 12.408 23.352 12.096 23.712Z"/></svg>
+                </span>
+                <span class="multi-model-logo solvely" title="Solvely AI">
+                  <svg viewBox="0 0 52 52"><defs><linearGradient id="crossCheckSolvelySurface" x1="7" y1="5" x2="46" y2="49" gradientUnits="userSpaceOnUse"><stop stop-color="#073FE9"/><stop offset=".55" stop-color="#2538EE"/><stop offset="1" stop-color="#5833F4"/></linearGradient><linearGradient id="crossCheckSolvelyGlyph" x1="17" y1="18" x2="35" y2="35" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset=".52" stop-color="#E9EEFF"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><rect width="52" height="52" rx="11" fill="url(#crossCheckSolvelySurface)"/><path d="M12 21v-5.2c0-3.2 2.6-5.8 5.8-5.8H23M29 10h5.2c3.2 0 5.8 2.6 5.8 5.8V21M40 31v5.2c0 3.2-2.6 5.8-5.8 5.8H29M23 42h-5.2c-3.2 0-5.8-2.6-5.8-5.8V31" fill="none" stroke="#fff" stroke-width="2.15" stroke-linecap="round"/><path d="M17.4 18.7c4.8-1.8 7 .8 9.2 7.2l2.3 6.5c1.1 3.2 3 3.7 6.1 1.4M34.6 19.2c-3.6-1.7-6 .7-8.1 4.8L23 31c-1.5 3-3.5 4.7-6.4 2.9" fill="none" stroke="url(#crossCheckSolvelyGlyph)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+              <p><span class="multi-model-copy-long">Cross-checked with ChatGPT, Gemini, Claude &amp; Solvely AI for <strong>highest accuracy</strong></span><span class="multi-model-copy-short">Cross-checked across 4 AI models for <strong>highest accuracy</strong></span></p>
+            </div>
             <p class="examples-description" id="examplesDescription"></p>
           </div>
           <div class="examples-grid" id="examplesGrid"></div>
@@ -1052,6 +1091,7 @@
     const examplesHeading = document.getElementById('examplesHeading');
     const examplesTitle = document.getElementById('examplesTitle');
     const examplesDescription = document.getElementById('examplesDescription');
+    const multiModelProof = document.getElementById('multiModelProof');
     const attachmentRow = document.getElementById('attachmentRow');
     const mathToolsHost = document.getElementById('mathToolsHost');
     const calculatorPanel = document.getElementById('calculatorPanel');
@@ -1190,6 +1230,8 @@
       examplesTitle.hidden = false;
       examplesTitle.textContent = selectedCapability === 'mock' ? 'What’s in Your Exam Prep Plan' : `${capability.label} examples`;
       examplesDescription.textContent = capability.description;
+      multiModelProof.hidden = selectedCapability !== 'solver';
+      examplesDescription.hidden = selectedCapability === 'solver';
       examplesGrid.classList.remove('study-overview-grid');
       examplesGrid.classList.toggle('four-up', capability.examples.length === 4);
       examplesGrid.innerHTML = capability.examples.map((example, index) => `
