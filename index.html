@@ -468,7 +468,8 @@
     .example-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--accent); font-size: 9px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
     .example-meta .icon { width: 15px; height: 15px; }
     .example-card h3 { margin: 9px 0 10px; overflow: hidden; font-size: 15px; line-height: 1.25; font-weight: 660; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
-    .example-preview { min-height: 104px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-soft); }
+    .example-preview { width:100%; min-height:0; aspect-ratio:2 / 1; overflow:hidden; border:1px solid var(--line); border-radius:12px; background:var(--surface-soft); }
+    .example-card .example-preview { height:auto; }
 
     .preview-equation { height: 104px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 9px; padding: 12px; }
     .equation-main { display: grid; place-items: center; border-radius: 9px; background: var(--surface); color: var(--text); font-family: Georgia, serif; font-size: 18px; }
@@ -476,13 +477,15 @@
     .equation-steps i { display: block; height: 6px; border-radius: 4px; background: rgba(var(--accent-rgb), .15); }
     .equation-steps i:nth-child(2) { width: 78%; }
     .equation-steps i:nth-child(3) { width: 57%; background: rgba(22, 134, 93, .2); }
-    .preview-graph svg, .preview-video svg { width: 100%; height: 104px; display: block; }
+    .preview-graph svg, .preview-video svg { width:100%; height:100%; display:block; }
+    .preview-graph-image { background:#fff; }
+    .preview-graph-image img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
     .preview-video { position: relative; }
-    .preview-video img { width:100%; height:104px; display:block; object-fit:cover; }
-    .preview-video.geometry img { object-position:center 18%; transform:scale(1.18); }
-    .preview-video.circles img { object-position:center 39%; transform:scale(1.03); }
-    .preview-video.statistics img { object-position:center 10%; transform:scale(1.12); }
-    .preview-video.physics img { object-position:center top; transform:scale(1.1); }
+    .preview-video img { width:100%; height:100%; display:block; object-fit:cover; }
+    .preview-video.geometry img { object-position:center 28%; }
+    .preview-video.circles img { object-position:center 39%; }
+    .preview-video.statistics img { object-position:center 28%; }
+    .preview-video.physics img { object-position:center 28%; }
     .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
     .play-badge { position: absolute; z-index:1; inset: 0; margin: auto; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.14); }
     .play-badge .icon { width: 19px; height: 19px; margin-left: 1px; }
@@ -510,7 +513,7 @@
     .waveform i:nth-child(2), .waveform i:nth-child(8) { height: 14px; }
     .preview-chemistry { height:104px; display:grid; place-items:center; background:#fff; }
     .preview-chemistry img { width:auto; height:72px; max-width:72%; display:block; place-self:center; object-fit:contain; object-position:center; }
-    .preview-accounting svg { width:100%; height:104px; display:block; }
+    .preview-accounting svg { width:100%; height:100%; display:block; }
     .preview-accounting-full { min-height:245px; padding:16px 18px; overflow-x:auto; background:#fff; }
     .accounting-full-table { width:100%; min-width:570px; border-collapse:collapse; color:#526077; font-size:11px; }
     .accounting-full-table caption { padding:0 0 10px; color:#254b86; font-size:11px; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
@@ -981,7 +984,7 @@
       .study-example-group + .study-example-group { padding-top:24px; }
       .study-example-group-heading { display:block; margin-bottom:11px; }
       .study-example-group-heading span { display:block; margin-top:4px; }
-      .example-card { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto 116px; min-height: 0; }
+      .example-card { display:grid; grid-template-columns:1fr; grid-template-rows:auto auto auto; min-height:0; }
       .example-meta, .example-card h3, .example-preview { grid-column: 1; }
       .example-preview { grid-row: 3; }
       .popover { left: 10px; right:auto; width: calc(100% - 20px); }
@@ -1702,6 +1705,17 @@
       return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Parabola graph"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#grid)"/><path d="M18 76H305M150 7V96" stroke="var(--line-strong)" stroke-width="1.2"/><path d="M58 17 C92 92 119 94 151 53 S212 19 268 83" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><g fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><circle cx="89" cy="76" r="4"/><circle cx="222" cy="76" r="4"/><circle cx="151" cy="53" r="4"/></g></svg></div>`;
     }
 
+    function graphScreenshotPreview(type) {
+      const previews = {
+        'solver-parabola-line': { src: 'assets/solver-parabola-intersection-cover.png', alt: 'Parabola and linear function intersection simulator' },
+        'graph-reflection': { src: 'assets/graph-reflection-over-y-axis.png', alt: 'Reflection over the y-axis simulator' },
+        'graph-externality': { src: 'assets/graph-negative-externality.png', alt: 'Negative externality and Pigouvian tax simulator' },
+        'graph-limits': { src: 'assets/graph-limits-at-infinity.png', alt: 'Limits at infinity simulator' }
+      };
+      const preview = previews[type];
+      return `<div class="example-preview preview-graph-image"><img src="${preview.src}" alt="${preview.alt}" /></div>`;
+    }
+
     function parabolaLinePreview() {
       return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Parabola and linear function intersection graph"><defs><pattern id="solverIntersectionGrid" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M24 0H0V20" fill="none" stroke="var(--line)" stroke-width=".8"/></pattern><clipPath id="solverIntersectionPlot"><rect x="24" y="8" width="272" height="82" rx="4"/></clipPath></defs><rect width="320" height="104" fill="var(--surface-soft)"/><rect x="24" y="8" width="272" height="82" rx="7" fill="url(#solverIntersectionGrid)"/><path d="M24 79H298M140 7V92" fill="none" stroke="var(--line-strong)" stroke-width="1.2"/><g clip-path="url(#solverIntersectionPlot)" fill="none" stroke-linecap="round"><path d="M55 91 C65 60 70 48 79 43 C106 10 156 10 193 36 C217 49 239 73 251 91" stroke="#2368f0" stroke-width="2.7"/><path d="M48 45 273 32" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="5 3"/><path d="M140 8V91" stroke="#9aabc2" stroke-width="1.2" stroke-dasharray="4 3"/></g><g fill="#fff" stroke="#2368f0" stroke-width="2"><circle cx="79" cy="43" r="3.8"/><circle cx="193" cy="36" r="3.8"/></g><g font-family="system-ui,sans-serif" font-size="7" font-weight="700"><text x="239" y="84" fill="#2368f0">f(x)</text><text x="255" y="30" fill="#d97706">g(x)</text></g></svg></div>`;
     }
@@ -1747,10 +1761,7 @@
     }
 
     function previewMarkup(type) {
-      if (type === 'graph-reflection') return reflectionGraphPreview();
-      if (type === 'graph-externality') return externalityGraphPreview();
-      if (type === 'graph-limits') return limitsGraphPreview();
-      if (type === 'solver-parabola-line') return parabolaLinePreview();
+      if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
       if (type === 'graph') return graphPreview();
       if (type.startsWith('video')) return videoPreview(type);
       if (type === 'chemistry') return `<div class="example-preview preview-chemistry"><img src="assets/chemistry-structure.png" alt="Organic chemistry structure visualization" /></div>`;
