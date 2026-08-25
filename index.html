@@ -146,6 +146,7 @@
     .extension-cta:hover .extension-tooltip, .extension-cta:focus-visible .extension-tooltip { opacity: 1; transform: translateY(0); }
 
     .workspace { width: min(1040px, calc(100% - 56px)); margin: 0 auto; padding: 26px 0 48px; }
+    .workspace[hidden] { display:none; }
     .hero { max-width: 760px; margin: 20px auto 24px; text-align: center; }
     .hero-kicker { margin: 0 0 9px; color: var(--accent); font-size: 11px; font-weight: 720; letter-spacing: .11em; text-transform: uppercase; }
     .hero h1 { margin: 0; font-size: clamp(30px, 3.1vw, 42px); line-height: 1.14; letter-spacing: -.045em; font-weight: 720; }
@@ -604,6 +605,82 @@
     .course-stats { display:flex; gap:9px; margin-top:10px; color:#0f8a67; font-size:9px; font-weight:650; }
     .course-empty { padding:24px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
 
+    .course-workspace { width:min(1040px,calc(100% - 56px)); margin:0 auto; padding:28px 0 56px; }
+    .course-workspace[hidden] { display:none; }
+    .course-back { min-height:38px; display:inline-flex; align-items:center; gap:7px; padding:0 10px 0 5px; border:0; border-radius:9px; background:transparent; color:var(--muted); font-size:12px; font-weight:650; cursor:pointer; }
+    .course-back:hover { background:var(--surface-hover); color:var(--text); }
+    .course-back .icon { width:17px; height:17px; transform:rotate(90deg); }
+    .course-package-hero { margin-top:15px; padding:25px 27px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:26px; align-items:center; border:1px solid var(--line); border-radius:20px; background:linear-gradient(135deg,rgba(15,138,103,.09),rgba(35,104,240,.035) 62%,var(--surface)); }
+    .course-package-copy { min-width:0; }
+    .course-package-breadcrumb { display:flex; align-items:center; gap:7px; margin:0 0 12px; color:#0f8a67; font-size:10px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
+    .course-package-breadcrumb i { width:3px; height:3px; border-radius:50%; background:currentColor; opacity:.5; }
+    .course-package-copy h1 { margin:0; font-size:30px; line-height:1.1; letter-spacing:-.035em; }
+    .course-package-copy > p { max-width:620px; margin:10px 0 0; color:var(--muted); font-size:13px; line-height:1.55; }
+    .course-package-metrics { display:flex; flex-wrap:wrap; gap:17px; margin-top:20px; }
+    .course-package-metric { display:flex; align-items:center; gap:7px; color:var(--muted); font-size:11px; }
+    .course-package-metric .icon { width:16px; height:16px; color:#0f8a67; }
+    .course-package-metric strong { color:var(--text); font-weight:720; }
+    .course-progress-summary { width:218px; padding:18px; border:1px solid rgba(15,138,103,.16); border-radius:16px; background:rgba(255,255,255,.72); box-shadow:var(--shadow-soft); }
+    body.dark .course-progress-summary { background:rgba(28,31,37,.82); }
+    .course-progress-summary-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+    .course-progress-summary-head span { color:var(--muted); font-size:10px; font-weight:650; }
+    .course-progress-summary-head strong { font-size:22px; line-height:1; letter-spacing:-.03em; }
+    .course-progress-track { height:7px; margin-top:13px; overflow:hidden; border-radius:999px; background:rgba(15,138,103,.12); }
+    .course-progress-track i { width:18%; height:100%; display:block; border-radius:inherit; background:#0f8a67; }
+    .course-progress-summary p { margin:10px 0 0; color:var(--muted); font-size:10px; line-height:1.45; }
+    .course-package-tabs { margin-top:22px; display:flex; align-items:center; gap:3px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; }
+    .course-package-tabs::-webkit-scrollbar { display:none; }
+    .course-package-tab { position:relative; min-height:44px; flex:0 0 auto; padding:0 15px; border:0; background:transparent; color:var(--muted); font-size:12px; font-weight:650; cursor:pointer; }
+    .course-package-tab:hover { color:var(--text); }
+    .course-package-tab[aria-selected="true"] { color:#0f8a67; }
+    .course-package-tab[aria-selected="true"]::after { content:""; position:absolute; right:12px; bottom:-1px; left:12px; height:2px; border-radius:2px 2px 0 0; background:#0f8a67; }
+    .course-package-panel { padding-top:20px; }
+    .course-dashboard-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(250px,.75fr); gap:14px; }
+    .course-panel-card { border:1px solid var(--line); border-radius:17px; background:var(--surface); overflow:hidden; }
+    .course-panel-card-head { min-height:58px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 18px; border-bottom:1px solid var(--line); }
+    .course-panel-card-head div { min-width:0; }
+    .course-panel-card-head span { display:block; margin-bottom:3px; color:#0f8a67; font-size:9px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
+    .course-panel-card-head h2 { margin:0; font-size:16px; letter-spacing:-.02em; }
+    .course-panel-card-head small { color:var(--muted); font-size:10px; }
+    .course-module-list { display:grid; }
+    .course-module-row { width:100%; min-height:67px; display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:11px; padding:10px 18px; border:0; border-bottom:1px solid var(--line); background:var(--surface); text-align:left; cursor:pointer; }
+    .course-module-row:last-child { border-bottom:0; }
+    .course-module-row:hover { background:var(--surface-hover); }
+    .course-module-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:rgba(15,138,103,.09); color:#0f8a67; }
+    .course-module-icon .icon { width:17px; height:17px; }
+    .course-module-copy { min-width:0; }
+    .course-module-copy strong { display:block; overflow:hidden; color:var(--text); font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
+    .course-module-copy span { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
+    .course-module-state { color:var(--muted); font-size:10px; font-style:normal; }
+    .course-module-state.current { min-width:68px; height:30px; display:grid; place-items:center; border-radius:8px; background:#0f8a67; color:#fff; font-weight:700; }
+    .course-side-stack { display:grid; align-content:start; gap:14px; }
+    .course-today { padding:17px; }
+    .course-today h2 { margin:0 0 13px; font-size:15px; }
+    .course-today-item { display:grid; grid-template-columns:24px 1fr; gap:10px; margin-top:11px; color:var(--muted); font-size:10px; line-height:1.45; }
+    .course-today-item i { width:24px; height:24px; display:grid; place-items:center; border-radius:8px; background:var(--surface-soft); color:#0f8a67; font-size:10px; font-style:normal; font-weight:750; }
+    .course-score-card { padding:17px; }
+    .course-score-card span { color:var(--muted); font-size:10px; }
+    .course-score-card strong { display:block; margin-top:7px; font-size:25px; letter-spacing:-.04em; }
+    .course-score-card p { margin:5px 0 0; color:#0f8a67; font-size:10px; font-weight:650; }
+    .course-section-title { margin:0 0 13px; font-size:18px; letter-spacing:-.025em; }
+    .course-content-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .course-content-item { min-height:112px; padding:16px; border:1px solid var(--line); border-radius:15px; background:var(--surface); }
+    button.course-content-item { width:100%; color:inherit; text-align:left; cursor:pointer; }
+    button.course-content-item:hover { border-color:rgba(15,138,103,.35); box-shadow:var(--shadow-soft); }
+    .course-content-item > span { color:#0f8a67; font-size:9px; font-weight:760; letter-spacing:.07em; text-transform:uppercase; }
+    .course-content-item h3 { margin:9px 0 5px; font-size:14px; }
+    .course-content-item p { margin:0; color:var(--muted); font-size:10px; line-height:1.5; }
+    .course-content-item footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; color:var(--muted); font-size:10px; }
+    .course-content-item footer strong { color:#0f8a67; }
+    .course-insight-chart { height:132px; display:flex; align-items:flex-end; gap:10px; padding:16px 18px 13px; border-bottom:1px solid var(--line); }
+    .course-insight-bar { flex:1; min-width:24px; display:flex; flex-direction:column; justify-content:flex-end; gap:7px; color:var(--muted); font-size:9px; text-align:center; }
+    .course-insight-bar i { min-height:12px; display:block; border-radius:7px 7px 3px 3px; background:linear-gradient(180deg,#0f8a67,#4fb794); }
+    .course-skill-row { display:grid; grid-template-columns:120px minmax(100px,1fr) 35px; align-items:center; gap:12px; padding:12px 18px; border-bottom:1px solid var(--line); font-size:10px; }
+    .course-skill-row:last-child { border-bottom:0; }
+    .course-skill-row i { height:6px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
+    .course-skill-row i b { display:block; height:100%; border-radius:inherit; background:#0f8a67; }
+    .course-skill-row em { color:var(--muted); font-style:normal; text-align:right; }
+
     .toast { position: fixed; left: 50%; bottom: 24px; z-index: 90; max-width: calc(100vw - 36px); padding: 11px 15px; border: 1px solid var(--line); border-radius: 12px; background: var(--text); color: var(--bg); box-shadow: var(--shadow); font-size: 12px; transform: translate(-50%, 18px); opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
     .toast.show { transform: translate(-50%, 0); opacity: 1; }
     .chat-button { position: fixed; right: 22px; bottom: 22px; z-index: 25; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--text); color: var(--bg); box-shadow: var(--shadow); cursor: pointer; }
@@ -611,6 +688,7 @@
 
     @media (max-width: 1080px) {
       .workspace { width: min(920px, calc(100% - 38px)); }
+      .course-workspace { width:min(920px,calc(100% - 38px)); }
       .math-grid { grid-template-columns: repeat(6, minmax(38px, 1fr)); }
       .math-keyboard { overflow-x:auto; }
       .math-keyboard-head,.math-keyboard-body { min-width:760px; }
@@ -633,6 +711,10 @@
       .mobile-menu { display: grid; margin-right: 8px; }
       .sidebar-collapse { display: none; }
       .workspace { width: min(720px, calc(100% - 28px)); padding-top: 16px; }
+      .course-workspace { width:min(720px,calc(100% - 28px)); padding-top:16px; }
+      .course-package-hero { grid-template-columns:1fr; }
+      .course-progress-summary { width:100%; }
+      .course-dashboard-grid { grid-template-columns:1fr; }
       .hero { margin-top: 12px; }
       .examples-grid { grid-template-columns: 1fr; }
       .study-example-group-grid { grid-template-columns:1fr; }
@@ -647,6 +729,13 @@
     @media (max-width: 560px) {
       .topbar-title, .topbar-actions .topbar-button:first-child { display: none; }
       .workspace { width: calc(100% - 20px); padding-bottom: 28px; }
+      .course-workspace { width:calc(100% - 20px); padding:14px 0 30px; }
+      .course-package-hero { margin-top:9px; padding:20px; border-radius:17px; }
+      .course-package-copy h1 { font-size:25px; }
+      .course-package-metrics { gap:10px 14px; }
+      .course-package-tab { padding-inline:11px; }
+      .course-content-grid { grid-template-columns:1fr; }
+      .course-skill-row { grid-template-columns:90px minmax(80px,1fr) 32px; gap:8px; padding-inline:14px; }
       .hero { margin-bottom: 18px; }
       .hero-kicker { display: none; }
       .hero h1 { font-size: 28px; }
@@ -824,7 +913,7 @@
         </div>
       </header>
 
-      <div class="workspace">
+      <div class="workspace" id="homeWorkspace">
         <header class="hero">
           <p class="hero-kicker">Learn Your Way · All in One Place</p>
           <h1>What can Solvely help you with?</h1>
@@ -933,6 +1022,31 @@
           <p class="course-empty" id="courseEmpty" hidden>No matching courses. Try another exam name.</p>
         </section>
       </div>
+
+      <section class="course-workspace" id="courseWorkspace" aria-labelledby="courseWorkspaceTitle" hidden>
+        <button class="course-back" id="courseBackButton" type="button"><svg class="icon"><use href="#i-chevron"/></svg><span>Back to courses</span></button>
+        <header class="course-package-hero">
+          <div class="course-package-copy">
+            <p class="course-package-breadcrumb"><span>Exam Prep</span><i></i><span id="courseWorkspaceFamily">Course</span></p>
+            <h1 id="courseWorkspaceTitle">Exam preparation course</h1>
+            <p id="courseWorkspaceDescription">A complete preparation path with focused lessons, adaptive practice, realistic exams, and score insights.</p>
+            <div class="course-package-metrics" id="courseWorkspaceMetrics"></div>
+          </div>
+          <aside class="course-progress-summary" aria-label="Course progress">
+            <div class="course-progress-summary-head"><span>Course progress</span><strong>18%</strong></div>
+            <div class="course-progress-track" aria-label="18 percent complete"><i></i></div>
+            <p>3 lessons complete · Next goal: finish the current module</p>
+          </aside>
+        </header>
+        <nav class="course-package-tabs" id="coursePackageTabs" role="tablist" aria-label="Course sections">
+          <button class="course-package-tab" type="button" role="tab" aria-selected="true" data-course-tab="overview">Overview</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="lessons">Lessons</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="practice">Practice</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="exams">Exams</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="insights">Score Insights</button>
+        </nav>
+        <div class="course-package-panel" id="coursePackagePanel" role="tabpanel" aria-live="polite"></div>
+      </section>
     </main>
   </div>
 
@@ -1174,6 +1288,9 @@
     const sidebar = document.querySelector('.sidebar');
     const capabilityStrip = document.getElementById('capabilityStrip');
     const promptInput = document.getElementById('promptInput');
+    const homeWorkspace = document.getElementById('homeWorkspace');
+    const courseWorkspace = document.getElementById('courseWorkspace');
+    const coursePackagePanel = document.getElementById('coursePackagePanel');
     const sendButton = document.getElementById('sendButton');
     const sendLabel = document.getElementById('sendLabel');
     const examplesGrid = document.getElementById('examplesGrid');
@@ -1214,6 +1331,8 @@
     let activeCropIndex = 0;
     let cropWorkingStates = new Map();
     let cropGesture = null;
+    let activeCoursePackageIndex = null;
+    let activeCoursePackageTab = 'overview';
 
     function graphPreview() {
       return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Parabola graph"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#grid)"/><path d="M18 76H305M150 7V96" stroke="var(--line-strong)" stroke-width="1.2"/><path d="M58 17 C92 92 119 94 151 53 S212 19 268 83" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><g fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><circle cx="89" cy="76" r="4"/><circle cx="222" cy="76" r="4"/><circle cx="151" cy="53" r="4"/></g></svg></div>`;
@@ -1357,14 +1476,123 @@
         '<button class="course-card" data-course-index="' + examCoursePackages.indexOf(course) + '" aria-label="Open ' + course.title + ' course"><span class="course-family">' + course.label + '</span><h3>' + course.title + '</h3><p>' + course.topics + ' topics · ' + course.videos + ' video lessons<br>' + course.questions + ' practice questions</p><span class="course-stats"><span>Full test</span><span>Score insights</span></span></button>'
       ).join('');
       document.getElementById('courseEmpty').hidden = courses.length !== 0;
-      grid.querySelectorAll('[data-course-index]').forEach(card => card.addEventListener('click', () => {
-        const course = examCoursePackages[Number(card.dataset.courseIndex)];
-        promptInput.value = 'Build a complete ' + course.title + ' preparation plan with lessons, practice, and practice exams.';
-        updateSubmit();
-        promptInput.focus();
-        document.getElementById('composerShell').scrollIntoView({behavior:'smooth',block:'center'});
-        showToast(course.title + ' selected');
-      }));
+      grid.querySelectorAll('[data-course-index]').forEach(card => card.addEventListener('click', () => openCoursePackage(Number(card.dataset.courseIndex))));
+    }
+
+    function courseSubject(course) {
+      if (course.family === 'sat') return 'Digital SAT foundations';
+      if (course.family === 'act') return 'ACT core skills';
+      return course.title.replace(/^AP\s+|^Abitur\s+/, '');
+    }
+
+    function courseModules(course) {
+      const subject = courseSubject(course);
+      return [
+        {title:`${subject}: core concepts`, meta:'12 lessons · 1 hr 45 min', state:'Complete', icon:'i-book'},
+        {title:`Guided ${subject} practice`, meta:'8 lessons · 52 min remaining', state:'Continue', icon:'i-play'},
+        {title:'Strategies and common traps', meta:'10 lessons · 75 practice questions', state:'Not started', icon:'i-target'},
+        {title:'Pacing under exam conditions', meta:'6 lessons · 3 timed sets', state:'Not started', icon:'i-history'},
+        {title:'Weak-area review and recovery', meta:'Adaptive · Based on recent answers', state:'Not started', icon:'i-chart'}
+      ];
+    }
+
+    function courseOverviewMarkup(course) {
+      const modules = courseModules(course).slice(0, 3);
+      return `<div class="course-dashboard-grid">
+        <section class="course-panel-card">
+          <header class="course-panel-card-head"><div><span>Next up</span><h2>Continue your plan</h2></div><small>Updated today</small></header>
+          <div class="course-module-list">${modules.map((module,index) => `<button class="course-module-row" type="button" data-course-action="${index === 1 ? 'Continue lesson' : 'Open module'}"><span class="course-module-icon">${icon(module.icon)}</span><span class="course-module-copy"><strong>${module.title}</strong><span>${module.meta}</span></span><em class="course-module-state${index === 1 ? ' current' : ''}">${module.state}</em></button>`).join('')}</div>
+        </section>
+        <div class="course-side-stack">
+          <section class="course-panel-card course-today"><h2>Today’s focus</h2><div class="course-today-item"><i>1</i><span>Finish the current lesson and its 10-question check.</span></div><div class="course-today-item"><i>2</i><span>Review mistakes from your latest practice set.</span></div><div class="course-today-item"><i>3</i><span>Complete one 20-minute timed drill.</span></div></section>
+          <section class="course-panel-card course-score-card"><span>Projected score</span><strong>${course.family === 'sat' ? '1280–1350' : course.family === 'act' ? '27–30' : '3–4'}</strong><p>Trending up with consistent practice</p></section>
+        </div>
+      </div>`;
+    }
+
+    function courseLessonsMarkup(course) {
+      return `<h2 class="course-section-title">Course lessons</h2><section class="course-panel-card"><div class="course-module-list">${courseModules(course).map((module,index) => `<button class="course-module-row" type="button" data-course-action="${index === 1 ? 'Continue lesson' : 'Open module'}"><span class="course-module-icon">${icon(module.icon)}</span><span class="course-module-copy"><strong>${module.title}</strong><span>${module.meta}</span></span><em class="course-module-state${index === 1 ? ' current' : ''}">${module.state}</em></button>`).join('')}</div></section>`;
+    }
+
+    function coursePracticeMarkup(course) {
+      const subject = courseSubject(course);
+      const items = [
+        ['Adaptive set', `${subject} diagnostic`, '20 questions · About 25 min', 'Start set'],
+        ['Recommended', 'Weak-area recovery', '15 questions · Personalized', 'Practice now'],
+        ['Timed drill', 'Exam pacing sprint', '25 questions · 20 min', 'Start timer'],
+        ['Question bank', 'Build a custom practice set', `${course.questions} questions available`, 'Choose topics']
+      ];
+      return `<h2 class="course-section-title">Practice</h2><div class="course-content-grid">${items.map(item => `<button class="course-content-item" type="button" data-course-action="${item[3]}"><span>${item[0]}</span><h3>${item[1]}</h3><p>${item[2]}</p><footer><strong>${item[3]}</strong><span>Instant explanations</span></footer></button>`).join('')}</div>`;
+    }
+
+    function courseExamsMarkup(course) {
+      const items = [
+        ['Full-length', 'Practice Exam 1', 'Ready · Real exam timing', 'Start exam'],
+        ['Full-length', 'Practice Exam 2', 'Unlocks after Exam 1', 'View details'],
+        ['Section test', `${courseSubject(course)} checkpoint`, '45 min · 40 questions', 'Start section'],
+        ['Review', 'Past exam attempts', 'Mistakes, timing, and explanations', 'Review results']
+      ];
+      return `<h2 class="course-section-title">Practice exams</h2><div class="course-content-grid">${items.map(item => `<button class="course-content-item" type="button" data-course-action="${item[3]}"><span>${item[0]}</span><h3>${item[1]}</h3><p>${item[2]}</p><footer><strong>${item[3]}</strong><span>Score insights included</span></footer></button>`).join('')}</div>`;
+    }
+
+    function courseInsightsMarkup() {
+      const bars = [['May',42], ['Jun',51], ['Jul',64], ['Aug',72], ['Now',78]];
+      const skills = [['Concepts',82], ['Accuracy',76], ['Pacing',61], ['Exam strategy',69]];
+      return `<h2 class="course-section-title">Score insights</h2><div class="course-dashboard-grid"><section class="course-panel-card"><header class="course-panel-card-head"><div><span>Performance</span><h2>Readiness trend</h2></div><small>Last 5 checkpoints</small></header><div class="course-insight-chart">${bars.map(([label,value]) => `<span class="course-insight-bar"><i style="height:${value}%"></i>${label}</span>`).join('')}</div><div>${skills.map(([label,value]) => `<div class="course-skill-row"><strong>${label}</strong><i><b style="width:${value}%"></b></i><em>${value}%</em></div>`).join('')}</div></section><div class="course-side-stack"><section class="course-panel-card course-today"><h2>What to improve next</h2><div class="course-today-item"><i>1</i><span>Prioritize timed work to improve pacing.</span></div><div class="course-today-item"><i>2</i><span>Redo missed medium-difficulty questions.</span></div><div class="course-today-item"><i>3</i><span>Take the next checkpoint after two study sessions.</span></div></section></div></div>`;
+    }
+
+    function renderCoursePackage() {
+      const course = examCoursePackages[activeCoursePackageIndex];
+      if (!course) return;
+      document.getElementById('courseWorkspaceFamily').textContent = course.label;
+      document.getElementById('courseWorkspaceTitle').textContent = course.title;
+      document.getElementById('courseWorkspaceDescription').textContent = `A complete ${course.title} path with focused lessons, adaptive practice, realistic exams, and score insights.`;
+      document.getElementById('courseWorkspaceMetrics').innerHTML = `<span class="course-package-metric">${icon('i-book')}<span><strong>${course.topics}</strong> topics</span></span><span class="course-package-metric">${icon('i-play')}<span><strong>${course.videos}</strong> video lessons</span></span><span class="course-package-metric">${icon('i-exam')}<span><strong>${course.questions}</strong> practice questions</span></span>`;
+      document.querySelectorAll('[data-course-tab]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.courseTab === activeCoursePackageTab)));
+      if (activeCoursePackageTab === 'lessons') coursePackagePanel.innerHTML = courseLessonsMarkup(course);
+      else if (activeCoursePackageTab === 'practice') coursePackagePanel.innerHTML = coursePracticeMarkup(course);
+      else if (activeCoursePackageTab === 'exams') coursePackagePanel.innerHTML = courseExamsMarkup(course);
+      else if (activeCoursePackageTab === 'insights') coursePackagePanel.innerHTML = courseInsightsMarkup();
+      else coursePackagePanel.innerHTML = courseOverviewMarkup(course);
+      coursePackagePanel.querySelectorAll('[data-course-action]').forEach(button => button.addEventListener('click', () => showToast(button.dataset.courseAction + ' opened')));
+    }
+
+    function openCoursePackage(index, pushRoute = true) {
+      const course = examCoursePackages[index];
+      if (!course) return;
+      activeCoursePackageIndex = index;
+      activeCoursePackageTab = 'overview';
+      homeWorkspace.hidden = true;
+      courseWorkspace.hidden = false;
+      document.documentElement.style.setProperty('--accent', '#0f8a67');
+      document.documentElement.style.setProperty('--accent-rgb', '15, 138, 103');
+      renderCoursePackage();
+      document.title = `${course.title} — Solvely`;
+      if (pushRoute && location.hash !== `#course-${index}`) history.pushState({courseIndex:index}, '', `#course-${index}`);
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function showExamCatalogHome() {
+      activeCoursePackageIndex = null;
+      courseWorkspace.hidden = true;
+      homeWorkspace.hidden = false;
+      document.title = 'Solvely — One place to learn anything';
+      selectWorkspaceMode('exam', false);
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function closeCoursePackage() {
+      if (/^#course-\d+$/.test(location.hash) && Number(history.state?.courseIndex) === activeCoursePackageIndex) history.back();
+      else {
+        history.replaceState(null, '', location.pathname + location.search);
+        showExamCatalogHome();
+      }
+    }
+
+    function syncCourseRoute() {
+      const match = location.hash.match(/^#course-(\d+)$/);
+      if (match && examCoursePackages[Number(match[1])]) openCoursePackage(Number(match[1]), false);
+      else if (activeCoursePackageIndex !== null) showExamCatalogHome();
     }
 
     function updateComposerTools(key) {
@@ -2323,6 +2551,11 @@
     });
     document.getElementById('examCourseSearch').addEventListener('input', renderCourseCatalog);
     document.getElementById('examCourseFilter').addEventListener('change', renderCourseCatalog);
+    document.getElementById('courseBackButton').addEventListener('click', closeCoursePackage);
+    document.querySelectorAll('[data-course-tab]').forEach(button => button.addEventListener('click', () => {
+      activeCoursePackageTab = button.dataset.courseTab;
+      renderCoursePackage();
+    }));
     document.querySelectorAll('[data-workspace-mode]').forEach(button => button.addEventListener('click', () => selectWorkspaceMode(button.dataset.workspaceMode)));
     dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(); });
     dialog.addEventListener('close', () => { clearInterval(mediaTimer); mediaTimer = null; });
@@ -2346,9 +2579,11 @@
       positionCalculator(rect.left, rect.top);
       setTimeout(resizeGeoGebra, 230);
     });
+    window.addEventListener('popstate', syncCourseRoute);
 
     configureExtensionCta();
     selectWorkspaceMode('study', false);
+    syncCourseRoute();
   </script>
 </body>
 </html>
