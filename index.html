@@ -448,6 +448,9 @@
     .multi-model-proof p strong { color:var(--text); font-weight:680; }
     .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
     .examples-grid.four-up { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .examples-grid.solver-grid .example-preview { aspect-ratio:16 / 9; }
+    .examples-grid.solver-grid .preview-video { background:#0b101c; }
+    .examples-grid.solver-grid .preview-video img { object-fit:contain; object-position:center; }
     .examples-grid.study-overview-grid { display:flex; flex-direction:column; gap:34px; }
     .study-example-group { --accent:var(--group-accent); --accent-rgb:var(--group-rgb); min-width:0; }
     .study-example-group + .study-example-group { padding-top:30px; border-top:1px solid var(--line); }
@@ -2722,6 +2725,7 @@
       examplesDescription.hidden = selectedCapability === 'solver';
       examplesGrid.classList.remove('study-overview-grid');
       examplesGrid.classList.toggle('four-up', capability.examples.length === 4);
+      examplesGrid.classList.toggle('solver-grid', selectedCapability === 'solver');
       examplesGrid.innerHTML = capability.examples.map((example, index) => `
         <button class="example-card${isExamPrepOverview ? ' feature-card' : ''}"${isExamPrepOverview ? ` data-feature-index="${index}" aria-label="Learn about ${example.title}"` : ` data-example-index="${index}" aria-label="Preview ${example.title}"`}>
           <span class="example-meta"><span>${example.tag}</span>${icon(capability.icon)}</span>
