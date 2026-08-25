@@ -84,6 +84,7 @@
     .nav-button { width: 100%; height: 48px; padding: 0 15px; border: 0; border-radius: 24px; background: transparent; display: flex; align-items: center; gap: 13px; color: #303a4d; font-size: 16px; font-weight: 540; text-align: left; cursor: pointer; transition: background .16s ease, color .16s ease, box-shadow .16s ease; }
     body.dark .nav-button { color:#dbe4f3; }
     .nav-button:hover { background: #eef3f9; }
+    .nav-button[hidden] { display:none; }
     body.dark .nav-button:hover { background:#263248; }
     .nav-button.active { background: white; color: #087cf4; box-shadow: 0 3px 8px rgba(49,65,92,.15); }
     body.dark .nav-button.active { background:#263248; color:#64aaff; }
@@ -92,21 +93,26 @@
     .side-meta { display: grid; gap: 10px; }
     .chats { display:flex; align-items:center; gap:12px; padding:0 17px; height:42px; color:#586275; font-size:15px; }
     body.dark .chats { color:#b8c3d5; }
-    .app-download-card { padding:13px 11px 11px; border:1px solid #e1e6ee; border-radius:18px; background:#fff; text-align:center; box-shadow:0 8px 24px rgba(38,51,73,.06); }
-    .app-download-copy { margin:0 0 9px; color:#151922; font-size:15px; line-height:1.35; letter-spacing:-.01em; }
-    .app-download-copy strong, .app-download-copy span { display:block; }
-    .app-download-copy strong { font-weight:720; }
-    .app-download-copy span { margin-top:2px; font-weight:560; }
-    .app-qr-link { width:132px; height:132px; margin:0 auto 10px; display:block; border-radius:8px; background:#fff; }
-    .app-qr-link img { width:100%; height:100%; display:block; }
+    .app-download-card { padding:11px; border:1px solid #e1e6ee; border-radius:16px; background:#fff; box-shadow:0 8px 24px rgba(38,51,73,.06); }
     .app-store-links { display:flex; align-items:center; justify-content:center; gap:7px; }
+    .app-store-entry { position:relative; display:flex; }
     .app-store-link { height:32px; display:flex; align-items:center; justify-content:center; border-radius:7px; transition:transform .16s ease,opacity .16s ease; }
     .app-store-link.apple-store { width:96px; }
     .app-store-link.google-play { width:107px; }
     .app-store-link:hover { transform:translateY(-1px); opacity:.9; }
     .app-store-link img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
+    .app-qr-popover { position:absolute; z-index:64; bottom:calc(100% + 12px); width:154px; padding:10px; border:1px solid #e1e6ee; border-radius:14px; background:#fff; box-shadow:0 18px 42px rgba(24,35,55,.20); color:#283244; text-align:center; pointer-events:none; opacity:0; visibility:hidden; transform:translateY(7px); transition:opacity .15s ease,visibility .15s ease,transform .15s ease; }
+    .app-store-entry:first-child .app-qr-popover { left:0; }
+    .app-store-entry:last-child .app-qr-popover { right:0; }
+    .app-qr-popover::after { content:""; position:absolute; bottom:-5px; width:10px; height:10px; background:#fff; border-right:1px solid #e1e6ee; border-bottom:1px solid #e1e6ee; transform:rotate(45deg); }
+    .app-store-entry:first-child .app-qr-popover::after { left:42px; }
+    .app-store-entry:last-child .app-qr-popover::after { right:46px; }
+    .app-qr-popover img { width:132px; height:132px; display:block; margin:0 auto 6px; }
+    .app-qr-popover small { font-size:10px; font-weight:650; }
+    .app-store-entry:hover .app-qr-popover, .app-store-entry:focus-within .app-qr-popover { opacity:1; visibility:visible; transform:translateY(0); }
     body.dark .app-download-card { border-color:#344157; background:#202a3a; }
-    body.dark .app-download-copy { color:#f3f6fb; }
+    body.dark .app-qr-popover { border-color:#344157; background:#202a3a; color:#f3f6fb; }
+    body.dark .app-qr-popover::after { border-color:#344157; background:#202a3a; }
     .upgrade { position:relative; margin:0 1px; height:47px; border:0; border-radius:8px; cursor:pointer; background:linear-gradient(90deg,#ffd24b,#ffca49); color:#111827; font-size:18px; font-weight:750; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:inset 0 -1px 0 rgba(153,92,0,.12); }
     .discount { position:absolute; left:-8px; width:52px; height:52px; display:grid; place-items:center; clip-path:polygon(50% 0%,61% 9%,76% 5%,83% 19%,98% 23%,94% 39%,100% 50%,91% 61%,95% 77%,79% 82%,74% 97%,59% 91%,49% 100%,38% 91%,22% 96%,17% 81%,2% 76%,8% 61%,0 50%,8% 38%,3% 23%,18% 18%,23% 3%,39% 9%); background:#ff4e43; color:white; font-size:11px; line-height:11px; font-weight:800; transform:rotate(-7deg); }
     .user-row { margin:0 -13px -12px; padding:16px 21px; border-top:1px solid #e2e7ef; display:flex; align-items:center; gap:10px; }
@@ -144,6 +150,33 @@
     .extension-tooltip { position: absolute; top: calc(100% + 9px); right: 0; width: max-content; max-width: 180px; padding: 8px 10px; border: 1px solid rgba(25, 38, 63, .10); border-radius: 9px; background: #171b23; color: #fff; box-shadow: 0 10px 28px rgba(24, 33, 50, .18); font-size: 11px; font-weight: 600; line-height: 1; pointer-events: none; opacity: 0; transform: translateY(-4px); transition: opacity .14s ease, transform .14s ease; }
     .extension-tooltip::before { content: ""; position: absolute; right: 22px; top: -4px; width: 8px; height: 8px; background: #171b23; transform: rotate(45deg); }
     .extension-cta:hover .extension-tooltip, .extension-cta:focus-visible .extension-tooltip { opacity: 1; transform: translateY(0); }
+    .history-entry { position:fixed; z-index:28; top:67px; right:22px; height:36px; display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:0 12px; border:1px solid var(--line); border-radius:11px; background:rgba(255,255,255,.92); color:#4e5a6d; box-shadow:0 5px 16px rgba(32,48,75,.08); backdrop-filter:blur(12px); font:650 12px/1 inherit; cursor:pointer; transition:background .16s ease,color .16s ease,transform .16s ease; }
+    .history-entry:hover, .history-entry[aria-expanded="true"] { background:#fff; color:var(--accent); transform:translateY(-1px); }
+    .history-entry .icon { width:17px; height:17px; }
+    body.dark .history-entry { background:rgba(32,42,58,.94); color:#dbe4f3; }
+    .history-backdrop { position:fixed; inset:0; z-index:68; border:0; background:rgba(18,25,38,.28); opacity:0; visibility:hidden; cursor:default; transition:opacity .2s ease,visibility .2s ease; }
+    .history-drawer { position:fixed; z-index:69; inset:0 0 0 auto; width:min(390px,100vw); display:flex; visibility:hidden; flex-direction:column; padding:0; border-left:1px solid var(--line); background:var(--surface); box-shadow:-22px 0 60px rgba(20,30,48,.17); transform:translateX(102%); transition:transform .24s ease,visibility .24s ease; }
+    .history-drawer-head { display:flex; align-items:center; gap:12px; min-height:74px; padding:0 20px; border-bottom:1px solid var(--line); }
+    .history-drawer-head h2 { margin:0; font-size:20px; letter-spacing:-.02em; }
+    .history-drawer-head p { margin:3px 0 0; color:var(--muted); font-size:11px; }
+    .history-drawer-close { width:36px; height:36px; margin-left:auto; display:grid; place-items:center; padding:0; border:0; border-radius:10px; background:transparent; color:var(--muted); cursor:pointer; }
+    .history-drawer-close:hover { background:var(--surface-hover); color:var(--text); }
+    .history-drawer-body { min-height:0; flex:1; overflow:auto; padding:18px 15px 28px; }
+    .history-group + .history-group { margin-top:24px; }
+    .history-group-title { margin:0 7px 8px; color:var(--subtle); font-size:10px; font-weight:750; letter-spacing:.08em; text-transform:uppercase; }
+    .history-item { width:100%; display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:10px; padding:11px 10px; border:0; border-radius:12px; background:transparent; color:var(--text); text-align:left; cursor:pointer; }
+    .history-item:hover { background:var(--surface-hover); }
+    .history-item-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:var(--accent-soft); color:var(--accent); }
+    .history-item-icon .icon { width:17px; height:17px; }
+    .history-item-copy { min-width:0; }
+    .history-item-copy strong, .history-item-copy span { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .history-item-copy strong { font-size:12px; font-weight:650; }
+    .history-item-copy span { margin-top:4px; color:var(--muted); font-size:10px; }
+    .history-item time { color:var(--subtle); font-size:9px; }
+    body.history-open { overflow:hidden; }
+    body.history-open .history-backdrop { opacity:1; visibility:visible; }
+    body.history-open .history-drawer { visibility:visible; transform:translateX(0); }
+    .phase-one-hidden { display:none !important; }
 
     .workspace { width: min(1040px, calc(100% - 56px)); margin: 0 auto; padding: 26px 0 48px; }
     .workspace[hidden] { display:none; }
@@ -292,7 +325,7 @@
     .send-button .icon { width: 16px; height: 16px; }
 
     .popover {
-      position: absolute; z-index: 20; left: 126px; bottom: 58px; width: 260px; padding: 7px; border: 1px solid var(--line); border-radius: 14px;
+      position: absolute; z-index: 20; right: 94px; bottom: 58px; width: 260px; padding: 7px; border: 1px solid var(--line); border-radius: 14px;
       background: var(--surface); box-shadow: var(--shadow); transform-origin: bottom left;
     }
     .popover[hidden] { display: none; }
@@ -425,7 +458,7 @@
     .study-example-group .example-card { background:linear-gradient(180deg,rgba(var(--group-rgb),.045),var(--surface) 38%); }
     .study-example-group .example-card:hover { border-color:rgba(var(--group-rgb),.34); }
     .example-card {
-      min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; min-height: 0; padding: 15px;
+      min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr; min-height: 0; padding: 15px;
       border: 1px solid var(--line); border-radius: 17px; background: var(--surface); text-align: left; cursor: pointer;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
@@ -434,8 +467,6 @@
     .example-meta .icon { width: 15px; height: 15px; }
     .example-card h3 { margin: 9px 0 10px; overflow: hidden; font-size: 15px; line-height: 1.25; font-weight: 660; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
     .example-preview { min-height: 104px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-soft); }
-    .example-cta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 11px; color: var(--accent); font-size: 11px; font-weight: 650; }
-    .example-cta .icon { width: 14px; height: 14px; }
 
     .preview-equation { height: 104px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 9px; padding: 12px; }
     .equation-main { display: grid; place-items: center; border-radius: 9px; background: var(--surface); color: var(--text); font-family: Georgia, serif; font-size: 18px; }
@@ -527,8 +558,18 @@
     .dialog-prompt { margin-top: 15px; padding: 13px 14px; border-left: 3px solid var(--accent); background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.5; }
     .dialog-interaction { margin-top:14px; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
     .dialog-interaction h3 { margin:0 0 10px; font-size:14px; }
-    .interaction-button { min-height:38px; padding:0 13px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--text); cursor:pointer; font-size:12px; font-weight:620; }
-    .interaction-button.primary { border-color:var(--accent); background:var(--accent); color:white; }
+    .graph-control { display:grid; gap:10px; }
+    .graph-control label { display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font-size:11px; }
+    .graph-control output { color:var(--accent); font-weight:700; }
+    .graph-control input { width:100%; accent-color:var(--accent); cursor:pointer; }
+    .graph-readout { margin:0; color:var(--text); font-size:12px; font-weight:620; }
+    .media-control-row { display:grid; grid-template-columns:40px minmax(0,1fr) auto; align-items:center; gap:11px; }
+    .media-toggle { width:40px; height:40px; display:grid; place-items:center; padding:0; border:0; border-radius:50%; background:var(--accent); color:#fff; cursor:pointer; }
+    .media-toggle .icon { width:20px; height:20px; }
+    .media-toggle .pause-glyph { font:800 15px/1 system-ui,sans-serif; letter-spacing:-1px; }
+    .media-copy strong, .media-copy span { display:block; }
+    .media-copy strong { font-size:12px; }
+    .media-copy span { margin-top:3px; color:var(--muted); font-size:10px; }
     .interaction-progress { height:7px; margin:12px 0 6px; overflow:hidden; border-radius:5px; background:var(--line); }
     .interaction-progress span { display:block; width:8%; height:100%; border-radius:inherit; background:var(--accent); transition:width .18s linear; }
     .interaction-time { color:var(--muted); font-size:11px; }
@@ -548,6 +589,16 @@
     .guide-check small { color:var(--muted); }
     .guide-check.done { opacity:.62; }
     .guide-check.done strong { text-decoration:line-through; }
+    .solution-stepper { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .solution-step { min-height:70px; display:grid; align-content:start; gap:7px; padding:10px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; }
+    .solution-step span { width:22px; height:22px; display:grid; place-items:center; border-radius:7px; background:var(--surface-hover); color:var(--muted); font-size:10px; font-weight:750; }
+    .solution-step small { color:var(--muted); line-height:1.35; }
+    .solution-step.active { border-color:rgba(var(--accent-rgb),.5); background:var(--accent-soft); }
+    .solution-step.active span { background:var(--accent); color:#fff; }
+    .insight-selector { display:flex; flex-wrap:wrap; gap:8px; }
+    .insight-chip { min-height:36px; padding:0 12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--muted); font-size:11px; font-weight:650; cursor:pointer; }
+    .insight-chip.active { border-color:rgba(var(--accent-rgb),.46); background:var(--accent-soft); color:var(--accent); }
+    .insight-readout { margin:11px 1px 0; color:var(--text); font-size:11px; line-height:1.45; }
     .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 15px 22px 20px; border-top: 1px solid var(--line); }
     .dialog-button { height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
     .dialog-button.primary { border-color: var(--accent); background: var(--accent); color: white; font-weight: 650; }
@@ -708,6 +759,7 @@
       .extension-entry { top: 10px; right: 14px; }
       .extension-cta { height: 36px; padding-inline: 12px; border-radius: 10px; font-size: 12px; }
       .extension-browser-icon { width: 17px; height: 17px; }
+      .history-entry { top:54px; right:14px; height:34px; }
       .mobile-menu { display: grid; margin-right: 8px; }
       .sidebar-collapse { display: none; }
       .workspace { width: min(720px, calc(100% - 28px)); padding-top: 16px; }
@@ -720,7 +772,7 @@
       .study-example-group-grid { grid-template-columns:1fr; }
       .examples-grid.four-up { grid-template-columns:1fr; }
       .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
-      .example-meta, .example-card h3, .example-cta { grid-column: 1; }
+      .example-meta, .example-card h3 { grid-column: 1; }
       .example-preview { grid-column: 2; grid-row: 1 / 4; min-height: 118px; }
       .math-grid { grid-template-columns: repeat(5, minmax(38px, 1fr)); }
       .chat-button { display: none; }
@@ -728,7 +780,7 @@
 
     @media (max-width: 560px) {
       .topbar-title, .topbar-actions .topbar-button:first-child { display: none; }
-      .workspace { width: calc(100% - 20px); padding-bottom: 28px; }
+      .workspace { width: calc(100% - 20px); padding-top:72px; padding-bottom: 28px; }
       .course-workspace { width:calc(100% - 20px); padding:14px 0 30px; }
       .course-package-hero { margin-top:9px; padding:20px; border-radius:17px; }
       .course-package-copy h1 { font-size:25px; }
@@ -765,10 +817,10 @@
       .study-example-group + .study-example-group { padding-top:24px; }
       .study-example-group-heading { display:block; margin-bottom:11px; }
       .study-example-group-heading span { display:block; margin-top:4px; }
-      .example-card { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto 116px auto; min-height: 0; }
-      .example-meta, .example-card h3, .example-preview, .example-cta { grid-column: 1; }
+      .example-card { display: grid; grid-template-columns: 1fr; grid-template-rows: auto auto 116px; min-height: 0; }
+      .example-meta, .example-card h3, .example-preview { grid-column: 1; }
       .example-preview { grid-row: 3; }
-      .popover { left: 10px; width: calc(100% - 20px); }
+      .popover { left: 10px; right:auto; width: calc(100% - 20px); }
       .math-grid { grid-template-columns: repeat(4, minmax(38px, 1fr)); }
       .calculator { inset: auto 10px 10px; width: auto; }
       .calculator-panel { width:min(360px,calc(100vw - 16px)); height:min(500px,calc(100vh - 16px)); }
@@ -796,9 +848,14 @@
     }
 
     @media (max-width: 430px) {
+      .extension-cta { width:38px; padding:0; }
+      .extension-cta > span:not(.extension-tooltip) { display:none; }
+      .history-entry { width:38px; padding:0; }
+      .history-entry span { display:none; }
       .examples-heading { flex-wrap:wrap; }
       .multi-model-proof { width:100%; margin-left:0; }
       .multi-model-proof p { max-width:none; }
+      .solution-stepper { grid-template-columns:1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -874,17 +931,21 @@
         <button class="nav-button" data-toast="AI Writing Tools would open here"><svg class="icon"><use href="#i-wand"/></svg><span class="nav-label">AI Writing Tools</span></button>
         <button class="nav-button" data-toast="Exam Predictor would open here"><svg class="icon"><use href="#i-exam"/></svg><span class="nav-label">Exam Predictor</span></button>
         <button class="nav-button" data-toast="Mini Games would open here"><svg class="icon"><use href="#i-game"/></svg><span class="nav-label">Mini Games</span></button>
-        <button class="nav-button" data-toast="History page would open here"><svg class="icon"><use href="#i-history"/></svg><span class="nav-label">History</span></button>
+        <button class="nav-button" data-toast="History page would open here" hidden aria-hidden="true"><svg class="icon"><use href="#i-history"/></svg><span class="nav-label">History</span></button>
       </nav>
 
       <div class="sidebar-spacer"></div>
       <div class="side-meta">
         <section class="app-download-card" aria-label="Download the Solvely app">
-          <p class="app-download-copy"><strong>Download the app.</strong><span>Get 2 free solves.</span></p>
-          <a class="app-qr-link" href="https://solvely.ai/mobile" target="_blank" rel="noopener" aria-label="Open the Solvely mobile app download page"><img src="assets/solvely-mobile-qr.svg" alt="QR code for the Solvely mobile app" width="132" height="132" /></a>
           <div class="app-store-links">
-            <a class="app-store-link apple-store" href="https://apps.apple.com/us/app/solvely-ai-study-tools/id6446930976" target="_blank" rel="noopener" aria-label="Download Solvely on the App Store"><img src="assets/download-on-app-store.svg" alt="Download on the App Store" width="96" height="32" /></a>
-            <a class="app-store-link google-play" href="https://play.google.com/store/apps/details?id=com.solvely.photo.math.solver.calculator.ai" target="_blank" rel="noopener" aria-label="Get Solvely on Google Play"><img src="assets/get-it-on-google-play-trimmed.png" alt="Get it on Google Play" width="107" height="32" /></a>
+            <span class="app-store-entry">
+              <a class="app-store-link apple-store" href="https://apps.apple.com/us/app/solvely-ai-study-tools/id6446930976" target="_blank" rel="noopener" aria-describedby="appleQrTooltip" aria-label="Download Solvely on the App Store"><img src="assets/download-on-app-store.svg" alt="Download on the App Store" width="96" height="32" /></a>
+              <span class="app-qr-popover" id="appleQrTooltip" role="tooltip"><img src="assets/solvely-mobile-qr.svg" alt="" width="132" height="132" /><small>Scan to download Solvely</small></span>
+            </span>
+            <span class="app-store-entry">
+              <a class="app-store-link google-play" href="https://play.google.com/store/apps/details?id=com.solvely.photo.math.solver.calculator.ai" target="_blank" rel="noopener" aria-describedby="googleQrTooltip" aria-label="Get Solvely on Google Play"><img src="assets/get-it-on-google-play-trimmed.png" alt="Get it on Google Play" width="107" height="32" /></a>
+              <span class="app-qr-popover" id="googleQrTooltip" role="tooltip"><img src="assets/solvely-mobile-qr.svg" alt="" width="132" height="132" /><small>Scan to download Solvely</small></span>
+            </span>
           </div>
         </section>
         <button class="upgrade" data-toast="Upgrade flow opened"><span class="discount">57%<br>OFF</span><span class="upgrade-label">⬆ Upgrade</span></button>
@@ -904,6 +965,7 @@
           <span class="extension-tooltip" id="extensionTooltip" role="tooltip">Solve anywhere on the web</span>
         </a>
       </div>
+      <button class="history-entry" id="historyEntry" type="button" aria-controls="historyDrawer" aria-expanded="false"><svg class="icon"><use href="#i-history"/></svg><span>History</span></button>
       <header class="topbar">
         <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation"><svg class="icon"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         <span class="topbar-title">AI learning workspace</span>
@@ -935,10 +997,10 @@
             <button class="tool-button" id="imageButton" aria-label="Upload images" title="Upload images"><svg class="icon"><use href="#i-image"/></svg></button>
             <button class="tool-button" id="linkButton" aria-label="Paste a study material link" aria-expanded="false" title="Paste link"><svg class="icon"><use href="#i-link"/></svg></button>
             <button class="tool-button" id="mathButton" aria-label="Open math input" aria-expanded="false" title="Math input"><svg class="icon"><use href="#i-variable"/></svg></button>
-            <button class="tool-button" id="calculatorButton" aria-label="Open calculator" aria-expanded="false" title="Calculator"><svg class="icon"><use href="#i-calculator"/></svg></button>
-            <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
+            <button class="tool-button phase-one-hidden" id="calculatorButton" aria-label="Open calculator" aria-expanded="false" title="Calculator"><svg class="icon"><use href="#i-calculator"/></svg></button>
             <span class="toolbar-spacer"></span>
-            <button class="tool-button" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
+            <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
+            <button class="tool-button phase-one-hidden" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
             <button class="send-button" id="sendButton" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="sendLabel">Ask</span></button>
           </div>
 
@@ -1059,7 +1121,7 @@
       <button class="dialog-close" id="dialogClose" aria-label="Close preview"><svg class="icon"><use href="#i-close"/></svg></button>
     </div>
     <div class="dialog-body"><div class="dialog-preview" id="dialogPreview"></div><div class="dialog-interaction" id="dialogInteraction"></div><div class="dialog-prompt" id="dialogPrompt"></div></div>
-    <div class="dialog-actions"><button class="dialog-button" id="dialogCancel">Close</button><button class="dialog-button primary" id="useExampleButton">Use this example</button></div>
+    <div class="dialog-actions"><button class="dialog-button" id="dialogCancel" hidden>Close</button><button class="dialog-button primary" id="useExampleButton">Use this example</button></div>
   </dialog>
 
   <dialog class="crop-dialog" id="cropDialog" aria-labelledby="cropDialogTitle">
@@ -1080,6 +1142,27 @@
       <button class="crop-done" id="cropDone" type="button">Done</button>
     </div>
   </dialog>
+
+  <button class="history-backdrop" id="historyBackdrop" type="button" aria-label="Close history"></button>
+  <aside class="history-drawer" id="historyDrawer" aria-labelledby="historyDrawerTitle" aria-hidden="true" inert>
+    <header class="history-drawer-head">
+      <div><h2 id="historyDrawerTitle">History</h2><p>Continue where you left off</p></div>
+      <button class="history-drawer-close" id="historyDrawerClose" type="button" aria-label="Close history"><svg class="icon"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="history-drawer-body">
+      <section class="history-group" aria-labelledby="historyTodayTitle">
+        <h3 class="history-group-title" id="historyTodayTitle">Today</h3>
+        <button class="history-item" type="button" data-recent-capability="solver" data-recent-prompt="Solve x² − 5x + 6 = 0 and explain each step."><span class="history-item-icon"><svg class="icon"><use href="#i-solver"/></svg></span><span class="history-item-copy"><strong>Quadratic equation roots</strong><span>Solver</span></span><time>10:42</time></button>
+        <button class="history-item" type="button" data-recent-capability="mock" data-recent-prompt="Create a focused SAT exam prep plan for the next four weeks."><span class="history-item-icon"><svg class="icon"><use href="#i-target"/></svg></span><span class="history-item-copy"><strong>SAT practice plan</strong><span>Exam Prep</span></span><time>09:18</time></button>
+      </section>
+      <section class="history-group" aria-labelledby="historyWeekTitle">
+        <h3 class="history-group-title" id="historyWeekTitle">Previous 7 days</h3>
+        <button class="history-item" type="button" data-recent-capability="quiz" data-recent-prompt="Create a quiz on cell biology from my uploaded notes."><span class="history-item-icon"><svg class="icon"><use href="#i-exam"/></svg></span><span class="history-item-copy"><strong>Cell biology quiz</strong><span>Quiz</span></span><time>Mon</time></button>
+        <button class="history-item" type="button" data-recent-capability="flashcards" data-recent-prompt="Create organic chemistry flashcards from my study material."><span class="history-item-icon"><svg class="icon"><use href="#i-grid"/></svg></span><span class="history-item-copy"><strong>Organic chemistry review</strong><span>Flashcards</span></span><time>Sun</time></button>
+        <button class="history-item" type="button" data-recent-capability="podcast" data-recent-prompt="Create a conversational podcast about the French Revolution."><span class="history-item-icon"><svg class="icon"><use href="#i-mic"/></svg></span><span class="history-item-copy"><strong>The French Revolution</strong><span>Podcast</span></span><time>Fri</time></button>
+      </section>
+    </div>
+  </aside>
 
   <button class="chat-button" id="chatButton" aria-label="Open support chat"><svg class="icon"><use href="#i-chat"/></svg></button>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1115,6 +1198,24 @@
       cta.setAttribute('aria-label', target.label);
       browserIcon.setAttribute('viewBox', target.viewBox);
       browserIcon.innerHTML = target.icon;
+    }
+
+    function openHistoryDrawer() {
+      document.body.classList.add('history-open');
+      document.getElementById('historyEntry').setAttribute('aria-expanded', 'true');
+      const drawer = document.getElementById('historyDrawer');
+      drawer.setAttribute('aria-hidden', 'false');
+      drawer.inert = false;
+      setTimeout(() => document.getElementById('historyDrawerClose').focus(), 80);
+    }
+
+    function closeHistoryDrawer(returnFocus = true) {
+      document.body.classList.remove('history-open');
+      document.getElementById('historyEntry').setAttribute('aria-expanded', 'false');
+      const drawer = document.getElementById('historyDrawer');
+      drawer.setAttribute('aria-hidden', 'true');
+      drawer.inert = true;
+      if (returnFocus) document.getElementById('historyEntry').focus();
     }
 
     const capabilityData = {
@@ -1458,7 +1559,6 @@
           <span class="example-meta"><span>${example.tag}</span>${icon(capability.icon)}</span>
           <h3>${example.title}</h3>
           ${previewMarkup(example.preview)}
-          <span class="example-cta"><span>${example.cta || 'Try this example'}</span>${icon('i-chevron')}</span>
         </button>`).join('');
       examplesGrid.querySelectorAll('[data-example-index]').forEach(card => card.addEventListener('click', () => openExample(Number(card.dataset.exampleIndex))));
     }
@@ -1610,7 +1710,8 @@
       attachButton.setAttribute('aria-label', supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
       attachButton.title = supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
       mathButton.hidden = !showMathTools;
-      calculatorButton.hidden = !showMathTools;
+      // Phase 1: preserve the calculator implementation while hiding its homepage entry.
+      calculatorButton.hidden = true;
       modelButton.hidden = key !== 'solver';
       linkButton.hidden = linkKind === 'none';
       linkButton.dataset.linkKind = linkKind;
@@ -1657,24 +1758,44 @@
 
     function interactionMarkup(type) {
       if (type.startsWith('exam-')) type = 'exam';
-      if (type === 'graph') return '<h3>Interactive graph</h3><button class="interaction-button primary" data-open-graphing>Open in Graphing Calculator</button>';
-      if (type === 'video') return '<h3>Generated explanation</h3><button class="interaction-button" data-media-toggle>Play explanation</button><div class="interaction-progress"><span data-media-progress></span></div><span class="interaction-time" data-media-time>0:05 / 1:18</span>';
+      if (type === 'graph') return '<div class="graph-control"><label for="exampleGraphRange"><span>Move along the curve</span><output data-graph-x>2.0</output></label><input id="exampleGraphRange" type="range" min="-4" max="6" value="2" step="0.1" data-graph-slider><p class="graph-readout" data-graph-readout>At x = 2.0, y = −1.00</p></div>';
+      if (type === 'video') return '<div class="media-control-row"><button class="media-toggle" type="button" data-media-toggle aria-label="Play explanation">' + icon('i-play') + '</button><span class="media-copy"><strong>Generated explanation</strong><span>Geometry walkthrough</span></span><span class="interaction-time" data-media-time>0:05 / 1:18</span></div><div class="interaction-progress"><span data-media-progress></span></div>';
+      if (type === 'chemistry') return '<h3>Explore the structure</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-structure-group="Amide">Amide</button><button class="insight-chip" type="button" data-structure-group="Aromatic ring">Aromatic ring</button><button class="insight-chip" type="button" data-structure-group="Tertiary amine">Tertiary amine</button></div><p class="insight-readout" data-structure-readout>The amide group links a carbonyl carbon to nitrogen and strongly affects polarity.</p>';
+      if (type === 'accounting') return '<h3>Inspect the statement</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-accounting-metric="Revenue">Revenue</button><button class="insight-chip" type="button" data-accounting-metric="Gross profit">Gross profit</button><button class="insight-chip" type="button" data-accounting-metric="Net income">Net income</button></div><p class="insight-readout" data-accounting-readout>Revenue reached $968.7, up 15% year over year.</p>';
       if (type === 'flashcards') return '<button class="flash-interactive" data-flashcard aria-label="Flip flashcard"><span class="flash-interactive-inner"><span class="flash-face front"><small>QUESTION</small><strong>What is the most important idea in this topic?</strong><small>Click to reveal</small></span><span class="flash-face back"><small>ANSWER</small><strong>The core concept, explained in active-recall form.</strong><small>Click to return</small></span></span></button>';
       if (type === 'quiz') return '<h3>Check your understanding</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">Option A</button><button class="quiz-answer" data-answer="correct">Option B</button><button class="quiz-answer" data-answer="wrong">Option C</button><button class="quiz-answer" data-answer="wrong">Option D</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer for instant feedback.</p></div>';
       if (type === 'guide') return '<h3>Review checklist</h3><button class="guide-check" data-guide-check><span>1</span><strong>Understand the core concept</strong><small>3 min</small></button><button class="guide-check" data-guide-check><span>2</span><strong>Review the worked example</strong><small>5 min</small></button><button class="guide-check" data-guide-check><span>3</span><strong>Practice active recall</strong><small>4 min</small></button>';
-      if (type === 'podcast') return '<h3>Audio lesson</h3><button class="interaction-button" data-media-toggle>Play podcast</button><div class="interaction-progress"><span data-media-progress></span></div><span class="interaction-time" data-media-time>0:42 / 8:00</span>';
-      if (type === 'exam') return '<h3>Timed practice</h3><button class="interaction-button primary" data-start-exam>Start practice exam</button><p class="interaction-time" data-exam-status style="margin:10px 0 0">Full-length timing and score insights are ready.</p>';
-      return '<h3>Step-by-step solution</h3><button class="interaction-button primary" data-reveal-step>Reveal next step</button><p class="interaction-time" data-step-status style="margin:10px 0 0">Step 1 of 3 · Factor the expression.</p>';
+      if (type === 'podcast') return '<div class="media-control-row"><button class="media-toggle" type="button" data-media-toggle aria-label="Play podcast">' + icon('i-play') + '</button><span class="media-copy"><strong>Audio lesson</strong><span>Conversational study mode</span></span><span class="interaction-time" data-media-time>0:42 / 8:00</span></div><div class="interaction-progress"><span data-media-progress></span></div>';
+      if (type === 'exam') return '<h3>Sample question</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">A. 18</button><button class="quiz-answer" data-answer="correct">B. 24</button><button class="quiz-answer" data-answer="wrong">C. 30</button><button class="quiz-answer" data-answer="wrong">D. 36</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer to preview instant scoring.</p></div>';
+      return '<h3>Step-by-step solution</h3><div class="solution-stepper"><button class="solution-step active" type="button" data-solution-step="1"><span>1</span><small>Factor the expression.</small></button><button class="solution-step" type="button" data-solution-step="2"><span>2</span><small>Set each factor equal to zero.</small></button><button class="solution-step" type="button" data-solution-step="3"><span>3</span><small>Verify both roots.</small></button></div>';
     }
     function bindDialogInteraction(type) {
       const interaction = document.getElementById('dialogInteraction');
-      const graphButton = interaction.querySelector('[data-open-graphing]');
-      if (graphButton) graphButton.addEventListener('click', () => {
-        closeDialog();
-        const trigger = document.getElementById('calculatorButton');
-        if (calculatorPanel.hidden) trigger.click();
-        setTimeout(() => calculatorPanel.querySelector('[data-calc-tab="graph"]')?.click(),80);
+      const graphSlider = interaction.querySelector('[data-graph-slider]');
+      if (graphSlider) graphSlider.addEventListener('input', () => {
+        const x = Number(graphSlider.value);
+        const y = x * x - 4 * x + 3;
+        interaction.querySelector('[data-graph-x]').textContent = x.toFixed(1);
+        interaction.querySelector('[data-graph-readout]').textContent = `At x = ${x.toFixed(1)}, y = ${y.toFixed(2).replace('-', '−')}`;
       });
+      const structureNotes = {
+        'Amide':'The amide group links a carbonyl carbon to nitrogen and strongly affects polarity.',
+        'Aromatic ring':'The six-membered aromatic ring adds resonance stability and a rigid planar region.',
+        'Tertiary amine':'The tertiary amine can accept a proton and influences the molecule’s basicity.'
+      };
+      interaction.querySelectorAll('[data-structure-group]').forEach(group => group.addEventListener('click', () => {
+        interaction.querySelectorAll('[data-structure-group]').forEach(item => item.classList.toggle('active', item === group));
+        interaction.querySelector('[data-structure-readout]').textContent = structureNotes[group.dataset.structureGroup];
+      }));
+      const accountingNotes = {
+        'Revenue':'Revenue reached $968.7, up 15% year over year.',
+        'Gross profit':'Gross profit grew 18.8%, faster than revenue, indicating stronger unit economics.',
+        'Net income':'Net income rose 34.3% to $249.1, the strongest improvement in the statement.'
+      };
+      interaction.querySelectorAll('[data-accounting-metric]').forEach(metric => metric.addEventListener('click', () => {
+        interaction.querySelectorAll('[data-accounting-metric]').forEach(item => item.classList.toggle('active', item === metric));
+        interaction.querySelector('[data-accounting-readout]').textContent = accountingNotes[metric.dataset.accountingMetric];
+      }));
       const flashcard = interaction.querySelector('[data-flashcard]');
       if (flashcard) flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
       interaction.querySelectorAll('[data-answer]').forEach(answer => answer.addEventListener('click', () => {
@@ -1694,7 +1815,8 @@
         let progress = type === 'podcast' ? 9 : 7;
         mediaToggle.addEventListener('click', () => {
           playing = !playing;
-          mediaToggle.textContent = playing ? (type === 'podcast' ? 'Pause podcast' : 'Pause explanation') : (type === 'podcast' ? 'Play podcast' : 'Play explanation');
+          mediaToggle.innerHTML = playing ? '<span class="pause-glyph" aria-hidden="true">Ⅱ</span>' : icon('i-play');
+          mediaToggle.setAttribute('aria-label', playing ? (type === 'podcast' ? 'Pause podcast' : 'Pause explanation') : (type === 'podcast' ? 'Play podcast' : 'Play explanation'));
           clearInterval(mediaTimer);
           if (!playing) return;
           mediaTimer = setInterval(() => {
@@ -1706,26 +1828,9 @@
           },220);
         });
       }
-      const examButton = interaction.querySelector('[data-start-exam]');
-      if (examButton) examButton.addEventListener('click', () => {
-        examButton.disabled = true;
-        examButton.textContent = 'Exam in progress';
-        interaction.querySelector('[data-exam-status]').textContent = '59:59 remaining · answers and scoring are now active.';
-        showToast('Practice exam started');
-      });
-      const revealButton = interaction.querySelector('[data-reveal-step]');
-      if (revealButton) {
-        let step = 1;
-        revealButton.addEventListener('click', () => {
-          step = Math.min(3,step + 1);
-          const labels = ['Factor the expression.','Set each factor equal to zero.','Verify both roots in the original equation.'];
-          interaction.querySelector('[data-step-status]').textContent = 'Step ' + step + ' of 3 · ' + labels[step - 1];
-          if (step === 3) {
-            revealButton.textContent = 'Solution complete';
-            revealButton.disabled = true;
-          }
-        });
-      }
+      interaction.querySelectorAll('[data-solution-step]').forEach(step => step.addEventListener('click', () => {
+        interaction.querySelectorAll('[data-solution-step]').forEach(item => item.classList.toggle('active', item === step));
+      }));
     }
 
     function openExample(index, capabilityKey = selectedCapability) {
@@ -2527,12 +2632,26 @@
     });
     document.getElementById('mobileMenu').addEventListener('click', () => app.classList.toggle('mobile-sidebar-open'));
     document.getElementById('themeToggle').addEventListener('click', () => document.body.classList.toggle('dark'));
+    document.getElementById('historyEntry').addEventListener('click', () => {
+      if (document.body.classList.contains('history-open')) closeHistoryDrawer();
+      else openHistoryDrawer();
+    });
+    document.getElementById('historyDrawerClose').addEventListener('click', () => closeHistoryDrawer());
+    document.getElementById('historyBackdrop').addEventListener('click', () => closeHistoryDrawer());
     document.querySelectorAll('[data-toast]').forEach(button => button.addEventListener('click', () => showToast(button.dataset.toast)));
     document.querySelectorAll('[data-recent-capability]').forEach(button => button.addEventListener('click', () => {
-      selectCapability(button.dataset.recentCapability);
+      homeWorkspace.hidden = false;
+      courseWorkspace.hidden = true;
+      activeCoursePackageIndex = null;
+      history.replaceState(null, '', location.pathname + location.search);
+      const capabilityKey = button.dataset.recentCapability;
+      selectWorkspaceMode(capabilityKey === 'mock' ? 'exam' : 'study', false);
+      if (capabilityKey !== 'mock') selectCapability(capabilityKey, false);
       promptInput.value = button.dataset.recentPrompt;
       updateSubmit();
+      closeHistoryDrawer(false);
       promptInput.focus();
+      document.getElementById('composerShell').scrollIntoView({ behavior:'smooth', block:'center' });
     }));
     document.getElementById('chatButton').addEventListener('click', () => showToast('Solvely support is ready'));
     document.getElementById('dialogClose').addEventListener('click', closeDialog);
@@ -2569,6 +2688,7 @@
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
         document.getElementById('modelPopover').hidden = true;
+        if (document.body.classList.contains('history-open')) closeHistoryDrawer(false);
         if (app.classList.contains('mobile-sidebar-open')) app.classList.remove('mobile-sidebar-open');
       }
     });
