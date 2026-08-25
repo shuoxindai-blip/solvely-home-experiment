@@ -667,7 +667,8 @@
     .chemistry-fact small,.chemistry-fact strong { display:block; }
     .chemistry-fact small { margin-bottom:3px; color:var(--subtle); font-size:8px; font-weight:720; letter-spacing:.05em; text-transform:uppercase; }
     .chemistry-fact strong { overflow-wrap:anywhere; color:var(--text); font-size:10px; line-height:1.35; }
-    .preview-accounting svg { width:100%; height:100%; display:block; }
+    .preview-accounting { display:grid; place-items:center; padding:0; background:#fff; }
+    .preview-accounting img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
     .preview-accounting-full { min-height:245px; padding:16px 18px; overflow-x:auto; background:#fff; }
     .accounting-full-table { width:100%; min-width:570px; border-collapse:collapse; color:#526077; font-size:11px; }
     .accounting-full-table caption { padding:0 0 10px; color:#254b86; font-size:11px; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
@@ -2381,7 +2382,7 @@
     }
 
     function accountingPreview() {
-      return `<div class="example-preview preview-accounting"><svg viewBox="0 0 320 104" role="img" aria-label="Voltix and Circuita vertical analysis preview"><rect width="320" height="104" fill="#fff"/><rect x="10" y="8" width="300" height="18" rx="4" fill="#eef4ff"/><text x="18" y="20" font-size="7" font-weight="700" fill="#254b86">VERTICAL ANALYSIS · % OF REVENUE</text><g font-size="6.5" fill="#526077"><text x="220" y="37" font-weight="700" fill="#254b86">Voltix</text><text x="271" y="37" font-weight="700" fill="#254b86">Circuita</text><text x="18" y="51">Revenue</text><text x="226" y="51">100%</text><text x="278" y="51">100%</text><text x="18" y="65">COGS</text><text x="229" y="65">70%</text><rect x="270" y="55" width="35" height="13" rx="6.5" fill="#e6f6f0"/><text x="278" y="65" font-weight="700" fill="#16855b">60%</text><text x="18" y="79">Operating expenses</text><rect x="219" y="69" width="35" height="13" rx="6.5" fill="#edf3ff"/><text x="227" y="79" font-weight="700" fill="#2368f0">20%</text><text x="278" y="79">30%</text><text x="18" y="93" font-weight="700">Net margin</text><text x="227" y="93" font-weight="700">10%</text><text x="278" y="93" font-weight="700">10%</text></g><g stroke="#e1e6ee"><path d="M14 55H306M14 69H306M14 83H306"/></g></svg></div>`;
+      return `<div class="example-preview preview-accounting"><img src="assets/solver-financial-analysis-cover.webp" alt="Complete vertical analysis comparing Voltix and Circuita" /></div>`;
     }
 
     function accountingDialogPreview() {
