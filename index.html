@@ -879,8 +879,14 @@
     .flash-interactive.flipped .flash-interactive-inner { transform:rotateY(180deg); }
     .flash-face { position:absolute; inset:0; display:grid; place-items:center; align-content:center; gap:13px; padding:30px; border:1px solid rgba(var(--accent-rgb),.22); border-radius:17px; background:var(--surface); backface-visibility:hidden; text-align:center; box-shadow:0 15px 36px rgba(37,49,76,.1); }
     .flash-face.back { transform:rotateY(180deg); background:var(--accent-soft); }
+    .flash-face.back.has-image { padding:20px 24px; }
     .flash-face small { color:var(--muted); font-size:10px; font-weight:650; letter-spacing:.04em; }
     .flash-face strong { max-width:520px; font-size:18px; line-height:1.45; }
+    .flash-back-content { width:100%; display:grid; place-items:center; gap:15px; }
+    .flash-back-content.has-image { grid-template-columns:minmax(150px,.85fr) minmax(0,1.15fr); text-align:left; }
+    .flash-back-content.has-image strong { font-size:16px; }
+    .flash-back-image { width:100%; height:150px; display:block; object-fit:contain; object-position:center; border:1px solid rgba(var(--accent-rgb),.16); border-radius:12px; background:#fff; }
+    .flash-back-image[hidden] { display:none; }
     .flash-study-controls { display:grid; grid-template-columns:42px minmax(0,1fr) 42px; align-items:center; gap:10px; }
     .flash-nav { width:42px; height:42px; display:grid; place-items:center; padding:0; border:1px solid var(--line); border-radius:50%; background:var(--surface); color:var(--text); font-size:21px; cursor:pointer; transition:border-color .18s ease, background .18s ease, color .18s ease; }
     .flash-nav:hover:not(:disabled) { border-color:rgba(var(--accent-rgb),.35); background:var(--accent-soft); color:var(--accent); }
@@ -1500,6 +1506,11 @@
       .example-card { display:grid; grid-template-columns:1fr; grid-template-rows:auto auto auto; min-height:0; }
       .example-meta, .example-card h3, .example-preview { grid-column: 1; }
       .example-preview { grid-row: 3; }
+      .flash-interactive { height:340px; }
+      .flash-face.back.has-image { padding:18px; }
+      .flash-back-content.has-image { grid-template-columns:1fr; gap:10px; text-align:center; }
+      .flash-back-image { height:190px; }
+      .flash-back-content.has-image strong { font-size:14px; }
       .popover { left: 10px; right:auto; width: calc(100% - 20px); }
       .math-grid { grid-template-columns: repeat(4, minmax(38px, 1fr)); }
       .calculator { inset: auto 10px 10px; width: auto; }
@@ -2063,30 +2074,30 @@
         description: 'Build active-recall cards from the concepts that matter most.',
         examples: [
           {
-            tag: 'Algebra', title: 'Quadratic Function Range', description: 'Range, vertex, and parabola direction.',
-            prompt: 'The range of f(x) = −5x² + 4 is which set of real y-values?', preview: 'flashcards',
+            tag: 'Anatomy 2', title: 'Human Anatomy', description: 'Kidney structure, urine pathway, and renal blood flow.',
+            prompt: 'Create flashcards about kidney structure and the urinary system.', preview: 'flashcards',
             cards: [
-              { front: 'What determines the range of a quadratic function?', back: 'The direction the parabola opens (up or down) and the y-coordinate of the vertex.' },
-              { front: "How is the range determined if the leading coefficient 'a' is negative?", back: 'The range is all real numbers less than or equal to the y-coordinate of the vertex (y ≤ k).' },
-              { front: 'What is the difference between the domain and range of a quadratic function?', back: 'Domain is all possible x-values (usually all real numbers); range is the set of all possible y-values.' }
+              { id:'85736937', front:'Kidney internal organization', back:'The kidney contains cortex, medulla, pyramids, papillae, and calyces draining to the pelvis.', image:'assets/flashcards/kidney-anatomy.webp', imageAlt:'Labeled cross-section showing the internal anatomy of the kidney' },
+              { id:'85736930', front:'Urine pathway', back:'Urine passes from kidney → renal pelvis → ureter → bladder → urethra.' },
+              { id:'85736936', front:'Renal blood flow', back:'Renal blood flow is 20 to 25 percent of cardiac output.' }
             ]
           },
           {
-            tag: 'Geometry', title: 'Cylinder Volume', description: 'Volume with algebraic dimensions.',
-            prompt: 'A storage tank has radius x + 5 meters, height x meters, and volume 192π m³. Determine its dimensions.', preview: 'flashcards',
+            tag: 'Topic 4b', title: 'Gravitational Field', description: 'Gravitational fields, force, and satellite motion.',
+            prompt: 'Create flashcards about gravitational fields, universal gravitation, and satellite motion.', preview: 'flashcards',
             cards: [
-              { front: 'What is the formula for the volume of a cylinder?', back: 'V = πr²h, where r is the radius and h is the height.' },
-              { front: 'How is the volume of a cylinder calculated when dimensions are algebraic expressions?', back: 'Substitute the expressions for radius and height into V = πr²h and solve the resulting equation.' },
-              { front: 'What must be done to the radius in the cylinder volume formula?', back: 'The radius must be squared (r²) before multiplying by height and pi.' }
+              { id:'85729678', front:'Radial gravitational field', back:'A radial field has lines directed inward toward the centre of the Earth.', image:'assets/flashcards/radial-gravitational-field.webp', imageAlt:'Earth surrounded by radial gravitational field lines pointing inward' },
+              { id:'85729699', front:'Gravitational force formula', back:'The force between point masses is F = Gm₁m₂ / r².' },
+              { id:'85729695', front:'Why satellites stay in orbit', back:'Satellites continuously fall toward Earth but have enough forward velocity to keep missing it.' }
             ]
           },
           {
-            tag: 'Algebra', title: 'Linear Inequalities', description: 'Intervals and number-line notation.',
-            prompt: 'Solve −x + 4 < ½x + 1 and represent the solution on a number line.', preview: 'flashcards',
+            tag: 'Physics Science 2026', title: 'Energy and Physics', description: 'Energy transfer, conservation, and Sankey diagrams.',
+            prompt: 'Create flashcards about energy conversion, conservation, and Sankey diagrams.', preview: 'flashcards',
             cards: [
-              { front: 'What is an open interval in the context of linear inequalities?', back: 'A set of numbers between two endpoints that does not include the endpoints themselves.' },
-              { front: 'How is a strict inequality represented on a number line?', back: 'Using a hollow (open) circle at the endpoint and shading the appropriate direction.' },
-              { front: 'What is the difference between a hollow circle and a solid circle on a number line?', back: 'A hollow circle excludes the endpoint (strict inequality); a solid circle includes it (non-strict inequality).' }
+              { id:'85729979', front:'Arrow thickness in Sankey diagrams', back:'Arrow thickness represents the amount of energy.', image:'assets/flashcards/sankey-diagram.webp', imageAlt:'Sankey diagram showing input energy divided into useful and wasted output energy' },
+              { id:'85730076', front:'Total energy of a system', back:'The total energy of a system remains the same. Energy cannot be created or destroyed; it can only be transferred or transformed.' },
+              { id:'85730073', front:'Chemical energy', back:'Chemical energy is stored in bonds and can be released during a chemical reaction.' }
             ]
           }
         ]
@@ -3143,6 +3154,7 @@
     function flashcardStudyMarkup(example) {
       const cards = example && example.cards ? example.cards : [];
       const firstCard = cards[0] || { front:'Active recall question', back:'Active recall answer' };
+      const firstCardHasImage = Boolean(firstCard.image);
       return `<div class="flash-study" data-flash-study>
         <div class="flash-study-status"><strong data-flash-counter>Card 1 of ${cards.length || 1}</strong><span data-flash-side>Question</span></div>
         <div class="flash-study-progress" aria-hidden="true"><span data-flash-progress style="width:${100 / Math.max(cards.length,1)}%"></span></div>
@@ -3150,7 +3162,7 @@
           <button class="flash-interactive" type="button" data-flashcard aria-label="Flip flashcard 1">
             <span class="flash-interactive-inner">
               <span class="flash-face front"><small>QUESTION</small><strong data-flash-front>${firstCard.front}</strong><small>Click to reveal the answer</small></span>
-              <span class="flash-face back"><small>ANSWER</small><strong data-flash-back>${firstCard.back}</strong><small>Click to see the question</small></span>
+              <span class="flash-face back${firstCardHasImage ? ' has-image' : ''}" data-flash-back-face><small>ANSWER</small><span class="flash-back-content${firstCardHasImage ? ' has-image' : ''}" data-flash-back-content><img class="flash-back-image" data-flash-image${firstCardHasImage ? ` src="${firstCard.image}" alt="${firstCard.imageAlt || ''}"` : ' hidden alt=""'} /><strong data-flash-back>${firstCard.back}</strong></span><small>Click to see the question</small></span>
             </span>
           </button>
         </div>
@@ -3225,6 +3237,9 @@
       if (flashStudy) {
         const cards = example && example.cards ? example.cards : [];
         const flashcard = flashStudy.querySelector('[data-flashcard]');
+        const flashBackFace = flashStudy.querySelector('[data-flash-back-face]');
+        const flashBackContent = flashStudy.querySelector('[data-flash-back-content]');
+        const flashBackImage = flashStudy.querySelector('[data-flash-image]');
         const previousButton = flashStudy.querySelector('[data-flash-prev]');
         const nextButton = flashStudy.querySelector('[data-flash-next]');
         let cardIndex = 0;
@@ -3241,6 +3256,17 @@
           flashcard.style.opacity = '';
           flashStudy.querySelector('[data-flash-front]').textContent = card.front;
           flashStudy.querySelector('[data-flash-back]').textContent = card.back;
+          const hasImage = Boolean(card.image);
+          flashBackFace.classList.toggle('has-image', hasImage);
+          flashBackContent.classList.toggle('has-image', hasImage);
+          flashBackImage.hidden = !hasImage;
+          if (hasImage) {
+            flashBackImage.src = card.image;
+            flashBackImage.alt = card.imageAlt || '';
+          } else {
+            flashBackImage.removeAttribute('src');
+            flashBackImage.alt = '';
+          }
           flashStudy.querySelector('[data-flash-counter]').textContent = `Card ${cardIndex + 1} of ${cards.length}`;
           flashStudy.querySelector('[data-flash-side]').textContent = 'Question';
           flashStudy.querySelector('[data-flash-progress]').style.width = `${((cardIndex + 1) / cards.length) * 100}%`;
