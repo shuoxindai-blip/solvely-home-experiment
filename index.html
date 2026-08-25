@@ -480,6 +480,7 @@
     .preview-graph svg, .preview-video svg { width:100%; height:100%; display:block; }
     .preview-graph-image { background:#fff; }
     .preview-graph-image img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
+    .preview-graph-image.graph-externality img { object-fit:contain; }
     .preview-video { position: relative; }
     .preview-video img { width:100%; height:100%; display:block; object-fit:cover; }
     .preview-video.geometry img { object-position:center 28%; }
@@ -1999,7 +2000,7 @@
         'graph-limits': { src: 'assets/graph-limits-at-infinity.png', alt: 'Limits at infinity simulator' }
       };
       const preview = previews[type];
-      return `<div class="example-preview preview-graph-image"><img src="${preview.src}" alt="${preview.alt}" /></div>`;
+      return `<div class="example-preview preview-graph-image ${type}"><img src="${preview.src}" alt="${preview.alt}" /></div>`;
     }
 
     function parabolaLinePreview() {
