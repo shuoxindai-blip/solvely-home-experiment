@@ -528,6 +528,8 @@
     .preview-guide { height:104px; display:grid; grid-template-columns:42% minmax(0,1fr); padding:0; background:#f7f9fd; }
     .guide-preview-image { min-width:0; overflow:hidden; background:#fff; }
     .guide-preview-image img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
+    .guide-preview-image.is-contain { padding:5px; }
+    .guide-preview-image.is-contain img { object-fit:contain; }
     .guide-preview-outline { min-width:0; display:grid; align-content:center; gap:7px; padding:10px; }
     .guide-preview-meta { display:flex; align-items:center; justify-content:space-between; gap:6px; color:var(--accent); font-size:6px; font-weight:780; letter-spacing:.07em; text-transform:uppercase; }
     .guide-line { display:grid; grid-template-columns:15px minmax(0,1fr); align-items:center; gap:6px; }
@@ -2193,6 +2195,7 @@
           {
             tag:'Genetics', title:'Mitochondrial DNA notes', description:'Repeat mutations, genomic imprinting, and mitochondrial inheritance.',
             prompt:'Create a study guide from my notes on repeat mutations, genomic imprinting, and mitochondrial inheritance.', preview:'guide',
+            coverImage:'assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp', coverAlt:'Prader–Willi syndrome mechanisms including deletion, maternal uniparental disomy, and a methylation defect',
             studyGuideId:'1014279', deckId:'1744239', sourceLabel:'3 chapters · 5 source images', markdown:'assets/study-guides/mitochondrial-dna/study_guide.md',
             sections:[
               { title:'Stable and Dynamic Mutations', summary:'Understand why repeat variants can expand or contract during transmission and how slippage changes disease severity.', image:'assets/study-guides/mitochondrial-dna/repeat-replication.webp', alt:'Normal trinucleotide repeat replication diagram', bullets:['Stable mutations remain unchanged across generations, while dynamic mutations can expand or contract.','Forward slippage deletes a repeat unit; backward slippage inserts repeats and can cause expansion.','Anticipation describes earlier onset or greater severity after successive repeat expansions.'], terms:['Repeat disease','Strand slippage','Anticipation'] },
@@ -2541,7 +2544,10 @@
     function guidePreview(example) {
       const sections = example && Array.isArray(example.sections) ? example.sections : [];
       const firstSection = sections[0] || { image:'', alt:'Study guide cover' };
-      return `<div class="example-preview preview-guide"><div class="guide-preview-image"><img src="${firstSection.image}" alt="${firstSection.alt}" loading="lazy" /></div><div class="guide-preview-outline"><div class="guide-preview-meta"><span>Structured guide</span><span>${sections.length} chapters</span></div>${sections.slice(0,3).map((section,index) => `<div class="guide-line"><b>${index + 1}</b><span>${section.title}</span></div>`).join('')}</div></div>`;
+      const coverImage = example && example.coverImage ? example.coverImage : firstSection.image;
+      const coverAlt = example && example.coverAlt ? example.coverAlt : firstSection.alt;
+      const containCover = Boolean(example && example.coverImage);
+      return `<div class="example-preview preview-guide"><div class="guide-preview-image${containCover ? ' is-contain' : ''}"><img src="${coverImage}" alt="${coverAlt}" loading="lazy" /></div><div class="guide-preview-outline"><div class="guide-preview-meta"><span>Structured guide</span><span>${sections.length} chapters</span></div>${sections.slice(0,3).map((section,index) => `<div class="guide-line"><b>${index + 1}</b><span>${section.title}</span></div>`).join('')}</div></div>`;
     }
 
     function guideDialogPreview(example) {
