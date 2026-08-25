@@ -238,11 +238,22 @@
     body.dark .composer-shell.writing-layout .capability-button:hover, body.dark .composer-shell.writing-layout .capability-button[aria-selected="true"], body.dark .writing-panel-head h2, body.dark .writing-result-panel h2 { color:#fff; }
     body.dark .writing-editor-wrap, body.dark .writing-sample-button, body.dark .writing-history-popover { border-color:#333; background:#1b212d; box-shadow:0 0 60px rgba(0,0,0,.12); }
     body.dark .writing-editor, body.dark .writing-result-content.has-result { color:#e6ebf4; }
-    .attachment-row { display: flex; flex-wrap: wrap; gap: 7px; min-height: 0; padding: 0 18px; }
+    .attachment-row { display:flex; flex-wrap:wrap; align-items:flex-start; gap:8px; min-height:0; padding:0 18px 10px; }
     .attachment-row:empty { display: none; }
-    .attachment-chip { display: inline-flex; align-items: center; gap: 7px; max-width: 220px; height: 30px; padding: 0 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-soft); color: var(--muted); font-size: 11px; }
-    .attachment-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .attachment-chip button { width: 18px; height: 18px; display: grid; place-items: center; border: 0; background: transparent; color: var(--subtle); cursor: pointer; }
+    .attachment-chip { position:relative; min-width:0; display:flex; align-items:center; border:1px solid var(--line); background:var(--surface-soft); color:var(--muted); }
+    .attachment-image { width:52px; height:52px; flex:0 0 52px; padding:0; border-radius:11px; background:var(--surface); }
+    .attachment-thumbnail { width:100%; height:100%; display:block; object-fit:cover; border-radius:10px; }
+    .attachment-document { width:min(220px,calc(100vw - 58px)); height:52px; gap:9px; padding:7px 7px 7px 8px; border-radius:11px; }
+    .attachment-type-badge { width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; border-radius:8px; background:var(--surface); color:var(--accent); box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.07); }
+    .attachment-type-badge .icon { width:18px; height:18px; }
+    .attachment-copy { min-width:0; flex:1; }
+    .attachment-copy strong,.attachment-copy small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .attachment-copy strong { color:var(--text); font-size:11px; font-weight:650; }
+    .attachment-copy small { margin-top:3px; color:var(--subtle); font-size:9px; text-transform:uppercase; }
+    .attachment-remove { width:22px; height:22px; flex:0 0 22px; display:grid; place-items:center; border:0; border-radius:50%; background:transparent; color:var(--subtle); cursor:pointer; }
+    .attachment-remove:hover { background:var(--surface-hover); color:var(--text); }
+    .attachment-remove .icon { width:14px; height:14px; }
+    .attachment-image .attachment-remove { position:absolute; z-index:2; top:-6px; right:-6px; width:20px; height:20px; border:1px solid var(--line); background:var(--surface); color:var(--text); box-shadow:0 2px 6px rgba(27,39,70,.14); }
 
     .composer-toolbar { min-height: 54px; display: flex; align-items: center; gap: 5px; margin: 0 12px; padding: 7px 0 9px; border-top: 1px solid var(--line); }
     .tool-button, .model-button, .send-button {
@@ -771,7 +782,7 @@
           <div class="composer-input-wrap">
             <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Type, paste, upload, or drag and drop anything you want to learn"></textarea>
           </div>
-          <div class="attachment-row" id="attachmentRow"></div>
+          <div class="attachment-row" id="attachmentRow" role="list" aria-label="Attached sources"></div>
           <div class="composer-toolbar">
             <button class="tool-button" id="attachButton" aria-label="Attach files" title="Attach files"><svg class="icon"><use href="#i-upload"/></svg></button>
             <button class="tool-button" id="imageButton" aria-label="Upload images" title="Upload images"><svg class="icon"><use href="#i-image"/></svg></button>
@@ -1077,6 +1088,9 @@
       exam: ['mock'],
       writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
     };
+    const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
+    const creationSourceLimit = 10;
+    const creationSourceLimitToast = 'You can add up to 10 sources to each creation.';
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1265,6 +1279,7 @@
     }
 
     function updateComposerTools(key) {
+      const attachButton = document.getElementById('attachButton');
       const linkButton = document.getElementById('linkButton');
       const mathButton = document.getElementById('mathButton');
       const calculatorButton = document.getElementById('calculatorButton');
@@ -1273,7 +1288,10 @@
       const writingCapability = capabilityGroups.writing.includes(key);
       const showMathTools = ['solver', 'graph', 'video'].includes(key);
       const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : writingCapability ? 'link' : 'none';
+      const supportsMultipleSources = multiSourceCapabilities.has(key);
 
+      attachButton.setAttribute('aria-label', supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
+      attachButton.title = supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
       mathButton.hidden = !showMathTools;
       calculatorButton.hidden = !showMathTools;
       modelButton.hidden = key !== 'solver';
@@ -1426,20 +1444,77 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
+    function isImageFile(file) {
+      return file.type.startsWith('image/') || /\.(avif|bmp|gif|heic|heif|jpe?g|png|svg|webp)$/i.test(file.name);
+    }
+
+    function fileTypeLabel(file) {
+      if (isImageFile(file)) return 'Image';
+      const extension = file.name.includes('.') ? file.name.split('.').pop() : '';
+      return extension ? extension.toUpperCase() : 'File';
+    }
+
+    function attachedSourceCount() {
+      return attachmentRow.querySelectorAll('[data-source-kind]').length;
+    }
+
+    function removeAttachmentChip(chip) {
+      if (chip.dataset.objectUrl) URL.revokeObjectURL(chip.dataset.objectUrl);
+      chip.remove();
+    }
+
+    function createFileChip(file) {
+      const imageFile = isImageFile(file);
+      const chip = document.createElement('span');
+      chip.className = `attachment-chip ${imageFile ? 'attachment-image' : 'attachment-document'}`;
+      chip.dataset.sourceKind = imageFile ? 'image' : 'file';
+      chip.setAttribute('role', 'listitem');
+      chip.title = file.name;
+      if (imageFile) {
+        const objectUrl = URL.createObjectURL(file);
+        chip.dataset.objectUrl = objectUrl;
+        chip.innerHTML = `<img class="attachment-thumbnail" alt="" /><button class="attachment-remove" type="button">${icon('i-close')}</button>`;
+        chip.querySelector('img').src = objectUrl;
+      } else {
+        chip.innerHTML = `<span class="attachment-type-badge">${icon('i-file')}</span><span class="attachment-copy"><strong></strong><small></small></span><button class="attachment-remove" type="button">${icon('i-close')}</button>`;
+        chip.querySelector('strong').textContent = file.name;
+        chip.querySelector('small').textContent = fileTypeLabel(file);
+      }
+      chip.querySelector('button').setAttribute('aria-label', `Remove ${file.name}`);
+      chip.querySelector('button').addEventListener('click', () => removeAttachmentChip(chip));
+      return chip;
+    }
+
+    function filterFilesForCurrentCapability(files) {
+      const incoming = [...files];
+      if (multiSourceCapabilities.has(selectedCapability)) {
+        const available = Math.max(0, creationSourceLimit - attachedSourceCount());
+        return { accepted: incoming.slice(0, available), limited: incoming.length > available, limitMessage: creationSourceLimitToast };
+      }
+
+      const existingImages = attachmentRow.querySelectorAll('[data-source-kind="image"]').length;
+      const existingFiles = attachmentRow.querySelectorAll('[data-source-kind="file"]').length;
+      const firstIsImage = incoming[0] ? isImageFile(incoming[0]) : false;
+      if (firstIsImage && existingFiles === 0) {
+        const imageFiles = incoming.filter(isImageFile);
+        const available = Math.max(0, 5 - existingImages);
+        return { accepted: imageFiles.slice(0, available), limited: imageFiles.length < incoming.length || imageFiles.length > available, limitMessage: 'You can upload up to 5 images or 1 file.' };
+      }
+      if (!firstIsImage && existingImages === 0 && existingFiles === 0) {
+        return { accepted: incoming.slice(0, 1), limited: incoming.length > 1, limitMessage: 'You can upload up to 5 images or 1 file.' };
+      }
+      return { accepted: [], limited: incoming.length > 0, limitMessage: 'You can upload up to 5 images or 1 file.' };
+    }
+
     function addFiles(files) {
-      [...files].forEach(file => {
-        const chip = document.createElement('span');
-        chip.className = 'attachment-chip';
-        chip.innerHTML = `${icon(file.type.startsWith('image/') ? 'i-image' : 'i-file')}<span></span><button aria-label="Remove attachment">${icon('i-close')}</button>`;
-        chip.querySelector('span').textContent = file.name;
-        chip.querySelector('button').addEventListener('click', () => chip.remove());
-        attachmentRow.appendChild(chip);
-      });
-      if (files.length && !promptInput.value.trim()) promptInput.value = selectedCapability
+      const { accepted, limited, limitMessage } = filterFilesForCurrentCapability(files);
+      accepted.forEach(file => attachmentRow.appendChild(createFileChip(file)));
+      if (accepted.length && !promptInput.value.trim()) promptInput.value = selectedCapability
         ? `Use my uploaded material to ${capabilityData[selectedCapability].action.toLowerCase()} this.`
         : 'Help me learn from my uploaded material.';
       updateSubmit();
-      if (files.length) showToast(`${files.length} file${files.length === 1 ? '' : 's'} added`);
+      if (limited) showToast(limitMessage);
+      else if (accepted.length) showToast(`${accepted.length} source${accepted.length === 1 ? '' : 's'} added`);
     }
 
     function insertAtCursor(value) {
@@ -1837,13 +1912,19 @@
         const linkKind = document.getElementById('linkButton').dataset.linkKind;
         const isYouTube = linkKind === 'youtube';
         if (isYouTube && !/(^|\.)youtube\.com$|(^|\.)youtu\.be$/.test(parsed.hostname.toLowerCase())) throw new Error('Not a YouTube URL');
+        if (multiSourceCapabilities.has(selectedCapability) && attachedSourceCount() >= creationSourceLimit) {
+          showToast(creationSourceLimitToast);
+          return;
+        }
         const chip = document.createElement('span');
-        chip.className = 'attachment-chip';
-        chip.innerHTML = `${icon(isYouTube ? 'i-youtube' : 'i-link')}<span></span><button aria-label="Remove link">${icon('i-close')}</button>`;
-        chip.querySelector('span').textContent = parsed.hostname.replace(/^www\./,'');
+        chip.className = 'attachment-chip attachment-document';
+        chip.dataset.sourceKind = 'link';
+        chip.setAttribute('role', 'listitem');
+        chip.innerHTML = `<span class="attachment-type-badge">${icon(isYouTube ? 'i-youtube' : 'i-link')}</span><span class="attachment-copy"><strong></strong><small>${isYouTube ? 'YouTube' : 'Web'}</small></span><button class="attachment-remove" type="button" aria-label="Remove link">${icon('i-close')}</button>`;
+        chip.querySelector('strong').textContent = parsed.hostname.replace(/^www\./,'');
         chip.title = parsed.href;
         chip.dataset.url = parsed.href;
-        chip.querySelector('button').addEventListener('click', () => chip.remove());
+        chip.querySelector('button').addEventListener('click', () => removeAttachmentChip(chip));
         attachmentRow.appendChild(chip);
         if (!promptInput.value.trim()) promptInput.value = isYouTube
           ? `Use this YouTube video as the source: ${parsed.href}`
@@ -1911,8 +1992,8 @@
         showToast(originalLabel + ' complete');
       }, 420);
     });
-    document.getElementById('fileInput').addEventListener('change', event => addFiles(event.target.files));
-    document.getElementById('imageInput').addEventListener('change', event => addFiles(event.target.files));
+    document.getElementById('fileInput').addEventListener('change', event => { addFiles(event.target.files); event.target.value = ''; });
+    document.getElementById('imageInput').addEventListener('change', event => { addFiles(event.target.files); event.target.value = ''; });
     document.getElementById('mathButton').addEventListener('click', toggleMathKeyboard);
     document.getElementById('calculatorButton').addEventListener('click', toggleAdvancedCalculator);
 
