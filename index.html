@@ -261,6 +261,10 @@
     .attachment-image:hover .attachment-remove,
     .attachment-image:focus-within .attachment-crop-action,
     .attachment-image:focus-within .attachment-remove { opacity:1; visibility:visible; }
+    .attachment-document[data-source-kind="file"] .attachment-remove { position:absolute; top:50%; right:7px; width:30px; height:30px; display:grid; place-items:center; padding:0; line-height:0; border:0; background:var(--surface); color:var(--text); box-shadow:0 2px 8px rgba(27,39,70,.12); opacity:0; pointer-events:none; transform:translateY(-50%); transition:opacity .14s ease,background .14s ease; }
+    .attachment-document[data-source-kind="file"] .attachment-remove .icon { width:16px; height:16px; display:block; margin:0; }
+    .attachment-document[data-source-kind="file"]:hover .attachment-remove,
+    .attachment-document[data-source-kind="file"]:focus-within .attachment-remove { opacity:1; pointer-events:auto; }
 
     .composer-toolbar { min-height: 54px; display: flex; align-items: center; gap: 5px; margin: 0 12px; padding: 7px 0 9px; border-top: 1px solid var(--line); }
     .tool-button, .model-button, .send-button {
@@ -699,6 +703,7 @@
     @media (hover:none) and (pointer:coarse) {
       .attachment-image .attachment-crop-action,
       .attachment-image .attachment-remove { opacity:1; visibility:visible; }
+      .attachment-document[data-source-kind="file"] .attachment-remove { opacity:1; pointer-events:auto; }
     }
 
     @media (max-width: 430px) {
