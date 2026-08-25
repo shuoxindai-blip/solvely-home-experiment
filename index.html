@@ -503,11 +503,13 @@
     .mini-card:nth-child(2) { right: 22px; top: 15px; transform: rotate(5deg); }
     .mini-card strong { display: block; margin-bottom: 7px; font-size: 10px; }
     .mini-card i { display: block; height: 5px; margin-top: 5px; border-radius: 4px; background: var(--line); }
-    .preview-quiz { height: 104px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; padding: 12px; }
-    .quiz-option { display: flex; align-items: center; gap: 7px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); font-size: 9px; }
-    .quiz-option::before { content: ""; width: 12px; height: 12px; border: 1px solid var(--line-strong); border-radius: 50%; }
-    .quiz-option.correct { border-color: rgba(22,134,93,.35); background: rgba(22,134,93,.08); color: var(--success); }
-    .quiz-option.correct::before { border-color: var(--success); box-shadow: inset 0 0 0 3px var(--surface); background: var(--success); }
+    .preview-quiz { height:104px; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr); gap:9px; padding:11px; background:linear-gradient(145deg,#f8faff,#f2f5ff); }
+    .quiz-preview-copy { min-width:0; display:grid; align-content:center; gap:5px; }
+    .quiz-preview-copy small { color:var(--accent); font-size:6px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
+    .quiz-preview-copy strong { overflow:hidden; color:var(--text); font-size:9px; line-height:1.35; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
+    .quiz-preview-copy span { color:var(--subtle); font-size:6px; }
+    .quiz-preview-options { display:grid; grid-template-columns:1fr 1fr; gap:5px; align-content:center; }
+    .quiz-option { min-height:27px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:7px; background:var(--surface); color:var(--muted); font-size:7px; font-weight:740; }
     .preview-guide { height: 104px; display: grid; align-content: center; gap: 8px; padding: 12px; }
     .guide-line { display: grid; grid-template-columns: 17px 1fr auto; align-items: center; gap: 7px; }
     .guide-line b { width: 17px; height: 17px; display: grid; place-items: center; border-radius: 5px; background: rgba(var(--accent-rgb), .1); color: var(--accent); font-size: 8px; }
@@ -634,7 +636,7 @@
     .example-dialog[open] { display:flex; flex-direction:column; }
     .example-dialog .dialog-head,.example-dialog .dialog-actions { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
-    .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"] { max-height:min(820px,calc(100vh - 30px)); }
+    .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"] { max-height:min(820px,calc(100vh - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
     .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
     .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
@@ -706,6 +708,40 @@
     .quiz-answer.correct { border-color:#3ba47a; background:rgba(22,134,93,.1); color:#147452; }
     .quiz-answer.wrong { border-color:#dc6571; background:rgba(220,65,80,.09); color:#b73343; }
     .quiz-feedback { grid-column:1 / -1; margin:3px 0 0; color:var(--muted); font-size:11px; }
+    .quiz-session { display:grid; gap:14px; }
+    .quiz-session-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--muted); font-size:10px; }
+    .quiz-session-meta strong { color:var(--accent); font-size:10px; }
+    .quiz-question { margin:0; font-size:18px; line-height:1.4; letter-spacing:-.015em; }
+    .quiz-options { display:grid; gap:8px; }
+    .quiz-choice { width:100%; min-height:52px; display:grid; grid-template-columns:30px minmax(0,1fr); align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; transition:border-color .18s ease,background .18s ease,transform .18s ease; }
+    .quiz-choice:hover:not(:disabled) { border-color:rgba(var(--accent-rgb),.4); background:var(--accent-soft); transform:translateY(-1px); }
+    .quiz-choice:disabled { cursor:default; }
+    .quiz-choice-letter { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; background:var(--surface-hover); color:var(--muted); font-size:11px; font-weight:780; }
+    .quiz-choice-text { font-size:11px; line-height:1.45; }
+    .quiz-choice.correct { border-color:#3ba47a; background:rgba(22,134,93,.09); }
+    .quiz-choice.correct .quiz-choice-letter { background:#16865d; color:#fff; }
+    .quiz-choice.wrong { border-color:#dc6571; background:rgba(220,65,80,.08); }
+    .quiz-choice.wrong .quiz-choice-letter { background:#cf4453; color:#fff; }
+    .quiz-result { display:grid; gap:12px; padding-top:2px; }
+    .quiz-result[hidden] { display:none; }
+    .quiz-result-banner { display:flex; align-items:flex-start; gap:10px; padding:12px; border-radius:12px; background:rgba(22,134,93,.09); color:#147452; }
+    .quiz-result-banner.incorrect { background:rgba(220,65,80,.08); color:#a82d3b; }
+    .quiz-result-mark { width:28px; height:28px; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:#16865d; color:#fff; font-size:13px; font-weight:800; }
+    .quiz-result-banner.incorrect .quiz-result-mark { background:#cf4453; }
+    .quiz-result-banner strong,.quiz-result-banner span { display:block; }
+    .quiz-result-banner strong { font-size:12px; }
+    .quiz-result-banner span { margin-top:3px; color:var(--muted); font-size:10px; line-height:1.45; }
+    .quiz-explanations { display:grid; gap:7px; }
+    .quiz-explanation { display:grid; grid-template-columns:26px minmax(0,1fr); gap:9px; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--surface); }
+    .quiz-explanation b { width:26px; height:26px; display:grid; place-items:center; border-radius:8px; background:var(--surface-hover); color:var(--muted); font-size:10px; }
+    .quiz-explanation.correct b { background:rgba(22,134,93,.13); color:#147452; }
+    .quiz-explanation strong,.quiz-explanation span { display:block; }
+    .quiz-explanation strong { font-size:10px; }
+    .quiz-explanation span { margin-top:3px; color:var(--muted); font-size:10px; line-height:1.42; }
+    .quiz-overall { padding:12px; border-left:3px solid var(--accent); border-radius:0 10px 10px 0; background:var(--accent-soft); }
+    .quiz-overall strong { display:block; margin-bottom:4px; font-size:10px; }
+    .quiz-overall p { margin:0; color:var(--muted); font-size:10px; line-height:1.5; }
+    .quiz-retry { justify-self:start; min-height:34px; padding:0 12px; border:1px solid var(--line); border-radius:9px; background:var(--surface); color:var(--muted); font-size:10px; font-weight:680; cursor:pointer; }
     .guide-check { width:100%; display:grid; grid-template-columns:24px 1fr auto; align-items:center; gap:9px; min-height:44px; margin-top:7px; padding:7px 9px; border:1px solid var(--line); border-radius:10px; background:var(--surface); text-align:left; cursor:pointer; }
     .guide-check span { width:24px; height:24px; display:grid; place-items:center; border-radius:7px; background:var(--accent-soft); color:var(--accent); font-size:11px; font-weight:750; }
     .guide-check small { color:var(--muted); }
@@ -1129,6 +1165,10 @@
       .multi-model-proof { width:100%; margin-left:0; }
       .multi-model-proof p { max-width:none; }
       .solution-stepper { grid-template-columns:1fr; }
+      .quiz-question { font-size:16px; }
+      .quiz-session-meta { align-items:flex-start; flex-direction:column; gap:3px; }
+      .quiz-choice { grid-template-columns:28px minmax(0,1fr); padding:9px; }
+      .quiz-choice-letter { width:28px; height:28px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1663,9 +1703,45 @@
         placeholder: 'Enter a topic or upload notes to generate a quiz',
         description: 'Check understanding with adaptive questions and instant feedback.',
         examples: [
-          { tag: 'Calculus', title: 'Derivatives knowledge check', description: 'Conceptual and calculation questions.', prompt: 'Create a 10-question quiz on derivatives with instant explanations.', preview: 'quiz' },
-          { tag: 'Biology', title: 'Cell biology chapter quiz', description: 'Organelles, membranes, and transport.', prompt: 'Quiz me on cell biology with 10 mixed-difficulty questions.', preview: 'quiz' },
-          { tag: 'Spanish', title: 'Vocabulary practice', description: 'Recall vocabulary in sentence context.', prompt: 'Create a Spanish vocabulary quiz about travel and transportation.', preview: 'quiz' }
+          {
+            tag:'Chemistry', title:'Chem 1.1', description:'Hypotheses and scientific reasoning.', preview:'quiz', questionId:'92940982', studySet:'Chem 1.1',
+            dialogTitle:'Chem 1.1',
+            question:'Which statement best describes a hypothesis in chemistry?',
+            prompt:'Quiz me on this chemistry question: Which statement best describes a hypothesis in chemistry?',
+            options:[
+              { key:'A', text:'A mathematical expression that replaces experimental testing', correct:false, explanation:'Mathematical expressions can be used to describe chemical relationships, but they do not replace experimentation. A hypothesis must be tested by collecting evidence and conducting experiments.' },
+              { key:'B', text:'A tentative explanation of observations that guides gathering and checking information', correct:true, explanation:'A hypothesis is a tentative, testable explanation for an observation. It guides scientists in gathering evidence, designing experiments, and checking whether the proposed explanation is supported.' },
+              { key:'C', text:'A fixed rule that cannot be revised once experiments support it', correct:false, explanation:'A hypothesis is not a fixed or permanent rule. It can be revised or rejected when new experimental evidence becomes available.' },
+              { key:'D', text:'A summary of many observations used only for classification', correct:false, explanation:'A broad summary of repeated observations is closer to a scientific law. A hypothesis attempts to explain observations rather than merely classify or summarize them.' }
+            ],
+            overallExplanation:'A hypothesis is a tentative explanation of observations that can be tested through further investigation. It differs from a scientific law, which summarizes an observed pattern, and it remains open to revision based on new evidence.'
+          },
+          {
+            tag:'Biology / Anatomy', title:'Skeletal systems', description:'Framework, movement, and protection.', preview:'quiz', questionId:'92942381', studySet:'skeletal systems',
+            dialogTitle:'Skeletal systems',
+            question:"Which structure primarily acts as the body's framework while also helping protect internal organs?",
+            prompt:"Quiz me on this anatomy question: Which structure primarily acts as the body's framework while also helping protect internal organs?",
+            options:[
+              { key:'A', text:'Bones', correct:true, explanation:'Bones form the primary structural framework of the body. They support the body, provide attachment points for muscles, and protect organs—for example, the skull protects the brain and the rib cage protects the heart and lungs.' },
+              { key:'B', text:'Bursa', correct:false, explanation:"A bursa is a small fluid-filled sac that reduces friction between structures such as tendons, muscles, skin, and bones. It does not form the body's framework." },
+              { key:'C', text:'Cartilage', correct:false, explanation:"Cartilage provides flexible support and creates smooth, low-friction surfaces at joints. Although it supports and cushions certain structures, it is not the body's primary protective framework." },
+              { key:'D', text:'Synovial membrane', correct:false, explanation:'The synovial membrane lines the inner surface of synovial joint capsules and produces synovial fluid. Its main role is joint lubrication and nourishment, not structural support or organ protection.' }
+            ],
+            overallExplanation:'Bones are the main structural components of the skeletal system. They give the body shape and support while also protecting important internal organs. Bursa, cartilage, and synovial membranes mainly contribute to joint cushioning, movement, and lubrication.'
+          },
+          {
+            tag:'Computer Science / Database', title:'Database Design, SQL, and Assessment 1', description:'Three-level database architecture.', preview:'quiz', questionId:'92940929', studySet:'Database Design, SQL, and Assessment 1',
+            dialogTitle:'Database Design, SQL, and Assessment 1',
+            question:'In the three-level database architecture, which level represents the user-specific view of only part of the database?',
+            prompt:'Quiz me on this database question: In the three-level database architecture, which level represents the user-specific view of only part of the database?',
+            options:[
+              { key:'A', text:'Physical storage level only', correct:false, explanation:'“Physical storage level” is not a separate user-view level in the standard three-level architecture. Physical storage details are handled by the internal level.' },
+              { key:'B', text:'External level', correct:true, explanation:'The external level represents the database as seen by a particular user or application. Each external view can expose only the subset of data relevant to that user while hiding the rest of the database.' },
+              { key:'C', text:'Internal level', correct:false, explanation:'The internal level describes how data is physically organized and stored, including files, indexes, storage structures, and access paths. It is not the user-specific view.' },
+              { key:'D', text:'Conceptual level', correct:false, explanation:"The conceptual level provides the integrated, logical view of the entire database for the organization. It defines entities, relationships, and constraints, rather than an individual user's limited view." }
+            ],
+            overallExplanation:'The three-level database architecture consists of: External level—user-specific views of selected data; Conceptual level—the complete logical structure of the database; Internal level—the physical organization and storage of data. Therefore, the user-specific view is the external level.'
+          }
         ]
       },
       guide: {
@@ -1937,6 +2013,28 @@
       return `<div class="podcast-player" data-podcast-player><audio data-podcast-audio preload="metadata" src="${example.audio}"></audio><div class="podcast-player-main"><button class="podcast-play-toggle" type="button" data-podcast-toggle aria-label="Play podcast">${icon('i-play')}</button><div class="podcast-player-title"><strong>${example.title}</strong><span>${example.language} · ${example.platform} · ${example.speakers.join(' & ')}</span></div><time class="podcast-player-time" data-podcast-time>0:00 / ${example.duration}</time></div><input class="podcast-scrubber" type="range" min="0" max="${example.durationSeconds}" step="0.1" value="0" aria-label="Podcast progress" data-podcast-scrubber><div class="podcast-player-tools"><button class="podcast-tool" type="button" data-podcast-skip="-15" aria-label="Rewind 15 seconds">↶ 15s</button><button class="podcast-tool" type="button" data-podcast-speed aria-label="Playback speed 1 times">1×</button><button class="podcast-tool" type="button" data-podcast-skip="15" aria-label="Forward 15 seconds">15s ↷</button></div><div class="podcast-transcript"><div class="podcast-transcript-head"><strong>Transcript</strong><span>Synced · click a line to jump</span></div><div class="podcast-transcript-list" data-podcast-transcript><p class="podcast-transcript-loading">Loading full transcript…</p></div></div></div>`;
     }
 
+    function quizPreview(example) {
+      const question = example && example.question ? example.question : 'Check your understanding';
+      const studySet = example && example.studySet ? example.studySet : 'Study set';
+      const options = example && Array.isArray(example.options) ? example.options : [{key:'A'},{key:'B'},{key:'C'},{key:'D'}];
+      return `<div class="example-preview preview-quiz"><div class="quiz-preview-copy"><small>1 question · ${studySet}</small><strong>${question}</strong><span>Choose an answer for instant feedback</span></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div>`;
+    }
+
+    function quizInteractionMarkup(example) {
+      const options = example && Array.isArray(example.options) ? example.options : [];
+      return `<div class="quiz-session" data-quiz-session>
+        <div class="quiz-session-meta"><strong>Question 1 of 1</strong><span>${example.studySet} · ID ${example.questionId}</span></div>
+        <h3 class="quiz-question">${example.question}</h3>
+        <div class="quiz-options">${options.map(option => `<button class="quiz-choice" type="button" data-quiz-option="${option.key}" data-correct="${option.correct}" aria-label="Option ${option.key}: ${option.text}"><span class="quiz-choice-letter">${option.key}</span><span class="quiz-choice-text">${option.text}</span></button>`).join('')}</div>
+        <section class="quiz-result" data-quiz-result hidden aria-live="polite">
+          <div class="quiz-result-banner" data-quiz-result-banner><span class="quiz-result-mark" data-quiz-result-mark>✓</span><div><strong data-quiz-result-title>Correct</strong><span data-quiz-result-copy></span></div></div>
+          <div class="quiz-explanations">${options.map(option => `<div class="quiz-explanation${option.correct ? ' correct' : ''}"><b>${option.key}</b><div><strong>${option.correct ? 'Correct' : 'Incorrect'}</strong><span>${option.explanation}</span></div></div>`).join('')}</div>
+          <div class="quiz-overall"><strong>Overall explanation</strong><p>${example.overallExplanation}</p></div>
+          <button class="quiz-retry" type="button" data-quiz-retry>Try again</button>
+        </section>
+      </div>`;
+    }
+
     function previewMarkup(type, example = null) {
       if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
       if (type === 'graph') return graphPreview();
@@ -1949,7 +2047,7 @@
       if (type === 'exam-progress') return graphPreview();
       if (type === 'equation') return `<div class="example-preview preview-equation"><div class="equation-main">x² − 5x + 6</div><div class="equation-steps"><i></i><i></i><i></i></div></div>`;
       if (type === 'flashcards') return flashcardPreview(example);
-      if (type === 'quiz') return `<div class="example-preview preview-quiz"><div class="quiz-option">Option A</div><div class="quiz-option correct">Option B</div><div class="quiz-option">Option C</div><div class="quiz-option">Option D</div></div>`;
+      if (type === 'quiz') return quizPreview(example);
       if (type === 'guide') return `<div class="example-preview preview-guide"><div class="guide-line"><b>1</b><i></i><span>3 min</span></div><div class="guide-line"><b>2</b><i></i><span>5 min</span></div><div class="guide-line"><b>3</b><i></i><span>4 min</span></div></div>`;
       if (type === 'podcast') return podcastPreview(example);
       return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84</strong><span>Score</span></div></div>`;
@@ -2365,7 +2463,7 @@
       if (type === 'chemistry') return chemistryInteractionMarkup(example);
       if (type === 'accounting') return '<h3>Key insights</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-accounting-metric="COGS">COGS</button><button class="insight-chip" type="button" data-accounting-metric="Operating expenses">Operating expenses</button><button class="insight-chip" type="button" data-accounting-metric="Net margin">Net margin</button></div><p class="insight-readout" data-accounting-readout>Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.</p>';
       if (type === 'flashcards') return flashcardStudyMarkup(example);
-      if (type === 'quiz') return '<h3>Check your understanding</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">Option A</button><button class="quiz-answer" data-answer="correct">Option B</button><button class="quiz-answer" data-answer="wrong">Option C</button><button class="quiz-answer" data-answer="wrong">Option D</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer for instant feedback.</p></div>';
+      if (type === 'quiz') return quizInteractionMarkup(example);
       if (type === 'guide') return '<h3>Review checklist</h3><button class="guide-check" data-guide-check><span>1</span><strong>Understand the core concept</strong><small>3 min</small></button><button class="guide-check" data-guide-check><span>2</span><strong>Review the worked example</strong><small>5 min</small></button><button class="guide-check" data-guide-check><span>3</span><strong>Practice active recall</strong><small>4 min</small></button>';
       if (type === 'podcast') return podcastInteractionMarkup(example);
       if (type === 'exam') return '<h3>Sample question</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">A. 18</button><button class="quiz-answer" data-answer="correct">B. 24</button><button class="quiz-answer" data-answer="wrong">C. 30</button><button class="quiz-answer" data-answer="wrong">D. 36</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer to preview instant scoring.</p></div>';
@@ -2510,6 +2608,43 @@
         section.classList.toggle('done');
         section.querySelector('span').textContent = section.classList.contains('done') ? '✓' : String(index + 1);
       }));
+      const quizSession = interaction.querySelector('[data-quiz-session]');
+      if (quizSession) {
+        const choices = [...quizSession.querySelectorAll('[data-quiz-option]')];
+        const result = quizSession.querySelector('[data-quiz-result]');
+        const banner = quizSession.querySelector('[data-quiz-result-banner]');
+        const mark = quizSession.querySelector('[data-quiz-result-mark]');
+        const title = quizSession.querySelector('[data-quiz-result-title]');
+        const copy = quizSession.querySelector('[data-quiz-result-copy]');
+        const retry = quizSession.querySelector('[data-quiz-retry]');
+        const resetQuiz = () => {
+          choices.forEach(choice => {
+            choice.disabled = false;
+            choice.classList.remove('correct','wrong');
+            choice.removeAttribute('aria-pressed');
+          });
+          result.hidden = true;
+        };
+        choices.forEach(choice => choice.addEventListener('click', () => {
+          if (choice.disabled) return;
+          const isCorrect = choice.dataset.correct === 'true';
+          const correctChoice = choices.find(option => option.dataset.correct === 'true');
+          choices.forEach(option => {
+            option.disabled = true;
+            option.setAttribute('aria-pressed', String(option === choice));
+          });
+          choice.classList.add(isCorrect ? 'correct' : 'wrong');
+          if (!isCorrect && correctChoice) correctChoice.classList.add('correct');
+          banner.classList.toggle('incorrect', !isCorrect);
+          mark.textContent = isCorrect ? '✓' : '×';
+          title.textContent = isCorrect ? 'Correct' : 'Not quite';
+          copy.textContent = isCorrect
+            ? `Option ${choice.dataset.quizOption} is correct.`
+            : `You selected ${choice.dataset.quizOption}. The correct answer is ${correctChoice ? correctChoice.dataset.quizOption : ''}.`;
+          result.hidden = false;
+        }));
+        retry.addEventListener('click', resetQuiz);
+      }
       const podcastPlayer = interaction.querySelector('[data-podcast-player]');
       if (podcastPlayer) {
         const audio = podcastPlayer.querySelector('[data-podcast-audio]');
@@ -2679,22 +2814,23 @@
       selectedExample.activePrompt = selectedExample.prompt;
       const hasSimulator = Boolean(selectedExample.simulator);
       const hasInteractiveFlashcards = capabilityKey === 'flashcards' && Array.isArray(selectedExample.cards);
+      const hasInteractiveQuiz = capabilityKey === 'quiz' && Array.isArray(selectedExample.options);
       const hasChemistryCases = selectedExample.preview === 'chemistry' && Array.isArray(selectedExample.structures);
       const hasPodcastAudio = selectedExample.preview === 'podcast' && Boolean(selectedExample.audio);
       const displayTitle = selectedExample.dialogTitle || selectedExample.title;
-      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : 'example';
+      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
       document.getElementById('dialogTitle').textContent = displayTitle;
       document.getElementById('dialogDescription').textContent = selectedExample.description;
-      document.getElementById('dialogPreview').hidden = hasInteractiveFlashcards;
+      document.getElementById('dialogPreview').hidden = hasInteractiveFlashcards || hasInteractiveQuiz;
       document.getElementById('dialogPreview').innerHTML = hasSimulator
         ? `<iframe class="simulator-frame" src="${selectedExample.simulator}" title="${displayTitle} interactive simulator" loading="eager" sandbox="allow-scripts"></iframe>`
         : dialogPreviewMarkup(selectedExample.preview, selectedExample);
       document.getElementById('dialogInteraction').innerHTML = hasSimulator ? '' : interactionMarkup(selectedExample.preview, selectedExample);
       document.getElementById('dialogInteraction').hidden = hasSimulator;
-      document.getElementById('dialogPrompt').hidden = false;
+      document.getElementById('dialogPrompt').hidden = hasInteractiveQuiz;
       document.getElementById('dialogPrompt').textContent = selectedExample.prompt;
       document.getElementById('useExampleButton').textContent = 'Use this example';
       dialog.showModal();
