@@ -1162,6 +1162,198 @@
     .course-skill-row i b { display:block; height:100%; border-radius:inherit; background:#0f8a67; }
     .course-skill-row em { color:var(--muted); font-style:normal; text-align:right; }
 
+    /* Exam package workspace — mirrors the iOS package capabilities in a desktop-first IA. */
+    .course-package-panel button { font-family:inherit; }
+    .course-overview-grid { display:grid; grid-template-columns:minmax(0,1.42fr) minmax(270px,.78fr); gap:14px; }
+    .course-hub-card { min-width:0; border:1px solid var(--line); border-radius:17px; background:var(--surface); overflow:hidden; }
+    .course-hub-card + .course-hub-card { margin-top:14px; }
+    .course-hub-head { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding:18px; border-bottom:1px solid var(--line); }
+    .course-hub-eyebrow { display:block; margin-bottom:5px; color:#0f8a67; font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
+    .course-hub-head h2,.course-hub-card h2 { margin:0; font-size:17px; line-height:1.25; letter-spacing:-.025em; }
+    .course-hub-head p { margin:5px 0 0; color:var(--muted); font-size:10px; line-height:1.45; }
+    .course-link-button { min-height:32px; flex:0 0 auto; padding:0 11px; border:1px solid rgba(15,138,103,.22); border-radius:9px; background:rgba(15,138,103,.07); color:#0f8a67; font-size:10px; font-weight:730; cursor:pointer; }
+    .course-link-button:hover { background:rgba(15,138,103,.12); }
+    .course-next-task { display:grid; grid-template-columns:46px minmax(0,1fr) auto; align-items:center; gap:13px; padding:17px 18px; }
+    .course-next-icon { width:46px; height:46px; display:grid; place-items:center; border-radius:13px; background:linear-gradient(145deg,#e9f8f3,#eaf1ff); color:#0f8a67; }
+    .course-next-icon .icon { width:21px; height:21px; }
+    .course-next-copy { min-width:0; }
+    .course-next-copy strong { display:block; font-size:13px; line-height:1.35; }
+    .course-next-copy span { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
+    .course-primary-small { min-height:34px; padding:0 13px; border:0; border-radius:10px; background:#0f8a67; color:#fff; font-size:10px; font-weight:740; cursor:pointer; }
+    .course-primary-small:hover { background:#0b7759; }
+    .course-progress-inline { height:5px; margin-top:9px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
+    .course-progress-inline i { display:block; width:64%; height:100%; border-radius:inherit; background:#0f8a67; }
+    .course-hub-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .course-hub-stat { min-height:142px; padding:17px; border:1px solid var(--line); border-radius:17px; background:var(--surface); text-align:left; cursor:pointer; }
+    .course-hub-stat:hover { border-color:rgba(15,138,103,.3); box-shadow:var(--shadow-soft); }
+    .course-hub-stat span { color:var(--muted); font-size:9px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+    .course-hub-stat strong { display:block; margin-top:12px; font-size:24px; line-height:1; letter-spacing:-.045em; }
+    .course-hub-stat p { margin:8px 0 0; color:var(--muted); font-size:10px; line-height:1.42; }
+    .course-hub-stat em { display:block; margin-top:12px; color:#0f8a67; font-size:10px; font-style:normal; font-weight:730; }
+    .course-weak-list { display:grid; gap:8px; padding:14px 17px 17px; }
+    .course-weak-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; padding:10px 11px; border-radius:11px; background:var(--surface-soft); }
+    .course-weak-row strong { font-size:10px; }
+    .course-weak-row span { color:#c46c14; font-size:9px; font-weight:720; }
+
+    .study-plan-layout { display:grid; grid-template-columns:300px minmax(0,1fr); gap:14px; align-items:start; }
+    .study-plan-sidebar,.study-topic-detail { border:1px solid var(--line); border-radius:17px; background:var(--surface); }
+    .study-plan-sidebar { position:sticky; top:92px; overflow:hidden; }
+    .study-plan-filters { padding:14px; border-bottom:1px solid var(--line); }
+    .study-filter-label { display:block; margin-bottom:8px; color:var(--muted); font-size:9px; font-weight:740; letter-spacing:.07em; text-transform:uppercase; }
+    .study-filter-row { display:flex; flex-wrap:wrap; gap:6px; }
+    .study-filter-chip { min-height:28px; padding:0 9px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--muted); font-size:9px; font-weight:700; cursor:pointer; }
+    .study-filter-chip.active { border-color:rgba(15,138,103,.3); background:rgba(15,138,103,.09); color:#0f8a67; }
+    .study-topic-tree { max-height:620px; overflow:auto; padding:9px; }
+    .study-topic-group { margin:6px 5px 5px; color:var(--muted); font-size:9px; font-weight:750; letter-spacing:.06em; text-transform:uppercase; }
+    .study-topic-button { width:100%; min-height:58px; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:9px; padding:10px; border:0; border-radius:11px; background:transparent; color:inherit; text-align:left; cursor:pointer; }
+    .study-topic-button:hover { background:var(--surface-hover); }
+    .study-topic-button.active { background:rgba(15,138,103,.09); box-shadow:inset 3px 0 #0f8a67; }
+    .study-topic-button strong { display:block; font-size:10px; line-height:1.35; }
+    .study-topic-button span { display:block; margin-top:4px; color:var(--muted); font-size:8px; }
+    .study-priority { padding:4px 6px; border-radius:6px; background:#fff3e8; color:#c46c14; font-size:8px; font-style:normal; font-weight:740; }
+    .study-priority.core { background:#eaf8f3; color:#0f8a67; }
+    .study-topic-detail { min-width:0; padding:22px; }
+    .study-topic-kicker { display:flex; align-items:center; gap:7px; color:#0f8a67; font-size:9px; font-weight:770; letter-spacing:.07em; text-transform:uppercase; }
+    .study-topic-kicker i { width:4px; height:4px; border-radius:50%; background:currentColor; }
+    .study-topic-detail h2 { margin:8px 0 6px; font-size:23px; line-height:1.15; letter-spacing:-.035em; }
+    .study-topic-summary { max-width:680px; margin:0; color:var(--muted); font-size:11px; line-height:1.55; }
+    .study-objectives { margin-top:18px; padding:16px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
+    .study-objectives h3,.study-tools-title { margin:0; font-size:13px; }
+    .study-objectives ul { display:grid; gap:8px; margin:12px 0 0; padding:0; list-style:none; }
+    .study-objectives li { position:relative; padding-left:17px; color:var(--muted); font-size:10px; line-height:1.45; }
+    .study-objectives li::before { content:""; position:absolute; top:5px; left:0; width:7px; height:7px; border-radius:50%; background:#0f8a67; box-shadow:0 0 0 3px rgba(15,138,103,.1); }
+    .study-tools-head { display:flex; align-items:end; justify-content:space-between; gap:12px; margin-top:20px; }
+    .study-tools-head span { color:var(--muted); font-size:9px; }
+    .study-tool-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:11px; }
+    .study-tool-card { min-width:0; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface); text-align:left; }
+    .study-tool-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:rgba(15,138,103,.09); color:#0f8a67; }
+    .study-tool-icon .icon { width:17px; height:17px; }
+    .study-tool-card h3 { margin:12px 0 5px; font-size:12px; }
+    .study-tool-card p { min-height:30px; margin:0; color:var(--muted); font-size:9px; line-height:1.45; }
+    .study-tool-action { width:100%; min-height:32px; margin-top:12px; border:1px solid rgba(15,138,103,.24); border-radius:9px; background:rgba(15,138,103,.08); color:#0f8a67; font-size:9px; font-weight:750; cursor:pointer; }
+    .study-tool-action.continue { border-color:#0f8a67; background:#0f8a67; color:#fff; }
+    .study-tool-action.review { border-color:var(--line); background:var(--surface-soft); color:var(--text); }
+
+    .mock-state-shell { display:grid; gap:14px; }
+    .mock-state-nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; padding:7px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
+    .mock-state-button { min-height:38px; border:0; border-radius:9px; background:transparent; color:var(--muted); font-size:10px; font-weight:710; cursor:pointer; }
+    .mock-state-button.active { background:var(--surface); color:#0f8a67; box-shadow:0 3px 12px rgba(31,45,69,.08); }
+    .mock-exam-stage { min-height:340px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr); gap:14px; }
+    .mock-exam-card,.mock-benefit-card { border:1px solid var(--line); border-radius:17px; background:var(--surface); }
+    .mock-exam-card { padding:22px; }
+    .mock-exam-status { display:inline-flex; align-items:center; gap:6px; min-height:25px; padding:0 8px; border-radius:7px; background:#eaf8f3; color:#0f8a67; font-size:8px; font-weight:760; letter-spacing:.06em; text-transform:uppercase; }
+    .mock-exam-status.processing { background:#fff4e8; color:#b96612; }
+    .mock-exam-card h2 { margin:14px 0 7px; font-size:22px; letter-spacing:-.035em; }
+    .mock-exam-card > p { max-width:610px; margin:0; color:var(--muted); font-size:11px; line-height:1.55; }
+    .mock-exam-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:18px; }
+    .mock-exam-metric { padding:11px; border-radius:11px; background:var(--surface-soft); }
+    .mock-exam-metric span { display:block; color:var(--muted); font-size:8px; }
+    .mock-exam-metric strong { display:block; margin-top:5px; font-size:13px; }
+    .mock-exam-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:21px; }
+    .mock-primary-action,.mock-secondary-action { min-height:38px; padding:0 15px; border-radius:10px; font-size:10px; font-weight:740; cursor:pointer; }
+    .mock-primary-action { border:0; background:#0f8a67; color:#fff; }
+    .mock-primary-action:disabled { cursor:wait; opacity:.6; }
+    .mock-secondary-action { border:1px solid var(--line); background:var(--surface); color:var(--text); }
+    .mock-benefit-card { padding:18px; }
+    .mock-benefit-card h3 { margin:0 0 13px; font-size:14px; }
+    .mock-benefit-list { display:grid; gap:10px; }
+    .mock-benefit-item { display:grid; grid-template-columns:29px minmax(0,1fr); gap:9px; align-items:start; }
+    .mock-benefit-item i { width:29px; height:29px; display:grid; place-items:center; border-radius:9px; background:rgba(35,104,240,.08); color:#2368f0; font-size:10px; font-style:normal; font-weight:760; }
+    .mock-benefit-item strong { display:block; font-size:10px; }
+    .mock-benefit-item span { display:block; margin-top:3px; color:var(--muted); font-size:9px; line-height:1.4; }
+    .mock-processing { display:grid; place-items:center; min-height:205px; text-align:center; }
+    .mock-spinner { width:38px; height:38px; margin:0 auto 13px; border:4px solid rgba(15,138,103,.14); border-top-color:#0f8a67; border-radius:50%; animation:mock-spin .8s linear infinite; }
+    @keyframes mock-spin { to { transform:rotate(360deg); } }
+
+    .mock-session-layout { display:grid; grid-template-columns:250px minmax(0,1fr); gap:14px; align-items:start; }
+    .question-navigator { position:sticky; top:92px; padding:15px; border:1px solid var(--line); border-radius:16px; background:var(--surface); }
+    .question-navigator h2 { margin:0; font-size:14px; }
+    .question-navigator p { margin:5px 0 14px; color:var(--muted); font-size:9px; }
+    .question-nav-section { margin-top:13px; }
+    .question-nav-section strong { display:block; margin-bottom:8px; color:var(--muted); font-size:9px; }
+    .question-number-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; }
+    .question-number { aspect-ratio:1; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--muted); font-size:9px; cursor:pointer; }
+    .question-number.current { border-color:#0f8a67; box-shadow:inset 0 0 0 1px #0f8a67; color:#0f8a67; }
+    .question-number.answered { border-color:rgba(15,138,103,.18); background:#eaf8f3; color:#0f8a67; }
+    .mock-question-card { min-width:0; padding:22px; border:1px solid var(--line); border-radius:17px; background:var(--surface); }
+    .mock-question-top { display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font-size:9px; }
+    .mock-question-card h2 { margin:16px 0 17px; font-size:18px; line-height:1.42; letter-spacing:-.02em; }
+    .mock-choice-list { display:grid; gap:8px; }
+    .mock-choice { width:100%; min-height:48px; display:grid; grid-template-columns:28px minmax(0,1fr); align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; }
+    .mock-choice:hover { background:var(--surface-hover); }
+    .mock-choice.selected { border-color:#0f8a67; background:#eaf8f3; }
+    .mock-choice i { width:28px; height:28px; display:grid; place-items:center; border-radius:8px; background:var(--surface-soft); font-size:9px; font-style:normal; font-weight:740; }
+    .mock-choice.selected i { background:#0f8a67; color:#fff; }
+    .mock-session-actions { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:20px; padding-top:17px; border-top:1px solid var(--line); }
+    .mock-session-actions div { display:flex; gap:8px; }
+
+    .results-layout { display:grid; gap:14px; }
+    .results-summary-grid { display:grid; grid-template-columns:240px minmax(0,1fr); gap:14px; }
+    .results-score-card,.results-ai-card,.results-section-card,.results-review-card,.improve-card { border:1px solid var(--line); border-radius:17px; background:var(--surface); }
+    .results-score-card { padding:20px; background:linear-gradient(145deg,rgba(15,138,103,.11),var(--surface) 72%); }
+    .results-score-card span { color:var(--muted); font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+    .results-score-card strong { display:block; margin-top:12px; font-size:36px; line-height:1; letter-spacing:-.055em; }
+    .results-score-card p { margin:8px 0 0; color:#0f8a67; font-size:10px; font-weight:700; }
+    .results-ai-card { padding:20px; }
+    .results-ai-card h2 { margin:0; font-size:16px; }
+    .results-ai-card p { margin:10px 0 0; color:var(--muted); font-size:10px; line-height:1.6; }
+    .results-two-column { display:grid; grid-template-columns:minmax(0,1fr) minmax(290px,.72fr); gap:14px; align-items:start; }
+    .results-section-card { overflow:hidden; }
+    .results-card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); }
+    .results-card-head h2 { margin:0; font-size:15px; }
+    .results-card-head span { color:var(--muted); font-size:9px; }
+    .results-performance-row { display:grid; grid-template-columns:125px minmax(100px,1fr) 48px; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid var(--line); font-size:10px; }
+    .results-performance-row:last-child { border-bottom:0; }
+    .results-performance-row > i { height:7px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
+    .results-performance-row > i b { display:block; height:100%; border-radius:inherit; background:#0f8a67; }
+    .results-performance-row em { color:var(--muted); font-style:normal; text-align:right; }
+    .improve-card { padding:17px; }
+    .improve-card h2 { margin:0; font-size:15px; }
+    .improve-card > p { margin:6px 0 0; color:var(--muted); font-size:9px; line-height:1.45; }
+    .improve-topic-list { display:grid; gap:8px; margin-top:13px; }
+    .improve-topic { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; padding:11px; border-radius:11px; background:var(--surface-soft); }
+    .improve-topic strong { display:block; font-size:10px; }
+    .improve-topic span { display:block; margin-top:3px; color:var(--muted); font-size:8px; }
+    .improve-topic button { min-height:29px; padding:0 9px; border:1px solid rgba(15,138,103,.22); border-radius:8px; background:var(--surface); color:#0f8a67; font-size:8px; font-weight:740; cursor:pointer; }
+    .results-review-card { overflow:hidden; }
+    .results-filter-tabs { display:flex; gap:5px; padding:12px 18px; border-bottom:1px solid var(--line); }
+    .results-filter-button { min-height:30px; padding:0 10px; border:0; border-radius:8px; background:transparent; color:var(--muted); font-size:9px; font-weight:700; cursor:pointer; }
+    .results-filter-button.active { background:rgba(15,138,103,.09); color:#0f8a67; }
+    .review-question { padding:16px 18px; border-bottom:1px solid var(--line); }
+    .review-question:last-child { border-bottom:0; }
+    .review-question > span { color:var(--muted); font-size:8px; font-weight:700; text-transform:uppercase; }
+    .review-question h3 { margin:7px 0 10px; font-size:11px; line-height:1.45; }
+    .review-answer { padding:9px 10px; border-radius:9px; font-size:9px; line-height:1.45; }
+    .review-answer.correct { background:#eaf8f3; color:#0f7355; }
+    .review-answer.incorrect { margin-bottom:6px; background:#fff0f3; color:#a7334d; }
+    .review-explanation { margin:9px 0 0; color:var(--muted); font-size:9px; line-height:1.5; }
+    .results-footer-actions { display:flex; justify-content:flex-end; gap:8px; }
+
+    @media (max-width:900px) {
+      .course-overview-grid,.results-two-column { grid-template-columns:1fr; }
+      .study-plan-layout { grid-template-columns:250px minmax(0,1fr); }
+      .study-tool-grid { grid-template-columns:1fr; }
+      .mock-exam-stage { grid-template-columns:1fr; }
+      .mock-session-layout { grid-template-columns:210px minmax(0,1fr); }
+    }
+    @media (max-width:700px) {
+      .study-plan-layout,.mock-session-layout,.results-summary-grid { grid-template-columns:1fr; }
+      .study-plan-sidebar,.question-navigator { position:static; }
+      .study-topic-tree { max-height:320px; }
+      .study-tool-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .mock-exam-metrics { grid-template-columns:1fr; }
+    }
+    @media (max-width:560px) {
+      .course-hub-stats,.study-tool-grid { grid-template-columns:1fr; }
+      .course-next-task { grid-template-columns:42px minmax(0,1fr); }
+      .course-next-task .course-primary-small { grid-column:1 / -1; }
+      .mock-state-nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .study-topic-detail,.mock-exam-card,.mock-question-card { padding:17px; }
+      .results-performance-row { grid-template-columns:100px minmax(70px,1fr) 40px; gap:8px; padding-inline:13px; }
+      .results-footer-actions { flex-direction:column-reverse; }
+      .results-footer-actions button { width:100%; }
+    }
+
     .toast { position: fixed; left: 50%; bottom: 24px; z-index: 90; max-width: calc(100vw - 36px); padding: 11px 15px; border: 1px solid var(--line); border-radius: 12px; background: var(--text); color: var(--bg); box-shadow: var(--shadow); font-size: 12px; transform: translate(-50%, 18px); opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
     .toast.show { transform: translate(-50%, 0); opacity: 1; }
     .chat-button { position: fixed; right: 22px; bottom: 22px; z-index: 25; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--text); color: var(--bg); box-shadow: var(--shadow); cursor: pointer; }
@@ -1559,7 +1751,7 @@
           <div class="examples-grid" id="examplesGrid"></div>
         </section>
         <section class="exam-catalog" id="examCatalog" aria-labelledby="examCatalogTitle" hidden>
-          <div class="exam-catalog-heading"><div><span>READY-MADE PREP</span><h2 id="examCatalogTitle">Standardized test courses</h2></div><p>Lessons, practice, exams, and score insights.</p></div>
+          <div class="exam-catalog-heading"><div><span>READY-MADE PREP</span><h2 id="examCatalogTitle">Standardized test courses</h2></div><p>Topic study, mock exams, results, and targeted improvement.</p></div>
           <div class="exam-catalog-toolbar">
             <label class="exam-search-wrap"><svg class="icon"><use href="#i-search"/></svg><input id="examCourseSearch" aria-label="Search standardized exam courses" placeholder="Search SAT, ACT, AP, Abitur..." /></label>
             <label class="exam-filter-wrap"><span class="sr-only">Filter exam packages</span><select id="examCourseFilter" aria-label="Filter exam packages"><option value="all">All courses</option><option value="sat">SAT</option><option value="act">ACT</option><option value="ap">AP</option><option value="abitur">Abitur</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
@@ -1581,15 +1773,14 @@
           <aside class="course-progress-summary" aria-label="Course progress">
             <div class="course-progress-summary-head"><span>Course progress</span><strong>18%</strong></div>
             <div class="course-progress-track" aria-label="18 percent complete"><i></i></div>
-            <p>3 lessons complete · Next goal: finish the current module</p>
+            <p>3 topics in progress · Next: continue Linear equations</p>
           </aside>
         </header>
         <nav class="course-package-tabs" id="coursePackageTabs" role="tablist" aria-label="Course sections">
           <button class="course-package-tab" type="button" role="tab" aria-selected="true" data-course-tab="overview">Overview</button>
-          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="lessons">Lessons</button>
-          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="practice">Practice</button>
-          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="exams">Exams</button>
-          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="insights">Score Insights</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="study">Study Plan</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="mock">Mock Exam</button>
+          <button class="course-package-tab" type="button" role="tab" aria-selected="false" data-course-tab="results">Results &amp; Improve</button>
         </nav>
         <div class="course-package-panel" id="coursePackagePanel" role="tabpanel" aria-live="polite"></div>
       </section>
@@ -2108,6 +2299,12 @@
     let cropGesture = null;
     let activeCoursePackageIndex = null;
     let activeCoursePackageTab = 'overview';
+    let activeCourseTopicIndex = 0;
+    let mockExamPreviewState = 'continue';
+    let courseMockSessionOpen = false;
+    let courseQuestionIndex = 0;
+    let courseAnswers = {0:2,2:1};
+    let courseResultsFilter = 'all';
     let activeExamPredictorFeatureIndex = 0;
 
     function graphPreview() {
@@ -2428,49 +2625,167 @@
       ];
     }
 
+    function courseSections(course) {
+      if (course.family === 'act') return ['Math','Science','English','Reading','Writing'];
+      if (course.family === 'sat') return ['Math','Reading & Writing'];
+      return ['All topics'];
+    }
+
+    function courseTopics(course) {
+      const subject = courseSubject(course);
+      const base = course.family === 'sat' ? [
+        ['Algebra','Linear equations & systems','Solve, interpret, and compare linear relationships.','98% · Core','core'],
+        ['Algebra','Equivalent expressions','Rewrite expressions and reveal useful structure.','96% · Core','core'],
+        ['Advanced Math','Nonlinear equations','Work with quadratics, exponentials, and systems.','92% · Likely',''],
+        ['Problem Solving','Ratios, rates & proportions','Model real contexts using units and proportional reasoning.','89% · Likely',''],
+        ['Geometry','Circles & triangles','Use angle, length, area, and similarity relationships.','84% · Possible',''],
+        ['Data Analysis','Two-variable data','Interpret scatterplots, models, and statistical claims.','81% · Possible','']
+      ] : [
+        [`${subject} foundations`,'Core concepts & models','Build the concepts most often tested in this exam.','98% · Core','core'],
+        ['Applied reasoning','Multi-step problem solving','Translate unfamiliar prompts into a reliable solution path.','95% · Core','core'],
+        ['Data interpretation','Tables, graphs & evidence','Read evidence accurately and compare competing claims.','92% · Likely',''],
+        ['Exam strategy','Timing & common traps','Recognize distractors and choose the fastest valid method.','88% · Likely',''],
+        ['Mixed review','Cross-topic connections','Combine concepts under realistic exam conditions.','84% · Possible','']
+      ];
+      return base.map((item,index) => ({
+        group:item[0], title:item[1], description:item[2], priority:item[3], tone:item[4],
+        objectives:[
+          `Identify the tested concept and select an efficient approach.`,
+          `Apply the method accurately in both direct and contextual questions.`,
+          `Explain why common distractors fail and check the final result.`
+        ],
+        tools:[
+          {name:'Study Guide',icon:'i-book',state:index === 0 ? 'Continue' : 'Start',copy:index === 0 ? '2 of 6 sections complete' : 'Concepts, examples, and quick practice'},
+          {name:'Flashcards',icon:'i-grid',state:index === 1 ? 'Review' : 'Start',copy:index === 1 ? '36 cards reviewed' : 'Key terms and formulas'},
+          {name:'Quiz',icon:'i-exam',state:index === 2 ? 'Continue' : 'Start',copy:index === 2 ? '6 of 12 questions answered' : '12 exam-style questions'}
+        ]
+      }));
+    }
+
+    const courseMockQuestions = [
+      {section:'Reading & Writing',question:'Which choice most effectively states the main idea of the passage?',options:['A detail about the study methods','A contrast between two explanations','The author’s central claim and its support','An unrelated historical example']},
+      {section:'Reading & Writing',question:'Which transition best completes the text?',options:['Nevertheless,','For example,','Similarly,','In conclusion,']},
+      {section:'Math',question:'A linear function passes through (2, 7) and (6, 19). What is its slope?',options:['2','3','4','6']},
+      {section:'Math',question:'If x² − 5x + 6 = 0, what are the possible values of x?',options:['1 and 6','2 and 3','−2 and −3','3 and 5']},
+      {section:'Math',question:'A circle has radius 6. What is its area?',options:['6π','12π','18π','36π']},
+      {section:'Math',question:'Which expression is equivalent to 3(x + 4) − 2x?',options:['x + 4','x + 12','5x + 12','x + 7']}
+    ];
+
     function courseOverviewMarkup(course) {
-      const modules = courseModules(course).slice(0, 3);
-      return `<div class="course-dashboard-grid">
-        <section class="course-panel-card">
-          <header class="course-panel-card-head"><div><span>Next up</span><h2>Continue your plan</h2></div><small>Updated today</small></header>
-          <div class="course-module-list">${modules.map((module,index) => `<button class="course-module-row" type="button" data-course-action="${index === 1 ? 'Continue lesson' : 'Open module'}"><span class="course-module-icon">${icon(module.icon)}</span><span class="course-module-copy"><strong>${module.title}</strong><span>${module.meta}</span></span><em class="course-module-state${index === 1 ? ' current' : ''}">${module.state}</em></button>`).join('')}</div>
-        </section>
-        <div class="course-side-stack">
-          <section class="course-panel-card course-today"><h2>Today’s focus</h2><div class="course-today-item"><i>1</i><span>Finish the current lesson and its 10-question check.</span></div><div class="course-today-item"><i>2</i><span>Review mistakes from your latest practice set.</span></div><div class="course-today-item"><i>3</i><span>Complete one 20-minute timed drill.</span></div></section>
-          <section class="course-panel-card course-score-card"><span>Projected score</span><strong>${course.family === 'sat' ? '1280–1350' : course.family === 'act' ? '27–30' : '3–4'}</strong><p>Trending up with consistent practice</p></section>
+      const score = course.family === 'sat' ? '1280' : course.family === 'act' ? '28' : '4';
+      const scale = course.family === 'sat' ? '/1600' : course.family === 'act' ? '/36' : '/5';
+      return `<div class="course-overview-grid">
+        <div>
+          <section class="course-hub-card">
+            <header class="course-hub-head"><div><span class="course-hub-eyebrow">Continue learning</span><h2>Pick up where you left off</h2><p>Your next study action is ready.</p></div><button class="course-link-button" type="button" data-course-switch="study">View plan</button></header>
+            <div class="course-next-task"><span class="course-next-icon">${icon('i-book')}</span><div class="course-next-copy"><strong>Linear equations & systems</strong><span>Study Guide · Section 3 of 6</span><div class="course-progress-inline"><i></i></div></div><button class="course-primary-small" type="button" data-course-switch="study">Continue</button></div>
+          </section>
+          <section class="course-hub-card">
+            <header class="course-hub-head"><div><span class="course-hub-eyebrow">Needs attention</span><h2>Topics to improve</h2><p>Based on your latest quiz and mock exam.</p></div><button class="course-link-button" type="button" data-course-switch="results">View all</button></header>
+            <div class="course-weak-list"><div class="course-weak-row"><strong>Nonlinear equations</strong><span>92% likely</span></div><div class="course-weak-row"><strong>Ratios, rates & proportions</strong><span>89% likely</span></div><div class="course-weak-row"><strong>Two-variable data</strong><span>81% likely</span></div></div>
+          </section>
+        </div>
+        <div class="course-hub-stats">
+          <button class="course-hub-stat" type="button" data-course-switch="mock"><span>Mock Exam</span><strong>14 / 54</strong><p>Attempt in progress · answers saved</p><em>Continue exam →</em></button>
+          <button class="course-hub-stat" type="button" data-course-switch="results"><span>Latest score</span><strong>${score}<small>${scale}</small></strong><p>70th percentile · completed Aug 21</p><em>View report →</em></button>
+          <button class="course-hub-stat" type="button" data-course-switch="study"><span>Study Plan</span><strong>18%</strong><p>3 of ${course.topics} topics in progress</p><em>Open plan →</em></button>
+          <button class="course-hub-stat" type="button" data-course-switch="results"><span>Weak topics</span><strong>3</strong><p>Prioritized by recent performance and exam importance</p><em>Start improving →</em></button>
         </div>
       </div>`;
     }
 
-    function courseLessonsMarkup(course) {
-      return `<h2 class="course-section-title">Course lessons</h2><section class="course-panel-card"><div class="course-module-list">${courseModules(course).map((module,index) => `<button class="course-module-row" type="button" data-course-action="${index === 1 ? 'Continue lesson' : 'Open module'}"><span class="course-module-icon">${icon(module.icon)}</span><span class="course-module-copy"><strong>${module.title}</strong><span>${module.meta}</span></span><em class="course-module-state${index === 1 ? ' current' : ''}">${module.state}</em></button>`).join('')}</div></section>`;
+    function courseStudyPlanMarkup(course) {
+      const topics = courseTopics(course);
+      const topic = topics[Math.min(activeCourseTopicIndex, topics.length - 1)];
+      const groups = [];
+      topics.forEach((item,index) => { if (!groups.includes(item.group)) groups.push(item.group); item.index = index; });
+      return `<div class="study-plan-layout">
+        <aside class="study-plan-sidebar" aria-label="Study plan topic tree">
+          <div class="study-plan-filters"><span class="study-filter-label">Section</span><div class="study-filter-row">${courseSections(course).map((label,index) => `<button class="study-filter-chip${index === 0 ? ' active' : ''}" type="button" data-study-filter="${label}">${label}</button>`).join('')}</div><span class="study-filter-label" style="margin-top:13px">Priority</span><div class="study-filter-row"><button class="study-filter-chip active" type="button" data-study-filter="All priorities">All</button><button class="study-filter-chip" type="button" data-study-filter="Core">Core</button><button class="study-filter-chip" type="button" data-study-filter="Likely">Likely</button><button class="study-filter-chip" type="button" data-study-filter="Possible">Possible</button></div></div>
+          <div class="study-topic-tree">${groups.map(group => `<div class="study-topic-group">${group}</div>${topics.filter(item => item.group === group).map(item => `<button class="study-topic-button${item.index === activeCourseTopicIndex ? ' active' : ''}" type="button" data-topic-index="${item.index}"><span><strong>${item.title}</strong><span>${item.description}</span></span><em class="study-priority ${item.tone}">${item.priority.split(' · ')[1]}</em></button>`).join('')}`).join('')}</div>
+        </aside>
+        <section class="study-topic-detail" aria-labelledby="studyTopicTitle">
+          <span class="study-topic-kicker">${topic.group}<i></i>${topic.priority}</span><h2 id="studyTopicTitle">${topic.title}</h2><p class="study-topic-summary">${topic.description}</p>
+          <div class="study-objectives"><h3>Learning objectives</h3><ul>${topic.objectives.map(item => `<li>${item}</li>`).join('')}</ul></div>
+          <div class="study-tools-head"><h3 class="study-tools-title">Study this topic</h3><span>Each tool keeps its own progress</span></div>
+          <div class="study-tool-grid">${topic.tools.map(tool => `<article class="study-tool-card"><span class="study-tool-icon">${icon(tool.icon)}</span><h3>${tool.name}</h3><p>${tool.copy}</p><button class="study-tool-action ${tool.state.toLowerCase()}" type="button" data-tool-state="${tool.state} ${tool.name}">${tool.state}</button></article>`).join('')}</div>
+        </section>
+      </div>`;
     }
 
-    function coursePracticeMarkup(course) {
-      const subject = courseSubject(course);
-      const items = [
-        ['Adaptive set', `${subject} diagnostic`, '20 questions · About 25 min', 'Start set'],
-        ['Recommended', 'Weak-area recovery', '15 questions · Personalized', 'Practice now'],
-        ['Timed drill', 'Exam pacing sprint', '25 questions · 20 min', 'Start timer'],
-        ['Question bank', 'Build a custom practice set', `${course.questions} questions available`, 'Choose topics']
-      ];
-      return `<h2 class="course-section-title">Practice</h2><div class="course-content-grid">${items.map(item => `<button class="course-content-item" type="button" data-course-action="${item[3]}"><span>${item[0]}</span><h3>${item[1]}</h3><p>${item[2]}</p><footer><strong>${item[3]}</strong><span>Instant explanations</span></footer></button>`).join('')}</div>`;
+    function mockStateCopy(course) {
+      const score = course.family === 'sat' ? '1280 / 1600' : course.family === 'act' ? '28 / 36' : '4 / 5';
+      if (mockExamPreviewState === 'start') return {label:'Not started',title:`${course.label} Mock Exam`,copy:'Simulate the real test, reveal your current score level, and find the topics that need the most attention.',metrics:[['Questions','54'],['Time','2 hr 14 min'],['Sections','2']],primary:'Start Exam'};
+      if (mockExamPreviewState === 'processing') return {label:'Processing',title:'Scoring your exam',copy:'Your answers were submitted. Solvely is calculating the official-scale score and building your improvement report.',metrics:[],primary:'Processing'};
+      if (mockExamPreviewState === 'finish') return {label:'Finish',title:'Your report is ready',copy:'Review the official-scale score, section performance, question explanations, and personalized topics to improve.',metrics:[['Total score',score],['Percentile','70th'],['Answered','54 / 54']],primary:'View Results'};
+      return {label:'In progress',title:`Continue ${course.label} Mock Exam`,copy:'Resume the same attempt with your answers, current section, timer, and flagged questions exactly where you stopped.',metrics:[['Answered','14 / 54'],['Time left','1 hr 36 min'],['Current section','Math']],primary:'Continue'};
     }
 
-    function courseExamsMarkup(course) {
-      const items = [
-        ['Full-length', 'Practice Exam 1', 'Ready · Real exam timing', 'Start exam'],
-        ['Full-length', 'Practice Exam 2', 'Unlocks after Exam 1', 'View details'],
-        ['Section test', `${courseSubject(course)} checkpoint`, '45 min · 40 questions', 'Start section'],
-        ['Review', 'Past exam attempts', 'Mistakes, timing, and explanations', 'Review results']
-      ];
-      return `<h2 class="course-section-title">Practice exams</h2><div class="course-content-grid">${items.map(item => `<button class="course-content-item" type="button" data-course-action="${item[3]}"><span>${item[0]}</span><h3>${item[1]}</h3><p>${item[2]}</p><footer><strong>${item[3]}</strong><span>Score insights included</span></footer></button>`).join('')}</div>`;
+    function courseMockSessionMarkup(course) {
+      const question = courseMockQuestions[courseQuestionIndex];
+      const sections = [...new Set(courseMockQuestions.map(item => item.section))];
+      return `<div class="mock-session-layout">
+        <aside class="question-navigator" aria-label="Question Navigator"><h2>Question Navigator</h2><p>${Object.keys(courseAnswers).length} of ${courseMockQuestions.length} answered · answers saved</p>${sections.map(section => `<div class="question-nav-section"><strong>${section}</strong><div class="question-number-grid">${courseMockQuestions.map((item,index) => item.section === section ? `<button class="question-number${index === courseQuestionIndex ? ' current' : ''}${courseAnswers[index] !== undefined ? ' answered' : ''}" type="button" data-question-index="${index}" aria-label="Question ${index + 1}">${index + 1}</button>` : '').join('')}</div></div>`).join('')}<button class="mock-secondary-action" style="width:100%;margin-top:15px" type="button" data-mock-session="exit">Save & exit</button></aside>
+        <section class="mock-question-card"><div class="mock-question-top"><span>${question.section}</span><span>Question ${courseQuestionIndex + 1} of ${courseMockQuestions.length}</span></div><h2>${question.question}</h2><div class="mock-choice-list">${question.options.map((option,index) => `<button class="mock-choice${courseAnswers[courseQuestionIndex] === index ? ' selected' : ''}" type="button" data-choice-index="${index}"><i>${String.fromCharCode(65 + index)}</i><span>${option}</span></button>`).join('')}</div><div class="mock-session-actions"><button class="mock-secondary-action" type="button" data-question-move="prev"${courseQuestionIndex === 0 ? ' disabled' : ''}>Previous</button><div>${courseQuestionIndex === courseMockQuestions.length - 1 ? `<button class="mock-primary-action" type="button" data-mock-session="submit">Submit exam</button>` : `<button class="mock-primary-action" type="button" data-question-move="next">Save & next</button>`}</div></div></section>
+      </div>`;
     }
 
-    function courseInsightsMarkup() {
-      const bars = [['May',42], ['Jun',51], ['Jul',64], ['Aug',72], ['Now',78]];
-      const skills = [['Concepts',82], ['Accuracy',76], ['Pacing',61], ['Exam strategy',69]];
-      return `<h2 class="course-section-title">Score insights</h2><div class="course-dashboard-grid"><section class="course-panel-card"><header class="course-panel-card-head"><div><span>Performance</span><h2>Readiness trend</h2></div><small>Last 5 checkpoints</small></header><div class="course-insight-chart">${bars.map(([label,value]) => `<span class="course-insight-bar"><i style="height:${value}%"></i>${label}</span>`).join('')}</div><div>${skills.map(([label,value]) => `<div class="course-skill-row"><strong>${label}</strong><i><b style="width:${value}%"></b></i><em>${value}%</em></div>`).join('')}</div></section><div class="course-side-stack"><section class="course-panel-card course-today"><h2>What to improve next</h2><div class="course-today-item"><i>1</i><span>Prioritize timed work to improve pacing.</span></div><div class="course-today-item"><i>2</i><span>Redo missed medium-difficulty questions.</span></div><div class="course-today-item"><i>3</i><span>Take the next checkpoint after two study sessions.</span></div></section></div></div>`;
+    function courseMockExamMarkup(course) {
+      if (courseMockSessionOpen) return courseMockSessionMarkup(course);
+      const view = mockStateCopy(course);
+      const processing = mockExamPreviewState === 'processing';
+      return `<div class="mock-state-shell">
+        <div class="mock-state-nav" role="tablist" aria-label="Mock exam attempt states">${['start','continue','processing','finish'].map(state => `<button class="mock-state-button${mockExamPreviewState === state ? ' active' : ''}" type="button" data-mock-state="${state}">${state === 'start' ? 'Start' : state === 'continue' ? 'Continue' : state === 'processing' ? 'Processing' : 'Finish'}</button>`).join('')}</div>
+        <div class="mock-exam-stage"><section class="mock-exam-card">${processing ? `<div class="mock-processing"><div><div class="mock-spinner"></div><span class="mock-exam-status processing">Processing</span><h2>${view.title}</h2><p>${view.copy}</p></div></div>` : `<span class="mock-exam-status">${view.label}</span><h2>${view.title}</h2><p>${view.copy}</p><div class="mock-exam-metrics">${view.metrics.map(([label,value]) => `<div class="mock-exam-metric"><span>${label}</span><strong>${value}</strong></div>`).join('')}</div><div class="mock-exam-actions"><button class="mock-primary-action" type="button" data-mock-primary>${view.primary}</button>${mockExamPreviewState === 'finish' ? '<button class="mock-secondary-action" type="button" data-course-switch="results">Practice Weak Topics</button>' : ''}</div>`}</section>
+          <aside class="mock-benefit-card"><h3>What this exam gives you</h3><div class="mock-benefit-list"><div class="mock-benefit-item"><i>1</i><span><strong>Real exam simulation</strong><span>Official structure, timing, and score scale.</span></span></div><div class="mock-benefit-item"><i>2</i><span><strong>Saved progress</strong><span>Resume the same attempt without losing answers or flags.</span></span></div><div class="mock-benefit-item"><i>3</i><span><strong>Actionable report</strong><span>Section scores, explanations, and targeted improvement.</span></span></div></div></aside></div>
+      </div>`;
+    }
+
+    const courseReviewQuestions = [
+      {status:'incorrect',title:'Where should the comma be placed in the sentence?',user:'Your answer: No comma',correct:'Correct answer: After the introductory phrase',explanation:'Introductory phrases are followed by a comma before the independent clause.'},
+      {status:'correct',title:'What is the slope between (2, 7) and (6, 19)?',user:'Your answer: 3',correct:'Correct answer: 3',explanation:'The change in y is 12 and the change in x is 4, so the slope is 3.'},
+      {status:'incorrect',title:'Which model best represents the nonlinear relationship?',user:'Your answer: Linear model',correct:'Correct answer: Quadratic model',explanation:'The constant second differences indicate a quadratic rather than linear relationship.'}
+    ];
+
+    function courseResultsMarkup(course) {
+      const score = course.family === 'sat' ? '1280' : course.family === 'act' ? '28' : '4';
+      const scale = course.family === 'sat' ? '/1600' : course.family === 'act' ? '/36' : '/5';
+      const sectionScores = course.family === 'sat' ? [['Reading & Writing',650,81],['Math',630,79]] : [['Core knowledge',82,82],['Applied reasoning',74,74]];
+      const skills = [['Algebra',88],['Advanced Math',62],['Problem Solving & Data',71],['Geometry',77]];
+      const visibleQuestions = courseReviewQuestions.filter(item => courseResultsFilter === 'all' || item.status === courseResultsFilter);
+      return `<div class="results-layout">
+        <div class="results-summary-grid"><section class="results-score-card"><span>Latest Mock Exam</span><strong>${score}<small>${scale}</small></strong><p>70th percentile · Aug 21</p></section><section class="results-ai-card"><span class="course-hub-eyebrow">AI Overview</span><h2>Strong foundation, with two high-impact gaps</h2><p>You are consistent in core algebra and reading evidence. Focus next on nonlinear equations and proportional reasoning; improving those likely topics should raise both accuracy and pacing before the next full mock.</p></section></div>
+        <div class="results-two-column"><div><section class="results-section-card"><header class="results-card-head"><h2>Section performance</h2><span>Official score scale</span></header>${sectionScores.map(([label,value,percent]) => `<div class="results-performance-row"><strong>${label}</strong><i><b style="width:${percent}%"></b></i><em>${value}</em></div>`).join('')}</section><section class="results-section-card" style="margin-top:14px"><header class="results-card-head"><h2>Knowledge & Skills</h2><span>Relative strength</span></header>${skills.map(([label,value]) => `<div class="results-performance-row"><strong>${label}</strong><i><b style="width:${value}%"></b></i><em>${value}%</em></div>`).join('')}</section></div><aside class="improve-card" id="topicsToImprove"><h2>Topics to Improve</h2><p>Ordered by recent performance and exam importance.</p><div class="improve-topic-list"><div class="improve-topic"><span><strong>Nonlinear equations</strong><span>92% likely · Not started</span></span><button type="button" data-course-action="Practice nonlinear equations">Practice</button></div><div class="improve-topic"><span><strong>Ratios, rates & proportions</strong><span>89% likely · 6 of 12 answered</span></span><button type="button" data-course-action="Continue ratios practice">Continue</button></div><div class="improve-topic"><span><strong>Two-variable data</strong><span>81% likely · Completed</span></span><button type="button" data-course-action="Review two-variable data">Review</button></div></div></aside></div>
+        <section class="results-review-card"><header class="results-card-head"><h2>Question Review</h2><span>Answers and explanations</span></header><div class="results-filter-tabs">${['all','incorrect','correct'].map(filter => `<button class="results-filter-button${courseResultsFilter === filter ? ' active' : ''}" type="button" data-results-filter="${filter}">${filter === 'all' ? 'All Questions' : filter[0].toUpperCase() + filter.slice(1)}</button>`).join('')}</div><div>${visibleQuestions.map((item,index) => `<article class="review-question"><span>${item.status} · Question ${index + 1}</span><h3>${item.title}</h3>${item.status === 'incorrect' ? `<div class="review-answer incorrect">${item.user}</div>` : ''}<div class="review-answer correct">${item.correct}</div><p class="review-explanation">${item.explanation}</p></article>`).join('')}</div></section>
+        <div class="results-footer-actions"><button class="mock-secondary-action" type="button" data-results-action="retake">Retake</button><button class="mock-primary-action" type="button" data-results-action="improve">Practice Weak Topics</button></div>
+      </div>`;
+    }
+
+    function wireCoursePackageInteractions(course) {
+      coursePackagePanel.querySelectorAll('[data-course-switch]').forEach(button => button.addEventListener('click', () => { activeCoursePackageTab = button.dataset.courseSwitch; courseMockSessionOpen = false; renderCoursePackage(); window.scrollTo({top:courseWorkspace.offsetTop,behavior:'smooth'}); }));
+      coursePackagePanel.querySelectorAll('[data-course-action]').forEach(button => button.addEventListener('click', () => showToast(button.dataset.courseAction + ' opened')));
+      coursePackagePanel.querySelectorAll('[data-topic-index]').forEach(button => button.addEventListener('click', () => { activeCourseTopicIndex = Number(button.dataset.topicIndex); renderCoursePackage(); }));
+      coursePackagePanel.querySelectorAll('[data-study-filter]').forEach(button => button.addEventListener('click', () => { const row = button.closest('.study-filter-row'); row.querySelectorAll('.study-filter-chip').forEach(item => item.classList.remove('active')); button.classList.add('active'); showToast(`${button.dataset.studyFilter} filter applied`); }));
+      coursePackagePanel.querySelectorAll('[data-tool-state]').forEach(button => button.addEventListener('click', () => showToast(`${button.dataset.toolState} opened`)));
+      coursePackagePanel.querySelectorAll('[data-mock-state]').forEach(button => button.addEventListener('click', () => { mockExamPreviewState = button.dataset.mockState; courseMockSessionOpen = false; renderCoursePackage(); }));
+      coursePackagePanel.querySelectorAll('[data-mock-primary]').forEach(button => button.addEventListener('click', () => {
+        if (mockExamPreviewState === 'finish') { activeCoursePackageTab = 'results'; renderCoursePackage(); return; }
+        if (mockExamPreviewState === 'processing') return;
+        courseMockSessionOpen = true; renderCoursePackage();
+      }));
+      coursePackagePanel.querySelectorAll('[data-question-index]').forEach(button => button.addEventListener('click', () => { courseQuestionIndex = Number(button.dataset.questionIndex); renderCoursePackage(); }));
+      coursePackagePanel.querySelectorAll('[data-choice-index]').forEach(button => button.addEventListener('click', () => { courseAnswers[courseQuestionIndex] = Number(button.dataset.choiceIndex); renderCoursePackage(); }));
+      coursePackagePanel.querySelectorAll('[data-question-move]').forEach(button => button.addEventListener('click', () => { courseQuestionIndex = Math.max(0,Math.min(courseMockQuestions.length - 1,courseQuestionIndex + (button.dataset.questionMove === 'next' ? 1 : -1))); renderCoursePackage(); }));
+      coursePackagePanel.querySelectorAll('[data-mock-session]').forEach(button => button.addEventListener('click', () => {
+        if (button.dataset.mockSession === 'exit') { courseMockSessionOpen = false; mockExamPreviewState = 'continue'; renderCoursePackage(); showToast('Exam progress saved'); return; }
+        courseMockSessionOpen = false; mockExamPreviewState = 'processing'; renderCoursePackage(); showToast('Exam submitted. Scoring in progress.');
+        setTimeout(() => { if (activeCoursePackageTab === 'mock' && mockExamPreviewState === 'processing') { mockExamPreviewState = 'finish'; renderCoursePackage(); showToast('Your score report is ready'); } }, 1500);
+      }));
+      coursePackagePanel.querySelectorAll('[data-results-filter]').forEach(button => button.addEventListener('click', () => { courseResultsFilter = button.dataset.resultsFilter; renderCoursePackage(); }));
+      coursePackagePanel.querySelectorAll('[data-results-action]').forEach(button => button.addEventListener('click', () => {
+        if (button.dataset.resultsAction === 'retake') { mockExamPreviewState = 'start'; courseMockSessionOpen = false; activeCoursePackageTab = 'mock'; renderCoursePackage(); return; }
+        document.getElementById('topicsToImprove')?.scrollIntoView({behavior:'smooth',block:'center'});
+      }));
     }
 
     function renderCoursePackage() {
@@ -2478,15 +2793,14 @@
       if (!course) return;
       document.getElementById('courseWorkspaceFamily').textContent = course.label;
       document.getElementById('courseWorkspaceTitle').textContent = course.title;
-      document.getElementById('courseWorkspaceDescription').textContent = `A complete ${course.title} path with focused lessons, adaptive practice, realistic exams, and score insights.`;
-      document.getElementById('courseWorkspaceMetrics').innerHTML = `<span class="course-package-metric">${icon('i-book')}<span><strong>${course.topics}</strong> topics</span></span><span class="course-package-metric">${icon('i-play')}<span><strong>${course.videos}</strong> video lessons</span></span><span class="course-package-metric">${icon('i-exam')}<span><strong>${course.questions}</strong> practice questions</span></span>`;
+      document.getElementById('courseWorkspaceDescription').textContent = `A focused ${course.title} plan with topic study tools, realistic mock exams, score reports, and targeted improvement.`;
+      document.getElementById('courseWorkspaceMetrics').innerHTML = `<span class="course-package-metric">${icon('i-book')}<span><strong>${course.topics}</strong> topics</span></span><span class="course-package-metric">${icon('i-grid')}<span><strong>3</strong> study tools</span></span><span class="course-package-metric">${icon('i-exam')}<span><strong>2</strong> full mock exams</span></span>`;
       document.querySelectorAll('[data-course-tab]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.courseTab === activeCoursePackageTab)));
-      if (activeCoursePackageTab === 'lessons') coursePackagePanel.innerHTML = courseLessonsMarkup(course);
-      else if (activeCoursePackageTab === 'practice') coursePackagePanel.innerHTML = coursePracticeMarkup(course);
-      else if (activeCoursePackageTab === 'exams') coursePackagePanel.innerHTML = courseExamsMarkup(course);
-      else if (activeCoursePackageTab === 'insights') coursePackagePanel.innerHTML = courseInsightsMarkup();
+      if (activeCoursePackageTab === 'study') coursePackagePanel.innerHTML = courseStudyPlanMarkup(course);
+      else if (activeCoursePackageTab === 'mock') coursePackagePanel.innerHTML = courseMockExamMarkup(course);
+      else if (activeCoursePackageTab === 'results') coursePackagePanel.innerHTML = courseResultsMarkup(course);
       else coursePackagePanel.innerHTML = courseOverviewMarkup(course);
-      coursePackagePanel.querySelectorAll('[data-course-action]').forEach(button => button.addEventListener('click', () => showToast(button.dataset.courseAction + ' opened')));
+      wireCoursePackageInteractions(course);
     }
 
     const examPredictorTopics = [
@@ -2565,6 +2879,12 @@
       if (!course) return;
       activeCoursePackageIndex = index;
       activeCoursePackageTab = 'overview';
+      activeCourseTopicIndex = 0;
+      mockExamPreviewState = 'continue';
+      courseMockSessionOpen = false;
+      courseQuestionIndex = 0;
+      courseAnswers = {0:2,2:1};
+      courseResultsFilter = 'all';
       homeWorkspace.hidden = true;
       examPredictorWorkspace.hidden = true;
       courseWorkspace.hidden = false;
