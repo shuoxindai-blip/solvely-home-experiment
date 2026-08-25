@@ -519,8 +519,22 @@
     .waveform i { width: 3px; border-radius: 3px; background: var(--accent); opacity: .7; }
     .waveform i:nth-child(1), .waveform i:nth-child(9) { height: 8px; }
     .waveform i:nth-child(2), .waveform i:nth-child(8) { height: 14px; }
-    .preview-chemistry { height:104px; display:grid; place-items:center; background:#fff; }
-    .preview-chemistry img { width:auto; height:72px; max-width:72%; display:block; place-self:center; object-fit:contain; object-position:center; }
+    .preview-chemistry { height:104px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; padding:8px; background:#f7f9fd; }
+    .chemistry-preview-item { min-width:0; display:grid; place-items:center; overflow:hidden; border:1px solid #e4e9f1; border-radius:9px; background:#fff; }
+    .chemistry-preview-item img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
+    .chemistry-dialog-preview { height:268px; min-height:0; display:grid; place-items:center; padding:18px; overflow:hidden; background:#fff; }
+    .chemistry-dialog-preview img { width:auto; height:232px; max-width:100%; display:block; object-fit:contain; object-position:center; }
+    .chemistry-case-selector { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+    .chemistry-case-tab { min-height:48px; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--muted); font-size:10px; font-weight:680; line-height:1.3; text-align:left; cursor:pointer; transition:border-color .16s ease,background .16s ease,color .16s ease; }
+    .chemistry-case-tab:hover { border-color:rgba(var(--accent-rgb),.35); }
+    .chemistry-case-tab.active { border-color:rgba(var(--accent-rgb),.5); background:var(--accent-soft); color:var(--accent); }
+    .chemistry-answer { margin-top:12px; }
+    .chemistry-answer-summary { margin:0; color:var(--text); font-size:12px; font-weight:650; line-height:1.5; }
+    .chemistry-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin-top:11px; }
+    .chemistry-fact { min-width:0; padding:8px 9px; border:1px solid var(--line); border-radius:9px; background:var(--surface); }
+    .chemistry-fact small,.chemistry-fact strong { display:block; }
+    .chemistry-fact small { margin-bottom:3px; color:var(--subtle); font-size:8px; font-weight:720; letter-spacing:.05em; text-transform:uppercase; }
+    .chemistry-fact strong { overflow-wrap:anywhere; color:var(--text); font-size:10px; line-height:1.35; }
     .preview-accounting svg { width:100%; height:100%; display:block; }
     .preview-accounting-full { min-height:245px; padding:16px 18px; overflow-x:auto; background:#fff; }
     .accounting-full-table { width:100%; min-width:570px; border-collapse:collapse; color:#526077; font-size:11px; }
@@ -567,7 +581,10 @@
     .exam-score span { display: block; margin-top: -17px; font-size: 7px; font-weight: 650; text-transform: uppercase; }
 
     .example-dialog { width: min(680px, calc(100vw - 30px)); max-height: min(720px, calc(100vh - 30px)); padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--text); box-shadow: 0 28px 90px rgba(0,0,0,.22); }
+    .example-dialog[open] { display:flex; flex-direction:column; }
+    .example-dialog .dialog-head,.example-dialog .dialog-actions { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
+    .example-dialog[data-mode="chemistry"] { max-height:min(820px,calc(100vh - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
     .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
     .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
@@ -577,7 +594,7 @@
     .dialog-head-copy p { margin: 0; color: var(--muted); font-size: 12px; }
     .dialog-close { margin-left: auto; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 9px; background: transparent; color: var(--muted); cursor: pointer; }
     .dialog-close:hover { background: var(--surface-hover); }
-    .dialog-body { padding: 20px 22px; overflow: auto; }
+    .dialog-body { min-height:0; padding: 20px 22px; overflow: auto; }
     .dialog-preview { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-soft); }
     .example-dialog[data-mode="simulator"] .dialog-preview { background:#fff; }
     .example-dialog[data-mode="video-player"] .dialog-preview { background:#0f172a; }
@@ -1518,7 +1535,11 @@
         examples: [
           { tag: 'Algebra', title: 'Interactive graph', dialogTitle: 'Parabola & Linear Intersection', description: 'Adjust both functions and track their intersection points.', prompt: 'Graph f(x) = −x² − x + 6 and g(x) = x + 6, then find their intersection points.', preview: 'solver-parabola-line', simulator: 'assets/simulators/parabola-linear-intersection.html', cta: 'Try graphing' },
           { tag: 'Geometry', title: 'Video explanation', dialogTitle: 'Intersecting Circles', description: 'See how intersecting radii form a right triangle.', prompt: 'Explain how to find the distance between the centers of two intersecting circles using their radii and a right triangle.', preview: 'video-solver-circles', simulator: 'https://img.justsolvely.com/solvely-solve/html/2026_08_24_f0259c07361fe821ce3e_1787583893888.html', embedMode: 'video-player', cta: 'Watch explanation' },
-          { tag: 'Chemistry', title: 'Structure visualization', description: 'Identify functional groups and explain the molecular structure.', prompt: 'Analyze this organic chemistry structure and identify its key functional groups.', preview: 'chemistry', cta: 'Explore structure' },
+          { tag: 'Chemistry', title: 'Structure visualization', description: 'Explore solved organic and inorganic structure examples.', prompt: 'Draw the structure of (m)-ethylaniline.', preview: 'chemistry', cta: 'Use this example', structures: [
+            { title:'(m)-Ethylaniline', question:'Draw the structure of (m)-ethylaniline.', summary:'An aniline ring with an ethyl group at the meta (3-) position.', image:'https://img.justsolvely.com/chemistry-pubchem/2026_07_15_bfcc7f6ceeaa64fe224a_1784127249983.png', questionId:'2026_08_24_jqep8i711jb8mpjuy7c8', answerId:'2026_08_24_jqep8i711jb8mpjuy7c8#1787631940993', facts:[['Parent structure','Aniline'],['Substitution','Ethyl at C-3 (meta)'],['IUPAC name','3-ethylaniline'],['Molecular formula','C₈H₁₁N']] },
+            { title:'SF₄ Lewis structure', question:'Draw the correct Lewis structure for SF₄. Include all lone pairs and nonzero formal charges.', summary:'Sulfur forms four S–F single bonds and keeps one equatorial lone pair, producing a seesaw shape.', image:'https://img.justsolvely.com/chemistry-pubchem/2026_07_14_5dafb19eb3243e0b8432_1784066879099.png', questionId:'2026_08_22_e751f7b4d7a0d407eb68', answerId:'2026_08_22_e751f7b4d7a0d407eb68#1787443487570', facts:[['Valence electrons','34'],['S lone pairs','1'],['Molecular geometry','Seesaw'],['Formal charges','All atoms: 0']] },
+            { title:'2-Isopropyloxolane', question:'Draw the structure of 2-isopropyloxolane.', summary:'A saturated five-membered oxolane ring with an isopropyl group attached at carbon 2.', image:'https://img.justsolvely.com/chemistry-pubchem/2026_07_27_631128b862b4e2c5ac59_1785170849765.png', facts:[['Parent ring','Oxolane / tetrahydrofuran'],['Substitution','Isopropyl at C-2'],['Molecular formula','C₇H₁₄O'],['SMILES','CC(C)C1CCCO1']] }
+          ] },
           { tag: 'Accounting', title: 'Vertical analysis', description: 'Compare cost structure and margins between two companies.', prompt: 'Complete a vertical analysis comparing Voltix and Circuita. Voltix: revenue $500M, COGS $350M, and operating expenses $100M. Circuita: revenue $800M, COGS $480M, and operating expenses $240M. Determine which company manages production costs and overhead more efficiently.', preview: 'accounting', cta: 'Use this example' }
         ]
       },
@@ -1819,11 +1840,27 @@
       return `<div class="example-preview preview-flashcards"><div class="flash-preview-stack"><div class="flash-preview-card"><small>Question</small><strong>${firstCard.front}</strong><span class="flash-preview-footer"><span>${cards.length || 3} cards</span><span>Tap to study ↗</span></span></div></div></div>`;
     }
 
+    function chemistryPreview(example) {
+      const structures = example && Array.isArray(example.structures) ? example.structures : [];
+      return `<div class="example-preview preview-chemistry">${structures.slice(0,3).map(structure => `<span class="chemistry-preview-item"><img src="${structure.image}" alt="${structure.title} structure" loading="lazy" /></span>`).join('')}</div>`;
+    }
+
+    function chemistryDialogPreview(example) {
+      const firstStructure = example && Array.isArray(example.structures) ? example.structures[0] : null;
+      return `<div class="chemistry-dialog-preview"><img data-chemistry-image src="${firstStructure ? firstStructure.image : ''}" alt="${firstStructure ? firstStructure.title : 'Chemistry'} structure" /></div>`;
+    }
+
+    function chemistryInteractionMarkup(example) {
+      const structures = example && Array.isArray(example.structures) ? example.structures : [];
+      const firstStructure = structures[0] || { summary:'', facts:[] };
+      return `<div class="chemistry-case-selector" role="tablist" aria-label="Chemistry structure examples">${structures.map((structure,index) => `<button class="chemistry-case-tab${index === 0 ? ' active' : ''}" type="button" role="tab" aria-selected="${index === 0}" data-chemistry-index="${index}">${structure.title}</button>`).join('')}</div><div class="chemistry-answer" data-chemistry-answer><p class="chemistry-answer-summary" data-chemistry-summary>${firstStructure.summary}</p><div class="chemistry-facts" data-chemistry-facts>${firstStructure.facts.map(([label,value]) => `<div class="chemistry-fact"><small>${label}</small><strong>${value}</strong></div>`).join('')}</div></div>`;
+    }
+
     function previewMarkup(type, example = null) {
       if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
       if (type === 'graph') return graphPreview();
       if (type.startsWith('video')) return videoPreview(type);
-      if (type === 'chemistry') return `<div class="example-preview preview-chemistry"><img src="assets/chemistry-structure.png" alt="Organic chemistry structure visualization" /></div>`;
+      if (type === 'chemistry') return chemistryPreview(example);
       if (type === 'accounting') return accountingPreview();
       if (type === 'exam-plan') return examPlanPreview();
       if (type === 'exam-review') return examReviewPreview();
@@ -1838,7 +1875,9 @@
     }
 
     function dialogPreviewMarkup(type, example = null) {
-      return type === 'accounting' ? accountingDialogPreview() : previewMarkup(type, example);
+      if (type === 'accounting') return accountingDialogPreview();
+      if (type === 'chemistry') return chemistryDialogPreview(example);
+      return previewMarkup(type, example);
     }
 
     function renderCapabilities() {
@@ -2241,7 +2280,7 @@
       if (type.startsWith('exam-')) type = 'exam';
       if (type === 'graph') return '<div class="graph-control"><label for="exampleGraphRange"><span>Move along the curve</span><output data-graph-x>2.0</output></label><input id="exampleGraphRange" type="range" min="-4" max="6" value="2" step="0.1" data-graph-slider><p class="graph-readout" data-graph-readout>At x = 2.0, y = −1.00</p></div>';
       if (type === 'video') return '<div class="media-control-row"><button class="media-toggle" type="button" data-media-toggle aria-label="Play explanation">' + icon('i-play') + '</button><span class="media-copy"><strong>Generated explanation</strong><span>Geometry walkthrough</span></span><span class="interaction-time" data-media-time>0:05 / 1:18</span></div><div class="interaction-progress"><span data-media-progress></span></div>';
-      if (type === 'chemistry') return '<h3>Explore the structure</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-structure-group="Amide">Amide</button><button class="insight-chip" type="button" data-structure-group="Aromatic ring">Aromatic ring</button><button class="insight-chip" type="button" data-structure-group="Tertiary amine">Tertiary amine</button></div><p class="insight-readout" data-structure-readout>The amide group links a carbonyl carbon to nitrogen and strongly affects polarity.</p>';
+      if (type === 'chemistry') return chemistryInteractionMarkup(example);
       if (type === 'accounting') return '<h3>Key insights</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-accounting-metric="COGS">COGS</button><button class="insight-chip" type="button" data-accounting-metric="Operating expenses">Operating expenses</button><button class="insight-chip" type="button" data-accounting-metric="Net margin">Net margin</button></div><p class="insight-readout" data-accounting-readout>Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.</p>';
       if (type === 'flashcards') return flashcardStudyMarkup(example);
       if (type === 'quiz') return '<h3>Check your understanding</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">Option A</button><button class="quiz-answer" data-answer="correct">Option B</button><button class="quiz-answer" data-answer="wrong">Option C</button><button class="quiz-answer" data-answer="wrong">Option D</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer for instant feedback.</p></div>';
@@ -2259,15 +2298,31 @@
         interaction.querySelector('[data-graph-x]').textContent = x.toFixed(1);
         interaction.querySelector('[data-graph-readout]').textContent = `At x = ${x.toFixed(1)}, y = ${y.toFixed(2).replace('-', '−')}`;
       });
-      const structureNotes = {
-        'Amide':'The amide group links a carbonyl carbon to nitrogen and strongly affects polarity.',
-        'Aromatic ring':'The six-membered aromatic ring adds resonance stability and a rigid planar region.',
-        'Tertiary amine':'The tertiary amine can accept a proton and influences the molecule’s basicity.'
+      const chemistryStructures = example && Array.isArray(example.structures) ? example.structures : [];
+      const renderChemistryStructure = index => {
+        const structure = chemistryStructures[index];
+        if (!structure) return;
+        const chemistryImage = document.querySelector('#dialogPreview [data-chemistry-image]');
+        if (chemistryImage) {
+          chemistryImage.src = structure.image;
+          chemistryImage.alt = `${structure.title} structure`;
+        }
+        interaction.querySelectorAll('[data-chemistry-index]').forEach(tab => {
+          const active = Number(tab.dataset.chemistryIndex) === index;
+          tab.classList.toggle('active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+        const summary = interaction.querySelector('[data-chemistry-summary]');
+        const facts = interaction.querySelector('[data-chemistry-facts]');
+        if (summary) summary.textContent = structure.summary;
+        if (facts) facts.innerHTML = structure.facts.map(([label,value]) => `<div class="chemistry-fact"><small>${label}</small><strong>${value}</strong></div>`).join('');
+        document.getElementById('dialogTitle').textContent = structure.title;
+        document.getElementById('dialogDescription').textContent = structure.summary;
+        document.getElementById('dialogPrompt').textContent = structure.question;
+        if (selectedExample) selectedExample.activePrompt = structure.question;
       };
-      interaction.querySelectorAll('[data-structure-group]').forEach(group => group.addEventListener('click', () => {
-        interaction.querySelectorAll('[data-structure-group]').forEach(item => item.classList.toggle('active', item === group));
-        interaction.querySelector('[data-structure-readout]').textContent = structureNotes[group.dataset.structureGroup];
-      }));
+      interaction.querySelectorAll('[data-chemistry-index]').forEach(tab => tab.addEventListener('click', () => renderChemistryStructure(Number(tab.dataset.chemistryIndex))));
+      if (chemistryStructures.length) renderChemistryStructure(0);
       const accountingNotes = {
         'COGS':'Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.',
         'Operating expenses':'Voltix controls overhead better: operating expenses are 20% of revenue versus 30% for Circuita.',
@@ -2457,10 +2512,12 @@
       if (!capability || !example) return;
       selectedExample = example;
       selectedExampleCapability = capabilityKey;
+      selectedExample.activePrompt = selectedExample.prompt;
       const hasSimulator = Boolean(selectedExample.simulator);
       const hasInteractiveFlashcards = capabilityKey === 'flashcards' && Array.isArray(selectedExample.cards);
+      const hasChemistryCases = selectedExample.preview === 'chemistry' && Array.isArray(selectedExample.structures);
       const displayTitle = selectedExample.dialogTitle || selectedExample.title;
-      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : 'example';
+      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasChemistryCases ? 'chemistry' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
@@ -3295,7 +3352,7 @@
         return;
       }
       if (selectedExampleCapability && selectedExampleCapability !== selectedCapability) selectCapability(selectedExampleCapability, false);
-      promptInput.value = selectedExample.prompt;
+      promptInput.value = selectedExample.activePrompt || selectedExample.prompt;
       updateSubmit();
       closeDialog();
       promptInput.focus();
