@@ -478,7 +478,10 @@
     .equation-steps i:nth-child(3) { width: 57%; background: rgba(22, 134, 93, .2); }
     .preview-graph svg, .preview-video svg { width: 100%; height: 104px; display: block; }
     .preview-video { position: relative; }
-    .play-badge { position: absolute; inset: 0; margin: auto; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.14); }
+    .preview-video img { width:100%; height:104px; display:block; object-fit:cover; }
+    .preview-video.physics img { object-position:center 39%; }
+    .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
+    .play-badge { position: absolute; z-index:1; inset: 0; margin: auto; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.14); }
     .play-badge .icon { width: 19px; height: 19px; margin-left: 1px; }
     .preview-flashcards { position: relative; height: 104px; padding: 12px; background: linear-gradient(140deg, rgba(var(--accent-rgb), .09), rgba(121, 91, 232, .1)); }
     .mini-card { position: absolute; width: 62%; height: 74px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 5px 15px rgba(41,52,77,.08); }
@@ -550,7 +553,7 @@
     .exam-score span { display: block; margin-top: -17px; font-size: 7px; font-weight: 650; text-transform: uppercase; }
 
     .example-dialog { width: min(680px, calc(100vw - 30px)); max-height: min(720px, calc(100vh - 30px)); padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--text); box-shadow: 0 28px 90px rgba(0,0,0,.22); }
-    .example-dialog[data-mode="simulator"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
+    .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
     .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
     .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
@@ -563,7 +566,9 @@
     .dialog-body { padding: 20px 22px; overflow: auto; }
     .dialog-preview { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-soft); }
     .example-dialog[data-mode="simulator"] .dialog-preview { background:#fff; }
+    .example-dialog[data-mode="video-player"] .dialog-preview { background:#0f172a; }
     .simulator-frame { width:100%; height:460px; display:block; border:0; background:#fff; }
+    .example-dialog[data-mode="video-player"] .simulator-frame { height:min(515px, calc((100vw - 76px) * .5625)); background:#0f172a; }
     .dialog-preview .example-preview { min-height: 245px; border: 0; border-radius: 0; }
     .dialog-preview .preview-equation, .dialog-preview .preview-flashcards, .dialog-preview .preview-quiz, .dialog-preview .preview-guide, .dialog-preview .preview-podcast, .dialog-preview .preview-exam { height: 245px; }
     .dialog-preview .preview-graph svg, .dialog-preview .preview-video svg, .dialog-preview .preview-accounting svg { height: 245px; }
@@ -1497,9 +1502,9 @@
         placeholder: 'Describe the concept or problem you want explained as a video',
         description: 'Generate a short narrated walkthrough with diagrams and steps.',
         examples: [
-          { tag: 'Geometry', title: 'Triangle angle walkthrough', description: 'Animate the reasoning from givens to answer.', prompt: 'Create a 90-second video explaining how to find the missing angle in a triangle.', preview: 'video' },
-          { tag: 'Biology', title: 'Cellular respiration', description: 'Visualize each stage and its energy output.', prompt: 'Create a short video explaining glycolysis, the Krebs cycle, and the electron transport chain.', preview: 'video' },
-          { tag: 'Physics', title: 'Newton’s second law', description: 'Connect force, mass, and acceleration visually.', prompt: 'Create a video that explains F = ma with a real-world example and diagram.', preview: 'video' }
+          { tag: 'Geometry', title: '3D Shapes & Nets', description: 'Unfold each solid and calculate its shaded face area.', prompt: 'Sketch a net for each 3D shape, then calculate the area of each shaded face.', preview: 'video-geometry', simulator: 'https://img.justsolvely.com/solvely-solve/html/2026_01_11_bc9d48edb87b30c11777_1768810149374.html', embedMode: 'video-player' },
+          { tag: 'Probability & Statistics', title: 'Reading a BMI Dotplot', description: 'Count observations, calculate a percentage, and compare estimates.', prompt: 'The dotplot shows BMI data for 146 people. How many have BMI greater than 40, what percentage is that, and how does it compare with 3%?', preview: 'video-statistics', simulator: 'https://img.justsolvely.com/solvely-solve/html/2026_01_10_dbd6a55ef31baa12ff35_1768795344086.html', embedMode: 'video-player' },
+          { tag: 'Physics', title: 'Velocity & Distance Analysis', description: 'Turn signed area under a velocity graph into total distance.', prompt: 'A car travels for 8 minutes with velocity shown on the graph. Find the total distance traveled, rounded to the nearest thousandth.', preview: 'video-physics', simulator: 'https://img.justsolvely.com/solvely-solve/html/2025_07_14_fd4e936d9081a1ec45b9g_1768557153773.html', embedMode: 'video-player' }
         ]
       },
       flashcards: {
@@ -1706,8 +1711,15 @@
       return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Limits at infinity graph"><defs><pattern id="limitsGrid" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M24 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#limitsGrid)"/><path d="M18 52H304M160 8V96" stroke="var(--line-strong)" stroke-width="1.1"/><path d="M18 52H304" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4 3"/><path d="M20 38 C37 63 50 44 62 57 S85 43 97 58 S118 37 131 68 S148 18 160 52 S174 87 189 36 S210 66 225 45 S248 60 263 46 S286 57 302 50" fill="none" stroke="#2368f0" stroke-width="2.6"/><path d="M20 29 C70 35 112 41 147 48M173 48 C208 41 250 35 302 29M20 75 C70 69 112 63 147 56M173 56 C208 63 250 69 302 75" fill="none" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/></svg></div>`;
     }
 
-    function videoPreview() {
-      return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg><span class="play-badge">${icon('i-play')}</span></div>`;
+    function videoPreview(type) {
+      const previews = {
+        'video-geometry': { src: 'assets/video-geometry.png', alt: '3D shapes and nets geometry problem', className: 'geometry' },
+        'video-statistics': { src: 'assets/video-statistics.png', alt: 'BMI dotplot probability and statistics problem', className: 'statistics' },
+        'video-physics': { src: 'assets/video-physics.jpg', alt: 'Velocity graph total distance physics problem', className: 'physics' }
+      };
+      const preview = previews[type];
+      if (!preview) return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg><span class="play-badge">${icon('i-play')}</span></div>`;
+      return `<div class="example-preview preview-video ${preview.className}"><img src="${preview.src}" alt="${preview.alt}"/><span class="play-badge">${icon('i-play')}</span></div>`;
     }
 
     function accountingPreview() {
@@ -1731,7 +1743,7 @@
       if (type === 'graph-externality') return externalityGraphPreview();
       if (type === 'graph-limits') return limitsGraphPreview();
       if (type === 'graph') return graphPreview();
-      if (type === 'video') return videoPreview();
+      if (type.startsWith('video')) return videoPreview(type);
       if (type === 'chemistry') return `<div class="example-preview preview-chemistry"><img src="assets/chemistry-structure.png" alt="Organic chemistry structure visualization" /></div>`;
       if (type === 'accounting') return accountingPreview();
       if (type === 'exam-plan') return examPlanPreview();
@@ -2262,7 +2274,7 @@
       selectedExample = example;
       selectedExampleCapability = capabilityKey;
       const hasSimulator = Boolean(selectedExample.simulator);
-      dialog.dataset.mode = hasSimulator ? 'simulator' : 'example';
+      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
