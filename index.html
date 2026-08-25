@@ -492,8 +492,8 @@
     .preview-video.statistics img { object-position:center 28%; }
     .preview-video.physics img { object-position:center 28%; }
     .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
-    .play-badge { position: absolute; z-index:1; inset: 0; margin: auto; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); color: var(--accent); box-shadow: 0 4px 14px rgba(0,0,0,.14); }
-    .play-badge .icon { width: 19px; height: 19px; margin-left: 1px; }
+    .play-badge { position:absolute; z-index:1; right:12px; bottom:12px; width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.55); border-radius:50%; background:rgba(232,235,240,.82); color:rgba(16,24,45,.84); box-shadow:0 4px 14px rgba(0,0,0,.16); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .play-badge .icon { width:19px; height:19px; margin-left:2px; }
     .preview-flashcards { position: relative; height: 104px; display:grid; place-items:center; padding: 12px; background: linear-gradient(140deg, rgba(var(--accent-rgb), .09), rgba(121, 91, 232, .1)); }
     .flash-preview-stack { position:relative; width:82%; height:78%; }
     .flash-preview-stack::before, .flash-preview-stack::after { content:""; position:absolute; inset:3px 8px; border:1px solid rgba(var(--accent-rgb),.16); border-radius:10px; background:var(--surface); box-shadow:0 5px 14px rgba(41,52,77,.06); }
