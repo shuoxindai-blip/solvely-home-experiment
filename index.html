@@ -492,8 +492,8 @@
     .preview-video.statistics img { object-position:center 28%; }
     .preview-video.physics img { object-position:center 28%; }
     .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
-    .play-badge { position:absolute; z-index:1; right:12px; bottom:12px; width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.55); border-radius:50%; background:rgba(232,235,240,.82); color:rgba(16,24,45,.84); box-shadow:0 4px 14px rgba(0,0,0,.16); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
-    .play-badge .icon { width:19px; height:19px; margin-left:2px; }
+    .play-badge { position:absolute; z-index:1; right:12px; bottom:12px; width:38px; height:38px; display:grid; place-items:center; border:0; border-radius:50%; background:rgba(247,248,251,.92); color:#081642; box-shadow:0 3px 12px rgba(0,0,0,.14); }
+    .play-badge svg { width:17px; height:20px; display:block; margin-left:3px; }
     .preview-flashcards { position:relative; height:auto; aspect-ratio:4 / 3; display:grid; place-items:center; padding:12px; background:linear-gradient(145deg,#f4f7ff,#f7f5ff); }
     .flash-preview-stack { position:relative; width:100%; height:100%; }
     .flash-preview-stack::before, .flash-preview-stack::after { content:""; position:absolute; inset:7px 10px 2px; border:1px solid rgba(var(--accent-rgb),.14); border-radius:13px; background:var(--surface); box-shadow:0 7px 20px rgba(41,52,77,.07); }
@@ -2442,8 +2442,9 @@
         'video-physics': { src: 'assets/video-physics.png', alt: 'Velocity and distance graph video explanation', className: 'physics' }
       };
       const preview = previews[type];
-      if (!preview) return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg><span class="play-badge">${icon('i-play')}</span></div>`;
-      return `<div class="example-preview preview-video ${preview.className}"><img src="${preview.src}" alt="${preview.alt}"/><span class="play-badge">${icon('i-play')}</span></div>`;
+      const playBadge = '<span class="play-badge" aria-hidden="true"><svg viewBox="0 0 17 20"><path d="M2.9 1.1C1.6.3 0 .3 0 2.3v15.4c0 2 1.6 2 2.9 1.2l12.7-7.7c1.4-.8 1.4-1.6 0-2.4L2.9 1.1Z" fill="currentColor"/></svg></span>';
+      if (!preview) return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg>${playBadge}</div>`;
+      return `<div class="example-preview preview-video ${preview.className}"><img src="${preview.src}" alt="${preview.alt}"/>${playBadge}</div>`;
     }
 
     function accountingPreview() {
