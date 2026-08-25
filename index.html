@@ -638,27 +638,130 @@
     .accounting-full-table td[data-accounting-cell] { transition:background .18s ease, color .18s ease; }
     .accounting-full-table td.is-highlighted { background:#edf3ff; color:#2368f0; font-weight:800; }
     .accounting-full-table td[data-better="true"].is-highlighted { background:#e6f6f0; color:#16855b; }
-    .preview-exam-plan { height:104px; padding:9px; background:linear-gradient(145deg,#f8fbff,#f4f7ff); }
-    .summary-plan-week { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
-    .summary-plan-day { padding:3px 1px; border-radius:5px; color:#7a879a; background:#fff; text-align:center; font-size:6px; font-weight:750; }
-    .summary-plan-day b { display:block; margin-top:2px; color:#36465e; font-size:8px; }
-    .summary-plan-day.active { color:#176cf1; background:#e7f1ff; }
-    .summary-plan-day.active b { color:#176cf1; }
-    .summary-plan-task { min-height:24px; margin-top:5px; padding:4px 6px; border:1px solid #e1e7f0; border-radius:6px; background:#fff; display:grid; grid-template-columns:12px 1fr auto; align-items:center; gap:5px; color:#41506a; font-size:7px; }
-    .summary-plan-task i { width:11px; height:11px; display:grid; place-items:center; border:1px solid #9eb8dd; border-radius:3px; color:white; font-size:6px; font-style:normal; }
-    .summary-plan-task.done i { border-color:#20a97d; background:#20a97d; }
-    .summary-plan-task em { color:#8a95a7; font-size:6px; font-style:normal; }
-    .preview-exam-review { height:104px; padding:10px; background:#f8fbff; }
-    .summary-review-top { display:flex; align-items:center; gap:9px; margin-bottom:7px; }
-    .summary-review-ring { width:40px; height:40px; flex:0 0 40px; position:relative; display:grid; place-items:center; border-radius:50%; background:conic-gradient(#7557e8 0 68%,#e7e3f8 68% 100%); }
-    .summary-review-ring::after { content:""; position:absolute; inset:6px; border-radius:50%; background:#fff; }
-    .summary-review-ring strong { position:relative; z-index:1; color:#5e42ce; font-size:9px; }
-    .summary-review-copy { color:#6f7d92; font-size:7px; line-height:1.35; }
-    .summary-review-copy strong { display:block; color:#26364e; font-size:9px; }
-    .summary-topic { display:grid; grid-template-columns:40px 1fr 22px; align-items:center; gap:5px; margin-top:5px; color:#5b687d; font-size:7px; }
-    .summary-topic i { height:4px; overflow:hidden; border-radius:9px; background:#e1e6ef; }
-    .summary-topic i b { display:block; height:100%; border-radius:inherit; background:#7557e8; }
-    .summary-topic em { color:#7557e8; font-size:6px; font-style:normal; text-align:right; }
+    .exam-feature-visual { --exam-blue:#087bf1; --exam-text:#22262b; --exam-muted:#97a3b7; min-height:0; padding:7px; background:#f8fafc; color:var(--exam-text); font-family:inherit; }
+    .exam-feature-visual.is-detail { min-height:350px; padding:18px; aspect-ratio:auto; }
+    .exam-visual-heading { margin:0 0 10px 2px; color:#515c6e; font-size:17px; font-weight:720; letter-spacing:-.02em; }
+    .exam-feature-visual:not(.is-detail) .exam-visual-heading { display:none; }
+    .exam-visual-panel { overflow:hidden; border:1px solid #e2e6ec; border-radius:14px; background:#fff; box-shadow:0 4px 14px rgba(36,49,72,.07); }
+    .exam-feature-visual:not(.is-detail) .exam-visual-panel { border-radius:8px; box-shadow:none; }
+
+    .exam-plan-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:17px 19px 14px; border-bottom:1px solid #e7eaef; }
+    .exam-plan-header strong { display:block; font-size:18px; letter-spacing:-.02em; }
+    .exam-plan-meta { display:flex; align-items:center; gap:8px; margin-top:8px; color:var(--exam-muted); font-size:11px; font-weight:600; }
+    .exam-plan-meta i { width:1px; height:15px; background:#e4e7ec; }
+    .exam-calendar-glyph { width:11px; height:10px; position:relative; border:1.5px solid currentColor; border-radius:2px; }
+    .exam-calendar-glyph::before { content:""; position:absolute; left:-1.5px; right:-1.5px; top:2px; border-top:1.5px solid currentColor; }
+    .exam-settings-glyph { width:15px; height:15px; border:2px dotted #a1aaba; border-radius:50%; }
+    .exam-plan-calendar { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:5px; padding:14px 18px 13px; border-bottom:1px solid #e7eaef; }
+    .exam-plan-day { min-width:0; padding:5px 2px; border-radius:8px; color:#99a5b8; text-align:center; font-size:9px; }
+    .exam-plan-day b { display:block; margin-top:6px; padding:7px 0; border-radius:8px; background:#f8f9fb; color:#20242a; font-size:13px; font-weight:520; }
+    .exam-plan-day.active b { outline:2px solid #0567c9; background:#087bf1; color:#fff; }
+    .exam-plan-day.exam b { position:relative; outline:1px solid #ffb6bc; background:#fff5f5; color:#e2262f; font-weight:720; }
+    .exam-plan-day.exam b::before { content:"EXAM"; position:absolute; left:50%; top:-8px; transform:translateX(-50%); padding:2px 5px; border-radius:8px; background:#ef3e48; color:#fff; font-size:6px; }
+    .exam-plan-task-area { padding:15px 18px 17px; }
+    .exam-plan-task-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; color:#087bf1; font-size:13px; font-weight:720; }
+    .exam-plan-task-head span:last-child { color:#98a3b5; font-size:9px; }
+    .exam-plan-task { min-height:39px; display:grid; grid-template-columns:20px minmax(0,1fr); align-items:center; gap:9px; margin-top:7px; padding:7px 10px; border:1px solid #dfe3e9; border-radius:9px; background:#fff; font-size:12px; }
+    .exam-plan-check { width:18px; height:18px; display:grid; place-items:center; border:2px solid #dfe3e9; border-radius:50%; color:#fff; font-size:10px; font-weight:800; }
+    .exam-plan-task.done { color:#697386; text-decoration:line-through; }
+    .exam-plan-task.done .exam-plan-check { border-color:#19bf0f; background:#19bf0f; }
+
+    .exam-topics-table { border:1px solid #e4e7ec; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 4px 14px rgba(36,49,72,.06); }
+    .exam-topics-head,.exam-topic-row { display:grid; grid-template-columns:minmax(0,1fr) 90px 115px; align-items:center; gap:12px; padding:0 20px; }
+    .exam-topics-head { min-height:48px; color:#a2adbf; font-size:9px; font-weight:720; text-transform:uppercase; }
+    .exam-topic-row { min-height:50px; border-top:1px solid #eef0f3; font-size:12px; font-weight:620; }
+    .exam-likelihood { justify-self:start; padding:4px 7px; border-radius:5px; background:#fff0f1; color:#ee3340; font-size:10px; font-weight:780; }
+    .exam-likelihood.mid { background:#fff7e9; color:#ef8700; }
+    .exam-mastery { display:grid; grid-template-columns:34px 1fr; align-items:center; gap:8px; color:#9aa8bd; font-size:10px; }
+    .exam-mastery strong { color:#24282d; font-size:11px; }
+    .exam-mastery-track { height:6px; overflow:hidden; border-radius:8px; background:#edf2f8; }
+    .exam-mastery-track i { display:block; height:100%; border-radius:inherit; background:#73b7ff; }
+
+    .exam-mock-visual-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .exam-mock-visual-card { min-width:0; min-height:230px; display:flex; flex-direction:column; padding:22px; border:1px solid #e2e6ec; border-radius:18px; background:linear-gradient(145deg,#fff 8%,#edf5ff 100%); box-shadow:0 6px 18px rgba(35,55,90,.07); }
+    .exam-mock-visual-icon { width:42px; height:42px; display:grid; place-items:center; margin-bottom:17px; border-radius:12px; background:#e4efff; color:#087bf1; }
+    .exam-mock-visual-icon .icon { width:22px; height:22px; }
+    .exam-mock-title-row { display:flex; align-items:center; flex-wrap:wrap; gap:7px; }
+    .exam-mock-title-row strong { font-size:18px; letter-spacing:-.02em; }
+    .exam-mock-badge { padding:4px 7px; border-radius:7px; background:#d7f9e5; color:#0dae73; font-size:8px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .exam-mock-badge.blue { background:#deedff; color:#087bf1; }
+    .exam-mock-visual-card p { margin:10px 0 0; color:#51596a; font-size:11px; line-height:1.42; }
+    .exam-mock-visual-card .exam-mock-meta { color:#979da7; font-size:9px; }
+    .exam-mock-state { margin-top:auto; padding-top:20px; color:#9b9fa5; font-size:9px; }
+    .exam-mock-state::before { content:""; width:23px; height:2px; display:block; margin-bottom:8px; background:#646b77; }
+    .exam-mock-button { width:145px; height:38px; display:grid; place-items:center; margin-top:11px; border-radius:21px; background:#087bf1; color:#fff; font-size:11px; font-weight:720; }
+
+    .exam-result-shell { background:#f8fafc; }
+    .exam-result-progress { height:7px; margin:0 12px 14px; overflow:hidden; border-radius:9px; background:#dce6f3; }
+    .exam-result-progress i { display:block; width:100%; height:100%; background:#087bf1; }
+    .exam-result-summary,.exam-result-question { padding:16px; border:1px solid #e0e4ea; border-radius:12px; background:#fff; }
+    .exam-result-summary h4 { margin:0 0 12px; color:#495467; font-size:17px; }
+    .exam-result-stats { display:flex; gap:24px; margin-bottom:12px; color:#444b57; font-size:11px; }
+    .exam-result-stats strong { margin-left:7px; color:#087bf1; }
+    .exam-result-analysis { padding:11px 12px; border-left:3px solid #12bf81; background:#f8fafc; font-size:10px; line-height:1.45; }
+    .exam-result-analysis strong { display:block; margin-bottom:4px; }
+    .exam-result-tabs { display:flex; gap:18px; margin:14px 0 0; padding:0 12px 8px; border-bottom:1px solid #e5e8ed; color:#9aa2b0; font-size:10px; }
+    .exam-result-tabs strong { color:#22262b; }
+    .exam-result-question { margin-top:10px; }
+    .exam-result-question small { color:#087bf1; font-size:8px; }
+    .exam-result-question h5 { margin:7px 0 10px; font-size:12px; }
+    .exam-result-answer { min-height:27px; display:flex; align-items:center; margin-top:5px; padding:5px 8px; border-radius:7px; color:#3d4551; font-size:10px; }
+    .exam-result-answer.wrong { background:#fff0f6; }
+    .exam-result-answer.correct { background:#e7fff4; }
+    .exam-result-feedback { margin-top:10px; padding:9px 10px; border-left:3px solid #df2680; background:#f9fafc; font-size:9px; line-height:1.4; }
+    .exam-result-actions { display:flex; justify-content:center; gap:10px; margin-top:12px; }
+    .exam-result-actions span { min-width:130px; padding:9px 14px; border:1px solid #087bf1; border-radius:8px; color:#087bf1; font-size:10px; font-weight:720; text-align:center; }
+    .exam-result-actions span:last-child { background:#087bf1; color:#fff; }
+
+    .exam-feature-visual:not(.is-detail) { padding:6px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-header { padding:6px 7px 5px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-header strong { font-size:8px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-meta { gap:3px; margin-top:3px; font-size:4.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-settings-glyph { width:7px; height:7px; border-width:1px; }
+    .exam-feature-visual:not(.is-detail) .exam-calendar-glyph { width:6px; height:6px; border-width:1px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-calendar { gap:2px; padding:5px 6px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-day { padding:1px; border-radius:3px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-day b { margin-top:2px; padding:2px 0; border-radius:3px; font-size:5px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-day.active b { outline-width:1px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-day.exam b::before { top:-4px; padding:1px 2px; font-size:2.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-task-area { padding:5px 6px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-task-head { margin-bottom:2px; font-size:6px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-task-head span:last-child { font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-task { min-height:14px; grid-template-columns:7px 1fr; gap:3px; margin-top:2px; padding:2px 3px; border-radius:3px; font-size:4.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-plan-check { width:7px; height:7px; border-width:1px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-topics-table { border-radius:7px; box-shadow:none; }
+    .exam-feature-visual:not(.is-detail) .exam-topics-head,.exam-feature-visual:not(.is-detail) .exam-topic-row { grid-template-columns:minmax(0,1fr) 34px 44px; gap:4px; padding:0 7px; }
+    .exam-feature-visual:not(.is-detail) .exam-topics-head { min-height:17px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-topic-row { min-height:18px; font-size:5px; }
+    .exam-feature-visual:not(.is-detail) .exam-likelihood { padding:2px 3px; border-radius:3px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-mastery { grid-template-columns:14px 1fr; gap:3px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-mastery strong { font-size:4.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mastery-track { height:3px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-grid { gap:5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card { min-height:90px; padding:7px; border-radius:7px; box-shadow:none; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-icon { width:16px; height:16px; margin-bottom:5px; border-radius:5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-icon .icon { width:9px; height:9px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-title-row { gap:3px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-title-row strong { font-size:7px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-badge { padding:1px 2px; border-radius:3px; font-size:3px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card p { margin-top:3px; font-size:4px; line-height:1.3; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card .exam-mock-meta { margin-top:2px; font-size:3.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-state { padding-top:4px; font-size:3.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-state::before { width:9px; height:1px; margin-bottom:2px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-button { width:56px; height:14px; margin-top:3px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-progress { height:3px; margin:0 4px 4px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-summary,.exam-feature-visual:not(.is-detail) .exam-result-question { padding:5px; border-radius:5px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-summary h4 { margin-bottom:3px; font-size:7px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-stats { gap:7px; margin-bottom:3px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-stats strong { margin-left:2px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-analysis { padding:3px; border-left-width:1px; font-size:3.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-analysis strong { margin-bottom:1px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-tabs { gap:5px; margin-top:4px; padding:0 3px 2px; font-size:3.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-question { margin-top:3px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-question small { font-size:3px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-question h5 { margin:2px 0 3px; font-size:4.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-answer { min-height:10px; margin-top:2px; padding:2px 3px; border-radius:3px; font-size:3.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-result-feedback,.exam-feature-visual:not(.is-detail) .exam-result-actions { display:none; }
     .waveform i:nth-child(3), .waveform i:nth-child(7) { height: 23px; }
     .waveform i:nth-child(4), .waveform i:nth-child(6) { height: 18px; }
     .waveform i:nth-child(5) { height: 28px; }
@@ -676,6 +779,7 @@
     .example-dialog[open] { display:flex; flex-direction:column; }
     .example-dialog .dialog-head,.example-dialog .dialog-actions { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
+    .example-dialog[data-mode="exam-feature"] { width:min(900px,calc(100vw - 30px)); max-height:min(840px,calc(100vh - 30px)); }
     .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"],.example-dialog[data-mode="study-guide"] { max-height:min(820px,calc(100vh - 30px)); }
     .example-dialog[data-mode="study-guide"] { width:min(900px,calc(100vw - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
@@ -2042,12 +2146,31 @@
       return `<div class="preview-accounting-full"><table class="accounting-full-table"><caption>Complete vertical analysis · $M and % of revenue</caption><thead><tr><th scope="col">Item</th><th scope="col">Voltix ($M)</th><th scope="col">Voltix (%)</th><th scope="col">Circuita ($M)</th><th scope="col">Circuita (%)</th></tr></thead><tbody><tr><td>Revenue</td><td>500</td><td>100%</td><td>800</td><td>100%</td></tr><tr><td>COGS</td><td>350</td><td class="is-highlighted" data-accounting-cell="COGS">70%</td><td>480</td><td class="is-highlighted" data-accounting-cell="COGS" data-better="true">60%</td></tr><tr><td>Gross Profit</td><td>150</td><td>30%</td><td>320</td><td>40%</td></tr><tr><td>Operating Expenses</td><td>100</td><td data-accounting-cell="Operating expenses" data-better="true">20%</td><td>240</td><td data-accounting-cell="Operating expenses">30%</td></tr><tr><td>Net Income</td><td>50</td><td data-accounting-cell="Net margin">10%</td><td>80</td><td data-accounting-cell="Net margin">10%</td></tr></tbody></table></div>`;
     }
 
-    function examPlanPreview() {
-      return `<div class="example-preview preview-exam-plan"><div class="summary-plan-week">${['MON|17','TUE|18','WED|19','THU|20','FRI|21'].map((day,index) => { const [label,date] = day.split('|'); return `<span class="summary-plan-day${index === 1 ? ' active' : ''}">${label}<b>${date}</b></span>`; }).join('')}</div><div class="summary-plan-task done"><i>✓</i><span>Limits review</span><em>25 min</em></div><div class="summary-plan-task"><i></i><span>Practice FRQs</span><em>35 min</em></div></div>`;
+    function examPlanPreview(detail = false) {
+      const days = [['MON','24'],['TUE','25'],['WED','26'],['THU','27'],['FRI','28'],['SAT','29'],['SUN','30'],['','31']];
+      const tasks = [['Model Selection',false],['Stationarity Testing',true],['ARIMA Modeling',true]];
+      return `<div class="example-preview exam-feature-visual exam-plan-visual${detail ? ' is-detail' : ''}"><h3 class="exam-visual-heading">Cram Mode</h3><section class="exam-visual-panel"><header class="exam-plan-header"><div><strong>Study Plan</strong><span class="exam-plan-meta"><span class="exam-calendar-glyph"></span>Exam: Aug 31, 2026<i></i>6-day plan</span></div><span class="exam-settings-glyph" aria-hidden="true"></span></header><div class="exam-plan-calendar">${days.map(([label,date],index) => `<span class="exam-plan-day${index === 1 ? ' active' : ''}${index === 7 ? ' exam' : ''}">${label}<b>${date}</b></span>`).join('')}</div><div class="exam-plan-task-area"><div class="exam-plan-task-head"><span>6 days until exam</span><span>3 tasks</span></div>${tasks.map(([label,done]) => `<div class="exam-plan-task${done ? ' done' : ''}"><span class="exam-plan-check">${done ? '✓' : ''}</span><span>${label}</span></div>`).join('')}</div></section></div>`;
     }
 
-    function examReviewPreview() {
-      return `<div class="example-preview preview-exam-review"><div class="summary-review-top"><span class="summary-review-ring"><strong>68%</strong></span><span class="summary-review-copy"><strong>12 of 18 topics</strong>ready for the exam</span></div>${[['Algebra',82],['Geometry',64],['Data',48]].map(([label,value]) => `<div class="summary-topic"><span>${label}</span><i><b style="width:${value}%"></b></i><em>${value}%</em></div>`).join('')}</div>`;
+    function examTopicsPreview(detail = false) {
+      const topics = [
+        ['Model Selection',98,30],['Stationarity Testing',96,0],['ARIMA Modeling',94,0],['SARIMA Modeling',92,0],
+        ['Dynamic Regression',91,0],['Panel Data',89,0],['Logistic Regression',87,0],['Heteroscedasticity WLS',85,0],['Regression Diagnostics',83,0]
+      ];
+      const visibleTopics = detail ? topics : topics.slice(0,4);
+      return `<div class="example-preview exam-feature-visual exam-topics-visual${detail ? ' is-detail' : ''}"><h3 class="exam-visual-heading">Predicted Exam Topics</h3><div class="exam-topics-table"><div class="exam-topics-head"><span>Topic</span><span>Likelihood</span><span>Mastery</span></div>${visibleTopics.map(([label,likelihood,mastery]) => `<div class="exam-topic-row"><span>${label}</span><strong class="exam-likelihood${likelihood < 95 ? ' mid' : ''}">${likelihood}%</strong><span class="exam-mastery"><strong>${mastery}%</strong><span class="exam-mastery-track"><i style="width:${mastery}%"></i></span></span></div>`).join('')}</div></div>`;
+    }
+
+    function examMockPreview(detail = false) {
+      const exams = [
+        { title:'Mock Exam 1', badge:'≥90% likely', icon:'i-target', copy:'The must-know questions. Nail these first', meta:'34 mins · 25 Questions · Predicted likelihood: ≥90%', tone:'' },
+        { title:'Mock Exam 2', badge:'80–90% likely', icon:'i-spark', copy:'Highly likely questions. Practice makes perfect', meta:'42 mins · 25 Questions · Predicted likelihood: 80–90%', tone:' blue' }
+      ];
+      return `<div class="example-preview exam-feature-visual exam-mock-visual${detail ? ' is-detail' : ''}"><h3 class="exam-visual-heading">Mock Exams</h3><div class="exam-mock-visual-grid">${exams.map(exam => `<section class="exam-mock-visual-card"><span class="exam-mock-visual-icon">${icon(exam.icon)}</span><div class="exam-mock-title-row"><strong>${exam.title}</strong><span class="exam-mock-badge${exam.tone}">${exam.badge}</span></div><p>${exam.copy}</p><p class="exam-mock-meta">${exam.meta}</p><span class="exam-mock-state">Not started</span><span class="exam-mock-button">Start exam →</span></section>`).join('')}</div></div>`;
+    }
+
+    function examProgressPreview(detail = false) {
+      return `<div class="example-preview exam-feature-visual exam-result-shell${detail ? ' is-detail' : ''}"><div class="exam-result-progress"><i></i></div><section class="exam-result-summary"><h4>FINAL Exam: Biology 101</h4><div class="exam-result-stats"><span>Points: <strong>21 / 26</strong></span><span>Percentage: <strong>81%</strong></span></div><div class="exam-result-analysis"><strong>Final exam analysis</strong><span>You demonstrated strong understanding of cell structure, genetics, and ecology. Review cellular respiration and meiosis before the next assessment.</span></div></section><div class="exam-result-tabs"><strong>All questions</strong><span>21 Correct</span><span>5 Incorrect</span><span>0 Unanswered</span></div><section class="exam-result-question"><small>Multiple Choice · 1/26</small><h5>Where does the electron transport chain occur in a eukaryotic cell?</h5><div class="exam-result-answer wrong">A. Cytoplasm</div><div class="exam-result-answer correct">D. Inner mitochondrial membrane</div><div class="exam-result-feedback"><strong>Feedback</strong><br>The electron transport chain is embedded in the inner mitochondrial membrane, where it creates the proton gradient used to produce ATP.</div></section>${detail ? `<section class="exam-result-question"><small>Short Answer · 2/26</small><h5>State one key difference between mitosis and meiosis.</h5><div class="exam-result-answer wrong">Mitosis makes four genetically different cells.</div><div class="exam-result-answer correct">Mitosis produces two genetically identical diploid cells, while meiosis produces four genetically varied haploid cells.</div></section><div class="exam-result-actions"><span>Retake exam</span><span>Result breakdown</span></div>` : ''}</div>`;
     }
 
     function flashcardPreview(example) {
@@ -2140,9 +2263,9 @@
       if (type === 'chemistry') return chemistryPreview(example);
       if (type === 'accounting') return accountingPreview();
       if (type === 'exam-plan') return examPlanPreview();
-      if (type === 'exam-review') return examReviewPreview();
-      if (type === 'exam-mock') return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84%</strong><span>Score</span></div></div>`;
-      if (type === 'exam-progress') return graphPreview();
+      if (type === 'exam-review') return examTopicsPreview();
+      if (type === 'exam-mock') return examMockPreview();
+      if (type === 'exam-progress') return examProgressPreview();
       if (type === 'equation') return `<div class="example-preview preview-equation"><div class="equation-main">x² − 5x + 6</div><div class="equation-steps"><i></i><i></i><i></i></div></div>`;
       if (type === 'flashcards') return flashcardPreview(example);
       if (type === 'quiz') return quizPreview(example);
@@ -2922,6 +3045,13 @@
       ]
     ];
 
+    function examFeatureDetailVisual(type) {
+      if (type === 'exam-plan') return examPlanPreview(true);
+      if (type === 'exam-review') return examTopicsPreview(true);
+      if (type === 'exam-mock') return examMockPreview(true);
+      return examProgressPreview(true);
+    }
+
     function featureDetailMarkup(index) {
       return `<h3>What this feature includes</h3><div class="feature-detail-list">${examPrepFeatureDetails[index].map((item,itemIndex) => `<div class="feature-detail-item"><span>${itemIndex + 1}</span><div><strong>${item[0]}</strong><small>${item[1]}</small></div></div>`).join('')}</div>`;
     }
@@ -2938,7 +3068,7 @@
       document.getElementById('dialogTitle').textContent = feature.title;
       document.getElementById('dialogDescription').textContent = feature.description;
       document.getElementById('dialogPreview').hidden = false;
-      document.getElementById('dialogPreview').innerHTML = previewMarkup(feature.preview, feature);
+      document.getElementById('dialogPreview').innerHTML = examFeatureDetailVisual(feature.preview);
       document.getElementById('dialogInteraction').innerHTML = featureDetailMarkup(index);
       document.getElementById('dialogInteraction').hidden = false;
       document.getElementById('dialogPrompt').hidden = true;
