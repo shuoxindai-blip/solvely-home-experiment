@@ -506,6 +506,12 @@
     .mini-card strong { display: block; margin-bottom: 7px; font-size: 10px; }
     .mini-card i { display: block; height: 5px; margin-top: 5px; border-radius: 4px; background: var(--line); }
     .preview-quiz { height:104px; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr); gap:9px; padding:11px; background:linear-gradient(145deg,#f8faff,#f2f5ff); }
+    .preview-quiz.has-image { grid-template-columns:46% minmax(0,1fr); gap:0; padding:0; }
+    .quiz-preview-image { min-width:0; overflow:hidden; display:grid; place-items:center; padding:7px; border-right:1px solid var(--line); background:#fff; }
+    .quiz-preview-image img { width:100%; height:100%; display:block; object-fit:contain; }
+    .quiz-preview-side { min-width:0; display:grid; grid-template-columns:minmax(0,1fr) 52px; align-items:center; gap:6px; padding:8px; }
+    .quiz-preview-side .quiz-preview-copy { align-content:center; }
+    .quiz-preview-side .quiz-preview-copy strong { -webkit-line-clamp:2; }
     .quiz-preview-copy { min-width:0; display:grid; align-content:center; gap:5px; }
     .quiz-preview-copy small { color:var(--accent); font-size:6px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
     .quiz-preview-copy strong { overflow:hidden; color:var(--text); font-size:9px; line-height:1.35; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
@@ -861,6 +867,8 @@
     .quiz-session-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--muted); font-size:10px; }
     .quiz-session-meta strong { color:var(--accent); font-size:10px; }
     .quiz-question { margin:0; font-size:18px; line-height:1.4; letter-spacing:-.015em; }
+    .quiz-question-figure { width:min(100%,var(--quiz-image-max,420px)); max-height:360px; display:grid; place-items:center; justify-self:center; overflow:hidden; margin:0; padding:10px; border:1px solid var(--line); border-radius:14px; background:#fff; }
+    .quiz-question-figure img { width:100%; height:auto; max-height:338px; display:block; object-fit:contain; }
     .quiz-options { display:grid; gap:8px; }
     .quiz-choice { width:100%; min-height:52px; display:grid; grid-template-columns:30px minmax(0,1fr); align-items:center; gap:10px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; transition:border-color .18s ease,background .18s ease,transform .18s ease; }
     .quiz-choice:hover:not(:disabled) { border-color:rgba(var(--accent-rgb),.4); background:var(--accent-soft); transform:translateY(-1px); }
@@ -884,6 +892,7 @@
     .quiz-explanation { display:grid; grid-template-columns:26px minmax(0,1fr); gap:9px; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--surface); }
     .quiz-explanation b { width:26px; height:26px; display:grid; place-items:center; border-radius:8px; background:var(--surface-hover); color:var(--muted); font-size:10px; }
     .quiz-explanation.correct b { background:rgba(22,134,93,.13); color:#147452; }
+    .quiz-explanation.incorrect b { background:rgba(220,65,80,.11); color:#b73343; }
     .quiz-explanation strong,.quiz-explanation span { display:block; }
     .quiz-explanation strong { font-size:10px; }
     .quiz-explanation span { margin-top:3px; color:var(--muted); font-size:10px; line-height:1.42; }
@@ -1866,43 +1875,43 @@
         description: 'Check understanding with adaptive questions and instant feedback.',
         examples: [
           {
-            tag:'Chemistry', title:'Chem 1.1', description:'Hypotheses and scientific reasoning.', preview:'quiz', questionId:'92940982', studySet:'Chem 1.1',
-            dialogTitle:'Chem 1.1',
-            question:'Which statement best describes a hypothesis in chemistry?',
-            prompt:'Quiz me on this chemistry question: Which statement best describes a hypothesis in chemistry?',
+            tag:'Biology', title:'Blood Glucose Negative Feedback', description:'Insulin, glucagon, and liver regulation.', preview:'quiz', questionId:'92993092', studySet:'Module 1: Endocrine and Reproductive Systems',
+            dialogTitle:'Blood Glucose Negative Feedback', image:'assets/quizzes/blood-glucose-feedback.webp', imageAlt:'Diagram showing insulin and glucagon negative feedback control of blood glucose through the pancreas, liver, and tissue cells', imageMaxWidth:420,
+            question:'Using the diagram, which statement best explains how the liver contributes to negative feedback control of blood glucose in both directions?',
+            prompt:'Quiz me on how the liver contributes to negative feedback control of blood glucose in both directions.',
             options:[
-              { key:'A', text:'A mathematical expression that replaces experimental testing', correct:false, explanation:'Mathematical expressions can be used to describe chemical relationships, but they do not replace experimentation. A hypothesis must be tested by collecting evidence and conducting experiments.' },
-              { key:'B', text:'A tentative explanation of observations that guides gathering and checking information', correct:true, explanation:'A hypothesis is a tentative, testable explanation for an observation. It guides scientists in gathering evidence, designing experiments, and checking whether the proposed explanation is supported.' },
-              { key:'C', text:'A fixed rule that cannot be revised once experiments support it', correct:false, explanation:'A hypothesis is not a fixed or permanent rule. It can be revised or rejected when new experimental evidence becomes available.' },
-              { key:'D', text:'A summary of many observations used only for classification', correct:false, explanation:'A broad summary of repeated observations is closer to a scientific law. A hypothesis attempts to explain observations rather than merely classify or summarize them.' }
+              { key:'A', text:'The liver detects deviations in blood glucose and directly inhibits pancreatic hormone release.', correct:false, explanation:'The liver is an important effector organ, but it is not the control center that detects blood glucose changes and directly controls hormone release. The pancreas detects the change and releases insulin or glucagon.' },
+              { key:'B', text:'The liver stores glucose as glycogen in response to insulin and breaks down glycogen in response to glucagon.', correct:true, explanation:'The diagram shows both directions of regulation: insulin stimulates the liver to convert glucose into glycogen when blood glucose is high, while glucagon stimulates glycogen breakdown when blood glucose is low.' },
+              { key:'C', text:'The liver removes both insulin and glucagon from circulation to keep blood glucose constant.', correct:false, explanation:'The diagram does not show the liver maintaining blood glucose by removing insulin and glucagon. It shows the liver changing how glucose is stored or released in response to those hormones.' },
+              { key:'D', text:'The liver secretes insulin during low blood sugar and glucagon during high blood sugar.', correct:false, explanation:'Insulin and glucagon are secreted by the pancreas, not the liver. The direction is also reversed: insulin is released during high blood sugar, while glucagon is released during low blood sugar.' }
             ],
-            overallExplanation:'A hypothesis is a tentative explanation of observations that can be tested through further investigation. It differs from a scientific law, which summarizes an observed pattern, and it remains open to revision based on new evidence.'
+            overallExplanation:'The liver is an effector in two opposing pathways. Insulin promotes glycogen formation and lowers blood glucose, while glucagon promotes glycogen breakdown and raises blood glucose. The pancreas acts as the control center by releasing the appropriate hormone.'
           },
           {
-            tag:'Biology / Anatomy', title:'Skeletal systems', description:'Framework, movement, and protection.', preview:'quiz', questionId:'92942381', studySet:'skeletal systems',
-            dialogTitle:'Skeletal systems',
-            question:"Which structure primarily acts as the body's framework while also helping protect internal organs?",
-            prompt:"Quiz me on this anatomy question: Which structure primarily acts as the body's framework while also helping protect internal organs?",
+            tag:'Physics', title:'Refraction & Apparent Depth', description:'Why a fish appears shallower from above.', preview:'quiz', questionId:'92985166', studySet:'Wave Physics and Behavior Fundamentals',
+            dialogTitle:'Refraction & Apparent Depth', image:'assets/quizzes/fish-apparent-depth.webp', imageAlt:'Diagram showing light rays refracting from a fish underwater toward an observer above the surface', imageMaxWidth:360,
+            question:'A fish is viewed from above the water surface. In the diagram, the fish appears at a depth shallower than its real position. What best explains this apparent depth effect?',
+            prompt:'Quiz me on why a fish appears shallower than its real position when viewed from above water.',
             options:[
-              { key:'A', text:'Bones', correct:true, explanation:'Bones form the primary structural framework of the body. They support the body, provide attachment points for muscles, and protect organs—for example, the skull protects the brain and the rib cage protects the heart and lungs.' },
-              { key:'B', text:'Bursa', correct:false, explanation:"A bursa is a small fluid-filled sac that reduces friction between structures such as tendons, muscles, skin, and bones. It does not form the body's framework." },
-              { key:'C', text:'Cartilage', correct:false, explanation:"Cartilage provides flexible support and creates smooth, low-friction surfaces at joints. Although it supports and cushions certain structures, it is not the body's primary protective framework." },
-              { key:'D', text:'Synovial membrane', correct:false, explanation:'The synovial membrane lines the inner surface of synovial joint capsules and produces synovial fluid. Its main role is joint lubrication and nourishment, not structural support or organ protection.' }
+              { key:'A', text:'Light from the fish slows down as it passes from water into air and refracts toward the normal.', correct:false, explanation:'When light travels from water into air, it enters a less optically dense medium and speeds up rather than slowing down. It bends away from the normal, not toward it.' },
+              { key:'B', text:'Light from the fish stays in a straight line because its frequency remains unchanged.', correct:false, explanation:'The frequency remains unchanged at the boundary, but speed and wavelength change. Because its speed changes, the ray changes direction rather than continuing in a straight line.' },
+              { key:'C', text:'Light from the fish reflects completely at the water surface and does not enter the air.', correct:false, explanation:'If the light were completely reflected, it would not reach the observer’s eyes and the fish could not be seen from above. The diagram shows light passing into the air.' },
+              { key:'D', text:'Light from the fish speeds up as it passes from water into air and refracts away from the normal.', correct:true, explanation:'Light travels faster in air than in water and bends away from the normal. The observer traces the refracted rays backward, placing the fish’s virtual image closer to the surface than its real position.' }
             ],
-            overallExplanation:'Bones are the main structural components of the skeletal system. They give the body shape and support while also protecting important internal organs. Bursa, cartilage, and synovial membranes mainly contribute to joint cushioning, movement, and lubrication.'
+            overallExplanation:'The fish appears shallower because of refraction at the water–air boundary. Light speeds up and bends away from the normal when moving from water to air, and the backward extensions of the refracted rays form a virtual image above the real fish.'
           },
           {
-            tag:'Computer Science / Database', title:'Database Design, SQL, and Assessment 1', description:'Three-level database architecture.', preview:'quiz', questionId:'92940929', studySet:'Database Design, SQL, and Assessment 1',
-            dialogTitle:'Database Design, SQL, and Assessment 1',
-            question:'In the three-level database architecture, which level represents the user-specific view of only part of the database?',
-            prompt:'Quiz me on this database question: In the three-level database architecture, which level represents the user-specific view of only part of the database?',
+            tag:'Chemistry', title:'Ionic Crystal Lattice', description:'How opposite charges form an ordered solid.', preview:'quiz', questionId:'92990839', studySet:'Unit 1 topic 12 and 3',
+            dialogTitle:'Ionic Crystal Lattice', image:'assets/quizzes/ionic-crystal-lattice.webp', imageAlt:'Two-dimensional and three-dimensional diagrams of alternating sodium and chloride ions in a crystal lattice', imageMaxWidth:420,
+            question:'Why do ionic compounds form a crystalline lattice?',
+            prompt:'Quiz me on why ionic compounds form a crystalline lattice.',
             options:[
-              { key:'A', text:'Physical storage level only', correct:false, explanation:'“Physical storage level” is not a separate user-view level in the standard three-level architecture. Physical storage details are handled by the internal level.' },
-              { key:'B', text:'External level', correct:true, explanation:'The external level represents the database as seen by a particular user or application. Each external view can expose only the subset of data relevant to that user while hiding the rest of the database.' },
-              { key:'C', text:'Internal level', correct:false, explanation:'The internal level describes how data is physically organized and stored, including files, indexes, storage structures, and access paths. It is not the user-specific view.' },
-              { key:'D', text:'Conceptual level', correct:false, explanation:"The conceptual level provides the integrated, logical view of the entire database for the organization. It defines entities, relationships, and constraints, rather than an individual user's limited view." }
+              { key:'A', text:'Shared electron pairs lock molecules into layers.', correct:false, explanation:'Shared electron pairs describe covalent bonding. Ionic compounds consist of positively and negatively charged ions rather than discrete molecules held together by shared electron pairs.' },
+              { key:'B', text:'Metal cations and non-metal anions attract and organize into a 3D arrangement.', correct:true, explanation:'Metal atoms form positively charged cations and non-metal atoms form negatively charged anions. Electrostatic attraction organizes them into a regular three-dimensional lattice that maximizes attraction and minimizes repulsion.' },
+              { key:'C', text:'Delocalized electrons pull all nuclei together into one large atom.', correct:false, explanation:'Delocalized electrons are characteristic of metallic bonding. An ionic lattice is stabilized by attraction between cations and anions, not by a shared sea of electrons.' },
+              { key:'D', text:'Neutral atoms stack because they have full valence shells.', correct:false, explanation:'The particles in the diagram are charged ions, not neutral atoms. Full outer shells may help explain stability after electron transfer, but neutral atoms stacking does not explain the lattice.' }
             ],
-            overallExplanation:'The three-level database architecture consists of: External level—user-specific views of selected data; Conceptual level—the complete logical structure of the database; Internal level—the physical organization and storage of data. Therefore, the user-specific view is the external level.'
+            overallExplanation:'Ionic compounds form crystalline lattices because oppositely charged ions attract in every direction. Each cation is surrounded by anions and each anion by cations, producing a stable, ordered three-dimensional structure.'
           }
         ]
       },
@@ -2229,6 +2238,7 @@
       const question = example && example.question ? example.question : 'Check your understanding';
       const studySet = example && example.studySet ? example.studySet : 'Study set';
       const options = example && Array.isArray(example.options) ? example.options : [{key:'A'},{key:'B'},{key:'C'},{key:'D'}];
+      if (example && example.image) return `<div class="example-preview preview-quiz has-image"><div class="quiz-preview-image"><img src="${example.image}" alt="${example.imageAlt || ''}" loading="lazy"></div><div class="quiz-preview-side"><div class="quiz-preview-copy"><small>Image question · ${example.tag}</small><strong>${question}</strong></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div></div>`;
       return `<div class="example-preview preview-quiz"><div class="quiz-preview-copy"><small>1 question · ${studySet}</small><strong>${question}</strong><span>Choose an answer for instant feedback</span></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div>`;
     }
 
@@ -2237,10 +2247,11 @@
       return `<div class="quiz-session" data-quiz-session>
         <div class="quiz-session-meta"><strong>Question 1 of 1</strong><span>${example.studySet} · ID ${example.questionId}</span></div>
         <h3 class="quiz-question">${example.question}</h3>
-        <div class="quiz-options">${options.map(option => `<button class="quiz-choice" type="button" data-quiz-option="${option.key}" data-correct="${option.correct}" aria-label="Option ${option.key}: ${option.text}"><span class="quiz-choice-letter">${option.key}</span><span class="quiz-choice-text">${option.text}</span></button>`).join('')}</div>
+        ${example.image ? `<figure class="quiz-question-figure" style="--quiz-image-max:${example.imageMaxWidth || 420}px"><img src="${example.image}" alt="${example.imageAlt || ''}"></figure>` : ''}
+        <div class="quiz-options">${options.map(option => `<button class="quiz-choice" type="button" data-quiz-option="${option.key}" data-correct="${option.correct}" data-explanation="${option.explanation}" aria-label="Option ${option.key}: ${option.text}"><span class="quiz-choice-letter">${option.key}</span><span class="quiz-choice-text">${option.text}</span></button>`).join('')}</div>
         <section class="quiz-result" data-quiz-result hidden aria-live="polite">
           <div class="quiz-result-banner" data-quiz-result-banner><span class="quiz-result-mark" data-quiz-result-mark>✓</span><div><strong data-quiz-result-title>Correct</strong><span data-quiz-result-copy></span></div></div>
-          <div class="quiz-explanations">${options.map(option => `<div class="quiz-explanation${option.correct ? ' correct' : ''}"><b>${option.key}</b><div><strong>${option.correct ? 'Correct' : 'Incorrect'}</strong><span>${option.explanation}</span></div></div>`).join('')}</div>
+          <div class="quiz-explanations"><div class="quiz-explanation" data-quiz-selected-explanation><b data-quiz-explanation-key></b><div><strong data-quiz-explanation-status></strong><span data-quiz-explanation-copy></span></div></div></div>
           <div class="quiz-overall"><strong>Overall explanation</strong><p>${example.overallExplanation}</p></div>
           <button class="quiz-retry" type="button" data-quiz-retry>Try again</button>
         </section>
@@ -2896,6 +2907,10 @@
         const mark = quizSession.querySelector('[data-quiz-result-mark]');
         const title = quizSession.querySelector('[data-quiz-result-title]');
         const copy = quizSession.querySelector('[data-quiz-result-copy]');
+        const selectedExplanation = quizSession.querySelector('[data-quiz-selected-explanation]');
+        const explanationKey = quizSession.querySelector('[data-quiz-explanation-key]');
+        const explanationStatus = quizSession.querySelector('[data-quiz-explanation-status]');
+        const explanationCopy = quizSession.querySelector('[data-quiz-explanation-copy]');
         const retry = quizSession.querySelector('[data-quiz-retry]');
         const resetQuiz = () => {
           choices.forEach(choice => {
@@ -2903,6 +2918,10 @@
             choice.classList.remove('correct','wrong');
             choice.removeAttribute('aria-pressed');
           });
+          selectedExplanation.classList.remove('correct','incorrect');
+          explanationKey.textContent = '';
+          explanationStatus.textContent = '';
+          explanationCopy.textContent = '';
           result.hidden = true;
         };
         choices.forEach(choice => choice.addEventListener('click', () => {
@@ -2921,6 +2940,11 @@
           copy.textContent = isCorrect
             ? `Option ${choice.dataset.quizOption} is correct.`
             : `You selected ${choice.dataset.quizOption}. The correct answer is ${correctChoice ? correctChoice.dataset.quizOption : ''}.`;
+          selectedExplanation.classList.toggle('correct', isCorrect);
+          selectedExplanation.classList.toggle('incorrect', !isCorrect);
+          explanationKey.textContent = choice.dataset.quizOption;
+          explanationStatus.textContent = isCorrect ? 'Correct' : 'Incorrect';
+          explanationCopy.textContent = choice.dataset.explanation;
           result.hidden = false;
         }));
         retry.addEventListener('click', resetQuiz);
