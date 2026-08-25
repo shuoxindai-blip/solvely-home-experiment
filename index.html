@@ -494,19 +494,19 @@
     .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
     .play-badge { position:absolute; z-index:1; right:12px; bottom:12px; width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(255,255,255,.55); border-radius:50%; background:rgba(232,235,240,.82); color:rgba(16,24,45,.84); box-shadow:0 4px 14px rgba(0,0,0,.16); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
     .play-badge .icon { width:19px; height:19px; margin-left:2px; }
-    .preview-flashcards { position: relative; height: 104px; display:grid; place-items:center; padding: 12px; background: linear-gradient(140deg, rgba(var(--accent-rgb), .09), rgba(121, 91, 232, .1)); }
-    .flash-preview-stack { position:relative; width:82%; height:78%; }
-    .flash-preview-stack::before, .flash-preview-stack::after { content:""; position:absolute; inset:3px 8px; border:1px solid rgba(var(--accent-rgb),.16); border-radius:10px; background:var(--surface); box-shadow:0 5px 14px rgba(41,52,77,.06); }
-    .flash-preview-stack::before { transform:rotate(-4deg) translate(-5px,2px); }
-    .flash-preview-stack::after { transform:rotate(4deg) translate(5px,2px); }
-    .flash-preview-card { position:absolute; z-index:1; inset:0; display:grid; grid-template-rows:auto 1fr auto; gap:4px; padding:9px 10px; border:1px solid rgba(var(--accent-rgb),.2); border-radius:10px; background:var(--surface); box-shadow:0 7px 18px rgba(41,52,77,.1); }
-    .flash-preview-card small { color:var(--accent); font-size:6px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
-    .flash-preview-card strong { overflow:hidden; color:var(--text); font-size:8px; font-weight:650; line-height:1.28; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
-    .flash-preview-answer-content { min-height:0; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(70px,.75fr); align-items:stretch; gap:8px; }
-    .flash-preview-answer-media { min-width:0; min-height:0; overflow:hidden; display:grid; place-items:center; border:1px solid var(--line); border-radius:7px; background:#fff; }
-    .flash-preview-answer-media img { width:100%; height:100%; display:block; object-fit:contain; }
-    .flash-preview-answer-content strong { align-self:center; -webkit-line-clamp:4; }
-    .flash-preview-footer { display:flex; align-items:center; justify-content:space-between; color:var(--subtle); font-size:6px; }
+    .preview-flashcards { position:relative; height:auto; aspect-ratio:4 / 3; display:grid; place-items:center; padding:12px; background:linear-gradient(145deg,#f4f7ff,#f7f5ff); }
+    .flash-preview-stack { position:relative; width:100%; height:100%; }
+    .flash-preview-stack::before, .flash-preview-stack::after { content:""; position:absolute; inset:7px 10px 2px; border:1px solid rgba(var(--accent-rgb),.14); border-radius:13px; background:var(--surface); box-shadow:0 7px 20px rgba(41,52,77,.07); }
+    .flash-preview-stack::before { transform:rotate(-1.8deg) translate(-3px,1px); }
+    .flash-preview-stack::after { transform:rotate(1.8deg) translate(3px,1px); }
+    .flash-preview-card { position:absolute; z-index:1; inset:0; display:grid; grid-template-rows:auto minmax(0,1fr); gap:7px; padding:11px; border:1px solid rgba(var(--accent-rgb),.2); border-radius:13px; background:var(--surface); box-shadow:0 9px 24px rgba(41,52,77,.1); }
+    .flash-preview-header { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--subtle); font-size:7px; font-weight:650; }
+    .flash-preview-header small { padding:3px 6px; border-radius:999px; background:var(--accent-soft); color:var(--accent); font-size:6px; font-weight:780; letter-spacing:.09em; text-transform:uppercase; }
+    .flash-preview-card > strong,
+    .flash-preview-answer-content > strong { color:var(--text); font-size:9px; font-weight:650; line-height:1.34; }
+    .flash-preview-answer-content { min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr); gap:7px; }
+    .flash-preview-answer-media { position:relative; min-width:0; min-height:0; overflow:hidden; border:1px solid var(--line); border-radius:9px; background:#fff; }
+    .flash-preview-answer-media img { position:absolute; inset:4px; width:calc(100% - 8px); height:calc(100% - 8px); display:block; object-fit:contain; object-position:center; }
     .mini-card { position: absolute; width: 62%; height: 74px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 5px 15px rgba(41,52,77,.08); }
     .mini-card:nth-child(1) { left: 24px; top: 14px; transform: rotate(-4deg); }
     .mini-card:nth-child(2) { right: 22px; top: 15px; transform: rotate(5deg); }
@@ -2470,9 +2470,9 @@
       const cards = example && example.cards ? example.cards : [];
       const imageCard = cards.find(card => card.image) || cards[0] || { back:'Active recall answer' };
       const answerContent = imageCard.image
-        ? `<div class="flash-preview-answer-content"><span class="flash-preview-answer-media"><img src="${imageCard.image}" alt="${imageCard.imageAlt || ''}" loading="lazy"></span><strong>${imageCard.back}</strong></div>`
+        ? `<div class="flash-preview-answer-content"><strong>${imageCard.back}</strong><span class="flash-preview-answer-media"><img src="${imageCard.image}" alt="${imageCard.imageAlt || ''}" loading="lazy"></span></div>`
         : `<strong>${imageCard.back}</strong>`;
-      return `<div class="example-preview preview-flashcards"><div class="flash-preview-stack"><div class="flash-preview-card"><small>Answer</small>${answerContent}<span class="flash-preview-footer"><span>${cards.length || 3} cards</span><span>Tap to study ↗</span></span></div></div></div>`;
+      return `<div class="example-preview preview-flashcards"><div class="flash-preview-stack"><div class="flash-preview-card"><span class="flash-preview-header"><small>Answer</small><span>1 / ${cards.length || 3}</span></span>${answerContent}</div></div></div>`;
     }
 
     function chemistryPreview(example) {
