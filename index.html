@@ -513,8 +513,58 @@
     .guide-line b { width: 17px; height: 17px; display: grid; place-items: center; border-radius: 5px; background: rgba(var(--accent-rgb), .1); color: var(--accent); font-size: 8px; }
     .guide-line i { height: 6px; border-radius: 4px; background: var(--line-strong); }
     .guide-line span { color: var(--subtle); font-size: 8px; }
-    .preview-podcast { height: 104px; display: grid; grid-template-columns: 50px 1fr; align-items: center; gap: 11px; padding: 12px; }
-    .podcast-art { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 13px; background: linear-gradient(145deg, #775ee8, #3d84ee); color: white; }
+    .preview-podcast { height:104px; display:grid; grid-template-columns:52px minmax(0,1fr); align-items:center; gap:11px; padding:11px; background:linear-gradient(145deg,#f8faff,#f2f5ff); }
+    .podcast-art { width:52px; height:52px; display:grid; place-items:center; align-content:center; gap:2px; border-radius:14px; background:linear-gradient(145deg,#775ee8,#3d84ee); color:white; box-shadow:0 8px 18px rgba(74,91,210,.18); }
+    .podcast-art.math { background:linear-gradient(145deg,#296cf2,#6145db); }
+    .podcast-art.biology { background:linear-gradient(145deg,#10a87a,#34bf9a); }
+    .podcast-art.history { background:linear-gradient(145deg,#d26f36,#9a4f2c); }
+    .podcast-art .icon { width:19px; height:19px; }
+    .podcast-art small { color:rgba(255,255,255,.8); font-size:5px; font-weight:800; letter-spacing:.08em; }
+    .podcast-preview-copy { min-width:0; }
+    .podcast-preview-meta { display:flex; align-items:center; justify-content:space-between; gap:6px; color:var(--muted); font-size:7px; font-weight:650; }
+    .podcast-preview-wave { height:27px; display:flex; align-items:center; gap:3px; margin:4px 0; }
+    .podcast-preview-wave i { width:3px; border-radius:4px; background:var(--accent); opacity:.62; }
+    .podcast-preview-wave i:nth-child(3n+1) { height:10px; }
+    .podcast-preview-wave i:nth-child(3n+2) { height:23px; }
+    .podcast-preview-wave i:nth-child(3n) { height:16px; }
+    .podcast-preview-footer { display:flex; align-items:center; gap:5px; color:var(--accent); font-size:7px; font-weight:720; }
+    .podcast-preview-play { width:15px; height:15px; display:grid; place-items:center; border-radius:50%; background:var(--accent); color:#fff; }
+    .podcast-preview-play .icon { width:8px; height:8px; margin-left:1px; }
+    .podcast-dialog-hero { min-height:205px; display:grid; grid-template-columns:128px minmax(0,1fr); align-items:center; gap:24px; padding:28px 32px; background:linear-gradient(145deg,#f7f9ff,#eef3ff); }
+    .podcast-dialog-art { width:128px; height:128px; display:grid; place-items:center; align-content:center; gap:7px; border-radius:27px; color:#fff; box-shadow:0 18px 38px rgba(67,79,164,.2); }
+    .podcast-dialog-art .icon { width:40px; height:40px; }
+    .podcast-dialog-art strong { font-size:10px; letter-spacing:.1em; }
+    .podcast-dialog-copy { min-width:0; }
+    .podcast-dialog-copy span { color:var(--accent); font-size:9px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
+    .podcast-dialog-copy h3 { margin:7px 0 8px; font-size:20px; line-height:1.2; letter-spacing:-.025em; }
+    .podcast-dialog-copy p { margin:0; color:var(--muted); font-size:11px; line-height:1.5; }
+    .podcast-dialog-speakers { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .podcast-dialog-speakers b { padding:5px 7px; border-radius:7px; background:rgba(var(--accent-rgb),.1); color:var(--accent); font-size:8px; }
+    .podcast-player { display:grid; gap:11px; }
+    .podcast-player-main { display:grid; grid-template-columns:42px minmax(0,1fr) auto; align-items:center; gap:11px; }
+    .podcast-play-toggle { width:42px; height:42px; display:grid; place-items:center; padding:0; border:0; border-radius:50%; background:var(--accent); color:#fff; cursor:pointer; box-shadow:0 8px 18px rgba(var(--accent-rgb),.2); }
+    .podcast-play-toggle .icon { width:18px; height:18px; margin-left:2px; }
+    .podcast-player-title { min-width:0; }
+    .podcast-player-title strong,.podcast-player-title span { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .podcast-player-title strong { font-size:12px; }
+    .podcast-player-title span { margin-top:3px; color:var(--muted); font-size:9px; }
+    .podcast-player-time { color:var(--muted); font-size:10px; font-variant-numeric:tabular-nums; }
+    .podcast-scrubber { width:100%; accent-color:var(--accent); cursor:pointer; }
+    .podcast-player-tools { display:flex; align-items:center; justify-content:center; gap:8px; }
+    .podcast-tool { min-width:50px; height:30px; padding:0 10px; border:1px solid var(--line); border-radius:9px; background:var(--surface); color:var(--muted); font-size:9px; font-weight:700; cursor:pointer; }
+    .podcast-tool:hover { border-color:rgba(var(--accent-rgb),.35); color:var(--accent); }
+    .podcast-transcript { margin-top:2px; padding-top:12px; border-top:1px solid var(--line); }
+    .podcast-transcript-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+    .podcast-transcript-head strong { font-size:12px; }
+    .podcast-transcript-head span { color:var(--muted); font-size:8px; }
+    .podcast-transcript-list { max-height:205px; display:grid; gap:6px; overflow:auto; padding-right:4px; }
+    .podcast-transcript-line { width:100%; display:grid; grid-template-columns:38px minmax(0,1fr); gap:8px; padding:9px; border:1px solid transparent; border-radius:9px; background:transparent; color:var(--text); text-align:left; cursor:pointer; }
+    .podcast-transcript-line:hover { background:var(--surface); }
+    .podcast-transcript-line.active { border-color:rgba(var(--accent-rgb),.32); background:var(--accent-soft); }
+    .podcast-transcript-line time { padding-top:2px; color:var(--subtle); font-size:8px; font-variant-numeric:tabular-nums; }
+    .podcast-transcript-line p { margin:0; color:var(--muted); font-size:10px; line-height:1.45; }
+    .podcast-transcript-line strong { color:var(--text); }
+    .podcast-transcript-loading { margin:0; padding:12px; color:var(--muted); font-size:10px; text-align:center; }
     .waveform { display: flex; align-items: center; gap: 3px; height: 28px; }
     .waveform i { width: 3px; border-radius: 3px; background: var(--accent); opacity: .7; }
     .waveform i:nth-child(1), .waveform i:nth-child(9) { height: 8px; }
@@ -584,7 +634,7 @@
     .example-dialog[open] { display:flex; flex-direction:column; }
     .example-dialog .dialog-head,.example-dialog .dialog-actions { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
-    .example-dialog[data-mode="chemistry"] { max-height:min(820px,calc(100vh - 30px)); }
+    .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"] { max-height:min(820px,calc(100vh - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
     .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
     .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
@@ -1052,6 +1102,16 @@
       .crop-thumbnail-button { width:60px; height:60px; flex-basis:60px; }
       .crop-thumbnails { justify-content:flex-start; }
       .crop-done { height:46px; margin-top:14px; }
+      .podcast-dialog-hero { min-height:150px; grid-template-columns:76px minmax(0,1fr); gap:14px; padding:18px; }
+      .podcast-dialog-art { width:76px; height:76px; border-radius:19px; }
+      .podcast-dialog-art .icon { width:26px; height:26px; }
+      .podcast-dialog-copy h3 { margin-block:5px; font-size:15px; }
+      .podcast-dialog-copy p { font-size:10px; }
+      .podcast-dialog-speakers { margin-top:8px; }
+      .podcast-player-main { grid-template-columns:38px minmax(0,1fr); }
+      .podcast-play-toggle { width:38px; height:38px; }
+      .podcast-player-time { grid-column:2; }
+      .podcast-transcript-list { max-height:185px; }
     }
 
     @media (hover:none) and (pointer:coarse) {
@@ -1476,6 +1536,7 @@
   <button class="chat-button" id="chatButton" aria-label="Open support chat"><svg class="icon"><use href="#i-chat"/></svg></button>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="assets/podcasts/transcripts.js"></script>
   <script id="geogebra-deploy-script" src="https://www.geogebra.org/apps/deployggb.js" defer></script>
   <script>
     const icon = id => `<svg class="icon"><use href="#${id}"/></svg>`;
@@ -1622,9 +1683,9 @@
         placeholder: 'Enter a topic or upload materials for an audio lesson',
         description: 'Listen to a conversational lesson generated from your materials.',
         examples: [
-          { tag: 'Biology', title: 'Photosynthesis in 8 minutes', description: 'A clear conversation from light to glucose.', prompt: 'Create an 8-minute podcast explaining photosynthesis.', preview: 'podcast' },
-          { tag: 'History', title: 'The French Revolution', description: 'Causes, turning points, and consequences.', prompt: 'Create a conversational podcast about the French Revolution.', preview: 'podcast' },
-          { tag: 'Accounting', title: 'Financial statements', description: 'How the three core statements connect.', prompt: 'Create a podcast explaining how financial statements work together.', preview: 'podcast' }
+          { tag:'Math', title:'Defining and Calculating Unit Rates', description:'Compare prices, speeds, and ratios with unit rates.', prompt:'Create a conversational podcast explaining how to define and calculate unit rates.', preview:'podcast', theme:'math', duration:'2:48', durationSeconds:167.962, platform:'iOS', language:'English', podcastId:'76608', deckId:'1743856', speakers:['Lexie','Noah'], audio:'assets/podcasts/01_defining_and_calculating_unit_rates.mp3', transcriptKey:'unitRates', topics:['Unit-rate definition','Denominator of 1','Price and speed comparisons','Everyday budgeting'] },
+          { tag:'Biology', title:'Photosynthesis: Crash Course Biology #8', description:'Follow light energy from chloroplasts to glucose.', prompt:'Create a conversational podcast explaining photosynthesis from light capture through the Calvin Cycle.', preview:'podcast', theme:'biology', duration:'3:25', durationSeconds:205.339, platform:'Web', language:'English', podcastId:'76598', deckId:'1743820', speakers:['Cardi C','Lexie'], audio:'assets/podcasts/02_photosynthesis_crash_course_biology_8.mp3', transcriptKey:'photosynthesis', topics:['Chloroplasts and thylakoids','Photosystem II','ATP Synthase','Calvin Cycle and G3P'] },
+          { tag:'History', title:'Foundations of Early Human Civilization', description:'How farming, writing, and institutions built civilization.', prompt:'Create a conversational podcast about the foundations of early human civilization.', preview:'podcast', theme:'history', duration:'2:40', durationSeconds:159.634, platform:'Web', language:'English', podcastId:'76600', deckId:'1743875', speakers:['David Duck','Cardi C'], audio:'assets/podcasts/03_foundations_of_early_human_civilization.mp3', transcriptKey:'civilization', topics:['Neolithic Revolution','Agriculture and settlement','Writing and recordkeeping','City-states, empires, and dynasties'] }
         ]
       },
       mock: {
@@ -1856,6 +1917,26 @@
       return `<div class="chemistry-case-selector" role="tablist" aria-label="Chemistry structure examples">${structures.map((structure,index) => `<button class="chemistry-case-tab${index === 0 ? ' active' : ''}" type="button" role="tab" aria-selected="${index === 0}" data-chemistry-index="${index}">${structure.title}</button>`).join('')}</div><div class="chemistry-answer" data-chemistry-answer><p class="chemistry-answer-summary" data-chemistry-summary>${firstStructure.summary}</p><div class="chemistry-facts" data-chemistry-facts>${firstStructure.facts.map(([label,value]) => `<div class="chemistry-fact"><small>${label}</small><strong>${value}</strong></div>`).join('')}</div></div>`;
     }
 
+    function formatMediaTime(seconds) {
+      const safeSeconds = Number.isFinite(seconds) ? Math.max(0,Math.round(seconds)) : 0;
+      return `${Math.floor(safeSeconds / 60)}:${String(safeSeconds % 60).padStart(2,'0')}`;
+    }
+
+    function podcastPreview(example) {
+      const theme = example && example.theme ? example.theme : 'math';
+      const subject = example && example.tag ? example.tag.toUpperCase() : 'PODCAST';
+      return `<div class="example-preview preview-podcast"><div class="podcast-art ${theme}">${icon('i-mic')}<small>${subject}</small></div><div class="podcast-preview-copy"><div class="podcast-preview-meta"><span>${example.speakers.length} voices</span><span>${example.duration}</span></div><div class="podcast-preview-wave">${'<i></i>'.repeat(12)}</div><div class="podcast-preview-footer"><span class="podcast-preview-play">${icon('i-play')}</span><span>Listen to demo</span></div></div></div>`;
+    }
+
+    function podcastDialogPreview(example) {
+      const theme = example && example.theme ? example.theme : 'math';
+      return `<div class="podcast-dialog-hero"><div class="podcast-dialog-art podcast-art ${theme}">${icon('i-mic')}<strong>${example.tag.toUpperCase()}</strong></div><div class="podcast-dialog-copy"><span>Generated study podcast · ${example.duration}</span><h3>${example.title}</h3><p>${example.description}</p><div class="podcast-dialog-speakers">${example.speakers.map(speaker => `<b>${speaker}</b>`).join('')}</div></div></div>`;
+    }
+
+    function podcastInteractionMarkup(example) {
+      return `<div class="podcast-player" data-podcast-player><audio data-podcast-audio preload="metadata" src="${example.audio}"></audio><div class="podcast-player-main"><button class="podcast-play-toggle" type="button" data-podcast-toggle aria-label="Play podcast">${icon('i-play')}</button><div class="podcast-player-title"><strong>${example.title}</strong><span>${example.language} · ${example.platform} · ${example.speakers.join(' & ')}</span></div><time class="podcast-player-time" data-podcast-time>0:00 / ${example.duration}</time></div><input class="podcast-scrubber" type="range" min="0" max="${example.durationSeconds}" step="0.1" value="0" aria-label="Podcast progress" data-podcast-scrubber><div class="podcast-player-tools"><button class="podcast-tool" type="button" data-podcast-skip="-15" aria-label="Rewind 15 seconds">↶ 15s</button><button class="podcast-tool" type="button" data-podcast-speed aria-label="Playback speed 1 times">1×</button><button class="podcast-tool" type="button" data-podcast-skip="15" aria-label="Forward 15 seconds">15s ↷</button></div><div class="podcast-transcript"><div class="podcast-transcript-head"><strong>Transcript</strong><span>Synced · click a line to jump</span></div><div class="podcast-transcript-list" data-podcast-transcript><p class="podcast-transcript-loading">Loading full transcript…</p></div></div></div>`;
+    }
+
     function previewMarkup(type, example = null) {
       if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
       if (type === 'graph') return graphPreview();
@@ -1870,13 +1951,14 @@
       if (type === 'flashcards') return flashcardPreview(example);
       if (type === 'quiz') return `<div class="example-preview preview-quiz"><div class="quiz-option">Option A</div><div class="quiz-option correct">Option B</div><div class="quiz-option">Option C</div><div class="quiz-option">Option D</div></div>`;
       if (type === 'guide') return `<div class="example-preview preview-guide"><div class="guide-line"><b>1</b><i></i><span>3 min</span></div><div class="guide-line"><b>2</b><i></i><span>5 min</span></div><div class="guide-line"><b>3</b><i></i><span>4 min</span></div></div>`;
-      if (type === 'podcast') return `<div class="example-preview preview-podcast"><div class="podcast-art">${icon('i-mic')}</div><div><div class="waveform">${'<i></i>'.repeat(9)}</div><span class="podcast-time">0:42 / 8:00</span></div></div>`;
+      if (type === 'podcast') return podcastPreview(example);
       return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84</strong><span>Score</span></div></div>`;
     }
 
     function dialogPreviewMarkup(type, example = null) {
       if (type === 'accounting') return accountingDialogPreview();
       if (type === 'chemistry') return chemistryDialogPreview(example);
+      if (type === 'podcast') return podcastDialogPreview(example);
       return previewMarkup(type, example);
     }
 
@@ -2285,7 +2367,7 @@
       if (type === 'flashcards') return flashcardStudyMarkup(example);
       if (type === 'quiz') return '<h3>Check your understanding</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">Option A</button><button class="quiz-answer" data-answer="correct">Option B</button><button class="quiz-answer" data-answer="wrong">Option C</button><button class="quiz-answer" data-answer="wrong">Option D</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer for instant feedback.</p></div>';
       if (type === 'guide') return '<h3>Review checklist</h3><button class="guide-check" data-guide-check><span>1</span><strong>Understand the core concept</strong><small>3 min</small></button><button class="guide-check" data-guide-check><span>2</span><strong>Review the worked example</strong><small>5 min</small></button><button class="guide-check" data-guide-check><span>3</span><strong>Practice active recall</strong><small>4 min</small></button>';
-      if (type === 'podcast') return '<div class="media-control-row"><button class="media-toggle" type="button" data-media-toggle aria-label="Play podcast">' + icon('i-play') + '</button><span class="media-copy"><strong>Audio lesson</strong><span>Conversational study mode</span></span><span class="interaction-time" data-media-time>0:42 / 8:00</span></div><div class="interaction-progress"><span data-media-progress></span></div>';
+      if (type === 'podcast') return podcastInteractionMarkup(example);
       if (type === 'exam') return '<h3>Sample question</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">A. 18</button><button class="quiz-answer" data-answer="correct">B. 24</button><button class="quiz-answer" data-answer="wrong">C. 30</button><button class="quiz-answer" data-answer="wrong">D. 36</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer to preview instant scoring.</p></div>';
       return '<h3>Step-by-step solution</h3><div class="solution-stepper"><button class="solution-step active" type="button" data-solution-step="1"><span>1</span><small>Factor the expression.</small></button><button class="solution-step" type="button" data-solution-step="2"><span>2</span><small>Set each factor equal to zero.</small></button><button class="solution-step" type="button" data-solution-step="3"><span>3</span><small>Verify both roots.</small></button></div>';
     }
@@ -2428,6 +2510,88 @@
         section.classList.toggle('done');
         section.querySelector('span').textContent = section.classList.contains('done') ? '✓' : String(index + 1);
       }));
+      const podcastPlayer = interaction.querySelector('[data-podcast-player]');
+      if (podcastPlayer) {
+        const audio = podcastPlayer.querySelector('[data-podcast-audio]');
+        const toggle = podcastPlayer.querySelector('[data-podcast-toggle]');
+        const scrubber = podcastPlayer.querySelector('[data-podcast-scrubber]');
+        const time = podcastPlayer.querySelector('[data-podcast-time]');
+        const transcript = podcastPlayer.querySelector('[data-podcast-transcript]');
+        const speedButton = podcastPlayer.querySelector('[data-podcast-speed]');
+        const fallbackDuration = example && example.durationSeconds ? example.durationSeconds : 0;
+        let transcriptSegments = [];
+        let activeTranscriptIndex = -1;
+        let speedIndex = 0;
+        const speeds = [1,1.25,1.5,.75];
+
+        const setPlayingState = playing => {
+          toggle.innerHTML = playing ? '<span class="pause-glyph" aria-hidden="true">Ⅱ</span>' : icon('i-play');
+          toggle.setAttribute('aria-label', playing ? 'Pause podcast' : 'Play podcast');
+        };
+        const updatePodcastProgress = () => {
+          const duration = Number.isFinite(audio.duration) ? audio.duration : fallbackDuration;
+          scrubber.max = String(duration || fallbackDuration);
+          scrubber.value = String(audio.currentTime || 0);
+          time.textContent = `${formatMediaTime(audio.currentTime)} / ${formatMediaTime(duration || fallbackDuration)}`;
+          const nextIndex = transcriptSegments.findIndex(segment => audio.currentTime >= segment.start && audio.currentTime < segment.end);
+          if (nextIndex !== activeTranscriptIndex) {
+            activeTranscriptIndex = nextIndex;
+            transcript.querySelectorAll('[data-transcript-index]').forEach((line,index) => line.classList.toggle('active', index === nextIndex));
+            const activeLine = transcript.querySelector(`[data-transcript-index="${nextIndex}"]`);
+            if (activeLine && !scrubber.matches(':active')) activeLine.scrollIntoView({ block:'nearest' });
+          }
+        };
+        toggle.addEventListener('click', () => {
+          if (audio.paused) audio.play().catch(() => showToast('Audio playback is unavailable in this browser.'));
+          else audio.pause();
+        });
+        audio.addEventListener('play', () => setPlayingState(true));
+        audio.addEventListener('pause', () => setPlayingState(false));
+        audio.addEventListener('ended', () => setPlayingState(false));
+        audio.addEventListener('loadedmetadata', updatePodcastProgress);
+        audio.addEventListener('timeupdate', updatePodcastProgress);
+        scrubber.addEventListener('input', () => { audio.currentTime = Number(scrubber.value); updatePodcastProgress(); });
+        podcastPlayer.querySelectorAll('[data-podcast-skip]').forEach(button => button.addEventListener('click', () => {
+          const duration = Number.isFinite(audio.duration) ? audio.duration : fallbackDuration;
+          audio.currentTime = Math.max(0,Math.min(duration,audio.currentTime + Number(button.dataset.podcastSkip)));
+          updatePodcastProgress();
+        }));
+        speedButton.addEventListener('click', () => {
+          speedIndex = (speedIndex + 1) % speeds.length;
+          audio.playbackRate = speeds[speedIndex];
+          speedButton.textContent = `${speeds[speedIndex]}×`;
+          speedButton.setAttribute('aria-label', `Playback speed ${speeds[speedIndex]} times`);
+        });
+        const renderPodcastTranscript = segments => {
+          transcriptSegments = Array.isArray(segments) ? segments : [];
+          transcript.innerHTML = '';
+          transcriptSegments.forEach((segment,index) => {
+            const line = document.createElement('button');
+            line.className = 'podcast-transcript-line';
+            line.type = 'button';
+            line.dataset.transcriptIndex = String(index);
+            const lineTime = document.createElement('time');
+            lineTime.textContent = formatMediaTime(segment.start);
+            const copy = document.createElement('p');
+            const speaker = document.createElement('strong');
+            speaker.textContent = `${segment.speaker}: `;
+            copy.append(speaker,document.createTextNode(segment.text));
+            line.append(lineTime,copy);
+            line.addEventListener('click', () => {
+              audio.currentTime = segment.start;
+              updatePodcastProgress();
+              audio.play().catch(() => showToast('Audio playback is unavailable in this browser.'));
+            });
+            transcript.append(line);
+          });
+          updatePodcastProgress();
+        };
+        const storedTranscript = window.SOLVELY_PODCAST_TRANSCRIPTS && window.SOLVELY_PODCAST_TRANSCRIPTS[example.transcriptKey];
+        if (storedTranscript) renderPodcastTranscript(storedTranscript);
+        else transcript.innerHTML = '<p class="podcast-transcript-loading">Transcript could not be loaded.</p>';
+        setPlayingState(false);
+        updatePodcastProgress();
+      }
       const mediaToggle = interaction.querySelector('[data-media-toggle]');
       if (mediaToggle) {
         let playing = false;
@@ -2516,8 +2680,9 @@
       const hasSimulator = Boolean(selectedExample.simulator);
       const hasInteractiveFlashcards = capabilityKey === 'flashcards' && Array.isArray(selectedExample.cards);
       const hasChemistryCases = selectedExample.preview === 'chemistry' && Array.isArray(selectedExample.structures);
+      const hasPodcastAudio = selectedExample.preview === 'podcast' && Boolean(selectedExample.audio);
       const displayTitle = selectedExample.dialogTitle || selectedExample.title;
-      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasChemistryCases ? 'chemistry' : 'example';
+      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
@@ -2536,7 +2701,8 @@
       if (!hasSimulator) bindDialogInteraction(selectedExample.preview, selectedExample);
     }
 
-    function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; if (dialog.open) dialog.close(); }
+    function pauseDialogAudio() { document.querySelectorAll('#exampleDialog audio').forEach(audio => audio.pause()); }
+    function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; pauseDialogAudio(); if (dialog.open) dialog.close(); }
     function updateSubmit() { sendButton.disabled = !promptInput.value.trim(); }
     function showToast(message) {
       clearTimeout(toastTimer);
@@ -3374,7 +3540,7 @@
     }));
     document.querySelectorAll('[data-workspace-mode]').forEach(button => button.addEventListener('click', () => selectWorkspaceMode(button.dataset.workspaceMode)));
     dialog.addEventListener('click', event => { if (event.target === dialog) closeDialog(); });
-    dialog.addEventListener('close', () => { clearInterval(mediaTimer); mediaTimer = null; });
+    dialog.addEventListener('close', () => { clearInterval(mediaTimer); mediaTimer = null; pauseDialogAudio(); });
     cropDialog.addEventListener('click',event => { if (event.target === cropDialog) closeCropDialog(); });
     cropDialog.addEventListener('close',() => {
       endCropGesture();
