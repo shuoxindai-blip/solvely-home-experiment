@@ -502,6 +502,10 @@
     .flash-preview-card { position:absolute; z-index:1; inset:0; display:grid; grid-template-rows:auto 1fr auto; gap:4px; padding:9px 10px; border:1px solid rgba(var(--accent-rgb),.2); border-radius:10px; background:var(--surface); box-shadow:0 7px 18px rgba(41,52,77,.1); }
     .flash-preview-card small { color:var(--accent); font-size:6px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
     .flash-preview-card strong { overflow:hidden; color:var(--text); font-size:8px; font-weight:650; line-height:1.28; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
+    .flash-preview-answer-content { min-height:0; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(70px,.75fr); align-items:stretch; gap:8px; }
+    .flash-preview-answer-media { min-width:0; min-height:0; overflow:hidden; display:grid; place-items:center; border:1px solid var(--line); border-radius:7px; background:#fff; }
+    .flash-preview-answer-media img { width:100%; height:100%; display:block; object-fit:contain; }
+    .flash-preview-answer-content strong { align-self:center; -webkit-line-clamp:4; }
     .flash-preview-footer { display:flex; align-items:center; justify-content:space-between; color:var(--subtle); font-size:6px; }
     .mini-card { position: absolute; width: 62%; height: 74px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 0 5px 15px rgba(41,52,77,.08); }
     .mini-card:nth-child(1) { left: 24px; top: 14px; transform: rotate(-4deg); }
@@ -2450,8 +2454,11 @@
 
     function flashcardPreview(example) {
       const cards = example && example.cards ? example.cards : [];
-      const firstCard = cards[0] || { front:'Active recall question' };
-      return `<div class="example-preview preview-flashcards"><div class="flash-preview-stack"><div class="flash-preview-card"><small>Question</small><strong>${firstCard.front}</strong><span class="flash-preview-footer"><span>${cards.length || 3} cards</span><span>Tap to study ↗</span></span></div></div></div>`;
+      const imageCard = cards.find(card => card.image) || cards[0] || { back:'Active recall answer' };
+      const answerContent = imageCard.image
+        ? `<div class="flash-preview-answer-content"><span class="flash-preview-answer-media"><img src="${imageCard.image}" alt="${imageCard.imageAlt || ''}" loading="lazy"></span><strong>${imageCard.back}</strong></div>`
+        : `<strong>${imageCard.back}</strong>`;
+      return `<div class="example-preview preview-flashcards"><div class="flash-preview-stack"><div class="flash-preview-card"><small>Answer</small>${answerContent}<span class="flash-preview-footer"><span>${cards.length || 3} cards</span><span>Tap to study ↗</span></span></div></div></div>`;
     }
 
     function chemistryPreview(example) {
