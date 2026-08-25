@@ -505,6 +505,15 @@
     .preview-chemistry { height:104px; display:grid; place-items:center; background:#fff; }
     .preview-chemistry img { width:auto; height:72px; max-width:72%; display:block; place-self:center; object-fit:contain; object-position:center; }
     .preview-accounting svg { width:100%; height:104px; display:block; }
+    .preview-accounting-full { min-height:245px; padding:16px 18px; overflow-x:auto; background:#fff; }
+    .accounting-full-table { width:100%; min-width:570px; border-collapse:collapse; color:#526077; font-size:11px; }
+    .accounting-full-table caption { padding:0 0 10px; color:#254b86; font-size:11px; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
+    .accounting-full-table th, .accounting-full-table td { padding:8px 10px; border-bottom:1px solid #e1e6ee; text-align:right; white-space:nowrap; }
+    .accounting-full-table th { background:#eef4ff; color:#254b86; font-size:10px; font-weight:800; }
+    .accounting-full-table th:first-child, .accounting-full-table td:first-child { text-align:left; }
+    .accounting-full-table tbody tr:last-child td { border-bottom:0; color:#26344a; font-weight:800; }
+    .accounting-full-table .efficient { color:#16855b; font-weight:800; }
+    .accounting-full-table .controlled { color:#2368f0; font-weight:800; }
     .preview-exam-plan { height:104px; padding:9px; background:linear-gradient(145deg,#f8fbff,#f4f7ff); }
     .summary-plan-week { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
     .summary-plan-day { padding:3px 1px; border-radius:5px; color:#7a879a; background:#fff; text-align:center; font-size:6px; font-weight:750; }
@@ -1689,6 +1698,10 @@
       return `<div class="example-preview preview-accounting"><svg viewBox="0 0 320 104" role="img" aria-label="Voltix and Circuita vertical analysis preview"><rect width="320" height="104" fill="#fff"/><rect x="10" y="8" width="300" height="18" rx="4" fill="#eef4ff"/><text x="18" y="20" font-size="7" font-weight="700" fill="#254b86">VERTICAL ANALYSIS · % OF REVENUE</text><g font-size="6.5" fill="#526077"><text x="220" y="37" font-weight="700" fill="#254b86">Voltix</text><text x="271" y="37" font-weight="700" fill="#254b86">Circuita</text><text x="18" y="51">Revenue</text><text x="226" y="51">100%</text><text x="278" y="51">100%</text><text x="18" y="65">COGS</text><text x="229" y="65">70%</text><rect x="270" y="55" width="35" height="13" rx="6.5" fill="#e6f6f0"/><text x="278" y="65" font-weight="700" fill="#16855b">60%</text><text x="18" y="79">Operating expenses</text><rect x="219" y="69" width="35" height="13" rx="6.5" fill="#edf3ff"/><text x="227" y="79" font-weight="700" fill="#2368f0">20%</text><text x="278" y="79">30%</text><text x="18" y="93" font-weight="700">Net margin</text><text x="227" y="93" font-weight="700">10%</text><text x="278" y="93" font-weight="700">10%</text></g><g stroke="#e1e6ee"><path d="M14 55H306M14 69H306M14 83H306"/></g></svg></div>`;
     }
 
+    function accountingDialogPreview() {
+      return `<div class="preview-accounting-full"><table class="accounting-full-table"><caption>Complete vertical analysis · $M and % of revenue</caption><thead><tr><th scope="col">Item</th><th scope="col">Voltix ($M)</th><th scope="col">Voltix (%)</th><th scope="col">Circuita ($M)</th><th scope="col">Circuita (%)</th></tr></thead><tbody><tr><td>Revenue</td><td>500</td><td>100%</td><td>800</td><td>100%</td></tr><tr><td>COGS</td><td>350</td><td>70%</td><td>480</td><td class="efficient">60%</td></tr><tr><td>Gross Profit</td><td>150</td><td>30%</td><td>320</td><td>40%</td></tr><tr><td>Operating Expenses</td><td>100</td><td class="controlled">20%</td><td>240</td><td>30%</td></tr><tr><td>Net Income</td><td>50</td><td>10%</td><td>80</td><td>10%</td></tr></tbody></table></div>`;
+    }
+
     function examPlanPreview() {
       return `<div class="example-preview preview-exam-plan"><div class="summary-plan-week">${['MON|17','TUE|18','WED|19','THU|20','FRI|21'].map((day,index) => { const [label,date] = day.split('|'); return `<span class="summary-plan-day${index === 1 ? ' active' : ''}">${label}<b>${date}</b></span>`; }).join('')}</div><div class="summary-plan-task done"><i>✓</i><span>Limits review</span><em>25 min</em></div><div class="summary-plan-task"><i></i><span>Practice FRQs</span><em>35 min</em></div></div>`;
     }
@@ -1712,6 +1725,10 @@
       if (type === 'guide') return `<div class="example-preview preview-guide"><div class="guide-line"><b>1</b><i></i><span>3 min</span></div><div class="guide-line"><b>2</b><i></i><span>5 min</span></div><div class="guide-line"><b>3</b><i></i><span>4 min</span></div></div>`;
       if (type === 'podcast') return `<div class="example-preview preview-podcast"><div class="podcast-art">${icon('i-mic')}</div><div><div class="waveform">${'<i></i>'.repeat(9)}</div><span class="podcast-time">0:42 / 8:00</span></div></div>`;
       return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84</strong><span>Score</span></div></div>`;
+    }
+
+    function dialogPreviewMarkup(type) {
+      return type === 'accounting' ? accountingDialogPreview() : previewMarkup(type);
     }
 
     function renderCapabilities() {
@@ -2228,7 +2245,7 @@
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
       document.getElementById('dialogTitle').textContent = selectedExample.title;
       document.getElementById('dialogDescription').textContent = selectedExample.description;
-      document.getElementById('dialogPreview').innerHTML = previewMarkup(selectedExample.preview);
+      document.getElementById('dialogPreview').innerHTML = dialogPreviewMarkup(selectedExample.preview);
       document.getElementById('dialogInteraction').innerHTML = interactionMarkup(selectedExample.preview);
       document.getElementById('dialogPrompt').hidden = false;
       document.getElementById('dialogPrompt').textContent = selectedExample.prompt;
