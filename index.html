@@ -512,8 +512,9 @@
     .accounting-full-table th { background:#eef4ff; color:#254b86; font-size:10px; font-weight:800; }
     .accounting-full-table th:first-child, .accounting-full-table td:first-child { text-align:left; }
     .accounting-full-table tbody tr:last-child td { border-bottom:0; color:#26344a; font-weight:800; }
-    .accounting-full-table .efficient { color:#16855b; font-weight:800; }
-    .accounting-full-table .controlled { color:#2368f0; font-weight:800; }
+    .accounting-full-table td[data-accounting-cell] { transition:background .18s ease, color .18s ease; }
+    .accounting-full-table td.is-highlighted { background:#edf3ff; color:#2368f0; font-weight:800; }
+    .accounting-full-table td[data-better="true"].is-highlighted { background:#e6f6f0; color:#16855b; }
     .preview-exam-plan { height:104px; padding:9px; background:linear-gradient(145deg,#f8fbff,#f4f7ff); }
     .summary-plan-week { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
     .summary-plan-day { padding:3px 1px; border-radius:5px; color:#7a879a; background:#fff; text-align:center; font-size:6px; font-weight:750; }
@@ -1699,7 +1700,7 @@
     }
 
     function accountingDialogPreview() {
-      return `<div class="preview-accounting-full"><table class="accounting-full-table"><caption>Complete vertical analysis · $M and % of revenue</caption><thead><tr><th scope="col">Item</th><th scope="col">Voltix ($M)</th><th scope="col">Voltix (%)</th><th scope="col">Circuita ($M)</th><th scope="col">Circuita (%)</th></tr></thead><tbody><tr><td>Revenue</td><td>500</td><td>100%</td><td>800</td><td>100%</td></tr><tr><td>COGS</td><td>350</td><td>70%</td><td>480</td><td class="efficient">60%</td></tr><tr><td>Gross Profit</td><td>150</td><td>30%</td><td>320</td><td>40%</td></tr><tr><td>Operating Expenses</td><td>100</td><td class="controlled">20%</td><td>240</td><td>30%</td></tr><tr><td>Net Income</td><td>50</td><td>10%</td><td>80</td><td>10%</td></tr></tbody></table></div>`;
+      return `<div class="preview-accounting-full"><table class="accounting-full-table"><caption>Complete vertical analysis · $M and % of revenue</caption><thead><tr><th scope="col">Item</th><th scope="col">Voltix ($M)</th><th scope="col">Voltix (%)</th><th scope="col">Circuita ($M)</th><th scope="col">Circuita (%)</th></tr></thead><tbody><tr><td>Revenue</td><td>500</td><td>100%</td><td>800</td><td>100%</td></tr><tr><td>COGS</td><td>350</td><td class="is-highlighted" data-accounting-cell="COGS">70%</td><td>480</td><td class="is-highlighted" data-accounting-cell="COGS" data-better="true">60%</td></tr><tr><td>Gross Profit</td><td>150</td><td>30%</td><td>320</td><td>40%</td></tr><tr><td>Operating Expenses</td><td>100</td><td data-accounting-cell="Operating expenses" data-better="true">20%</td><td>240</td><td data-accounting-cell="Operating expenses">30%</td></tr><tr><td>Net Income</td><td>50</td><td data-accounting-cell="Net margin">10%</td><td>80</td><td data-accounting-cell="Net margin">10%</td></tr></tbody></table></div>`;
     }
 
     function examPlanPreview() {
@@ -2109,7 +2110,7 @@
       if (type === 'graph') return '<div class="graph-control"><label for="exampleGraphRange"><span>Move along the curve</span><output data-graph-x>2.0</output></label><input id="exampleGraphRange" type="range" min="-4" max="6" value="2" step="0.1" data-graph-slider><p class="graph-readout" data-graph-readout>At x = 2.0, y = −1.00</p></div>';
       if (type === 'video') return '<div class="media-control-row"><button class="media-toggle" type="button" data-media-toggle aria-label="Play explanation">' + icon('i-play') + '</button><span class="media-copy"><strong>Generated explanation</strong><span>Geometry walkthrough</span></span><span class="interaction-time" data-media-time>0:05 / 1:18</span></div><div class="interaction-progress"><span data-media-progress></span></div>';
       if (type === 'chemistry') return '<h3>Explore the structure</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-structure-group="Amide">Amide</button><button class="insight-chip" type="button" data-structure-group="Aromatic ring">Aromatic ring</button><button class="insight-chip" type="button" data-structure-group="Tertiary amine">Tertiary amine</button></div><p class="insight-readout" data-structure-readout>The amide group links a carbonyl carbon to nitrogen and strongly affects polarity.</p>';
-      if (type === 'accounting') return '<h3>Compare cost efficiency</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-accounting-metric="COGS">COGS</button><button class="insight-chip" type="button" data-accounting-metric="Operating expenses">Operating expenses</button><button class="insight-chip" type="button" data-accounting-metric="Net margin">Net margin</button></div><p class="insight-readout" data-accounting-readout>Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.</p>';
+      if (type === 'accounting') return '<h3>Key insights</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-accounting-metric="COGS">COGS</button><button class="insight-chip" type="button" data-accounting-metric="Operating expenses">Operating expenses</button><button class="insight-chip" type="button" data-accounting-metric="Net margin">Net margin</button></div><p class="insight-readout" data-accounting-readout>Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.</p>';
       if (type === 'flashcards') return '<button class="flash-interactive" data-flashcard aria-label="Flip flashcard"><span class="flash-interactive-inner"><span class="flash-face front"><small>QUESTION</small><strong>What is the most important idea in this topic?</strong><small>Click to reveal</small></span><span class="flash-face back"><small>ANSWER</small><strong>The core concept, explained in active-recall form.</strong><small>Click to return</small></span></span></button>';
       if (type === 'quiz') return '<h3>Check your understanding</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">Option A</button><button class="quiz-answer" data-answer="correct">Option B</button><button class="quiz-answer" data-answer="wrong">Option C</button><button class="quiz-answer" data-answer="wrong">Option D</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer for instant feedback.</p></div>';
       if (type === 'guide') return '<h3>Review checklist</h3><button class="guide-check" data-guide-check><span>1</span><strong>Understand the core concept</strong><small>3 min</small></button><button class="guide-check" data-guide-check><span>2</span><strong>Review the worked example</strong><small>5 min</small></button><button class="guide-check" data-guide-check><span>3</span><strong>Practice active recall</strong><small>4 min</small></button>';
@@ -2141,8 +2142,10 @@
         'Net margin':'Both companies reach a 10% net margin; Circuita’s lower COGS is offset by its higher overhead.'
       };
       interaction.querySelectorAll('[data-accounting-metric]').forEach(metric => metric.addEventListener('click', () => {
+        const selectedMetric = metric.dataset.accountingMetric;
         interaction.querySelectorAll('[data-accounting-metric]').forEach(item => item.classList.toggle('active', item === metric));
-        interaction.querySelector('[data-accounting-readout]').textContent = accountingNotes[metric.dataset.accountingMetric];
+        document.querySelectorAll('#dialogPreview [data-accounting-cell]').forEach(cell => cell.classList.toggle('is-highlighted', cell.dataset.accountingCell === selectedMetric));
+        interaction.querySelector('[data-accounting-readout]').textContent = accountingNotes[selectedMetric];
       }));
       const flashcard = interaction.querySelector('[data-flashcard]');
       if (flashcard) flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
