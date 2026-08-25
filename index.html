@@ -918,13 +918,6 @@
     .quiz-choice.wrong .quiz-choice-letter { background:#cf4453; color:#fff; }
     .quiz-result { display:grid; gap:12px; padding-top:2px; }
     .quiz-result[hidden] { display:none; }
-    .quiz-result-banner { display:flex; align-items:flex-start; gap:10px; padding:12px; border-radius:12px; background:rgba(22,134,93,.09); color:#147452; }
-    .quiz-result-banner.incorrect { background:rgba(220,65,80,.08); color:#a82d3b; }
-    .quiz-result-mark { width:28px; height:28px; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:#16865d; color:#fff; font-size:13px; font-weight:800; }
-    .quiz-result-banner.incorrect .quiz-result-mark { background:#cf4453; }
-    .quiz-result-banner strong,.quiz-result-banner span { display:block; }
-    .quiz-result-banner strong { font-size:12px; }
-    .quiz-result-banner span { margin-top:3px; color:var(--muted); font-size:10px; line-height:1.45; }
     .quiz-explanations { display:grid; gap:7px; }
     .quiz-explanation { display:grid; grid-template-columns:26px minmax(0,1fr); gap:9px; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--surface); }
     .quiz-explanation b { width:26px; height:26px; display:grid; place-items:center; border-radius:8px; background:var(--surface-hover); color:var(--muted); font-size:10px; }
@@ -2489,7 +2482,6 @@
         ${example.image ? `<figure class="quiz-question-figure" style="--quiz-image-max:${example.imageMaxWidth || 420}px"><img src="${example.image}" alt="${example.imageAlt || ''}"></figure>` : ''}
         <div class="quiz-options">${options.map(option => `<button class="quiz-choice" type="button" data-quiz-option="${option.key}" data-correct="${option.correct}" data-explanation="${option.explanation}" aria-label="Option ${option.key}: ${option.text}"><span class="quiz-choice-letter">${option.key}</span><span class="quiz-choice-text">${option.text}</span></button>`).join('')}</div>
         <section class="quiz-result" data-quiz-result hidden aria-live="polite">
-          <div class="quiz-result-banner" data-quiz-result-banner><span class="quiz-result-mark" data-quiz-result-mark>✓</span><div><strong data-quiz-result-title>Correct</strong><span data-quiz-result-copy></span></div></div>
           <div class="quiz-explanations"><div class="quiz-explanation" data-quiz-selected-explanation><b data-quiz-explanation-key></b><div><strong data-quiz-explanation-status></strong><span data-quiz-explanation-copy></span></div></div></div>
           <div class="quiz-overall"><strong>Overall explanation</strong><p>${example.overallExplanation}</p></div>
           <button class="quiz-retry" type="button" data-quiz-retry>Try again</button>
@@ -3358,10 +3350,6 @@
       if (quizSession) {
         const choices = [...quizSession.querySelectorAll('[data-quiz-option]')];
         const result = quizSession.querySelector('[data-quiz-result]');
-        const banner = quizSession.querySelector('[data-quiz-result-banner]');
-        const mark = quizSession.querySelector('[data-quiz-result-mark]');
-        const title = quizSession.querySelector('[data-quiz-result-title]');
-        const copy = quizSession.querySelector('[data-quiz-result-copy]');
         const selectedExplanation = quizSession.querySelector('[data-quiz-selected-explanation]');
         const explanationKey = quizSession.querySelector('[data-quiz-explanation-key]');
         const explanationStatus = quizSession.querySelector('[data-quiz-explanation-status]');
@@ -3389,12 +3377,6 @@
           });
           choice.classList.add(isCorrect ? 'correct' : 'wrong');
           if (!isCorrect && correctChoice) correctChoice.classList.add('correct');
-          banner.classList.toggle('incorrect', !isCorrect);
-          mark.textContent = isCorrect ? '✓' : '×';
-          title.textContent = isCorrect ? 'Correct' : 'Not quite';
-          copy.textContent = isCorrect
-            ? `Option ${choice.dataset.quizOption} is correct.`
-            : `You selected ${choice.dataset.quizOption}. The correct answer is ${correctChoice ? correctChoice.dataset.quizOption : ''}.`;
           selectedExplanation.classList.toggle('correct', isCorrect);
           selectedExplanation.classList.toggle('incorrect', !isCorrect);
           explanationKey.textContent = choice.dataset.quizOption;
