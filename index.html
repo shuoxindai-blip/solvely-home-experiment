@@ -554,12 +554,19 @@
     .guide-review-button { flex:0 0 auto; min-height:32px; padding:0 11px; border:1px solid rgba(var(--accent-rgb),.35); border-radius:9px; background:var(--surface); color:var(--accent); font-size:9px; font-weight:760; cursor:pointer; }
     .guide-review-button.done { border-color:#bfe7d8; background:#eaf8f3; color:#16855b; }
     .preview-podcast { height:104px; display:grid; grid-template-columns:52px minmax(0,1fr); align-items:center; gap:11px; padding:11px; background:linear-gradient(145deg,#f8faff,#f2f5ff); }
-    .podcast-art { width:52px; height:52px; display:grid; place-items:center; align-content:center; gap:2px; border-radius:14px; background:linear-gradient(145deg,#775ee8,#3d84ee); color:white; box-shadow:0 8px 18px rgba(74,91,210,.18); }
-    .podcast-art.math { background:linear-gradient(145deg,#296cf2,#6145db); }
-    .podcast-art.biology { background:linear-gradient(145deg,#10a87a,#34bf9a); }
-    .podcast-art.history { background:linear-gradient(145deg,#d26f36,#9a4f2c); }
-    .podcast-art .icon { width:19px; height:19px; }
-    .podcast-art small { color:rgba(255,255,255,.8); font-size:5px; font-weight:800; letter-spacing:.08em; }
+    .podcast-host-stack { width:128px; height:128px; position:relative; flex:0 0 auto; }
+    .podcast-host-avatar { width:74px; height:74px; position:absolute; display:grid; place-items:center; overflow:hidden; border:3px solid #1677ed; border-radius:50%; background:#fff; box-shadow:0 8px 20px rgba(29,50,84,.13); }
+    .podcast-host-avatar:first-child { left:8px; top:6px; z-index:1; }
+    .podcast-host-avatar:last-child { left:50px; top:50px; z-index:2; border-color:#28b523; }
+    .podcast-host-avatar img { width:100%; height:100%; display:block; object-fit:cover; }
+    .podcast-avatar-placeholder { width:100%; height:100%; position:relative; display:block; background:linear-gradient(145deg,#edf3ff,#d7e5ff); }
+    .podcast-host-avatar:last-child .podcast-avatar-placeholder { background:linear-gradient(145deg,#eefbea,#d8f3d2); }
+    .podcast-avatar-placeholder::before { content:""; width:30%; aspect-ratio:1; position:absolute; left:35%; top:20%; border-radius:50%; background:#66758e; }
+    .podcast-avatar-placeholder::after { content:""; width:58%; height:36%; position:absolute; left:21%; bottom:12%; border-radius:50% 50% 36% 36%; background:#66758e; }
+    .podcast-host-stack.compact { width:52px; height:52px; }
+    .podcast-host-stack.compact .podcast-host-avatar { width:31px; height:31px; border-width:2px; box-shadow:0 4px 10px rgba(29,50,84,.11); }
+    .podcast-host-stack.compact .podcast-host-avatar:first-child { left:2px; top:2px; }
+    .podcast-host-stack.compact .podcast-host-avatar:last-child { left:19px; top:19px; }
     .podcast-preview-copy { min-width:0; }
     .podcast-preview-meta { display:flex; align-items:center; justify-content:space-between; gap:6px; color:var(--muted); font-size:7px; font-weight:650; }
     .podcast-preview-wave { height:27px; display:flex; align-items:center; gap:3px; margin:4px 0; }
@@ -571,9 +578,6 @@
     .podcast-preview-play { width:15px; height:15px; display:grid; place-items:center; border-radius:50%; background:var(--accent); color:#fff; }
     .podcast-preview-play .icon { width:8px; height:8px; margin-left:1px; }
     .podcast-dialog-hero { min-height:205px; display:grid; grid-template-columns:128px minmax(0,1fr); align-items:center; gap:24px; padding:28px 32px; background:linear-gradient(145deg,#f7f9ff,#eef3ff); }
-    .podcast-dialog-art { width:128px; height:128px; display:grid; place-items:center; align-content:center; gap:7px; border-radius:27px; color:#fff; box-shadow:0 18px 38px rgba(67,79,164,.2); }
-    .podcast-dialog-art .icon { width:40px; height:40px; }
-    .podcast-dialog-art strong { font-size:10px; letter-spacing:.1em; }
     .podcast-dialog-copy { min-width:0; }
     .podcast-dialog-copy span { color:var(--accent); font-size:9px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
     .podcast-dialog-copy h3 { margin:7px 0 8px; font-size:20px; line-height:1.2; letter-spacing:-.025em; }
@@ -1284,8 +1288,10 @@
       .crop-thumbnails { justify-content:flex-start; }
       .crop-done { height:46px; margin-top:14px; }
       .podcast-dialog-hero { min-height:150px; grid-template-columns:76px minmax(0,1fr); gap:14px; padding:18px; }
-      .podcast-dialog-art { width:76px; height:76px; border-radius:19px; }
-      .podcast-dialog-art .icon { width:26px; height:26px; }
+      .podcast-dialog-hero .podcast-host-stack { width:76px; height:76px; }
+      .podcast-dialog-hero .podcast-host-avatar { width:45px; height:45px; border-width:2px; }
+      .podcast-dialog-hero .podcast-host-avatar:first-child { left:3px; top:3px; }
+      .podcast-dialog-hero .podcast-host-avatar:last-child { left:29px; top:29px; }
       .podcast-dialog-copy h3 { margin-block:5px; font-size:15px; }
       .podcast-dialog-copy p { font-size:10px; }
       .podcast-dialog-speakers { margin-top:8px; }
@@ -2201,15 +2207,18 @@
       return `${Math.floor(safeSeconds / 60)}:${String(safeSeconds % 60).padStart(2,'0')}`;
     }
 
+    function podcastHostsMarkup(example, compact = false) {
+      const speakers = Array.isArray(example && example.speakers) ? example.speakers.slice(0,2) : ['Host 1','Host 2'];
+      const avatars = Array.isArray(example && example.speakerAvatars) ? example.speakerAvatars : [];
+      return `<div class="podcast-host-stack${compact ? ' compact' : ''}" aria-label="Podcast hosts: ${speakers.join(' and ')}">${speakers.map((speaker,index) => `<span class="podcast-host-avatar">${avatars[index] ? `<img src="${avatars[index]}" alt="${speaker}">` : `<span class="podcast-avatar-placeholder" role="img" aria-label="${speaker} placeholder avatar"></span>`}</span>`).join('')}</div>`;
+    }
+
     function podcastPreview(example) {
-      const theme = example && example.theme ? example.theme : 'math';
-      const subject = example && example.tag ? example.tag.toUpperCase() : 'PODCAST';
-      return `<div class="example-preview preview-podcast"><div class="podcast-art ${theme}">${icon('i-mic')}<small>${subject}</small></div><div class="podcast-preview-copy"><div class="podcast-preview-meta"><span>${example.speakers.length} voices</span><span>${example.duration}</span></div><div class="podcast-preview-wave">${'<i></i>'.repeat(12)}</div><div class="podcast-preview-footer"><span class="podcast-preview-play">${icon('i-play')}</span><span>Listen to demo</span></div></div></div>`;
+      return `<div class="example-preview preview-podcast">${podcastHostsMarkup(example,true)}<div class="podcast-preview-copy"><div class="podcast-preview-meta"><span>${example.speakers.length} voices</span><span>${example.duration}</span></div><div class="podcast-preview-wave">${'<i></i>'.repeat(12)}</div><div class="podcast-preview-footer"><span class="podcast-preview-play">${icon('i-play')}</span><span>Listen to demo</span></div></div></div>`;
     }
 
     function podcastDialogPreview(example) {
-      const theme = example && example.theme ? example.theme : 'math';
-      return `<div class="podcast-dialog-hero"><div class="podcast-dialog-art podcast-art ${theme}">${icon('i-mic')}<strong>${example.tag.toUpperCase()}</strong></div><div class="podcast-dialog-copy"><span>Generated study podcast · ${example.duration}</span><h3>${example.title}</h3><p>${example.description}</p><div class="podcast-dialog-speakers">${example.speakers.map(speaker => `<b>${speaker}</b>`).join('')}</div></div></div>`;
+      return `<div class="podcast-dialog-hero">${podcastHostsMarkup(example)}<div class="podcast-dialog-copy"><span>Generated study podcast · ${example.duration}</span><h3>${example.title}</h3><p>${example.description}</p><div class="podcast-dialog-speakers">${example.speakers.map(speaker => `<b>${speaker}</b>`).join('')}</div></div></div>`;
     }
 
     function podcastInteractionMarkup(example) {
