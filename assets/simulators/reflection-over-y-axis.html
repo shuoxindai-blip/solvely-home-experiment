@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    .slider { -webkit-appearance:none; width:100%; height:5px; border-radius:3px; outline:none; background:linear-gradient(to right,#4285F4 var(--val,50%),#E0E0E0 var(--val,50%)); margin-top:8px; }
+    .slider::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+    .slider::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; }
+    @media (max-height: 500px) { .header { display: none; } }
+  </style>
+</head>
+<body class="font-sans" style="background:transparent">
+  <div id="app" class="h-screen flex flex-col p-2 gap-2 overflow-hidden">
+
+    <!-- Header -->
+    <div class="header text-white p-2 rounded-xl shadow-lg" style="background:rgba(37,99,235,0.9)">
+      <h1 class="text-sm font-bold">Reflection over y-axis</h1>
+      <div ref="formulaRef" class="text-xs"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col md:flex-row flex-1 gap-2 min-h-0">
+      <!-- Viz Area -->
+      <div class="flex-1 min-h-0 relative">
+        <div ref="plotRef" class="w-full h-full"></div>
+      </div>
+
+      <!-- Controls -->
+      <div class="md:w-[280px] flex flex-col gap-2 p-3 rounded-2xl bg-white shadow-sm border border-gray-100">
+        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Adjust Vertices</h2>
+
+        <div v-for="s in sliders" :key="s.id" class="flex flex-col gap-1 p-2 rounded-lg bg-gray-50">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-medium text-gray-700">{{ s.label }}</span>
+            <span class="text-xs font-bold text-blue-600">{{ s.value }}</span>
+          </div>
+          <input type="range" :min="s.min" :max="s.max" :step="s.step"
+                 v-model.number="s.value" class="slider"
+                 :style="{'--val': ((s.value - s.min) / (s.max - s.min) * 100) + '%'}">
+        </div>
+
+        <div class="mt-auto p-2 bg-blue-50 rounded-lg border border-blue-100">
+          <p class="text-[10px] text-blue-800 leading-tight">
+            <strong>Rule:</strong> Reflection over y-axis maps <br>
+            <span class="font-mono">(x, y) → (-x, y)</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, reactive, ref, onMounted, watch } = Vue;
+
+    createApp({
+      setup() {
+        const plotRef = ref(null);
+        const formulaRef = ref(null);
+
+        const sliders = reactive([
+          { id: 'px', label: 'P (x)', value: -10, min: -10, max: -1, step: 1 },
+          { id: 'qx', label: 'Q (x)', value: -3, min: -10, max: -1, step: 1 },
+          { id: 'ry', label: 'R (y)', value: 9, min: 1, max: 10, step: 1 }
+        ]);
+
+        const updatePlot = () => {
+          const px = sliders[0].value;
+          const qx = sliders[1].value;
+          const ry = sliders[2].value;
+          const py = 3; // Fixed as per original problem
+
+          // Original Triangle
+          const origX = [px, qx, px, px];
+          const origY = [py, py, ry, py];
+
+          // Reflected Triangle
+          const reflX = origX.map(x => -x);
+          const reflY = origY;
+
+          const traces = [
+            // Original
+            {
+              x: origX, y: origY, mode: 'lines+markers+text', name: 'Original',
+              line: { color: '#94a3b8', width: 2, dash: 'dot' },
+              marker: { size: 6, color: '#64748b' },
+              text: ['P', 'Q', 'R', ''], textposition: 'bottom left',
+              fill: 'toself', fillcolor: 'rgba(148, 163, 184, 0.1)'
+            },
+            // Reflected
+            {
+              x: reflX, y: reflY, mode: 'lines+markers+text', name: 'Reflected',
+              line: { color: '#3b82f6', width: 3 },
+              marker: { size: 8, color: '#2563eb' },
+              text: [`P'(${reflX[0]},${reflY[0]})`, `Q'(${reflX[1]},${reflY[1]})`, `R'(${reflX[2]},${reflY[2]})`, ''],
+              textposition: 'top right',
+              fill: 'toself', fillcolor: 'rgba(59, 130, 246, 0.2)'
+            }
+          ];
+
+          const layout = {
+            autosize: true,
+            showlegend: true,
+            legend: { orientation: 'h', y: -0.15, x: 0.5, xanchor: 'center', font: {size: 10} },
+            margin: { l: 30, r: 30, t: 10, b: 60 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: { range: [-11, 11], dtick: 2, gridcolor: '#e5e7eb', zerolinecolor: '#374151', zerolinewidth: 2 },
+            yaxis: { range: [-2, 11], dtick: 2, gridcolor: '#e5e7eb', zerolinecolor: '#374151', zerolinewidth: 2, scaleanchor: 'x', scaleratio: 1 }
+          };
+
+          Plotly.react(plotRef.value, traces, layout, { responsive: true, displayModeBar: false });
+        };
+
+        onMounted(() => {
+          katex.render("(x, y) \\xrightarrow{\\text{reflect } y} (-x, y)", formulaRef.value);
+          updatePlot();
+          window.addEventListener('resize', () => Plotly.Plots.resize(plotRef.value));
+        });
+
+        watch(() => sliders.map(s => s.value), updatePlot);
+
+        return { plotRef, formulaRef, sliders };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

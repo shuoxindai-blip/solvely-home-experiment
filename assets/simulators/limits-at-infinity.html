@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limits at Infinity Simulator</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    .slider { -webkit-appearance:none; width:100%; height:5px; border-radius:3px; outline:none; background:linear-gradient(to right,#4285F4 var(--val,50%),#E0E0E0 var(--val,50%)); margin-top:8px; }
+    .slider::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+    .slider::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; }
+    @media (max-height: 500px) { .header-section { display: none; } }
+  </style>
+</head>
+<body class="font-sans" style="background:transparent">
+  <div id="app" class="h-screen flex flex-col p-2 gap-2 overflow-hidden">
+
+    <!-- Header -->
+    <div class="header-section text-white p-3 rounded-xl shadow-lg shrink-0" style="background:rgba(37,99,235,0.9)">
+      <h1 class="text-sm font-bold uppercase tracking-wider">Limits at Infinity</h1>
+      <div ref="formulaRef" class="text-lg mt-1"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col md:flex-row flex-1 gap-2 min-h-0">
+      <!-- Viz Area -->
+      <div class="flex-1 min-h-0 relative">
+        <div ref="plotRef" class="w-full h-full"></div>
+      </div>
+
+      <!-- Controls -->
+      <div class="md:w-[280px] flex flex-col gap-2 p-4 rounded-2xl shrink-0" style="background:#FFFFFF; border: 1px solid #e5e7eb;">
+        <h2 class="text-xs font-bold text-gray-400 uppercase">View Controls</h2>
+
+        <div v-for="s in sliders" :key="s.id" class="flex flex-col p-2 rounded-lg bg-gray-50">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-medium text-gray-600">{{ s.label }}</span>
+            <span class="text-xs font-bold text-blue-600">{{ s.value }}{{ s.unit }}</span>
+          </div>
+          <input type="range" :min="s.min" :max="s.max" :step="s.step"
+                 v-model.number="s.value" class="slider"
+                 :style="{'--val': ((s.value - s.min) / (s.max - s.min) * 100) + '%'}">
+        </div>
+
+        <div class="mt-auto p-2 bg-blue-50 rounded-lg border border-blue-100">
+          <p class="text-[10px] text-blue-800 leading-tight">
+            <strong>Squeeze Theorem:</strong> As \(x \to \infty\), the function is bounded by \(\pm 1/x\), forcing the limit to 0.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, reactive, ref, watch, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const plotRef = ref(null);
+        const formulaRef = ref(null);
+
+        const sliders = reactive([
+          { id: 'range', label: 'X-Axis Range', value: 20, min: 5, max: 100, step: 5, unit: ' units' },
+          { id: 'freq', label: 'Frequency (k)', value: 2, min: 0.5, max: 5, step: 0.5, unit: '' },
+          { id: 'zoom', label: 'Y-Zoom', value: 1, min: 0.2, max: 2, step: 0.1, unit: 'x' }
+        ]);
+
+        const updatePlot = () => {
+          if (!plotRef.value) return;
+
+          const range = sliders[0].value;
+          const k = sliders[1].value;
+          const yZoom = sliders[2].value;
+
+          const x = [];
+          const y = [];
+          const upper = [];
+          const lower = [];
+
+          const steps = 400;
+          for (let i = 0; i <= steps; i++) {
+            const val = -range + (i * 2 * range) / steps;
+            if (Math.abs(val) < 0.1) {
+              x.push(val);
+              y.push(null); // Avoid division by zero
+            } else {
+              x.push(val);
+              y.push(Math.sin(k * val) / val);
+            }
+            upper.push(1 / Math.abs(val));
+            lower.push(-1 / Math.abs(val));
+          }
+
+          const traces = [
+            {
+              x: x, y: y,
+              mode: 'lines',
+              name: 'f(x) = sin(kx)/x',
+              line: { color: '#3b82f6', width: 3 }
+            },
+            {
+              x: x, y: upper,
+              mode: 'lines',
+              name: '1/|x|',
+              line: { color: '#94a3b8', width: 1, dash: 'dash' },
+              hoverinfo: 'skip'
+            },
+            {
+              x: x, y: lower,
+              mode: 'lines',
+              name: '-1/|x|',
+              line: { color: '#94a3b8', width: 1, dash: 'dash' },
+              hoverinfo: 'skip'
+            },
+            {
+              x: [-range, range], y: [0, 0],
+              mode: 'lines',
+              name: 'Asymptote y=0',
+              line: { color: '#ef4444', width: 2, dash: 'dot' }
+            }
+          ];
+
+          const layout = {
+            autosize: true,
+            margin: { l: 40, r: 20, t: 20, b: 80 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: { range: [-range, range], gridcolor: '#f3f4f6', zerolinecolor: '#94a3b8' },
+            yaxis: { range: [-1.2/yZoom, 1.2/yZoom], gridcolor: '#f3f4f6', zerolinecolor: '#94a3b8' },
+            showlegend: true,
+            legend: { orientation: 'h', y: -0.25, x: 0.5, xanchor: 'center', font: { size: 10 } },
+            annotations: [
+              {
+                x: range * 0.8, y: 0.1,
+                text: 'y → 0',
+                showarrow: false,
+                font: { color: '#ef4444', size: 12, weight: 'bold' }
+              }
+            ]
+          };
+
+          Plotly.react(plotRef.value, traces, layout, { responsive: true, displayModeBar: false });
+        };
+
+        onMounted(() => {
+          katex.render("f(x) = \\frac{\\sin(2x)}{x} \\implies \\lim_{x \\to \\pm\\infty} f(x) = 0", formulaRef.value);
+          updatePlot();
+          window.addEventListener('resize', () => Plotly.Plots.resize(plotRef.value));
+        });
+
+        watch(() => sliders.map(s => s.value), updatePlot);
+
+        return { plotRef, formulaRef, sliders };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -550,6 +550,7 @@
     .exam-score span { display: block; margin-top: -17px; font-size: 7px; font-weight: 650; text-transform: uppercase; }
 
     .example-dialog { width: min(680px, calc(100vw - 30px)); max-height: min(720px, calc(100vh - 30px)); padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--text); box-shadow: 0 28px 90px rgba(0,0,0,.22); }
+    .example-dialog[data-mode="simulator"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
     .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
     .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
@@ -561,6 +562,8 @@
     .dialog-close:hover { background: var(--surface-hover); }
     .dialog-body { padding: 20px 22px; overflow: auto; }
     .dialog-preview { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-soft); }
+    .example-dialog[data-mode="simulator"] .dialog-preview { background:#fff; }
+    .simulator-frame { width:100%; height:460px; display:block; border:0; background:#fff; }
     .dialog-preview .example-preview { min-height: 245px; border: 0; border-radius: 0; }
     .dialog-preview .preview-equation, .dialog-preview .preview-flashcards, .dialog-preview .preview-quiz, .dialog-preview .preview-guide, .dialog-preview .preview-podcast, .dialog-preview .preview-exam { height: 245px; }
     .dialog-preview .preview-graph svg, .dialog-preview .preview-video svg, .dialog-preview .preview-accounting svg { height: 245px; }
@@ -1484,9 +1487,9 @@
         placeholder: 'Enter an equation, function, table, or graphing question',
         description: 'Turn equations and data into interactive visual explanations.',
         examples: [
-          { tag: 'Algebra', title: 'Plot and factor a parabola', description: 'See roots, vertex, and axis of symmetry.', prompt: 'Graph y = x² − 4x + 3 and label its roots and vertex.', preview: 'graph' },
-          { tag: 'Precalculus', title: 'Compare two functions', description: 'Find intersections and explain rate changes.', prompt: 'Graph y = 2ˣ and y = 3x − 1 together and find their intersection.', preview: 'graph' },
-          { tag: 'Statistics', title: 'Visualize a data set', description: 'Create a plot and explain the distribution.', prompt: 'Graph the data 4, 7, 7, 9, 10, 12, 14 and explain its center and spread.', preview: 'exam' }
+          { tag: 'Geometry', title: 'Reflection over y-axis', description: 'Adjust triangle vertices and track their reflected coordinates.', prompt: 'Reflect triangle PQR over the y-axis and write the coordinates of P′, Q′, and R′.', preview: 'graph-reflection', simulator: 'assets/simulators/reflection-over-y-axis.html' },
+          { tag: 'Economics', title: 'Negative Externality & Pigouvian Tax', description: 'Compare private and social costs, then test the corrective tax.', prompt: 'Demand is Q = 1,200 − 4P and supply is Q = −240 + 2P. Marginal external damage is $12 per unit. Determine how many more units the free market produces than the social optimum and calculate the deadweight loss.', preview: 'graph-externality', simulator: 'assets/simulators/negative-externality-pigouvian-tax.html' },
+          { tag: 'Calculus', title: 'LIMITS AT INFINITY', description: 'Explore the squeeze theorem and the horizontal asymptote.', prompt: 'For f(x) = sin(2x) / x, find the limits as x approaches positive and negative infinity and identify all horizontal asymptotes.', preview: 'graph-limits', simulator: 'assets/simulators/limits-at-infinity.html' }
         ]
       },
       video: {
@@ -1691,6 +1694,18 @@
       return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Parabola graph"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#grid)"/><path d="M18 76H305M150 7V96" stroke="var(--line-strong)" stroke-width="1.2"/><path d="M58 17 C92 92 119 94 151 53 S212 19 268 83" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/><g fill="var(--surface)" stroke="var(--accent)" stroke-width="2"><circle cx="89" cy="76" r="4"/><circle cx="222" cy="76" r="4"/><circle cx="151" cy="53" r="4"/></g></svg></div>`;
     }
 
+    function reflectionGraphPreview() {
+      return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Triangle reflected over the y-axis"><defs><pattern id="reflectionGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#reflectionGrid)"/><path d="M18 78H302M160 8V96" stroke="var(--line-strong)" stroke-width="1.3"/><path d="M60 70 126 70 60 24Z" fill="rgba(100,116,139,.10)" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3"/><path d="M260 70 194 70 260 24Z" fill="rgba(35,104,240,.15)" stroke="#2368f0" stroke-width="2.5"/><g fill="#fff" stroke="#2368f0" stroke-width="2"><circle cx="260" cy="70" r="3.5"/><circle cx="194" cy="70" r="3.5"/><circle cx="260" cy="24" r="3.5"/></g><path d="M145 18 155 18M150 13V23" stroke="#2368f0" stroke-width="1.5"/></svg></div>`;
+    }
+
+    function externalityGraphPreview() {
+      return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Negative externality and Pigouvian tax graph"><defs><pattern id="externalityGrid" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M24 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#externalityGrid)"/><path d="M25 88H304M25 10V88" stroke="var(--line-strong)" stroke-width="1.2"/><path d="M45 16 276 85" stroke="#2368f0" stroke-width="2.6"/><path d="M51 85 244 31" stroke="#16a36a" stroke-width="2.2"/><path d="M51 70 244 16" stroke="#ef4444" stroke-width="2.2" stroke-dasharray="5 3"/><path d="M187 46 216 55 216 38Z" fill="rgba(239,68,68,.25)" stroke="#ef4444" stroke-width="1"/><circle cx="187" cy="46" r="3.5" fill="#ef4444"/><circle cx="216" cy="55" r="3.5" fill="#111827"/></svg></div>`;
+    }
+
+    function limitsGraphPreview() {
+      return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" role="img" aria-label="Limits at infinity graph"><defs><pattern id="limitsGrid" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M24 0H0V20" fill="none" stroke="var(--line)" stroke-width="1"/></pattern></defs><rect width="320" height="104" fill="url(#limitsGrid)"/><path d="M18 52H304M160 8V96" stroke="var(--line-strong)" stroke-width="1.1"/><path d="M18 52H304" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4 3"/><path d="M20 38 C37 63 50 44 62 57 S85 43 97 58 S118 37 131 68 S148 18 160 52 S174 87 189 36 S210 66 225 45 S248 60 263 46 S286 57 302 50" fill="none" stroke="#2368f0" stroke-width="2.6"/><path d="M20 29 C70 35 112 41 147 48M173 48 C208 41 250 35 302 29M20 75 C70 69 112 63 147 56M173 56 C208 63 250 69 302 75" fill="none" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/></svg></div>`;
+    }
+
     function videoPreview() {
       return `<div class="example-preview preview-video"><svg viewBox="0 0 320 104" role="img" aria-label="Geometry video preview"><rect width="320" height="104" fill="var(--surface-soft)"/><path d="M89 84 160 15l75 69Z" fill="rgba(var(--accent-rgb),.07)" stroke="var(--text)" stroke-width="2"/><path d="M119 55a28 28 0 0 1 22 16M189 57a26 26 0 0 0-21 14" fill="none" stroke="var(--accent)" stroke-width="2"/><text x="104" y="55" fill="var(--muted)" font-size="11">60°</text><text x="197" y="56" fill="var(--muted)" font-size="11">x°</text></svg><span class="play-badge">${icon('i-play')}</span></div>`;
     }
@@ -1712,6 +1727,9 @@
     }
 
     function previewMarkup(type) {
+      if (type === 'graph-reflection') return reflectionGraphPreview();
+      if (type === 'graph-externality') return externalityGraphPreview();
+      if (type === 'graph-limits') return limitsGraphPreview();
       if (type === 'graph') return graphPreview();
       if (type === 'video') return videoPreview();
       if (type === 'chemistry') return `<div class="example-preview preview-chemistry"><img src="assets/chemistry-structure.png" alt="Organic chemistry structure visualization" /></div>`;
@@ -2224,6 +2242,7 @@
       document.getElementById('dialogDescription').textContent = feature.description;
       document.getElementById('dialogPreview').innerHTML = previewMarkup(feature.preview);
       document.getElementById('dialogInteraction').innerHTML = featureDetailMarkup(index);
+      document.getElementById('dialogInteraction').hidden = false;
       document.getElementById('dialogPrompt').hidden = true;
       document.getElementById('useExampleButton').textContent = 'View sample plan';
       dialog.showModal();
@@ -2242,19 +2261,23 @@
       if (!capability || !example) return;
       selectedExample = example;
       selectedExampleCapability = capabilityKey;
-      dialog.dataset.mode = 'example';
+      const hasSimulator = Boolean(selectedExample.simulator);
+      dialog.dataset.mode = hasSimulator ? 'simulator' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
       document.getElementById('dialogTitle').textContent = selectedExample.title;
       document.getElementById('dialogDescription').textContent = selectedExample.description;
-      document.getElementById('dialogPreview').innerHTML = dialogPreviewMarkup(selectedExample.preview);
-      document.getElementById('dialogInteraction').innerHTML = interactionMarkup(selectedExample.preview);
+      document.getElementById('dialogPreview').innerHTML = hasSimulator
+        ? `<iframe class="simulator-frame" src="${selectedExample.simulator}" title="${selectedExample.title} interactive simulator" loading="eager" sandbox="allow-scripts"></iframe>`
+        : dialogPreviewMarkup(selectedExample.preview);
+      document.getElementById('dialogInteraction').innerHTML = hasSimulator ? '' : interactionMarkup(selectedExample.preview);
+      document.getElementById('dialogInteraction').hidden = hasSimulator;
       document.getElementById('dialogPrompt').hidden = false;
       document.getElementById('dialogPrompt').textContent = selectedExample.prompt;
       document.getElementById('useExampleButton').textContent = 'Use this example';
       dialog.showModal();
-      bindDialogInteraction(selectedExample.preview);
+      if (!hasSimulator) bindDialogInteraction(selectedExample.preview);
     }
 
     function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; if (dialog.open) dialog.close(); }
