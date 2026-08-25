@@ -13,7 +13,13 @@
     .slider { -webkit-appearance:none; width:100%; height:5px; border-radius:3px; outline:none; background:linear-gradient(to right,#4285F4 var(--val,50%),#E0E0E0 var(--val,50%)); margin-top:8px; }
     .slider::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
     .slider::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; }
+    .simulator-main { display:flex; flex-direction:row; }
+    .simulator-controls { width:280px; flex:0 0 280px; }
     @media (max-height: 500px) { .header-section { display: none; } }
+    @media (max-width: 639px) {
+      .simulator-main { flex-direction:column; overflow:auto; }
+      .simulator-controls { width:100%; flex:0 0 auto; }
+    }
   </style>
 </head>
 <body class="font-sans" style="background:transparent">
@@ -26,14 +32,14 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex flex-col md:flex-row flex-1 gap-2 min-h-0">
+    <div class="simulator-main flex-1 gap-2 min-h-0">
       <!-- Viz Area -->
       <div class="flex-1 min-h-0 relative">
         <div ref="plotRef" class="w-full h-full"></div>
       </div>
 
       <!-- Controls -->
-      <div class="md:w-[280px] flex flex-col gap-2 p-4 rounded-2xl shrink-0" style="background:#FFFFFF; border: 1px solid #e5e7eb;">
+      <div class="simulator-controls flex flex-col gap-2 p-4 rounded-2xl shrink-0" style="background:#FFFFFF; border: 1px solid #e5e7eb;">
         <h2 class="text-xs font-bold text-gray-400 uppercase">View Controls</h2>
 
         <div v-for="s in sliders" :key="s.id" class="flex flex-col p-2 rounded-lg bg-gray-50">
