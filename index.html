@@ -463,6 +463,8 @@
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
     .example-card:hover { transform: translateY(-2px); border-color: rgba(var(--accent-rgb), .3); box-shadow: var(--shadow-soft); }
+    .example-card.feature-card { cursor:default; }
+    .example-card.feature-card:hover { transform:none; border-color:var(--line); box-shadow:none; }
     .example-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--accent); font-size: 9px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
     .example-meta .icon { width: 15px; height: 15px; }
     .example-card h3 { margin: 9px 0 10px; overflow: hidden; font-size: 15px; line-height: 1.25; font-weight: 660; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
@@ -1545,6 +1547,7 @@
 
     function renderExamples() {
       const capability = capabilityData[selectedCapability];
+      const isExamPrepOverview = selectedCapability === 'mock';
       examplesHeading.hidden = false;
       document.getElementById('examplesKicker').textContent = 'Selected capability';
       examplesTitle.hidden = false;
@@ -1555,12 +1558,12 @@
       examplesGrid.classList.remove('study-overview-grid');
       examplesGrid.classList.toggle('four-up', capability.examples.length === 4);
       examplesGrid.innerHTML = capability.examples.map((example, index) => `
-        <button class="example-card" data-example-index="${index}" aria-label="Preview ${example.title}">
+        <${isExamPrepOverview ? 'article' : 'button'} class="example-card${isExamPrepOverview ? ' feature-card' : ''}"${isExamPrepOverview ? '' : ` data-example-index="${index}" aria-label="Preview ${example.title}"`}>
           <span class="example-meta"><span>${example.tag}</span>${icon(capability.icon)}</span>
           <h3>${example.title}</h3>
           ${previewMarkup(example.preview)}
-        </button>`).join('');
-      examplesGrid.querySelectorAll('[data-example-index]').forEach(card => card.addEventListener('click', () => openExample(Number(card.dataset.exampleIndex))));
+        </${isExamPrepOverview ? 'article' : 'button'}>`).join('');
+      if (!isExamPrepOverview) examplesGrid.querySelectorAll('[data-example-index]').forEach(card => card.addEventListener('click', () => openExample(Number(card.dataset.exampleIndex))));
     }
 
     function renderCourseCatalog() {
