@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parabola & Linear Function Simulator</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    .slider { -webkit-appearance:none; width:100%; height:5px; border-radius:3px; outline:none; background:linear-gradient(to right,#4285F4 var(--val,50%),#E0E0E0 var(--val,50%)); margin-top:8px; }
+    .slider::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#FFFFFF; border:2.5px solid #4285F4; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.15); }
+    @media (max-height: 500px) { .header { display: none; } }
+    body { background: transparent; margin: 0; padding: 0; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="app" class="h-screen flex flex-col p-2 gap-2 overflow-hidden">
+    <!-- Header -->
+    <div class="header text-white p-2 rounded-lg shadow flex justify-between items-center" style="background:rgba(37,99,235,0.9)">
+      <div>
+        <h1 class="text-sm md:text-lg font-bold">Parabola & Linear Intersection</h1>
+        <div ref="formulaRef" class="text-xs md:text-sm"></div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col md:flex-row flex-1 gap-2 min-h-0">
+      <!-- Viz Area -->
+      <div class="flex-1 min-h-0 relative">
+        <div ref="plotRef" class="w-full h-full"></div>
+      </div>
+
+      <!-- Controls -->
+      <div class="md:w-[280px] flex flex-col gap-2 p-3 rounded-2xl bg-white shadow-lg border border-gray-100">
+        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Parameters</h2>
+
+        <div v-for="s in sliders" :key="s.id" class="flex flex-col p-2 rounded-lg bg-gray-50 border border-gray-100">
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-gray-600 font-medium">{{ s.label }}</span>
+            <span class="text-blue-600 font-bold">{{ s.value.toFixed(s.decimals || 1) }}</span>
+          </div>
+          <input type="range" :min="s.min" :max="s.max" :step="s.step"
+                 v-model.number="s.value" class="slider"
+                 :style="{'--val': ((s.value - s.min) / (s.max - s.min) * 100) + '%'}">
+        </div>
+
+        <div class="mt-auto p-2 bg-blue-50 rounded-lg text-[10px] text-blue-800 leading-tight">
+          Adjust <b>a</b> to change curvature, <b>m</b> for line slope, and <b>c</b> for the y-intercept.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp, reactive, ref, watch, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const plotRef = ref(null);
+        const formulaRef = ref(null);
+
+        const sliders = reactive([
+          { id: 'a', label: 'Parabola Coeff (a)', value: -1, min: -3, max: -0.2, step: 0.1, decimals: 1 },
+          { id: 'm', label: 'Line Gradient (m)', value: 1, min: -2, max: 3, step: 0.1, decimals: 1 },
+          { id: 'c', label: 'Line Y-Intercept (c)', value: 6, min: 2, max: 8, step: 0.1, decimals: 1 }
+        ]);
+
+        const updatePlot = () => {
+          const a = sliders[0].value;
+          const m = sliders[1].value;
+          const c = sliders[2].value;
+          const b = -1; // Fixed from original problem f(x) = -x^2 - x + 6
+          const k = 6;  // Fixed constant
+
+          // Generate Parabola Data
+          const xVals = [];
+          const yParabola = [];
+          for (let x = -5; x <= 4; x += 0.1) {
+            xVals.push(x);
+            yParabola.push(a * x * x + b * x + k);
+          }
+
+          // Generate Line Data
+          const yLine = xVals.map(x => m * x + c);
+
+          // Calculate Intersections (Quadratic Formula for ax^2 + (b-m)x + (k-c) = 0)
+          const A = a;
+          const B = b - m;
+          const C = k - c;
+          const disc = B * B - 4 * A * C;
+          const intersections = [];
+          if (disc >= 0) {
+            const x1 = (-B + Math.sqrt(disc)) / (2 * A);
+            const x2 = (-B - Math.sqrt(disc)) / (2 * A);
+            intersections.push({ x: x1, y: m * x1 + c });
+            intersections.push({ x: x2, y: m * x2 + c });
+          }
+
+          // Axis of Symmetry
+          const symX = -b / (2 * a);
+          const symYMax = a * symX * symX + b * symX + k;
+
+          const traces = [
+            {
+              x: xVals, y: yParabola, name: 'f(x)',
+              line: { color: '#2563eb', width: 3 },
+              type: 'scatter'
+            },
+            {
+              x: xVals, y: yLine, name: 'g(x)',
+              line: { color: '#f59e0b', width: 2, dash: 'dot' },
+              type: 'scatter'
+            },
+            {
+              x: intersections.map(p => p.x),
+              y: intersections.map(p => p.y),
+              mode: 'markers+text',
+              name: 'Intersections',
+              text: intersections.map(p => `(${p.x.toFixed(1)}, ${p.y.toFixed(1)})`),
+              textposition: 'top center',
+              marker: { color: '#ef4444', size: 10 },
+              type: 'scatter'
+            },
+            {
+              x: [symX, symX],
+              y: [-5, symYMax + 1],
+              mode: 'lines',
+              name: 'Axis of Symmetry',
+              line: { color: '#10b981', width: 1, dash: 'dash' },
+              type: 'scatter'
+            }
+          ];
+
+          const layout = {
+            autosize: true,
+            margin: { l: 30, r: 20, t: 20, b: 80 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: { gridcolor: '#e5e7eb', zerolinecolor: '#9ca3af', range: [-5, 4] },
+            yaxis: { gridcolor: '#e5e7eb', zerolinecolor: '#9ca3af', range: [-2, 8] },
+            showlegend: true,
+            legend: { orientation: 'h', y: -0.25, x: 0.5, xanchor: 'center' }
+          };
+
+          Plotly.react(plotRef.value, traces, layout, { responsive: true, displayModeBar: false });
+        };
+
+        watch(sliders, () => {
+          updatePlot();
+          katex.render(`f(x) = ${sliders[0].value.toFixed(1)}x^2 - x + 6 \\quad g(x) = ${sliders[1].value.toFixed(1)}x + ${sliders[2].value.toFixed(1)}`, formulaRef.value);
+        }, { deep: true });
+
+        onMounted(() => {
+          updatePlot();
+          katex.render(`f(x) = -1.0x^2 - x + 6 \\quad g(x) = 1.0x + 6.0`, formulaRef.value);
+          window.addEventListener('resize', () => Plotly.Plots.resize(plotRef.value));
+        });
+
+        return { plotRef, formulaRef, sliders };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
