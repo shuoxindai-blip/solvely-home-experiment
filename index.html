@@ -1091,6 +1091,7 @@
     const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
     const creationSourceLimit = 10;
     const creationSourceLimitToast = 'You can add up to 10 sources to each creation.';
+    const problemSourceLimitToast = 'You can upload either one document or up to 5 images per problem.';
     let workspaceMode = 'study';
     const app = document.getElementById('app');
     const sidebar = document.querySelector('.sidebar');
@@ -1441,7 +1442,7 @@
       clearTimeout(toastTimer);
       toast.textContent = message;
       toast.classList.add('show');
-      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
     function isImageFile(file) {
@@ -1498,12 +1499,12 @@
       if (firstIsImage && existingFiles === 0) {
         const imageFiles = incoming.filter(isImageFile);
         const available = Math.max(0, 5 - existingImages);
-        return { accepted: imageFiles.slice(0, available), limited: imageFiles.length < incoming.length || imageFiles.length > available, limitMessage: 'You can upload up to 5 images or 1 file.' };
+        return { accepted: imageFiles.slice(0, available), limited: imageFiles.length < incoming.length || imageFiles.length > available, limitMessage: problemSourceLimitToast };
       }
       if (!firstIsImage && existingImages === 0 && existingFiles === 0) {
-        return { accepted: incoming.slice(0, 1), limited: incoming.length > 1, limitMessage: 'You can upload up to 5 images or 1 file.' };
+        return { accepted: incoming.slice(0, 1), limited: incoming.length > 1, limitMessage: problemSourceLimitToast };
       }
-      return { accepted: [], limited: incoming.length > 0, limitMessage: 'You can upload up to 5 images or 1 file.' };
+      return { accepted: [], limited: incoming.length > 0, limitMessage: problemSourceLimitToast };
     }
 
     function addFiles(files) {
