@@ -510,11 +510,47 @@
     .quiz-preview-copy span { color:var(--subtle); font-size:6px; }
     .quiz-preview-options { display:grid; grid-template-columns:1fr 1fr; gap:5px; align-content:center; }
     .quiz-option { min-height:27px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:7px; background:var(--surface); color:var(--muted); font-size:7px; font-weight:740; }
-    .preview-guide { height: 104px; display: grid; align-content: center; gap: 8px; padding: 12px; }
-    .guide-line { display: grid; grid-template-columns: 17px 1fr auto; align-items: center; gap: 7px; }
-    .guide-line b { width: 17px; height: 17px; display: grid; place-items: center; border-radius: 5px; background: rgba(var(--accent-rgb), .1); color: var(--accent); font-size: 8px; }
-    .guide-line i { height: 6px; border-radius: 4px; background: var(--line-strong); }
-    .guide-line span { color: var(--subtle); font-size: 8px; }
+    .preview-guide { height:104px; display:grid; grid-template-columns:42% minmax(0,1fr); padding:0; background:#f7f9fd; }
+    .guide-preview-image { min-width:0; overflow:hidden; background:#fff; }
+    .guide-preview-image img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
+    .guide-preview-outline { min-width:0; display:grid; align-content:center; gap:7px; padding:10px; }
+    .guide-preview-meta { display:flex; align-items:center; justify-content:space-between; gap:6px; color:var(--accent); font-size:6px; font-weight:780; letter-spacing:.07em; text-transform:uppercase; }
+    .guide-line { display:grid; grid-template-columns:15px minmax(0,1fr); align-items:center; gap:6px; }
+    .guide-line b { width:15px; height:15px; display:grid; place-items:center; border-radius:5px; background:rgba(var(--accent-rgb),.1); color:var(--accent); font-size:7px; }
+    .guide-line span { overflow:hidden; color:var(--muted); font-size:7px; font-weight:650; text-overflow:ellipsis; white-space:nowrap; }
+    .guide-dialog-hero { min-height:250px; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr); background:#f7f9fd; }
+    .guide-dialog-figure { min-width:0; min-height:250px; display:grid; place-items:center; padding:18px; background:#fff; }
+    .guide-dialog-figure img { width:100%; height:214px; display:block; object-fit:contain; object-position:center; }
+    .guide-dialog-summary { min-width:0; display:grid; align-content:center; gap:11px; padding:26px; border-left:1px solid var(--line); }
+    .guide-dialog-summary small { color:var(--accent); font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
+    .guide-dialog-summary strong { font-size:19px; line-height:1.25; letter-spacing:-.02em; }
+    .guide-dialog-summary p { margin:0; color:var(--muted); font-size:11px; line-height:1.55; }
+    .guide-dialog-meta { display:flex; flex-wrap:wrap; gap:6px; }
+    .guide-dialog-meta span { padding:5px 7px; border-radius:7px; background:var(--surface); color:var(--muted); font-size:8px; font-weight:680; }
+    .study-guide-player { display:grid; grid-template-columns:210px minmax(0,1fr); gap:18px; }
+    .guide-section-nav { display:grid; align-content:start; gap:7px; }
+    .guide-progress { display:grid; gap:6px; margin-bottom:5px; }
+    .guide-progress-copy { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--muted); font-size:9px; font-weight:680; }
+    .guide-progress-track { height:5px; overflow:hidden; border-radius:999px; background:var(--line); }
+    .guide-progress-track span { display:block; width:0; height:100%; border-radius:inherit; background:var(--accent); transition:width .2s ease; }
+    .guide-section-tab { width:100%; display:grid; grid-template-columns:25px minmax(0,1fr); align-items:center; gap:8px; padding:9px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--muted); text-align:left; cursor:pointer; }
+    .guide-section-tab:hover { border-color:rgba(var(--accent-rgb),.35); }
+    .guide-section-tab.active { border-color:rgba(var(--accent-rgb),.42); background:var(--accent-soft); color:var(--accent); }
+    .guide-section-tab span { width:25px; height:25px; display:grid; place-items:center; border-radius:7px; background:var(--surface-soft); color:inherit; font-size:9px; font-weight:780; }
+    .guide-section-tab.done span { background:#e6f6f0; color:#16855b; }
+    .guide-section-tab strong { overflow:hidden; font-size:9px; line-height:1.35; text-overflow:ellipsis; white-space:nowrap; }
+    .guide-section-content { min-width:0; }
+    .guide-section-content > small { color:var(--accent); font-size:8px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
+    .guide-section-content h3 { margin:6px 0 7px; font-size:17px; line-height:1.25; letter-spacing:-.02em; }
+    .guide-section-content > p { margin:0 0 12px; color:var(--muted); font-size:10px; line-height:1.55; }
+    .guide-key-points { display:grid; gap:7px; margin:0; padding:0; list-style:none; }
+    .guide-key-points li { position:relative; padding:8px 10px 8px 24px; border:1px solid var(--line); border-radius:9px; color:var(--text); font-size:10px; line-height:1.45; }
+    .guide-key-points li::before { content:""; position:absolute; left:10px; top:13px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+    .guide-section-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; }
+    .guide-key-terms { display:flex; flex-wrap:wrap; gap:5px; }
+    .guide-key-terms span { padding:4px 6px; border-radius:6px; background:var(--surface-soft); color:var(--muted); font-size:8px; font-weight:680; }
+    .guide-review-button { flex:0 0 auto; min-height:32px; padding:0 11px; border:1px solid rgba(var(--accent-rgb),.35); border-radius:9px; background:var(--surface); color:var(--accent); font-size:9px; font-weight:760; cursor:pointer; }
+    .guide-review-button.done { border-color:#bfe7d8; background:#eaf8f3; color:#16855b; }
     .preview-podcast { height:104px; display:grid; grid-template-columns:52px minmax(0,1fr); align-items:center; gap:11px; padding:11px; background:linear-gradient(145deg,#f8faff,#f2f5ff); }
     .podcast-art { width:52px; height:52px; display:grid; place-items:center; align-content:center; gap:2px; border-radius:14px; background:linear-gradient(145deg,#775ee8,#3d84ee); color:white; box-shadow:0 8px 18px rgba(74,91,210,.18); }
     .podcast-art.math { background:linear-gradient(145deg,#296cf2,#6145db); }
@@ -636,7 +672,8 @@
     .example-dialog[open] { display:flex; flex-direction:column; }
     .example-dialog .dialog-head,.example-dialog .dialog-actions { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
-    .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"] { max-height:min(820px,calc(100vh - 30px)); }
+    .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"],.example-dialog[data-mode="study-guide"] { max-height:min(820px,calc(100vh - 30px)); }
+    .example-dialog[data-mode="study-guide"] { width:min(900px,calc(100vw - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
     .dialog-head { display: flex; align-items: flex-start; gap: 16px; padding: 21px 22px 17px; border-bottom: 1px solid var(--line); }
     .dialog-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(var(--accent-rgb), .1); color: var(--accent); }
@@ -1148,6 +1185,17 @@
       .podcast-play-toggle { width:38px; height:38px; }
       .podcast-player-time { grid-column:2; }
       .podcast-transcript-list { max-height:185px; }
+      .guide-dialog-hero { grid-template-columns:1fr; }
+      .guide-dialog-figure { min-height:180px; padding:12px; }
+      .guide-dialog-figure img { height:170px; }
+      .guide-dialog-summary { padding:16px 18px; border-top:1px solid var(--line); border-left:0; }
+      .guide-dialog-summary strong { font-size:16px; }
+      .study-guide-player { grid-template-columns:1fr; gap:14px; }
+      .guide-section-nav { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .guide-progress { grid-column:1 / -1; }
+      .guide-section-tab { grid-template-columns:1fr; justify-items:center; padding:7px 5px; text-align:center; }
+      .guide-section-tab strong { width:100%; font-size:8px; }
+      .guide-section-footer { align-items:flex-start; flex-direction:column; }
     }
 
     @media (hover:none) and (pointer:coarse) {
@@ -1749,9 +1797,36 @@
         placeholder: 'Add a topic or materials to organize into a study guide',
         description: 'Turn scattered material into a structured, reviewable guide.',
         examples: [
-          { tag: 'Biology', title: 'Biology final review', description: 'Concept map, definitions, and review plan.', prompt: 'Build a study guide for a high-school biology final.', preview: 'guide' },
-          { tag: 'Linear Algebra', title: 'Matrices and vector spaces', description: 'Definitions, methods, and worked examples.', prompt: 'Create a study guide for matrices, determinants, and vector spaces.', preview: 'guide' },
-          { tag: 'US History', title: 'Civil Rights Movement', description: 'Timeline, leaders, laws, and themes.', prompt: 'Create a study guide on the US Civil Rights Movement.', preview: 'guide' }
+          {
+            tag:'Genetics', title:'Mitochondrial DNA notes', description:'Repeat mutations, genomic imprinting, and mitochondrial inheritance.',
+            prompt:'Create a study guide from my notes on repeat mutations, genomic imprinting, and mitochondrial inheritance.', preview:'guide',
+            studyGuideId:'1014279', deckId:'1744239', sourceLabel:'3 chapters · 5 source images',
+            sections:[
+              { title:'Stable and Dynamic Mutations', summary:'Understand why repeat variants can expand or contract during transmission and how slippage changes disease severity.', image:'assets/study-guides/mitochondrial-dna/repeat-replication.webp', alt:'Normal trinucleotide repeat replication diagram', bullets:['Stable mutations remain unchanged across generations, while dynamic mutations can expand or contract.','Forward slippage deletes a repeat unit; backward slippage inserts repeats and can cause expansion.','Anticipation describes earlier onset or greater severity after successive repeat expansions.'], terms:['Repeat disease','Strand slippage','Anticipation'] },
+              { title:'Genomic Imprinting', summary:'Connect parent-of-origin expression with epigenetic methylation, imprint resetting, and disease risk.', image:'assets/study-guides/mitochondrial-dna/imprinting-reset.webp', alt:'Imprint erasure and sex-specific resetting diagram', bullets:['An imprinted allele is expressed according to whether it came from the mother or father.','Imprints are established during gametogenesis, maintained through replication, and reset in germ cells.','Loss of the functional paternal region on chromosome 15 can cause Prader–Willi syndrome.'], terms:['CpG methylation','Allele-specific expression','Prader–Willi'] },
+              { title:'Maternal Mitochondrial Inheritance', summary:'Review mitochondrial genome structure, copy number, and why mitochondrial DNA is transmitted through the mother.', image:'assets/study-guides/mitochondrial-dna/maternal-inheritance.svg', alt:'Maternal mitochondrial DNA inheritance diagram', bullets:['The circular mitochondrial chromosome encodes 37 genes: 13 proteins, 2 rRNAs, and 22 tRNAs.','Each cell can contain thousands of mitochondrial genome copies across many mitochondria.','The sperm tail does not enter the ovum, so a child inherits mitochondrial DNA from the mother.'], terms:['mtDNA','Maternal inheritance','Heteroplasmy'] }
+            ]
+          },
+          {
+            tag:'Art History', title:'Unit 1 Prehistoric Art Study Guide', description:'Periods, landmark works, materials, and high-yield analysis terms.',
+            prompt:'Create a study guide for Unit 1 Prehistoric Art with landmark works, materials, and analysis vocabulary.', preview:'guide',
+            studyGuideId:'1014115', deckId:'1744078', sourceLabel:'3 chapters · 3 source images',
+            sections:[
+              { title:'Prehistoric Art Context', summary:'Place Paleolithic, Mesolithic, and Neolithic art in a global context before written records.', image:'assets/study-guides/prehistoric-art/lascaux.webp', alt:'Great Hall of the Bulls at Lascaux', bullets:['Paleolithic art reflects hunter-gatherer life; Mesolithic societies were transitioning; Neolithic communities settled and farmed.','Carbon-14 dating and stratigraphy provide evidence when written records do not exist.','Prehistoric art appeared worldwide through ritual objects, ceramics, figurines, cave paintings, and sacred imagery.'], terms:['Paleolithic','Neolithic','Context'] },
+              { title:'Major Works and Materials', summary:'Compare landmark works by location, date, material, technique, and possible ritual function.', image:'assets/study-guides/prehistoric-art/stonehenge.webp', alt:'Stonehenge prehistoric monument', bullets:['Lascaux and Tassili n’Ajjer demonstrate pigment-based rock painting and superimposed imagery.','Jade Cong, Stonehenge, the Ambum stone, and funerary steles use durable carved materials.','Ceramic traditions include the Susa beaker, Tlatilco figurines, and incised Lapita fragments.'], terms:['Megalith','Incised','Terra cotta'] },
+              { title:'Key Concepts and Test Themes', summary:'Use form, function, content, and context to analyze prehistoric objects with appropriate vocabulary.', image:'assets/study-guides/prehistoric-art/terra-cotta.webp', alt:'Incised prehistoric terra cotta fragment', bullets:['Form, function, content, and context organize an art-historical interpretation.','Stonehenge combines megalithic construction, solar alignment, burial evidence, and ceremonial movement.','Interpretations remain provisional because meaning depends on archaeological context and comparison.'], terms:['Form','Function','Content','Context'] }
+            ]
+          },
+          {
+            tag:'Chemistry', title:'Acids and Bases — With Answers', description:'Definitions, equilibria, pH relationships, and worked calculations.',
+            prompt:'Create a CHEM1020 study guide for acids and bases with definitions, equilibria, and worked pH calculations.', preview:'guide',
+            studyGuideId:'1014137', deckId:'1744101', sourceLabel:'3 chapters · 4 source images',
+            sections:[
+              { title:'Acid–Base Roles and Definitions', summary:'Distinguish Arrhenius, Brønsted–Lowry, and Lewis acids and bases, then identify conjugate pairs.', image:'assets/study-guides/acids-bases/dissociation.webp', alt:'Hydrochloric acid dissociation particle diagram', bullets:['Arrhenius definitions focus on H⁺ and OH⁻ in water; Brønsted–Lowry focuses on proton transfer.','Lewis acids accept an electron pair, while Lewis bases donate an electron pair.','Every Brønsted–Lowry reaction contains two conjugate acid–base pairs.'], terms:['Arrhenius','Brønsted–Lowry','Lewis'] },
+              { title:'Water, Hydronium, and Kw', summary:'Connect water autoprotolysis, hydronium formation, and the temperature-dependent ionization constant Kw.', image:'assets/study-guides/acids-bases/autoprotolysis.webp', alt:'Water autoprotolysis and hydronium formation diagram', bullets:['Free H⁺ does not exist independently in water; it combines with water to form hydronium, H₃O⁺.','Water is amphiprotic and undergoes autoprotolysis: 2H₂O ⇌ H₃O⁺ + OH⁻.','At 25°C, Kw = [H₃O⁺][OH⁻] = 10⁻¹⁴, and its value changes with temperature.'], terms:['Hydronium','Autoprotolysis','Kw'] },
+              { title:'pH, pOH, and Calculations', summary:'Use Kw, logarithmic p-functions, and equilibrium setups to calculate strong and weak solution pH.', image:'assets/study-guides/acids-bases/ph-scale.webp', alt:'pH scale with common acidic and basic substances', bullets:['At 25°C, Kw = [H₃O⁺][OH⁻] = 10⁻¹⁴ and pH + pOH = 14.','For a strong solution, concentration gives [H₃O⁺] or [OH⁻] directly after stoichiometry.','Weak acid and base problems require an equilibrium expression and an approximation or quadratic check.'], terms:['Kw','pH','pOH','ICE table'] }
+            ]
+          }
         ]
       },
       podcast: {
@@ -2035,6 +2110,24 @@
       </div>`;
     }
 
+    function guidePreview(example) {
+      const sections = example && Array.isArray(example.sections) ? example.sections : [];
+      const firstSection = sections[0] || { image:'', alt:'Study guide cover' };
+      return `<div class="example-preview preview-guide"><div class="guide-preview-image"><img src="${firstSection.image}" alt="${firstSection.alt}" loading="lazy" /></div><div class="guide-preview-outline"><div class="guide-preview-meta"><span>Structured guide</span><span>${sections.length} chapters</span></div>${sections.slice(0,3).map((section,index) => `<div class="guide-line"><b>${index + 1}</b><span>${section.title}</span></div>`).join('')}</div></div>`;
+    }
+
+    function guideDialogPreview(example) {
+      const sections = example && Array.isArray(example.sections) ? example.sections : [];
+      const firstSection = sections[0] || { title:'Study guide', summary:example.description, image:'', alt:'Study guide cover' };
+      return `<div class="guide-dialog-hero" data-guide-hero><div class="guide-dialog-figure"><img src="${firstSection.image}" alt="${firstSection.alt}" data-guide-image /></div><div class="guide-dialog-summary"><small>Generated from study materials</small><strong data-guide-hero-title>${firstSection.title}</strong><p data-guide-hero-summary>${firstSection.summary}</p><div class="guide-dialog-meta"><span>${example.sourceLabel}</span><span>Guide ${example.studyGuideId}</span><span>Deck ${example.deckId}</span></div></div></div>`;
+    }
+
+    function guideInteractionMarkup(example) {
+      const sections = example && Array.isArray(example.sections) ? example.sections : [];
+      const firstSection = sections[0] || { title:'Study guide', summary:example.description, bullets:[], terms:[] };
+      return `<div class="study-guide-player" data-guide-player><nav class="guide-section-nav" aria-label="Study guide chapters"><div class="guide-progress"><div class="guide-progress-copy"><span>Review progress</span><strong data-guide-progress-copy>0 of ${sections.length} reviewed</strong></div><div class="guide-progress-track"><span data-guide-progress></span></div></div>${sections.map((section,index) => `<button class="guide-section-tab${index === 0 ? ' active' : ''}" type="button" data-guide-section="${index}" aria-selected="${index === 0}"><span>${index + 1}</span><strong>${section.title}</strong></button>`).join('')}</nav><article class="guide-section-content"><small data-guide-chapter>Chapter 1 of ${sections.length}</small><h3 data-guide-title>${firstSection.title}</h3><p data-guide-summary>${firstSection.summary}</p><ul class="guide-key-points" data-guide-points>${firstSection.bullets.map(point => `<li>${point}</li>`).join('')}</ul><div class="guide-section-footer"><div class="guide-key-terms" data-guide-terms>${firstSection.terms.map(term => `<span>${term}</span>`).join('')}</div><button class="guide-review-button" type="button" data-guide-review>Mark as reviewed</button></div></article></div>`;
+    }
+
     function previewMarkup(type, example = null) {
       if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
       if (type === 'graph') return graphPreview();
@@ -2048,7 +2141,7 @@
       if (type === 'equation') return `<div class="example-preview preview-equation"><div class="equation-main">x² − 5x + 6</div><div class="equation-steps"><i></i><i></i><i></i></div></div>`;
       if (type === 'flashcards') return flashcardPreview(example);
       if (type === 'quiz') return quizPreview(example);
-      if (type === 'guide') return `<div class="example-preview preview-guide"><div class="guide-line"><b>1</b><i></i><span>3 min</span></div><div class="guide-line"><b>2</b><i></i><span>5 min</span></div><div class="guide-line"><b>3</b><i></i><span>4 min</span></div></div>`;
+      if (type === 'guide') return guidePreview(example);
       if (type === 'podcast') return podcastPreview(example);
       return `<div class="example-preview preview-exam"><div class="exam-sheet"><i></i><i></i><i></i><i></i></div><div class="exam-score"><strong>84</strong><span>Score</span></div></div>`;
     }
@@ -2057,6 +2150,7 @@
       if (type === 'accounting') return accountingDialogPreview();
       if (type === 'chemistry') return chemistryDialogPreview(example);
       if (type === 'podcast') return podcastDialogPreview(example);
+      if (type === 'guide') return guideDialogPreview(example);
       return previewMarkup(type, example);
     }
 
@@ -2464,7 +2558,7 @@
       if (type === 'accounting') return '<h3>Key insights</h3><div class="insight-selector"><button class="insight-chip active" type="button" data-accounting-metric="COGS">COGS</button><button class="insight-chip" type="button" data-accounting-metric="Operating expenses">Operating expenses</button><button class="insight-chip" type="button" data-accounting-metric="Net margin">Net margin</button></div><p class="insight-readout" data-accounting-readout>Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.</p>';
       if (type === 'flashcards') return flashcardStudyMarkup(example);
       if (type === 'quiz') return quizInteractionMarkup(example);
-      if (type === 'guide') return '<h3>Review checklist</h3><button class="guide-check" data-guide-check><span>1</span><strong>Understand the core concept</strong><small>3 min</small></button><button class="guide-check" data-guide-check><span>2</span><strong>Review the worked example</strong><small>5 min</small></button><button class="guide-check" data-guide-check><span>3</span><strong>Practice active recall</strong><small>4 min</small></button>';
+      if (type === 'guide') return guideInteractionMarkup(example);
       if (type === 'podcast') return podcastInteractionMarkup(example);
       if (type === 'exam') return '<h3>Sample question</h3><div class="quiz-interactive"><button class="quiz-answer" data-answer="wrong">A. 18</button><button class="quiz-answer" data-answer="correct">B. 24</button><button class="quiz-answer" data-answer="wrong">C. 30</button><button class="quiz-answer" data-answer="wrong">D. 36</button><p class="quiz-feedback" data-quiz-feedback>Choose an answer to preview instant scoring.</p></div>';
       return '<h3>Step-by-step solution</h3><div class="solution-stepper"><button class="solution-step active" type="button" data-solution-step="1"><span>1</span><small>Factor the expression.</small></button><button class="solution-step" type="button" data-solution-step="2"><span>2</span><small>Set each factor equal to zero.</small></button><button class="solution-step" type="button" data-solution-step="3"><span>3</span><small>Verify both roots.</small></button></div>';
@@ -2608,6 +2702,55 @@
         section.classList.toggle('done');
         section.querySelector('span').textContent = section.classList.contains('done') ? '✓' : String(index + 1);
       }));
+      const guidePlayer = interaction.querySelector('[data-guide-player]');
+      if (guidePlayer) {
+        const sections = example && Array.isArray(example.sections) ? example.sections : [];
+        const reviewedSections = new Set();
+        let guideSectionIndex = 0;
+        const renderGuideSection = index => {
+          const section = sections[index];
+          if (!section) return;
+          guideSectionIndex = index;
+          const guideImage = document.querySelector('#dialogPreview [data-guide-image]');
+          if (guideImage) { guideImage.src = section.image; guideImage.alt = section.alt; }
+          const heroTitle = document.querySelector('#dialogPreview [data-guide-hero-title]');
+          const heroSummary = document.querySelector('#dialogPreview [data-guide-hero-summary]');
+          if (heroTitle) heroTitle.textContent = section.title;
+          if (heroSummary) heroSummary.textContent = section.summary;
+          guidePlayer.querySelector('[data-guide-chapter]').textContent = `Chapter ${index + 1} of ${sections.length}`;
+          guidePlayer.querySelector('[data-guide-title]').textContent = section.title;
+          guidePlayer.querySelector('[data-guide-summary]').textContent = section.summary;
+          guidePlayer.querySelector('[data-guide-points]').innerHTML = section.bullets.map(point => `<li>${point}</li>`).join('');
+          guidePlayer.querySelector('[data-guide-terms]').innerHTML = section.terms.map(term => `<span>${term}</span>`).join('');
+          guidePlayer.querySelectorAll('[data-guide-section]').forEach(tab => {
+            const tabIndex = Number(tab.dataset.guideSection);
+            const active = tabIndex === index;
+            const reviewed = reviewedSections.has(tabIndex);
+            tab.classList.toggle('active', active);
+            tab.classList.toggle('done', reviewed);
+            tab.setAttribute('aria-selected', String(active));
+            tab.querySelector('span').textContent = reviewed ? '✓' : String(tabIndex + 1);
+          });
+          const reviewButton = guidePlayer.querySelector('[data-guide-review]');
+          const reviewed = reviewedSections.has(index);
+          reviewButton.classList.toggle('done', reviewed);
+          reviewButton.textContent = reviewed ? '✓ Reviewed' : 'Mark as reviewed';
+        };
+        const updateGuideProgress = () => {
+          const percent = sections.length ? (reviewedSections.size / sections.length) * 100 : 0;
+          guidePlayer.querySelector('[data-guide-progress]').style.width = `${percent}%`;
+          guidePlayer.querySelector('[data-guide-progress-copy]').textContent = `${reviewedSections.size} of ${sections.length} reviewed`;
+        };
+        guidePlayer.querySelectorAll('[data-guide-section]').forEach(tab => tab.addEventListener('click', () => renderGuideSection(Number(tab.dataset.guideSection))));
+        guidePlayer.querySelector('[data-guide-review]').addEventListener('click', () => {
+          if (reviewedSections.has(guideSectionIndex)) reviewedSections.delete(guideSectionIndex);
+          else reviewedSections.add(guideSectionIndex);
+          updateGuideProgress();
+          renderGuideSection(guideSectionIndex);
+        });
+        updateGuideProgress();
+        renderGuideSection(0);
+      }
       const quizSession = interaction.querySelector('[data-quiz-session]');
       if (quizSession) {
         const choices = [...quizSession.querySelectorAll('[data-quiz-option]')];
@@ -2817,8 +2960,9 @@
       const hasInteractiveQuiz = capabilityKey === 'quiz' && Array.isArray(selectedExample.options);
       const hasChemistryCases = selectedExample.preview === 'chemistry' && Array.isArray(selectedExample.structures);
       const hasPodcastAudio = selectedExample.preview === 'podcast' && Boolean(selectedExample.audio);
+      const hasStudyGuide = selectedExample.preview === 'guide' && Array.isArray(selectedExample.sections);
       const displayTitle = selectedExample.dialogTitle || selectedExample.title;
-      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : 'example';
+      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : hasStudyGuide ? 'study-guide' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;

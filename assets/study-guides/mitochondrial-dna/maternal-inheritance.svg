@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Maternal mitochondrial inheritance</title>
+  <desc id="desc">An ovum containing many mitochondria passes mitochondrial DNA to a child, while sperm mitochondria are not transmitted.</desc>
+  <defs>
+    <linearGradient id="cell" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eef5ff"/>
+      <stop offset="1" stop-color="#dfe9ff"/>
+    </linearGradient>
+    <linearGradient id="mito" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8f6b"/>
+      <stop offset="1" stop-color="#ed5d5d"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#2368f0"/>
+    </marker>
+  </defs>
+  <rect width="960" height="540" rx="28" fill="#fff"/>
+  <text x="54" y="62" fill="#1f2937" font-family="Arial, sans-serif" font-size="30" font-weight="700">Maternal inheritance of mitochondrial DNA</text>
+  <text x="54" y="96" fill="#6b7280" font-family="Arial, sans-serif" font-size="17">The ovum supplies the mitochondrial genome inherited by the child.</text>
+  <circle cx="250" cy="300" r="145" fill="url(#cell)" stroke="#9fb7e8" stroke-width="4"/>
+  <circle cx="250" cy="300" r="42" fill="#cbd9f7" stroke="#8fa8dd" stroke-width="3"/>
+  <text x="215" y="307" fill="#48638f" font-family="Arial, sans-serif" font-size="20" font-weight="700">OVUM</text>
+  <g fill="url(#mito)" stroke="#c94747" stroke-width="2">
+    <path d="M128 242c24-30 56-3 36 28s-55 5-36-28Z"/><path d="M156 354c26-29 58 0 35 30s-57 1-35-30Z"/>
+    <path d="M235 166c25-29 57-1 35 29s-56 2-35-29Z"/><path d="M307 211c25-29 58 0 35 30s-56 0-35-30Z"/>
+    <path d="M318 344c25-29 58 0 35 30s-57 1-35-30Z"/><path d="M224 408c25-29 58 0 35 30s-57 0-35-30Z"/>
+  </g>
+  <g fill="none" stroke="#fff" stroke-width="2" opacity=".75"><path d="m133 250 24 10"/><path d="m164 362 21 11"/><path d="m243 174 20 10"/><path d="m315 219 20 11"/><path d="m326 352 20 11"/><path d="m232 416 20 11"/></g>
+  <text x="112" y="485" fill="#526077" font-family="Arial, sans-serif" font-size="18" font-weight="700">100,000+ mtDNA copies</text>
+  <path d="M416 300H600" fill="none" stroke="#2368f0" stroke-width="8" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="446" y="274" fill="#2368f0" font-family="Arial, sans-serif" font-size="18" font-weight="700">maternal transmission</text>
+  <circle cx="740" cy="300" r="115" fill="url(#cell)" stroke="#9fb7e8" stroke-width="4"/>
+  <circle cx="740" cy="300" r="33" fill="#cbd9f7"/>
+  <g fill="url(#mito)" stroke="#c94747" stroke-width="2"><path d="M666 249c22-26 51 0 31 27s-51 0-31-27Z"/><path d="M767 225c22-26 51 0 31 27s-51 0-31-27Z"/><path d="M790 340c22-26 51 0 31 27s-51 0-31-27Z"/><path d="M678 353c22-26 51 0 31 27s-51 0-31-27Z"/></g>
+  <text x="702" y="306" fill="#48638f" font-family="Arial, sans-serif" font-size="20" font-weight="700">CHILD</text>
+  <text x="655" y="455" fill="#526077" font-family="Arial, sans-serif" font-size="18" font-weight="700">mtDNA from mother</text>
+  <path d="M76 140h808" stroke="#e4e9f1" stroke-width="2"/>
+  <g transform="translate(720 120)" fill="none" stroke="#8b95a7" stroke-linecap="round">
+    <ellipse cx="0" cy="0" rx="18" ry="10" stroke-width="3"/>
+    <path d="M18 0c34 3 47 26 73 12" stroke-width="4"/>
+    <path d="M-8-2c5-6 12-6 18 0" stroke="#ed5d5d" stroke-width="3"/>
+    <path d="m-28-25 116 44" stroke="#ed5d5d" stroke-width="5"/>
+    <text x="-112" y="43" fill="#8b95a7" stroke="none" font-family="Arial, sans-serif" font-size="15">sperm mitochondria not inherited</text>
+  </g>
+</svg>
