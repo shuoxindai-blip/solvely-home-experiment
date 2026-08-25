@@ -480,6 +480,7 @@
     .preview-video { position: relative; }
     .preview-video img { width:100%; height:104px; display:block; object-fit:cover; }
     .preview-video.geometry img { object-position:center 18%; transform:scale(1.18); }
+    .preview-video.circles img { object-position:center 39%; transform:scale(1.03); }
     .preview-video.statistics img { object-position:center 10%; transform:scale(1.12); }
     .preview-video.physics img { object-position:center top; transform:scale(1.1); }
     .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
@@ -1484,7 +1485,7 @@
         description: 'Get a checked answer with a clear, step-by-step explanation.',
         examples: [
           { tag: 'Algebra', title: 'Interactive graph', dialogTitle: 'Parabola & Linear Intersection', description: 'Adjust both functions and track their intersection points.', prompt: 'Graph f(x) = −x² − x + 6 and g(x) = x + 6, then find their intersection points.', preview: 'solver-parabola-line', simulator: 'assets/simulators/parabola-linear-intersection.html', cta: 'Try graphing' },
-          { tag: 'Geometry', title: 'Video explanation', description: 'Watch the geometry problem unfold step by step.', prompt: 'Create a short video explaining how to find the missing angle in this triangle.', preview: 'video', cta: 'Watch explanation' },
+          { tag: 'Geometry', title: 'Video explanation', dialogTitle: 'Intersecting Circles', description: 'See how intersecting radii form a right triangle.', prompt: 'Explain how to find the distance between the centers of two intersecting circles using their radii and a right triangle.', preview: 'video-solver-circles', simulator: 'https://img.justsolvely.com/solvely-solve/html/2026_08_24_f0259c07361fe821ce3e_1787583893888.html', embedMode: 'video-player', cta: 'Watch explanation' },
           { tag: 'Chemistry', title: 'Structure visualization', description: 'Identify functional groups and explain the molecular structure.', prompt: 'Analyze this organic chemistry structure and identify its key functional groups.', preview: 'chemistry', cta: 'Explore structure' },
           { tag: 'Accounting', title: 'Vertical analysis', description: 'Compare cost structure and margins between two companies.', prompt: 'Complete a vertical analysis comparing Voltix and Circuita. Voltix: revenue $500M, COGS $350M, and operating expenses $100M. Circuita: revenue $800M, COGS $480M, and operating expenses $240M. Determine which company manages production costs and overhead more efficiently.', preview: 'accounting', cta: 'Use this example' }
         ]
@@ -1719,6 +1720,7 @@
 
     function videoPreview(type) {
       const previews = {
+        'video-solver-circles': { src: 'assets/solver-video-intersecting-circles.png', alt: 'Intersecting circles geometry video explanation', className: 'circles' },
         'video-geometry': { src: 'assets/video-geometry.png', alt: '3D shapes and cube net video explanation', className: 'geometry' },
         'video-statistics': { src: 'assets/video-statistics.png', alt: 'BMI dotplot threshold video explanation', className: 'statistics' },
         'video-physics': { src: 'assets/video-physics.png', alt: 'Velocity and distance graph video explanation', className: 'physics' }
