@@ -797,18 +797,19 @@
     .exam-feature-visual:not(.is-detail) .exam-mastery { grid-template-columns:14px 1fr; gap:3px; font-size:4px; }
     .exam-feature-visual:not(.is-detail) .exam-mastery strong { font-size:4.5px; }
     .exam-feature-visual:not(.is-detail) .exam-mastery-track { height:3px; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-visual-grid { gap:5px; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card { min-height:90px; padding:7px; border-radius:7px; box-shadow:none; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-visual-icon { width:16px; height:16px; margin-bottom:5px; border-radius:5px; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-visual-icon .icon { width:9px; height:9px; }
+    .exam-mock-visual:not(.is-detail) { display:flex; flex-direction:column; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-grid { flex:1; align-items:stretch; gap:6px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card { height:100%; min-height:0; padding:8px; border-radius:7px; box-shadow:none; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-icon { width:20px; height:20px; margin-bottom:6px; border-radius:5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-icon .icon { width:11px; height:11px; }
     .exam-feature-visual:not(.is-detail) .exam-mock-title-row { gap:3px; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-title-row strong { font-size:7px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-title-row strong { font-size:7.5px; }
     .exam-feature-visual:not(.is-detail) .exam-mock-badge { padding:1px 2px; border-radius:3px; font-size:3px; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card p { margin-top:3px; font-size:4px; line-height:1.3; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card .exam-mock-meta { margin-top:2px; font-size:3.5px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card p { margin-top:4px; font-size:4.5px; line-height:1.3; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-visual-card .exam-mock-meta { margin-top:3px; font-size:3.8px; }
     .exam-feature-visual:not(.is-detail) .exam-mock-state { padding-top:4px; font-size:3.5px; }
     .exam-feature-visual:not(.is-detail) .exam-mock-state::before { width:9px; height:1px; margin-bottom:2px; }
-    .exam-feature-visual:not(.is-detail) .exam-mock-button { width:56px; height:14px; margin-top:3px; font-size:4px; }
+    .exam-feature-visual:not(.is-detail) .exam-mock-button { width:100%; max-width:64px; height:16px; margin-top:4px; font-size:4.5px; }
     .exam-feature-visual:not(.is-detail) .exam-result-progress { height:3px; margin:0 4px 2px; }
     .exam-feature-visual:not(.is-detail) .exam-result-summary,.exam-feature-visual:not(.is-detail) .exam-result-question { padding:4px; border-radius:5px; }
     .exam-feature-visual:not(.is-detail) .exam-result-summary h4 { margin-bottom:3px; font-size:7px; }
@@ -3660,7 +3661,7 @@
         if (example.preview === 'solver-parabola-line') return 'Solve my problem with an interactive graph.';
         if (example.preview === 'video-solver-circles') return 'Explain my problem with a step-by-step video.';
         if (example.preview === 'chemistry') return 'Visualize the chemical structure in my problem.';
-        if (example.preview === 'accounting') return 'Analyze my financial problem step by step.';
+        if (example.preview === 'accounting') return 'Solve my financial problem with a clear table.';
       }
       if (capabilityKey === 'graph') return 'Create an interactive graph for my problem.';
       if (capabilityKey === 'video') return 'Explain my problem with a step-by-step video.';
@@ -4485,6 +4486,20 @@
     });
     document.getElementById('historyDrawerClose').addEventListener('click', () => closeHistoryDrawer());
     document.getElementById('historyBackdrop').addEventListener('click', () => closeHistoryDrawer());
+    document.getElementById('homeNav').addEventListener('click', () => {
+      app.classList.remove('mobile-sidebar-open');
+      homeWorkspace.hidden = false;
+      courseWorkspace.hidden = true;
+      examPredictorWorkspace.hidden = true;
+      activeCoursePackageIndex = null;
+      document.body.classList.remove('exam-predictor-open');
+      document.getElementById('examPredictorNav').classList.remove('active');
+      document.getElementById('homeNav').classList.add('active');
+      history.replaceState(null, '', location.pathname + location.search);
+      document.title = 'Solvely — One place to learn anything';
+      selectWorkspaceMode('study', false);
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
     document.getElementById('examPredictorNav').addEventListener('click', () => {
       app.classList.remove('mobile-sidebar-open');
       openExamPredictorSample(0);
