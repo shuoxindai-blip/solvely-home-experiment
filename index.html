@@ -467,7 +467,7 @@
     }
     .example-card:hover { transform: translateY(-2px); border-color: rgba(var(--accent-rgb), .3); box-shadow: var(--shadow-soft); }
     .example-card.feature-card { cursor:pointer; }
-    .example-card.feature-card:hover { transform:translateY(-2px); border-color:rgba(15,138,103,.38); box-shadow:var(--shadow-soft); }
+    .example-card.feature-card:hover { transform:translateY(-2px); border-color:rgba(35,104,240,.38); box-shadow:var(--shadow-soft); }
     .example-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--accent); font-size: 9px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
     .example-meta .icon { width: 15px; height: 15px; }
     .example-card h3 { margin: 9px 0 10px; overflow: hidden; font-size: 15px; line-height: 1.25; font-weight: 660; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
@@ -973,7 +973,7 @@
     .dialog-button.primary { border-color: var(--accent); background: var(--accent); color: white; font-weight: 650; }
     .feature-detail-list { display:grid; gap:8px; }
     .feature-detail-item { display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px; align-items:start; padding:10px; border:1px solid var(--line); border-radius:11px; background:var(--surface); }
-    .feature-detail-item span { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; background:rgba(15,138,103,.1); color:#0f8a67; font-size:11px; font-weight:760; }
+    .feature-detail-item span { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; background:rgba(35,104,240,.1); color:#2368f0; font-size:11px; font-weight:760; }
     .feature-detail-item strong, .feature-detail-item small { display:block; }
     .feature-detail-item strong { font-size:12px; }
     .feature-detail-item small { margin-top:3px; color:var(--muted); font-size:10px; line-height:1.4; }
@@ -1013,19 +1013,37 @@
     .exam-catalog { margin-top:34px; padding-top:27px; border-top:1px solid var(--line); }
     .exam-catalog[hidden] { display:none; }
     .exam-catalog-heading { display:flex; align-items:flex-end; gap:24px; margin-bottom:15px; }
-    .exam-catalog-heading span { display:block; margin-bottom:5px; color:#0f8a67; font-size:10px; font-weight:750; letter-spacing:.09em; }
+    .exam-catalog-heading span { display:block; margin-bottom:5px; color:#2368f0; font-size:10px; font-weight:750; letter-spacing:.09em; }
     .exam-catalog-heading h2 { margin:0; font-size:21px; letter-spacing:-.02em; }
     .exam-catalog-heading p { margin:0 0 1px auto; max-width:470px; color:var(--muted); font-size:12px; line-height:1.45; text-align:right; }
-    .diagnostic-entry { min-height:146px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:20px; margin-bottom:16px; padding:20px 22px; overflow:hidden; position:relative; border:1px solid rgba(20,126,245,.2); border-radius:18px; background:linear-gradient(120deg,#f4f9ff 0%,#f8fbff 54%,#eef8f4 100%); box-shadow:0 12px 32px rgba(35,83,136,.08); }
+    .diagnostic-entry { min-height:166px; display:grid; grid-template-columns:minmax(220px,1fr) minmax(235px,.78fr) auto; align-items:center; gap:18px; margin-bottom:16px; padding:18px 20px; overflow:hidden; position:relative; border:1px solid rgba(20,126,245,.2); border-radius:18px; background:linear-gradient(120deg,#f4f9ff 0%,#f8fbff 58%,#edf5ff 100%); box-shadow:0 12px 32px rgba(35,83,136,.08); }
     .diagnostic-entry::after { content:""; width:180px; height:180px; position:absolute; right:-62px; top:-94px; border-radius:50%; background:rgba(20,126,245,.08); pointer-events:none; }
-    .diagnostic-entry-icon { width:64px; height:64px; display:grid; place-items:center; position:relative; z-index:1; border-radius:18px; background:#fff; color:#147ef5; box-shadow:0 9px 22px rgba(20,126,245,.14); }
-    .diagnostic-entry-icon .icon { width:29px; height:29px; }
     .diagnostic-entry-copy { min-width:0; position:relative; z-index:1; }
     .diagnostic-entry-meta { display:flex; align-items:center; flex-wrap:wrap; gap:7px; margin-bottom:7px; color:#147ef5; font-size:9px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
     .diagnostic-entry-meta span { display:inline-flex; align-items:center; gap:5px; }
     .diagnostic-entry-meta span + span::before { content:""; width:3px; height:3px; margin-right:2px; border-radius:50%; background:currentColor; opacity:.55; }
     .diagnostic-entry h3 { margin:0; color:var(--text); font-size:20px; letter-spacing:-.025em; }
     .diagnostic-entry p { max-width:610px; margin:7px 0 0; color:var(--muted); font-size:11px; line-height:1.55; }
+    .diagnostic-entry-visual { width:100%; height:124px; position:relative; z-index:1; }
+    .diagnostic-entry-mini { position:absolute; overflow:hidden; border:1px solid rgba(28,91,165,.13); border-radius:12px; background:#fff; box-shadow:0 8px 22px rgba(35,83,136,.12); }
+    .diagnostic-entry-mini.score { width:150px; height:116px; left:0; top:0; }
+    .diagnostic-entry-mini.topic { width:145px; height:99px; right:0; bottom:0; padding:10px; border:2px solid #dcecff; }
+    .diagnostic-entry-mini-tabs { height:23px; display:grid; grid-template-columns:1.05fr .95fr; padding:3px; background:#f2f5f8; color:#6e747c; font-size:5.6px; font-weight:700; text-align:center; }
+    .diagnostic-entry-mini-tabs span { display:grid; place-items:center; border-radius:5px; }
+    .diagnostic-entry-mini-tabs span:first-child { background:#e6f2ff; color:#17679b; }
+    .diagnostic-entry-mini-banner { height:26px; display:grid; place-items:center; background:linear-gradient(135deg,#2b83b5,#4ba4cf); color:#fff; font-size:6.5px; }
+    .diagnostic-entry-mini-score { padding:8px 10px; }
+    .diagnostic-entry-mini-score > span { display:block; color:#2499e8; font-size:5.7px; font-weight:800; text-transform:uppercase; }
+    .diagnostic-entry-mini-score div { display:flex; align-items:flex-end; gap:3px; margin-top:5px; }
+    .diagnostic-entry-mini-score strong { color:#111; font-size:22px; line-height:1; letter-spacing:-.05em; }
+    .diagnostic-entry-mini-score em { color:#a1a7ae; font-size:7px; font-style:normal; }
+    .diagnostic-entry-mini-score b { margin-left:auto; padding:3px 4px; border-radius:4px; background:#edf6ff; color:#087cec; font-size:5.2px; }
+    .diagnostic-entry-mini-topic-title { display:block; margin-bottom:7px; color:#17191d; font-size:6.5px; font-weight:800; text-align:center; text-transform:uppercase; }
+    .diagnostic-entry-mini-topic-row { padding:6px 7px; border:1px solid #e7ebef; border-radius:7px; background:#fbfcfd; }
+    .diagnostic-entry-mini-topic-row + .diagnostic-entry-mini-topic-row { margin-top:5px; }
+    .diagnostic-entry-mini-topic-row strong { display:block; overflow:hidden; color:#1d2024; font-size:6.2px; text-overflow:ellipsis; white-space:nowrap; }
+    .diagnostic-entry-mini-topic-row span { display:inline-flex; margin-top:4px; padding:2px 4px; border-radius:4px; background:#fff0f2; color:#f2385a; font-size:5px; font-weight:760; }
+    .diagnostic-entry-mini-topic-row:last-child span { background:#fff1e6; color:#f26522; }
     .diagnostic-entry-button { min-width:152px; height:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; position:relative; z-index:1; padding:0 17px; border:0; border-radius:12px; background:#147ef5; color:#fff; font-size:11px; font-weight:760; cursor:pointer; box-shadow:0 9px 20px rgba(20,126,245,.22); transition:transform .16s ease,background .16s ease; }
     .diagnostic-entry-button:hover { transform:translateY(-1px); background:#086fe2; }
     .diagnostic-entry-button .icon { width:15px; height:15px; }
@@ -1037,17 +1055,17 @@
     .exam-filter-wrap .icon { position:absolute; right:12px; top:12px; pointer-events:none; color:var(--muted); }
     .course-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
     .course-card { min-height:132px; padding:14px; border:1px solid var(--line); border-radius:15px; background:var(--surface); text-align:left; cursor:pointer; transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease; }
-    .course-card:hover { transform:translateY(-2px); border-color:rgba(15,138,103,.38); box-shadow:var(--shadow-soft); }
-    .course-family { display:inline-flex; padding:4px 7px; border-radius:6px; background:rgba(15,138,103,.1); color:#0f8a67; font-size:9px; font-weight:780; letter-spacing:.06em; }
+    .course-card:hover { transform:translateY(-2px); border-color:rgba(35,104,240,.38); box-shadow:var(--shadow-soft); }
+    .course-family { display:inline-flex; padding:4px 7px; border-radius:6px; background:rgba(35,104,240,.1); color:#2368f0; font-size:9px; font-weight:780; letter-spacing:.06em; }
     .course-card h3 { margin:9px 0 5px; font-size:14px; }
     .course-card p { margin:0; color:var(--muted); font-size:10px; line-height:1.5; }
-    .course-stats { display:flex; gap:9px; margin-top:10px; color:#0f8a67; font-size:9px; font-weight:650; }
+    .course-stats { display:flex; gap:9px; margin-top:10px; color:#2368f0; font-size:9px; font-weight:650; }
     .course-empty { padding:24px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
 
     .diagnostic-dialog { width:min(1080px,calc(100vw - 30px)); max-height:min(820px,calc(100vh - 30px)); padding:0; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:var(--surface); color:var(--text); box-shadow:0 30px 90px rgba(15,30,52,.26); }
     .diagnostic-dialog[open] { display:flex; flex-direction:column; }
     .diagnostic-dialog::backdrop { background:rgba(19,23,31,.4); backdrop-filter:blur(4px); }
-    .diagnostic-dialog-head { display:flex; align-items:flex-start; gap:15px; padding:24px 26px 19px; border-bottom:1px solid var(--line); background:linear-gradient(120deg,rgba(20,126,245,.08),rgba(15,138,103,.06)); }
+    .diagnostic-dialog-head { display:flex; align-items:flex-start; gap:15px; padding:24px 26px 19px; border-bottom:1px solid var(--line); background:linear-gradient(120deg,rgba(20,126,245,.1),rgba(35,104,240,.05)); }
     .diagnostic-dialog-icon { width:46px; height:46px; flex:0 0 auto; display:grid; place-items:center; border-radius:14px; background:#147ef5; color:#fff; box-shadow:0 8px 18px rgba(20,126,245,.2); }
     .diagnostic-dialog-icon .icon { width:22px; height:22px; }
     .diagnostic-dialog-title { min-width:0; }
@@ -1139,9 +1157,26 @@
     .diag-section-score strong { display:inline-block; margin-top:3px; color:#111; font-size:19px; }
     .diag-section-score em { color:#9ca2aa; font-size:8px; font-style:normal; }
     .diag-section-score small { margin-top:2px; color:#777e87; font-size:6.3px; line-height:1.35; }
+    .diag-ap-score-body { min-height:151px; display:grid; place-items:center; position:relative; padding:14px 12px 15px; background:linear-gradient(180deg,#fff 0%,#fbfdff 100%); }
+    .diag-ap-score-ring { width:104px; height:104px; display:grid; place-items:center; position:relative; border:1.5px solid #22272c; border-radius:50%; }
+    .diag-ap-score-ring span { padding:0 4px; position:absolute; top:-7px; background:#fff; color:#22272c; font-size:6.5px; letter-spacing:.08em; text-transform:uppercase; transform:rotate(-16deg); }
+    .diag-ap-score-ring strong { color:#111; font-size:50px; line-height:1; letter-spacing:-.06em; }
+    .diag-ap-percentile { position:absolute; right:12px; top:16px; padding:4px 6px; border-radius:5px; background:#edf6ff; color:#087cec; font-size:6.5px; font-weight:760; }
+    .diag-abitur-score-body { min-height:154px; padding:15px 13px 14px; }
+    .diag-abitur-course { display:block; margin-bottom:11px; color:#89919a; font-size:6.7px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+    .diag-abitur-score-row { display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:6px; }
+    .diag-abitur-total { white-space:nowrap; }
+    .diag-abitur-total strong { color:#111; font-size:42px; line-height:.95; letter-spacing:-.05em; }
+    .diag-abitur-total em { margin-left:3px; color:#9ca2aa; font-size:10px; font-style:normal; }
+    .diag-abitur-rating { align-self:center; padding:5px 7px; border-radius:5px; background:#eef7ff; color:#087cec; font-size:6.8px; font-weight:760; }
+    .diag-abitur-progress { height:5px; margin-top:15px; overflow:hidden; border-radius:7px; background:#dfe4e9; }
+    .diag-abitur-progress i { width:87%; height:100%; display:block; border-radius:inherit; background:#087cec; }
+    .diag-abitur-hit-rate { display:block; margin-top:5px; color:#9ca2aa; font-size:6.5px; text-align:right; }
     .diag-ai-card { padding:10px 11px; }
     .diag-ai-card strong { display:block; margin-top:4px; font-size:9.5px; line-height:1.35; }
     .diag-ai-card p { margin:4px 0 0; color:#555b63; font-size:7px; line-height:1.5; }
+    .diag-ai-card ul { margin:7px 0 0; padding-left:14px; color:#555b63; font-size:7px; line-height:1.45; }
+    .diag-ai-card li + li { margin-top:4px; }
     .diag-skills-card { padding:10px; }
     .diag-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:8px; }
     .diag-card-head strong { font-size:10px; }
@@ -1187,7 +1222,7 @@
     .diag-report-back .icon { width:10px; height:10px; transform:rotate(90deg); }
     .diagnostic-ready { padding:28px 26px 26px; text-align:center; }
     .diagnostic-ready[hidden],.diagnostic-setup[hidden] { display:none; }
-    .diagnostic-ready-mark { width:62px; height:62px; display:grid; place-items:center; margin:0 auto 15px; border-radius:20px; background:rgba(15,138,103,.1); color:#0f8a67; }
+    .diagnostic-ready-mark { width:62px; height:62px; display:grid; place-items:center; margin:0 auto 15px; border-radius:20px; background:rgba(35,104,240,.1); color:#2368f0; }
     .diagnostic-ready-mark .icon { width:29px; height:29px; }
     .diagnostic-ready h3 { margin:0; font-size:21px; letter-spacing:-.025em; }
     .diagnostic-ready > p { max-width:390px; margin:8px auto 0; color:var(--muted); font-size:10px; line-height:1.55; }
@@ -1197,11 +1232,10 @@
     .diagnostic-ready-summary span { color:var(--muted); font-size:8px; }
     .diagnostic-ready-summary strong { margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
     .diagnostic-ready-benefits { display:flex; justify-content:center; flex-wrap:wrap; gap:7px; margin-bottom:18px; }
-    .diagnostic-ready-benefits span { padding:6px 8px; border-radius:8px; background:rgba(15,138,103,.08); color:#0f8a67; font-size:8px; font-weight:700; }
+    .diagnostic-ready-benefits span { padding:6px 8px; border-radius:8px; background:rgba(35,104,240,.08); color:#2368f0; font-size:8px; font-weight:700; }
     .diagnostic-edit { margin-top:10px; padding:7px 12px; border:0; background:transparent; color:var(--muted); font-size:9px; font-weight:700; cursor:pointer; }
     .diagnostic-edit:hover { color:#147ef5; }
-    body.dark .diagnostic-entry { border-color:rgba(93,164,255,.25); background:linear-gradient(120deg,#1d2a3a,#1d2734 58%,#1d302e); }
-    body.dark .diagnostic-entry-icon { background:#243448; }
+    body.dark .diagnostic-entry { border-color:rgba(93,164,255,.25); background:linear-gradient(120deg,#1d2a3a,#1d2734 58%,#1c2a3d); }
 
     .course-workspace { width:min(1040px,calc(100% - 56px)); margin:0 auto; padding:28px 0 56px; }
     .course-workspace[hidden] { display:none; }
@@ -1316,75 +1350,75 @@
     .course-back { min-height:38px; display:inline-flex; align-items:center; gap:7px; padding:0 10px 0 5px; border:0; border-radius:9px; background:transparent; color:var(--muted); font-size:12px; font-weight:650; cursor:pointer; }
     .course-back:hover { background:var(--surface-hover); color:var(--text); }
     .course-back .icon { width:17px; height:17px; transform:rotate(90deg); }
-    .course-package-hero { margin-top:15px; padding:25px 27px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:26px; align-items:center; border:1px solid var(--line); border-radius:20px; background:linear-gradient(135deg,rgba(15,138,103,.09),rgba(35,104,240,.035) 62%,var(--surface)); }
+    .course-package-hero { margin-top:15px; padding:25px 27px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:26px; align-items:center; border:1px solid var(--line); border-radius:20px; background:linear-gradient(135deg,rgba(35,104,240,.09),rgba(35,104,240,.035) 62%,var(--surface)); }
     .course-package-copy { min-width:0; }
-    .course-package-breadcrumb { display:flex; align-items:center; gap:7px; margin:0 0 12px; color:#0f8a67; font-size:10px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
+    .course-package-breadcrumb { display:flex; align-items:center; gap:7px; margin:0 0 12px; color:#2368f0; font-size:10px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
     .course-package-breadcrumb i { width:3px; height:3px; border-radius:50%; background:currentColor; opacity:.5; }
     .course-package-copy h1 { margin:0; font-size:30px; line-height:1.1; letter-spacing:-.035em; }
     .course-package-copy > p { max-width:620px; margin:10px 0 0; color:var(--muted); font-size:13px; line-height:1.55; }
     .course-package-metrics { display:flex; flex-wrap:wrap; gap:17px; margin-top:20px; }
     .course-package-metric { display:flex; align-items:center; gap:7px; color:var(--muted); font-size:11px; }
-    .course-package-metric .icon { width:16px; height:16px; color:#0f8a67; }
+    .course-package-metric .icon { width:16px; height:16px; color:#2368f0; }
     .course-package-metric strong { color:var(--text); font-weight:720; }
-    .course-progress-summary { width:218px; padding:18px; border:1px solid rgba(15,138,103,.16); border-radius:16px; background:rgba(255,255,255,.72); box-shadow:var(--shadow-soft); }
+    .course-progress-summary { width:218px; padding:18px; border:1px solid rgba(35,104,240,.16); border-radius:16px; background:rgba(255,255,255,.72); box-shadow:var(--shadow-soft); }
     body.dark .course-progress-summary { background:rgba(28,31,37,.82); }
     .course-progress-summary-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
     .course-progress-summary-head span { color:var(--muted); font-size:10px; font-weight:650; }
     .course-progress-summary-head strong { font-size:22px; line-height:1; letter-spacing:-.03em; }
-    .course-progress-track { height:7px; margin-top:13px; overflow:hidden; border-radius:999px; background:rgba(15,138,103,.12); }
-    .course-progress-track i { width:18%; height:100%; display:block; border-radius:inherit; background:#0f8a67; }
+    .course-progress-track { height:7px; margin-top:13px; overflow:hidden; border-radius:999px; background:rgba(35,104,240,.12); }
+    .course-progress-track i { width:18%; height:100%; display:block; border-radius:inherit; background:#2368f0; }
     .course-progress-summary p { margin:10px 0 0; color:var(--muted); font-size:10px; line-height:1.45; }
     .course-package-tabs { margin-top:22px; display:flex; align-items:center; gap:3px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; }
     .course-package-tabs::-webkit-scrollbar { display:none; }
     .course-package-tab { position:relative; min-height:44px; flex:0 0 auto; padding:0 15px; border:0; background:transparent; color:var(--muted); font-size:12px; font-weight:650; cursor:pointer; }
     .course-package-tab:hover { color:var(--text); }
-    .course-package-tab[aria-selected="true"] { color:#0f8a67; }
-    .course-package-tab[aria-selected="true"]::after { content:""; position:absolute; right:12px; bottom:-1px; left:12px; height:2px; border-radius:2px 2px 0 0; background:#0f8a67; }
+    .course-package-tab[aria-selected="true"] { color:#2368f0; }
+    .course-package-tab[aria-selected="true"]::after { content:""; position:absolute; right:12px; bottom:-1px; left:12px; height:2px; border-radius:2px 2px 0 0; background:#2368f0; }
     .course-package-panel { padding-top:20px; }
     .course-dashboard-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(250px,.75fr); gap:14px; }
     .course-panel-card { border:1px solid var(--line); border-radius:17px; background:var(--surface); overflow:hidden; }
     .course-panel-card-head { min-height:58px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 18px; border-bottom:1px solid var(--line); }
     .course-panel-card-head div { min-width:0; }
-    .course-panel-card-head span { display:block; margin-bottom:3px; color:#0f8a67; font-size:9px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
+    .course-panel-card-head span { display:block; margin-bottom:3px; color:#2368f0; font-size:9px; font-weight:760; letter-spacing:.08em; text-transform:uppercase; }
     .course-panel-card-head h2 { margin:0; font-size:16px; letter-spacing:-.02em; }
     .course-panel-card-head small { color:var(--muted); font-size:10px; }
     .course-module-list { display:grid; }
     .course-module-row { width:100%; min-height:67px; display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:11px; padding:10px 18px; border:0; border-bottom:1px solid var(--line); background:var(--surface); text-align:left; cursor:pointer; }
     .course-module-row:last-child { border-bottom:0; }
     .course-module-row:hover { background:var(--surface-hover); }
-    .course-module-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:rgba(15,138,103,.09); color:#0f8a67; }
+    .course-module-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:rgba(35,104,240,.09); color:#2368f0; }
     .course-module-icon .icon { width:17px; height:17px; }
     .course-module-copy { min-width:0; }
     .course-module-copy strong { display:block; overflow:hidden; color:var(--text); font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
     .course-module-copy span { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
     .course-module-state { color:var(--muted); font-size:10px; font-style:normal; }
-    .course-module-state.current { min-width:68px; height:30px; display:grid; place-items:center; border-radius:8px; background:#0f8a67; color:#fff; font-weight:700; }
+    .course-module-state.current { min-width:68px; height:30px; display:grid; place-items:center; border-radius:8px; background:#2368f0; color:#fff; font-weight:700; }
     .course-side-stack { display:grid; align-content:start; gap:14px; }
     .course-today { padding:17px; }
     .course-today h2 { margin:0 0 13px; font-size:15px; }
     .course-today-item { display:grid; grid-template-columns:24px 1fr; gap:10px; margin-top:11px; color:var(--muted); font-size:10px; line-height:1.45; }
-    .course-today-item i { width:24px; height:24px; display:grid; place-items:center; border-radius:8px; background:var(--surface-soft); color:#0f8a67; font-size:10px; font-style:normal; font-weight:750; }
+    .course-today-item i { width:24px; height:24px; display:grid; place-items:center; border-radius:8px; background:var(--surface-soft); color:#2368f0; font-size:10px; font-style:normal; font-weight:750; }
     .course-score-card { padding:17px; }
     .course-score-card span { color:var(--muted); font-size:10px; }
     .course-score-card strong { display:block; margin-top:7px; font-size:25px; letter-spacing:-.04em; }
-    .course-score-card p { margin:5px 0 0; color:#0f8a67; font-size:10px; font-weight:650; }
+    .course-score-card p { margin:5px 0 0; color:#2368f0; font-size:10px; font-weight:650; }
     .course-section-title { margin:0 0 13px; font-size:18px; letter-spacing:-.025em; }
     .course-content-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
     .course-content-item { min-height:112px; padding:16px; border:1px solid var(--line); border-radius:15px; background:var(--surface); }
     button.course-content-item { width:100%; color:inherit; text-align:left; cursor:pointer; }
-    button.course-content-item:hover { border-color:rgba(15,138,103,.35); box-shadow:var(--shadow-soft); }
-    .course-content-item > span { color:#0f8a67; font-size:9px; font-weight:760; letter-spacing:.07em; text-transform:uppercase; }
+    button.course-content-item:hover { border-color:rgba(35,104,240,.35); box-shadow:var(--shadow-soft); }
+    .course-content-item > span { color:#2368f0; font-size:9px; font-weight:760; letter-spacing:.07em; text-transform:uppercase; }
     .course-content-item h3 { margin:9px 0 5px; font-size:14px; }
     .course-content-item p { margin:0; color:var(--muted); font-size:10px; line-height:1.5; }
     .course-content-item footer { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; color:var(--muted); font-size:10px; }
-    .course-content-item footer strong { color:#0f8a67; }
+    .course-content-item footer strong { color:#2368f0; }
     .course-insight-chart { height:132px; display:flex; align-items:flex-end; gap:10px; padding:16px 18px 13px; border-bottom:1px solid var(--line); }
     .course-insight-bar { flex:1; min-width:24px; display:flex; flex-direction:column; justify-content:flex-end; gap:7px; color:var(--muted); font-size:9px; text-align:center; }
-    .course-insight-bar i { min-height:12px; display:block; border-radius:7px 7px 3px 3px; background:linear-gradient(180deg,#0f8a67,#4fb794); }
+    .course-insight-bar i { min-height:12px; display:block; border-radius:7px 7px 3px 3px; background:linear-gradient(180deg,#2368f0,#63a8ee); }
     .course-skill-row { display:grid; grid-template-columns:120px minmax(100px,1fr) 35px; align-items:center; gap:12px; padding:12px 18px; border-bottom:1px solid var(--line); font-size:10px; }
     .course-skill-row:last-child { border-bottom:0; }
     .course-skill-row i { height:6px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
-    .course-skill-row i b { display:block; height:100%; border-radius:inherit; background:#0f8a67; }
+    .course-skill-row i b { display:block; height:100%; border-radius:inherit; background:#2368f0; }
     .course-skill-row em { color:var(--muted); font-style:normal; text-align:right; }
 
     /* Exam package workspace — mirrors the iOS package capabilities in a desktop-first IA. */
@@ -1393,28 +1427,28 @@
     .course-hub-card { min-width:0; border:1px solid var(--line); border-radius:17px; background:var(--surface); overflow:hidden; }
     .course-hub-card + .course-hub-card { margin-top:14px; }
     .course-hub-head { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; padding:18px; border-bottom:1px solid var(--line); }
-    .course-hub-eyebrow { display:block; margin-bottom:5px; color:#0f8a67; font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
+    .course-hub-eyebrow { display:block; margin-bottom:5px; color:#2368f0; font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
     .course-hub-head h2,.course-hub-card h2 { margin:0; font-size:17px; line-height:1.25; letter-spacing:-.025em; }
     .course-hub-head p { margin:5px 0 0; color:var(--muted); font-size:10px; line-height:1.45; }
-    .course-link-button { min-height:32px; flex:0 0 auto; padding:0 11px; border:1px solid rgba(15,138,103,.22); border-radius:9px; background:rgba(15,138,103,.07); color:#0f8a67; font-size:10px; font-weight:730; cursor:pointer; }
-    .course-link-button:hover { background:rgba(15,138,103,.12); }
+    .course-link-button { min-height:32px; flex:0 0 auto; padding:0 11px; border:1px solid rgba(35,104,240,.22); border-radius:9px; background:rgba(35,104,240,.07); color:#2368f0; font-size:10px; font-weight:730; cursor:pointer; }
+    .course-link-button:hover { background:rgba(35,104,240,.12); }
     .course-next-task { display:grid; grid-template-columns:46px minmax(0,1fr) auto; align-items:center; gap:13px; padding:17px 18px; }
-    .course-next-icon { width:46px; height:46px; display:grid; place-items:center; border-radius:13px; background:linear-gradient(145deg,#e9f8f3,#eaf1ff); color:#0f8a67; }
+    .course-next-icon { width:46px; height:46px; display:grid; place-items:center; border-radius:13px; background:linear-gradient(145deg,#edf5ff,#eaf1ff); color:#2368f0; }
     .course-next-icon .icon { width:21px; height:21px; }
     .course-next-copy { min-width:0; }
     .course-next-copy strong { display:block; font-size:13px; line-height:1.35; }
     .course-next-copy span { display:block; margin-top:4px; color:var(--muted); font-size:10px; }
-    .course-primary-small { min-height:34px; padding:0 13px; border:0; border-radius:10px; background:#0f8a67; color:#fff; font-size:10px; font-weight:740; cursor:pointer; }
-    .course-primary-small:hover { background:#0b7759; }
+    .course-primary-small { min-height:34px; padding:0 13px; border:0; border-radius:10px; background:#2368f0; color:#fff; font-size:10px; font-weight:740; cursor:pointer; }
+    .course-primary-small:hover { background:#1558db; }
     .course-progress-inline { height:5px; margin-top:9px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
-    .course-progress-inline i { display:block; width:64%; height:100%; border-radius:inherit; background:#0f8a67; }
+    .course-progress-inline i { display:block; width:64%; height:100%; border-radius:inherit; background:#2368f0; }
     .course-hub-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
     .course-hub-stat { min-height:142px; padding:17px; border:1px solid var(--line); border-radius:17px; background:var(--surface); text-align:left; cursor:pointer; }
-    .course-hub-stat:hover { border-color:rgba(15,138,103,.3); box-shadow:var(--shadow-soft); }
+    .course-hub-stat:hover { border-color:rgba(35,104,240,.3); box-shadow:var(--shadow-soft); }
     .course-hub-stat span { color:var(--muted); font-size:9px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
     .course-hub-stat strong { display:block; margin-top:12px; font-size:24px; line-height:1; letter-spacing:-.045em; }
     .course-hub-stat p { margin:8px 0 0; color:var(--muted); font-size:10px; line-height:1.42; }
-    .course-hub-stat em { display:block; margin-top:12px; color:#0f8a67; font-size:10px; font-style:normal; font-weight:730; }
+    .course-hub-stat em { display:block; margin-top:12px; color:#2368f0; font-size:10px; font-style:normal; font-weight:730; }
     .course-weak-list { display:grid; gap:8px; padding:14px 17px 17px; }
     .course-weak-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; padding:10px 11px; border-radius:11px; background:var(--surface-soft); }
     .course-weak-row strong { font-size:10px; }
@@ -1453,7 +1487,7 @@
     .study-topic-importance.likely { background:#fff1e6; color:#f26522; }
     .study-topic-importance.possible { background:#fff8d9; color:#c98700; }
     .study-topic-status { justify-self:start; min-height:24px; display:inline-flex; align-items:center; gap:5px; padding:0 8px; border-radius:999px; background:#edf5ff; color:#147ef5; font-size:8px; font-weight:730; white-space:nowrap; }
-    .study-topic-status.continue { background:#eaf8f3; color:#0f8a67; }
+    .study-topic-status.continue { background:#edf5ff; color:#2368f0; }
     .study-topic-status.not-started { background:transparent; color:#99a2b0; }
     .study-topic-status .icon { width:11px; height:11px; }
     .study-topic-progress { min-width:0; display:grid; grid-template-columns:minmax(92px,1fr) 130px; align-items:center; justify-content:end; gap:16px; }
@@ -1486,11 +1520,11 @@
     .mock-state-shell { display:grid; gap:14px; }
     .mock-state-nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; padding:7px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
     .mock-state-button { min-height:38px; border:0; border-radius:9px; background:transparent; color:var(--muted); font-size:10px; font-weight:710; cursor:pointer; }
-    .mock-state-button.active { background:var(--surface); color:#0f8a67; box-shadow:0 3px 12px rgba(31,45,69,.08); }
+    .mock-state-button.active { background:var(--surface); color:#2368f0; box-shadow:0 3px 12px rgba(31,45,69,.08); }
     .mock-exam-stage { min-height:340px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr); gap:14px; }
     .mock-exam-card,.mock-benefit-card { border:1px solid var(--line); border-radius:17px; background:var(--surface); }
     .mock-exam-card { padding:22px; }
-    .mock-exam-status { display:inline-flex; align-items:center; gap:6px; min-height:25px; padding:0 8px; border-radius:7px; background:#eaf8f3; color:#0f8a67; font-size:8px; font-weight:760; letter-spacing:.06em; text-transform:uppercase; }
+    .mock-exam-status { display:inline-flex; align-items:center; gap:6px; min-height:25px; padding:0 8px; border-radius:7px; background:#edf5ff; color:#2368f0; font-size:8px; font-weight:760; letter-spacing:.06em; text-transform:uppercase; }
     .mock-exam-status.processing { background:#fff4e8; color:#b96612; }
     .mock-exam-card h2 { margin:14px 0 7px; font-size:22px; letter-spacing:-.035em; }
     .mock-exam-card > p { max-width:610px; margin:0; color:var(--muted); font-size:11px; line-height:1.55; }
@@ -1500,7 +1534,7 @@
     .mock-exam-metric strong { display:block; margin-top:5px; font-size:13px; }
     .mock-exam-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:21px; }
     .mock-primary-action,.mock-secondary-action { min-height:38px; padding:0 15px; border-radius:10px; font-size:10px; font-weight:740; cursor:pointer; }
-    .mock-primary-action { border:0; background:#0f8a67; color:#fff; }
+    .mock-primary-action { border:0; background:#2368f0; color:#fff; }
     .mock-primary-action:disabled { cursor:wait; opacity:.6; }
     .mock-secondary-action { border:1px solid var(--line); background:var(--surface); color:var(--text); }
     .mock-benefit-card { padding:18px; }
@@ -1511,7 +1545,7 @@
     .mock-benefit-item strong { display:block; font-size:10px; }
     .mock-benefit-item span { display:block; margin-top:3px; color:var(--muted); font-size:9px; line-height:1.4; }
     .mock-processing { display:grid; place-items:center; min-height:205px; text-align:center; }
-    .mock-spinner { width:38px; height:38px; margin:0 auto 13px; border:4px solid rgba(15,138,103,.14); border-top-color:#0f8a67; border-radius:50%; animation:mock-spin .8s linear infinite; }
+    .mock-spinner { width:38px; height:38px; margin:0 auto 13px; border:4px solid rgba(35,104,240,.14); border-top-color:#2368f0; border-radius:50%; animation:mock-spin .8s linear infinite; }
     @keyframes mock-spin { to { transform:rotate(360deg); } }
 
     .mock-session-layout { display:grid; grid-template-columns:250px minmax(0,1fr); gap:14px; align-items:start; }
@@ -1522,27 +1556,27 @@
     .question-nav-section strong { display:block; margin-bottom:8px; color:var(--muted); font-size:9px; }
     .question-number-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; }
     .question-number { aspect-ratio:1; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--muted); font-size:9px; cursor:pointer; }
-    .question-number.current { border-color:#0f8a67; box-shadow:inset 0 0 0 1px #0f8a67; color:#0f8a67; }
-    .question-number.answered { border-color:rgba(15,138,103,.18); background:#eaf8f3; color:#0f8a67; }
+    .question-number.current { border-color:#2368f0; box-shadow:inset 0 0 0 1px #2368f0; color:#2368f0; }
+    .question-number.answered { border-color:rgba(35,104,240,.18); background:#edf5ff; color:#2368f0; }
     .mock-question-card { min-width:0; padding:22px; border:1px solid var(--line); border-radius:17px; background:var(--surface); }
     .mock-question-top { display:flex; align-items:center; justify-content:space-between; gap:12px; color:var(--muted); font-size:9px; }
     .mock-question-card h2 { margin:16px 0 17px; font-size:18px; line-height:1.42; letter-spacing:-.02em; }
     .mock-choice-list { display:grid; gap:8px; }
     .mock-choice { width:100%; min-height:48px; display:grid; grid-template-columns:28px minmax(0,1fr); align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; }
     .mock-choice:hover { background:var(--surface-hover); }
-    .mock-choice.selected { border-color:#0f8a67; background:#eaf8f3; }
+    .mock-choice.selected { border-color:#2368f0; background:#edf5ff; }
     .mock-choice i { width:28px; height:28px; display:grid; place-items:center; border-radius:8px; background:var(--surface-soft); font-size:9px; font-style:normal; font-weight:740; }
-    .mock-choice.selected i { background:#0f8a67; color:#fff; }
+    .mock-choice.selected i { background:#2368f0; color:#fff; }
     .mock-session-actions { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:20px; padding-top:17px; border-top:1px solid var(--line); }
     .mock-session-actions div { display:flex; gap:8px; }
 
     .results-layout { display:grid; gap:14px; }
     .results-summary-grid { display:grid; grid-template-columns:240px minmax(0,1fr); gap:14px; }
     .results-score-card,.results-ai-card,.results-section-card,.results-review-card,.improve-card { border:1px solid var(--line); border-radius:17px; background:var(--surface); }
-    .results-score-card { padding:20px; background:linear-gradient(145deg,rgba(15,138,103,.11),var(--surface) 72%); }
+    .results-score-card { padding:20px; background:linear-gradient(145deg,rgba(35,104,240,.11),var(--surface) 72%); }
     .results-score-card span { color:var(--muted); font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
     .results-score-card strong { display:block; margin-top:12px; font-size:36px; line-height:1; letter-spacing:-.055em; }
-    .results-score-card p { margin:8px 0 0; color:#0f8a67; font-size:10px; font-weight:700; }
+    .results-score-card p { margin:8px 0 0; color:#2368f0; font-size:10px; font-weight:700; }
     .results-ai-card { padding:20px; }
     .results-ai-card h2 { margin:0; font-size:16px; }
     .results-ai-card p { margin:10px 0 0; color:var(--muted); font-size:10px; line-height:1.6; }
@@ -1554,7 +1588,7 @@
     .results-performance-row { display:grid; grid-template-columns:125px minmax(100px,1fr) 48px; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid var(--line); font-size:10px; }
     .results-performance-row:last-child { border-bottom:0; }
     .results-performance-row > i { height:7px; overflow:hidden; border-radius:999px; background:var(--surface-soft); }
-    .results-performance-row > i b { display:block; height:100%; border-radius:inherit; background:#0f8a67; }
+    .results-performance-row > i b { display:block; height:100%; border-radius:inherit; background:#2368f0; }
     .results-performance-row em { color:var(--muted); font-style:normal; text-align:right; }
     .improve-card { padding:17px; }
     .improve-card h2 { margin:0; font-size:15px; }
@@ -1563,11 +1597,11 @@
     .improve-topic { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:10px; padding:11px; border-radius:11px; background:var(--surface-soft); }
     .improve-topic strong { display:block; font-size:10px; }
     .improve-topic span { display:block; margin-top:3px; color:var(--muted); font-size:8px; }
-    .improve-topic button { min-height:29px; padding:0 9px; border:1px solid rgba(15,138,103,.22); border-radius:8px; background:var(--surface); color:#0f8a67; font-size:8px; font-weight:740; cursor:pointer; }
+    .improve-topic button { min-height:29px; padding:0 9px; border:1px solid rgba(35,104,240,.22); border-radius:8px; background:var(--surface); color:#2368f0; font-size:8px; font-weight:740; cursor:pointer; }
     .results-review-card { overflow:hidden; }
     .results-filter-tabs { display:flex; gap:5px; padding:12px 18px; border-bottom:1px solid var(--line); }
     .results-filter-button { min-height:30px; padding:0 10px; border:0; border-radius:8px; background:transparent; color:var(--muted); font-size:9px; font-weight:700; cursor:pointer; }
-    .results-filter-button.active { background:rgba(15,138,103,.09); color:#0f8a67; }
+    .results-filter-button.active { background:rgba(35,104,240,.09); color:#2368f0; }
     .review-question { padding:16px 18px; border-bottom:1px solid var(--line); }
     .review-question:last-child { border-bottom:0; }
     .review-question > span { color:var(--muted); font-size:8px; font-weight:700; text-transform:uppercase; }
@@ -1747,10 +1781,9 @@
       .calculator-panel.expanded .calc-tabs { width:min(430px,90%); }
       .exam-catalog-heading { display:block; }
       .exam-catalog-heading p { margin:8px 0 0; text-align:left; }
-      .diagnostic-entry { grid-template-columns:auto minmax(0,1fr); gap:14px; padding:17px; }
-      .diagnostic-entry-icon { width:52px; height:52px; border-radius:15px; }
-      .diagnostic-entry-icon .icon { width:24px; height:24px; }
+      .diagnostic-entry { grid-template-columns:1fr; gap:14px; padding:17px; }
       .diagnostic-entry h3 { font-size:18px; }
+      .diagnostic-entry-visual { width:min(100%,300px); justify-self:center; }
       .diagnostic-entry-button { width:100%; grid-column:1 / -1; }
       .diagnostic-dialog-head { padding:19px 18px 16px; }
       .diagnostic-setup { grid-template-columns:1fr; padding:20px 18px 22px; }
@@ -2033,11 +2066,14 @@
         <section class="exam-catalog" id="examCatalog" aria-labelledby="examCatalogTitle" hidden>
           <div class="exam-catalog-heading"><div><span>READY-MADE PREP</span><h2 id="examCatalogTitle">Standardized test courses</h2></div><p>Topic study, mock exams, results, and targeted improvement.</p></div>
           <section class="diagnostic-entry" aria-labelledby="diagnosticEntryTitle">
-            <div class="diagnostic-entry-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></div>
             <div class="diagnostic-entry-copy">
               <div class="diagnostic-entry-meta"><span>Free diagnostic</span><span>About 10 min</span></div>
               <h3 id="diagnosticEntryTitle">Take a Free Diagnostic</h3>
               <p>See your predicted score, weakest skills, and exactly what to study next.</p>
+            </div>
+            <div class="diagnostic-entry-visual" aria-hidden="true">
+              <div class="diagnostic-entry-mini score"><div class="diagnostic-entry-mini-tabs"><span>Score Report</span><span>Question Review</span></div><div class="diagnostic-entry-mini-banner">SAT® Prep 2026</div><div class="diagnostic-entry-mini-score"><span>Total score</span><div><strong>1350</strong><em>/1600</em><b>90th percentile</b></div></div></div>
+              <div class="diagnostic-entry-mini topic"><span class="diagnostic-entry-mini-topic-title">Topics to improve</span><div class="diagnostic-entry-mini-topic-row"><strong>Linear Equations & Inequalities</strong><span>98% · Core</span></div><div class="diagnostic-entry-mini-topic-row"><strong>Systems of Linear Equations</strong><span>88% · Likely</span></div></div>
             </div>
             <button class="diagnostic-entry-button" id="diagnosticEntryButton" type="button">Start free test<svg class="icon"><use href="#i-chevron"/></svg></button>
           </section>
@@ -2195,7 +2231,7 @@
         <label class="diagnostic-field"><span>What score are you aiming for?</span><span class="diagnostic-field-select"><select id="diagnosticTargetScore" required aria-label="Choose a target score"></select><svg class="icon"><use href="#i-chevron"/></svg></span></label>
         <label class="diagnostic-field"><span>When is your exam?</span><input id="diagnosticTestDate" type="date" required aria-label="Choose your test date" /></label>
         <p class="diagnostic-setup-note"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg><span>Your answers personalize the score estimate and study recommendations. No payment required.</span></p>
-        <button class="diagnostic-continue" type="submit">Build my diagnostic</button>
+        <button class="diagnostic-continue" type="submit">Start my diagnostic</button>
       </div>
       <aside class="diagnostic-preview-pane" id="diagnosticPreviewPane" aria-label="Sample diagnostic report"></aside>
     </form>
@@ -2557,7 +2593,7 @@
       sat: ['1000','1100','1200','1300','1400','1500','1550+'],
       act: ['20','24','28','30','32','34','36'],
       ap: ['3','4','5'],
-      abitur: ['3.0','2.5','2.0','1.5','1.0']
+      abitur: ['6','8','10','12','13','14','15']
     };
     let diagnosticPreviewView = 'score';
     let diagnosticTopicFilter = 'all';
@@ -2589,23 +2625,30 @@
         else if (course.title.includes('Biology')) topics = [['Cellular Energetics','93% · Core','core','Photosynthesis, respiration, and energy coupling.','Review','UNIT 3'],['Gene Expression','86% · Likely','likely','Transcription, translation, and gene regulation.','Continue','UNIT 6'],['Natural Selection','80% · Possible','possible','Connect variation, selection, and population change.','Practice','UNIT 7']];
         else if (course.title.includes('History')) topics = [['Contextualization','92% · Core','core','Situate developments in broader historical context.','Review','HISTORICAL REASONING'],['Evidence in DBQs','87% · Likely','likely','Use documents and outside evidence to support claims.','Continue','DOCUMENT ANALYSIS'],['Causation & Continuity','79% · Possible','possible','Explain causes, effects, change, and continuity.','Practice','HISTORICAL REASONING']];
         return {
-          exam:course.title, total:'4', scale:'/5', range:'3–4', average:'2.8', percentile:'82nd percentile',
-          sections:[['Multiple choice','37','/45','Range 34–40'],['Free response','14','/18','Range 12–16']],
-          overview:'Your content recall is strong. The fastest score gain comes from timed free response and evidence-based reasoning.',
-          skills:[['CONTENT','37 / 45',[['Foundational knowledge',4],['Concept application',3],['Data interpretation',3],['Cross-topic connections',2]]],['REASONING','14 / 18',[['Claim development',3],['Evidence selection',2],['Explanation',3],['Time management',2]]]], topics
+          reportType:'ap', exam:course.title.replace(/^AP /,'AP® '), total:'4', scale:'/5', percentile:'70th percentile',
+          overviewTitle:'AP overview ✦', overviewHeadline:'Your highest-impact next step',
+          overview:'Your score shows strong command of the core concepts. Focus next on free-response precision and applying concepts in unfamiliar contexts.',
+          skills:[['CONTENT','Strong',[['Foundational knowledge',4],['Concept application',3],['Data interpretation',3],['Cross-topic connections',2]]],['REASONING','Developing',[['Claim development',3],['Evidence selection',2],['Explanation',3],['Time management',2]]]], topics
         };
       }
       return {
-        exam:course.title, total:'1.8', scale:' grade', range:'1.6–2.0', average:'2.3', percentile:'Top 18%',
-        sections:[['Schriftlich','12','/15','Spanne 11–13'],['Mündlich','11','/15','Spanne 10–12']],
-        overview:'Gute Grundlagen. Der größte Hebel liegt bei Begründungen, Transferaufgaben und sicherem Arbeiten unter Zeitdruck.',
-        skills:[['SCHRIFTLICH','12 / 15',[['Grundwissen',4],['Transfer',2],['Begründung',2],['Darstellung',3]]],['MÜNDLICH','11 / 15',[['Fachbegriffe',4],['Argumentation',3],['Transfer',2],['Reaktion',3]]]],
+        reportType:'abitur', exam:course.title, total:'13', scale:'/15', hitRate:'87%', rating:'Sehr gut',
+        overviewTitle:'Abitur-Übersicht ✦', overviewHeadline:'Ihre nächsten Schwerpunkte',
+        overview:'Um beim nächsten Mal die volle Punktzahl (15/15) zu erreichen, sollten Sie sich auf folgende Bereiche konzentrieren:',
+        overviewBullets:['Höhere Mathematik: quadratische Gleichungen und Wahrscheinlichkeitsrechnung weiter vertiefen.','Englische Standardkonventionen: Zeichensetzung und komplexe Satzstrukturen gezielt üben.'],
+        skills:[['SCHRIFTLICHE PRÜFUNG','13 / 15',[['Grundwissen',4],['Transferaufgaben',3],['Begründungen',3],['Darstellung',4]]]],
         topics:[['Transferaufgaben','92% · Core','core','Bekannte Konzepte auf neue Aufgaben übertragen.','Review','SCHRIFTLICH'],['Begründungen & Lösungswege','86% · Likely','likely','Lösungswege präzise und nachvollziehbar erklären.','Continue','SCHRIFTLICH'],['Prüfungstempo','78% · Possible','possible','Aufgaben sicher unter Zeitdruck bearbeiten.','Practice','PRÜFUNGSSTRATEGIE']]
       };
     }
 
     function diagnosticSkillMeter(level) {
       return `<span class="diag-skill-meter" aria-label="${level} of 5 mastery">${[1,2,3,4,5].map(value => `<i class="${value <= level ? 'active' : ''}"></i>`).join('')}</span>`;
+    }
+
+    function diagnosticScoreCardMarkup(profile) {
+      if (profile.reportType === 'ap') return `<section class="diag-score-card" aria-label="${profile.exam} score summary"><div class="diag-score-banner"><strong>${profile.exam}</strong><span>SAMPLE RESULT</span></div><div class="diag-ap-score-body"><span class="diag-ap-percentile">${profile.percentile}</span><div class="diag-ap-score-ring"><span>Your score</span><strong>${profile.total}</strong></div></div></section>`;
+      if (profile.reportType === 'abitur') return `<section class="diag-score-card" aria-label="${profile.exam} Ergebnis"><div class="diag-abitur-score-body"><span class="diag-abitur-course">${profile.exam} · Schriftliche Prüfung</span><span class="diag-score-label">Gesamtpunktzahl</span><div class="diag-abitur-score-row"><div class="diag-abitur-total"><strong>${profile.total}</strong><em>${profile.scale}</em></div><span class="diag-abitur-rating">${profile.rating}</span></div><div class="diag-abitur-progress" aria-label="${profile.hitRate} Trefferquote"><i></i></div><span class="diag-abitur-hit-rate">${profile.hitRate} Trefferquote</span></div></section>`;
+      return `<section class="diag-score-card" aria-label="${profile.exam} score summary"><div class="diag-score-banner"><strong>${profile.exam}</strong><span>SAMPLE RESULT</span></div><div class="diag-score-body"><span class="diag-score-label">Total score</span><div class="diag-total-row"><div class="diag-total-score"><strong>${profile.total}</strong><em>${profile.scale}</em></div><div class="diag-total-meta">Score range: ${profile.range}<br>Average: ${profile.average}<br><b>${profile.percentile}</b></div></div><div class="diag-section-list">${profile.sections.map(section => `<div class="diag-section-score"><span>${section[0]}</span><strong>${section[1]}</strong><em>${section[2]}</em><small>${section[3]}</small></div>`).join('')}</div></div></section>`;
     }
 
     function renderDiagnosticPreview(course) {
@@ -2615,17 +2658,22 @@
       const topicSections = [...new Set(filteredTopics.map(topic => topic[5]))];
       const visibleQuestions = diagnosticQuestionSamples.filter(question => diagnosticQuestionFilter === 'all' || question.status === diagnosticQuestionFilter);
       const scoreActive = diagnosticPreviewView !== 'questions';
+      const isAbitur = course.family === 'abitur';
+      const scoreTabLabel = isAbitur ? 'Ergebnis' : 'Score Report';
+      const questionTabLabel = isAbitur ? 'Lösungen' : 'Question Review';
+      const overviewList = profile.overviewBullets ? `<ul>${profile.overviewBullets.map(item => `<li>${item}</li>`).join('')}</ul>` : '';
+      const reportValueLabels = profile.reportType === 'ap' ? ['AP score','Percentile','Skill feedback'] : profile.reportType === 'abitur' ? ['Schriftliche Prüfung','Trefferquote','Lernempfehlungen'] : ['Predicted score','Section breakdown','Skill mastery'];
       document.getElementById('diagnosticPreviewPane').innerHTML = `
-        <div class="diagnostic-preview-head"><div><span>What you’ll get</span><strong>Interactive sample report</strong></div><div class="diag-report-tabs" role="tablist" aria-label="Sample report views"><button class="diag-report-tab${scoreActive ? ' active' : ''}" type="button" data-diagnostic-preview-view="score">Score Report</button><button class="diag-report-tab${diagnosticPreviewView === 'questions' ? ' active' : ''}" type="button" data-diagnostic-preview-view="questions">Question Review</button></div></div>
+        <div class="diagnostic-preview-head"><div><span>What you’ll get</span><strong>Interactive sample report</strong></div><div class="diag-report-tabs" role="tablist" aria-label="Sample report views"><button class="diag-report-tab${scoreActive ? ' active' : ''}" type="button" data-diagnostic-preview-view="score">${scoreTabLabel}</button><button class="diag-report-tab${diagnosticPreviewView === 'questions' ? ' active' : ''}" type="button" data-diagnostic-preview-view="questions">${questionTabLabel}</button></div></div>
         <section class="diag-report-screen" data-diagnostic-screen="score"${diagnosticPreviewView !== 'score' ? ' hidden' : ''}>
           <div class="diag-report-score-grid">
             <div class="diag-report-column">
-              <section class="diag-score-card" aria-label="${profile.exam} score summary"><div class="diag-score-banner"><strong>${profile.exam}</strong><span>SAMPLE RESULT</span></div><div class="diag-score-body"><span class="diag-score-label">Total score</span><div class="diag-total-row"><div class="diag-total-score"><strong>${profile.total}</strong><em>${profile.scale}</em></div><div class="diag-total-meta">Score range: ${profile.range}<br>Average: ${profile.average}<br><b>${profile.percentile}</b></div></div><div class="diag-section-list">${profile.sections.map(section => `<div class="diag-section-score"><span>${section[0]}</span><strong>${section[1]}</strong><em>${section[2]}</em><small>${section[3]}</small></div>`).join('')}</div></div></section>
-              <section class="diag-ai-card"><span class="diag-card-kicker">${course.label} overview ✦</span><strong>Your highest-impact next step</strong><p>${profile.overview}</p></section>
+              ${diagnosticScoreCardMarkup(profile)}
+              <section class="diag-ai-card"><span class="diag-card-kicker">${profile.overviewTitle || `${course.label} overview ✦`}</span><strong>${profile.overviewHeadline || 'Your highest-impact next step'}</strong><p>${profile.overview}</p>${overviewList}</section>
             </div>
-            <section class="diag-skills-card"><div class="diag-card-head"><div><strong>Knowledge & Skills</strong><br><span>Performance across tested domains</span></div><span>Mastery</span></div>${profile.skills.map(group => `<div class="diag-skill-group"><div class="diag-skill-group-head"><span>${group[0]}</span><b>${group[1]}</b></div>${group[2].map(skill => `<div class="diag-skill-row"><span>${skill[0]}</span>${diagnosticSkillMeter(skill[1])}</div>`).join('')}</div>`).join('')}<button class="diag-report-action" type="button" data-diagnostic-preview-view="topics">Practice Weak Topics</button></section>
+            <section class="diag-skills-card"><div class="diag-card-head"><div><strong>${isAbitur ? 'Kenntnisse & Fähigkeiten' : 'Knowledge & Skills'}</strong><br><span>${isAbitur ? 'Leistung in den geprüften Bereichen' : 'Performance across tested domains'}</span></div><span>${isAbitur ? 'Fortschritt' : 'Mastery'}</span></div>${profile.skills.map(group => `<div class="diag-skill-group"><div class="diag-skill-group-head"><span>${group[0]}</span><b>${group[1]}</b></div>${group[2].map(skill => `<div class="diag-skill-row"><span>${skill[0]}</span>${diagnosticSkillMeter(skill[1])}</div>`).join('')}</div>`).join('')}<button class="diag-report-action" type="button" data-diagnostic-preview-view="topics">${isAbitur ? 'Schwache Themen üben' : 'Practice Weak Topics'}</button></section>
           </div>
-          <div class="diagnostic-preview-value"><span>Predicted score</span><span>Section breakdown</span><span>Skill mastery</span></div>
+          <div class="diagnostic-preview-value">${reportValueLabels.map(label => `<span>${label}</span>`).join('')}</div>
         </section>
         <section class="diag-report-screen" data-diagnostic-screen="topics"${diagnosticPreviewView !== 'topics' ? ' hidden' : ''}>
           <button class="diag-report-back" type="button" data-diagnostic-preview-view="score"><svg class="icon"><use href="#i-chevron"/></svg>Back to Score Report</button>
@@ -3515,8 +3563,8 @@
       document.body.classList.remove('exam-predictor-open');
       document.getElementById('examPredictorNav').classList.remove('active');
       document.getElementById('homeNav').classList.add('active');
-      document.documentElement.style.setProperty('--accent', '#0f8a67');
-      document.documentElement.style.setProperty('--accent-rgb', '15, 138, 103');
+      document.documentElement.style.setProperty('--accent', '#2368f0');
+      document.documentElement.style.setProperty('--accent-rgb', '35, 104, 240');
       renderCoursePackage();
       document.title = `${course.title} — Solvely`;
       if (pushRoute && location.hash !== `#course-${index}`) history.pushState({courseIndex:index}, '', `#course-${index}`);
@@ -3604,8 +3652,8 @@
       document.getElementById('linkButton').classList.remove('active');
       document.getElementById('linkButton').setAttribute('aria-expanded','false');
       if (!calculatorPanel.hidden) closeAdvancedCalculator(document.getElementById('calculatorButton'));
-      document.documentElement.style.setProperty('--accent', key === 'podcast' ? '#7458df' : key === 'mock' ? '#0f8a67' : '#2368f0');
-      document.documentElement.style.setProperty('--accent-rgb', key === 'podcast' ? '116, 88, 223' : key === 'mock' ? '15, 138, 103' : '35, 104, 240');
+      document.documentElement.style.setProperty('--accent', key === 'podcast' ? '#7458df' : '#2368f0');
+      document.documentElement.style.setProperty('--accent-rgb', key === 'podcast' ? '116, 88, 223' : '35, 104, 240');
       promptInput.placeholder = capability.placeholder;
       sendLabel.textContent = capability.action;
       if (!preservePrompt) promptInput.value = '';
