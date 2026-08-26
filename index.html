@@ -1044,7 +1044,7 @@
     .course-stats { display:flex; gap:9px; margin-top:10px; color:#0f8a67; font-size:9px; font-weight:650; }
     .course-empty { padding:24px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
 
-    .diagnostic-dialog { width:min(920px,calc(100vw - 30px)); max-height:min(820px,calc(100vh - 30px)); padding:0; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:var(--surface); color:var(--text); box-shadow:0 30px 90px rgba(15,30,52,.26); }
+    .diagnostic-dialog { width:min(1080px,calc(100vw - 30px)); max-height:min(820px,calc(100vh - 30px)); padding:0; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:var(--surface); color:var(--text); box-shadow:0 30px 90px rgba(15,30,52,.26); }
     .diagnostic-dialog[open] { display:flex; flex-direction:column; }
     .diagnostic-dialog::backdrop { background:rgba(19,23,31,.4); backdrop-filter:blur(4px); }
     .diagnostic-dialog-head { display:flex; align-items:flex-start; gap:15px; padding:24px 26px 19px; border-bottom:1px solid var(--line); background:linear-gradient(120deg,rgba(20,126,245,.08),rgba(15,138,103,.06)); }
@@ -1056,7 +1056,7 @@
     .diagnostic-dialog-title p { margin:5px 0 0; color:var(--muted); font-size:10px; line-height:1.45; }
     .diagnostic-dialog-close { width:36px; height:36px; flex:0 0 auto; display:grid; place-items:center; margin-left:auto; padding:0; border:0; border-radius:10px; background:transparent; color:var(--muted); cursor:pointer; }
     .diagnostic-dialog-close:hover { background:var(--surface-hover); color:var(--text); }
-    .diagnostic-setup { display:grid; grid-template-columns:300px minmax(0,1fr); align-items:start; gap:22px; padding:24px 26px 26px; overflow:auto; }
+    .diagnostic-setup { display:grid; grid-template-columns:320px minmax(0,1fr); align-items:start; gap:22px; padding:24px 26px 26px; overflow:auto; }
     .diagnostic-setup-fields { display:grid; gap:16px; }
     .diagnostic-field { display:grid; gap:7px; }
     .diagnostic-field span { color:var(--text); font-size:11px; font-weight:700; }
@@ -1111,6 +1111,80 @@
     .sample-topics-cta { width:100%; height:30px; margin-top:9px; border:0; border-radius:16px; background:#007aff; color:#fff; font-size:8px; font-weight:760; }
     .diagnostic-preview-value { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:10px; }
     .diagnostic-preview-value span { padding:5px 7px; border-radius:7px; background:#eaf4ff; color:#147ef5; font-size:6.5px; font-weight:700; }
+    .diag-report-tabs { display:inline-flex; gap:3px; padding:3px; border-radius:9px; background:#e9ecef; }
+    .diag-report-tab { height:27px; padding:0 10px; border:0; border-radius:7px; background:transparent; color:#6e747c; font-size:8px; font-weight:700; cursor:pointer; }
+    .diag-report-tab.active { background:#fff; color:#15171a; box-shadow:0 2px 7px rgba(27,46,70,.1); }
+    .diag-report-screen { max-height:486px; padding-right:3px; overflow:auto; scrollbar-width:thin; scrollbar-color:#cdd4dc transparent; }
+    .diag-report-screen[hidden] { display:none; }
+    .diag-report-score-grid { display:grid; grid-template-columns:.94fr 1.06fr; align-items:start; gap:10px; }
+    .diag-report-column { min-width:0; display:grid; gap:10px; }
+    .diag-score-card,.diag-ai-card,.diag-skills-card,.diag-topics-card,.diag-question-card { overflow:hidden; border:1px solid #edf0f3; border-radius:14px; background:#fff; box-shadow:0 5px 16px rgba(27,46,70,.07); }
+    .diag-score-banner { min-height:47px; display:flex; align-items:center; justify-content:space-between; padding:9px 11px; position:relative; overflow:hidden; background:linear-gradient(135deg,#2788bd,#3f9dcc); color:#fff; }
+    .diag-score-banner::after { content:""; width:135px; height:64px; position:absolute; right:-22px; bottom:-39px; border:1px solid rgba(255,255,255,.16); border-radius:50%; box-shadow:0 0 0 12px rgba(255,255,255,.05),0 0 0 24px rgba(255,255,255,.035); }
+    .diag-score-banner strong,.diag-score-banner span { position:relative; z-index:1; }
+    .diag-score-banner strong { font-size:12px; }
+    .diag-score-banner span { padding:3px 5px; border-radius:5px; background:rgba(14,61,91,.2); font-size:7px; font-weight:800; letter-spacing:.06em; }
+    .diag-score-body { padding:12px; }
+    .diag-score-label,.diag-card-kicker { color:#2299e8; font-size:7.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
+    .diag-total-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:7px; padding:5px 0 9px; border-bottom:1px solid #edf0f3; }
+    .diag-total-score { white-space:nowrap; }
+    .diag-total-score strong { color:#111; font-size:34px; line-height:1; letter-spacing:-.04em; }
+    .diag-total-score em { color:#9ca2aa; font-size:9px; font-style:normal; }
+    .diag-total-meta { color:#686e76; font-size:6.6px; line-height:1.5; text-align:right; }
+    .diag-total-meta b { display:inline-flex; margin-top:4px; padding:3px 5px; border-radius:5px; background:#edf6ff; color:#087cec; font-size:6.4px; }
+    .diag-section-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:9px; }
+    .diag-section-score + .diag-section-score { padding-left:8px; border-left:1px solid #edf0f3; }
+    .diag-section-score span,.diag-section-score small { display:block; }
+    .diag-section-score span { min-height:18px; color:#2499e8; font-size:7px; font-weight:760; line-height:1.35; text-transform:uppercase; }
+    .diag-section-score strong { display:inline-block; margin-top:3px; color:#111; font-size:19px; }
+    .diag-section-score em { color:#9ca2aa; font-size:8px; font-style:normal; }
+    .diag-section-score small { margin-top:2px; color:#777e87; font-size:6.3px; line-height:1.35; }
+    .diag-ai-card { padding:10px 11px; }
+    .diag-ai-card strong { display:block; margin-top:4px; font-size:9.5px; line-height:1.35; }
+    .diag-ai-card p { margin:4px 0 0; color:#555b63; font-size:7px; line-height:1.5; }
+    .diag-skills-card { padding:10px; }
+    .diag-card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:8px; }
+    .diag-card-head strong { font-size:10px; }
+    .diag-card-head span { color:#8e959e; font-size:6.7px; }
+    .diag-skill-group { padding:8px; border-radius:9px; background:#f8fafc; }
+    .diag-skill-group + .diag-skill-group { margin-top:7px; }
+    .diag-skill-group-head { display:flex; align-items:center; justify-content:space-between; gap:7px; margin-bottom:6px; color:#2299e8; font-size:7px; font-weight:800; text-transform:uppercase; }
+    .diag-skill-group-head b { color:#15171a; font-size:8px; }
+    .diag-skill-row { display:grid; grid-template-columns:minmax(0,1fr) 50px; align-items:center; gap:7px; padding:5px 0; border-top:1px solid #edf0f3; }
+    .diag-skill-row:first-of-type { border-top:0; }
+    .diag-skill-row span { overflow:hidden; color:#34383d; font-size:7px; line-height:1.25; text-overflow:ellipsis; white-space:nowrap; }
+    .diag-skill-meter { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; }
+    .diag-skill-meter i { height:3px; border-radius:3px; background:#d8dee5; }
+    .diag-skill-meter i.active { background:#0b84ff; }
+    .diag-report-action { width:100%; height:30px; margin-top:9px; border:0; border-radius:16px; background:#087cec; color:#fff; font-size:7px; font-weight:780; cursor:pointer; }
+    .diag-topics-toolbar,.diag-question-filter { display:flex; gap:5px; margin-bottom:10px; }
+    .diag-filter-chip { height:26px; flex:1; border:0; border-radius:8px; background:#edf1f5; color:#697079; font-size:6.5px; cursor:pointer; }
+    .diag-filter-chip.active { background:#e8f3ff; color:#1767a4; font-weight:780; }
+    .diag-topics-section { position:relative; padding-left:12px; }
+    .diag-topics-section + .diag-topics-section { margin-top:12px; }
+    .diag-topics-section::before { content:""; width:1px; position:absolute; left:3px; top:13px; bottom:0; background:#dde4eb; }
+    .diag-topics-section h4 { margin:0 0 7px; position:relative; font-size:7.5px; text-transform:uppercase; }
+    .diag-topics-section h4::before { content:""; width:4px; height:4px; position:absolute; left:-11px; top:3px; border:1px solid #cad3dd; border-radius:50%; background:#fff; }
+    .diag-topic-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:9px; padding:9px; border:1px solid #edf0f3; border-radius:10px; background:#fff; }
+    .diag-topic-row + .diag-topic-row { margin-top:6px; }
+    .diag-topic-copy strong,.diag-topic-copy span { display:block; }
+    .diag-topic-copy strong { font-size:9px; }
+    .diag-topic-copy span { margin-top:3px; overflow:hidden; color:#777e87; font-size:6.8px; line-height:1.35; text-overflow:ellipsis; white-space:nowrap; }
+    .diag-topic-copy b { display:inline-flex; margin-top:5px; padding:3px 5px; border-radius:5px; background:#fff0f2; color:#f45c6a; font-size:6.6px; }
+    .diag-topic-copy b.likely { background:#fff3e6; color:#ff6c16; }
+    .diag-topic-copy b.possible { background:#fff8d9; color:#b47a00; }
+    .diag-topic-action { height:26px; padding:0 9px; border:0; border-radius:13px; background:#edf6ff; color:#087cec; font-size:7px; font-weight:760; cursor:pointer; }
+    .diag-question-card { padding:11px; }
+    .diag-question-meta { display:flex; justify-content:space-between; gap:8px; color:#a1a7ae; font-size:7px; }
+    .diag-question-card h4 { margin:6px 0 8px; font-size:11px; line-height:1.35; }
+    .diag-answer-choice { display:flex; align-items:center; gap:7px; min-height:33px; margin-top:6px; padding:8px 10px; border-radius:9px; background:#f5f8fa; color:#7a8087; font-size:8px; box-shadow:inset 0 -1px #e1e7ec; }
+    .diag-answer-choice i { width:10px; height:10px; flex:0 0 auto; border:1px solid #d9e2e9; border-radius:4px; }
+    .diag-answer-choice.selected-wrong { background:#fff3ef; color:#a64c12; box-shadow:inset 0 -2px #f1b388; }
+    .diag-answer-choice.correct { background:#dfffd1; color:#1c6f15; box-shadow:inset 0 -2px #86d96f; }
+    .diag-answer-note { margin-top:8px; padding:9px; border-radius:9px; background:#fff7ee; color:#5f4c3a; font-size:7.5px; line-height:1.45; }
+    .diag-answer-note strong { display:block; margin-bottom:3px; color:#a95712; font-size:8px; }
+    .diag-report-back { display:inline-flex; align-items:center; gap:4px; margin:0 0 9px; padding:0; border:0; background:transparent; color:#087cec; font-size:6.5px; font-weight:760; cursor:pointer; }
+    .diag-report-back .icon { width:10px; height:10px; transform:rotate(90deg); }
     .diagnostic-ready { padding:28px 26px 26px; text-align:center; }
     .diagnostic-ready[hidden],.diagnostic-setup[hidden] { display:none; }
     .diagnostic-ready-mark { width:62px; height:62px; display:grid; place-items:center; margin:0 auto 15px; border-radius:20px; background:rgba(15,138,103,.1); color:#0f8a67; }
@@ -2485,62 +2559,89 @@
       ap: ['3','4','5'],
       abitur: ['3.0','2.5','2.0','1.5','1.0']
     };
+    let diagnosticPreviewView = 'score';
+    let diagnosticTopicFilter = 'all';
+    let diagnosticQuestionFilter = 'all';
+
+    const diagnosticQuestionSamples = [
+      {status:'incorrect',type:'Multiple choice',title:'Which expression is equivalent to (x + 3)(x − 3)?',choices:['x² − 6x + 9','x² − 9','x² + 9','x² + 6x − 9'],selected:0,correct:1,explanation:'This is a difference of squares: (a + b)(a − b) = a² − b², so the equivalent expression is x² − 9.'},
+      {status:'correct',type:'Multiple choice',title:'Which transition best signals a contrast with the previous sentence?',choices:['Therefore','For example','However','Similarly'],selected:2,correct:2,explanation:'“However” introduces a contrast, which matches the relationship between the two ideas.'}
+    ];
 
     function diagnosticPreviewProfile(course) {
       if (course.family === 'sat') return {
         exam:'SAT® Prep 2026', total:'1350', scale:'/1600', range:'1310–1390', average:'1050', percentile:'90th percentile',
         sections:[['Reading & Writing','640','/800','Range 610–670'],['Mathematics','710','/800','Range 680–740']],
         overview:'Reading & Writing is your stronger section. Focus next on Advanced Math and Standard English Conventions.',
-        topics:[['Advanced Math','92% likely',36,'Not started'],['Standard English Conventions','89% likely',52,'6 of 12 answered'],['Problem-Solving & Data Analysis','81% likely',72,'In progress']]
+        skills:[['Reading & Writing','640 / 800',[['Information and Ideas',3],['Craft and Structure',2],['Expression of Ideas',3],['Standard English Conventions',2]]],['Mathematics','710 / 800',[['Algebra',4],['Advanced Math',2],['Problem-Solving & Data Analysis',3],['Geometry and Trigonometry',3]]]],
+        topics:[['Advanced Math','92% · Core','core','Nonlinear equations, equivalent expressions, and functions.','Review','MATHEMATICS'],['Standard English Conventions','89% · Likely','likely','Sentence boundaries, punctuation, and agreement.','Continue','READING & WRITING'],['Problem-Solving & Data Analysis','78% · Possible','possible','Ratios, percentages, tables, and scatterplots.','Practice','MATHEMATICS']]
       };
       if (course.family === 'act') return {
         exam:'ACT Prep 2026', total:'29', scale:'/36', range:'28–30', average:'20.7', percentile:'91st percentile',
-        sections:[['English','30','/36','Range 29–32'],['Mathematics','27','/36','Range 25–29']],
+        sections:[['English','30','/36','Range 29–32'],['Mathematics','27','/36','Range 25–29'],['Science','28','/36','Range 27–30'],['Reading','31','/36','Range 30–32']],
         overview:'English is your stronger section. Prioritize functions, modeling, and multi-step mathematics under time pressure.',
-        topics:[['Functions & modeling','93% likely',31,'Not started'],['Integrating Essential Skills','87% likely',48,'5 of 12 answered'],['Production of Writing','78% likely',69,'In progress']]
+        skills:[['STEM','27 / 36',[['Algebra',2],['Functions',3],['Geometry',2],['Statistics & Probability',3]]],['LANGUAGE','30 / 36',[['Production of Writing',4],['Knowledge of Language',3],['Conventions of English',4],['Integration of Knowledge',3]]]],
+        topics:[['Functions & Modeling','93% · Core','core','Interpret functions, models, and multi-step relationships.','Review','MATHEMATICS'],['Integrating Essential Skills','87% · Likely','likely','Combine number, algebra, and geometry skills efficiently.','Continue','MATHEMATICS'],['Production of Writing','78% · Possible','possible','Organization, cohesion, and precise word choice.','Practice','ENGLISH']]
       };
       if (course.family === 'ap') {
-        let topics = [['Core concepts & applications','91% likely',35,'Not started'],['Evidence-based reasoning','86% likely',51,'4 of 10 answered'],['Timed free response','79% likely',67,'In progress']];
-        if (course.title.includes('Calculus')) topics = [['Applications of derivatives','94% likely',28,'Not started'],['Integration techniques','88% likely',49,'5 of 12 answered'],['Differential equations','81% likely',66,'In progress']];
-        else if (course.title.includes('Biology')) topics = [['Cellular energetics','93% likely',32,'Not started'],['Gene expression','86% likely',47,'4 of 10 answered'],['Natural selection','80% likely',68,'In progress']];
-        else if (course.title.includes('History')) topics = [['Contextualization','92% likely',34,'Not started'],['Evidence in DBQs','87% likely',50,'2 essays reviewed'],['Causation & continuity','79% likely',70,'In progress']];
+        let topics = [['Core concepts & applications','91% · Core','core','Apply essential concepts across unfamiliar contexts.','Review','CORE CONTENT'],['Evidence-based reasoning','86% · Likely','likely','Connect claims, evidence, and defensible reasoning.','Continue','SKILLS'],['Timed free response','79% · Possible','possible','Plan and complete responses under exam timing.','Practice','FREE RESPONSE']];
+        if (course.title.includes('Calculus')) topics = [['Applications of Derivatives','94% · Core','core','Analyze motion, rates, extrema, and optimization.','Review','UNIT 5'],['Integration Techniques','88% · Likely','likely','Choose and apply appropriate integration methods.','Continue','UNIT 6'],['Differential Equations','81% · Possible','possible','Model change with separable differential equations.','Practice','UNIT 7']];
+        else if (course.title.includes('Biology')) topics = [['Cellular Energetics','93% · Core','core','Photosynthesis, respiration, and energy coupling.','Review','UNIT 3'],['Gene Expression','86% · Likely','likely','Transcription, translation, and gene regulation.','Continue','UNIT 6'],['Natural Selection','80% · Possible','possible','Connect variation, selection, and population change.','Practice','UNIT 7']];
+        else if (course.title.includes('History')) topics = [['Contextualization','92% · Core','core','Situate developments in broader historical context.','Review','HISTORICAL REASONING'],['Evidence in DBQs','87% · Likely','likely','Use documents and outside evidence to support claims.','Continue','DOCUMENT ANALYSIS'],['Causation & Continuity','79% · Possible','possible','Explain causes, effects, change, and continuity.','Practice','HISTORICAL REASONING']];
         return {
           exam:course.title, total:'4', scale:'/5', range:'3–4', average:'2.8', percentile:'82nd percentile',
           sections:[['Multiple choice','37','/45','Range 34–40'],['Free response','14','/18','Range 12–16']],
-          overview:'Your content recall is strong. The fastest score gain comes from timed free response and evidence-based reasoning.', topics
+          overview:'Your content recall is strong. The fastest score gain comes from timed free response and evidence-based reasoning.',
+          skills:[['CONTENT','37 / 45',[['Foundational knowledge',4],['Concept application',3],['Data interpretation',3],['Cross-topic connections',2]]],['REASONING','14 / 18',[['Claim development',3],['Evidence selection',2],['Explanation',3],['Time management',2]]]], topics
         };
       }
       return {
         exam:course.title, total:'1.8', scale:' grade', range:'1.6–2.0', average:'2.3', percentile:'Top 18%',
         sections:[['Schriftlich','12','/15','Spanne 11–13'],['Mündlich','11','/15','Spanne 10–12']],
         overview:'Gute Grundlagen. Der größte Hebel liegt bei Begründungen, Transferaufgaben und sicherem Arbeiten unter Zeitdruck.',
-        topics:[['Transferaufgaben','92% relevant',34,'Noch nicht begonnen'],['Begründungen & Lösungswege','86% relevant',51,'5 von 12 bearbeitet'],['Prüfungstempo','78% relevant',68,'In Bearbeitung']]
+        skills:[['SCHRIFTLICH','12 / 15',[['Grundwissen',4],['Transfer',2],['Begründung',2],['Darstellung',3]]],['MÜNDLICH','11 / 15',[['Fachbegriffe',4],['Argumentation',3],['Transfer',2],['Reaktion',3]]]],
+        topics:[['Transferaufgaben','92% · Core','core','Bekannte Konzepte auf neue Aufgaben übertragen.','Review','SCHRIFTLICH'],['Begründungen & Lösungswege','86% · Likely','likely','Lösungswege präzise und nachvollziehbar erklären.','Continue','SCHRIFTLICH'],['Prüfungstempo','78% · Possible','possible','Aufgaben sicher unter Zeitdruck bearbeiten.','Practice','PRÜFUNGSSTRATEGIE']]
       };
+    }
+
+    function diagnosticSkillMeter(level) {
+      return `<span class="diag-skill-meter" aria-label="${level} of 5 mastery">${[1,2,3,4,5].map(value => `<i class="${value <= level ? 'active' : ''}"></i>`).join('')}</span>`;
     }
 
     function renderDiagnosticPreview(course) {
       const profile = diagnosticPreviewProfile(course);
+      const topicFilters = ['all','core','likely','possible'];
+      const filteredTopics = profile.topics.filter(topic => diagnosticTopicFilter === 'all' || topic[2] === diagnosticTopicFilter);
+      const topicSections = [...new Set(filteredTopics.map(topic => topic[5]))];
+      const visibleQuestions = diagnosticQuestionSamples.filter(question => diagnosticQuestionFilter === 'all' || question.status === diagnosticQuestionFilter);
+      const scoreActive = diagnosticPreviewView !== 'questions';
       document.getElementById('diagnosticPreviewPane').innerHTML = `
-        <div class="diagnostic-preview-head"><span>What you’ll get</span><strong>Sample report</strong></div>
-        <div class="diagnostic-preview-grid">
-          <div class="sample-report-stack">
-            <section class="sample-report-card" aria-label="${profile.exam} sample score report">
-              <div class="sample-report-banner"><strong>${profile.exam}</strong><span>EXAMPLE</span></div>
-              <div class="sample-report-body">
-                <span class="sample-score-label">Total score</span>
-                <div class="sample-total-row"><div class="sample-total-score"><strong>${profile.total}</strong><em>${profile.scale}</em><span class="sample-percentile">${profile.percentile}</span></div><div class="sample-score-meta">Score range: ${profile.range}<br>Average: ${profile.average}</div></div>
-                <div class="sample-section-grid">${profile.sections.map(section => `<div class="sample-section"><span>${section[0]}</span><strong>${section[1]}</strong><em>${section[2]}</em><small>${section[3]}</small></div>`).join('')}</div>
-              </div>
-            </section>
-            <div class="sample-overview"><strong>${course.label} overview ✦</strong>${profile.overview}</div>
+        <div class="diagnostic-preview-head"><div><span>What you’ll get</span><strong>Interactive sample report</strong></div><div class="diag-report-tabs" role="tablist" aria-label="Sample report views"><button class="diag-report-tab${scoreActive ? ' active' : ''}" type="button" data-diagnostic-preview-view="score">Score Report</button><button class="diag-report-tab${diagnosticPreviewView === 'questions' ? ' active' : ''}" type="button" data-diagnostic-preview-view="questions">Question Review</button></div></div>
+        <section class="diag-report-screen" data-diagnostic-screen="score"${diagnosticPreviewView !== 'score' ? ' hidden' : ''}>
+          <div class="diag-report-score-grid">
+            <div class="diag-report-column">
+              <section class="diag-score-card" aria-label="${profile.exam} score summary"><div class="diag-score-banner"><strong>${profile.exam}</strong><span>SAMPLE RESULT</span></div><div class="diag-score-body"><span class="diag-score-label">Total score</span><div class="diag-total-row"><div class="diag-total-score"><strong>${profile.total}</strong><em>${profile.scale}</em></div><div class="diag-total-meta">Score range: ${profile.range}<br>Average: ${profile.average}<br><b>${profile.percentile}</b></div></div><div class="diag-section-list">${profile.sections.map(section => `<div class="diag-section-score"><span>${section[0]}</span><strong>${section[1]}</strong><em>${section[2]}</em><small>${section[3]}</small></div>`).join('')}</div></div></section>
+              <section class="diag-ai-card"><span class="diag-card-kicker">${course.label} overview ✦</span><strong>Your highest-impact next step</strong><p>${profile.overview}</p></section>
+            </div>
+            <section class="diag-skills-card"><div class="diag-card-head"><div><strong>Knowledge & Skills</strong><br><span>Performance across tested domains</span></div><span>Mastery</span></div>${profile.skills.map(group => `<div class="diag-skill-group"><div class="diag-skill-group-head"><span>${group[0]}</span><b>${group[1]}</b></div>${group[2].map(skill => `<div class="diag-skill-row"><span>${skill[0]}</span>${diagnosticSkillMeter(skill[1])}</div>`).join('')}</div>`).join('')}<button class="diag-report-action" type="button" data-diagnostic-preview-view="topics">Practice Weak Topics</button></section>
           </div>
-          <section class="sample-topics-card" aria-label="Topics to improve sample">
-            <div class="sample-topics-head"><div><strong>Topics to Improve</strong><br><span>Ranked by score impact</span></div><span>Sample</span></div>
-            ${profile.topics.map(topic => `<div class="sample-topic"><div class="sample-topic-top"><strong>${topic[0]}</strong><span>${topic[1]}</span></div><div class="sample-topic-bar"><i style="width:${topic[2]}%"></i></div><div class="sample-topic-meta"><span>Mastery ${topic[2]}%</span><span>${topic[3]}</span></div></div>`).join('')}
-            <button class="sample-topics-cta" type="button" tabindex="-1">Practice Weak Topics</button>
-          </section>
-        </div>
-        <div class="diagnostic-preview-value"><span>Predicted score</span><span>Weakest skills</span><span>Exact next steps</span></div>`;
+          <div class="diagnostic-preview-value"><span>Predicted score</span><span>Section breakdown</span><span>Skill mastery</span></div>
+        </section>
+        <section class="diag-report-screen" data-diagnostic-screen="topics"${diagnosticPreviewView !== 'topics' ? ' hidden' : ''}>
+          <button class="diag-report-back" type="button" data-diagnostic-preview-view="score"><svg class="icon"><use href="#i-chevron"/></svg>Back to Score Report</button>
+          <div class="diag-card-head"><div><strong>Topics to Improve</strong><br><span>Ranked by exam importance and current progress</span></div><span>${filteredTopics.length} topics</span></div>
+          <div class="diag-topics-toolbar">${topicFilters.map(filter => `<button class="diag-filter-chip${diagnosticTopicFilter === filter ? ' active' : ''}" type="button" data-diagnostic-topic-filter="${filter}">${filter[0].toUpperCase() + filter.slice(1)}</button>`).join('')}</div>
+          ${topicSections.map(section => `<section class="diag-topics-section"><h4>${section}</h4>${filteredTopics.filter(topic => topic[5] === section).map(topic => `<article class="diag-topic-row"><div class="diag-topic-copy"><strong>${topic[0]}</strong><span>${topic[3]}</span><b class="${topic[2]}">${topic[1]}</b></div><button class="diag-topic-action" type="button" data-diagnostic-topic-action="${topic[4]} ${topic[0]}">${topic[4]} ›</button></article>`).join('')}</section>`).join('')}
+        </section>
+        <section class="diag-report-screen" data-diagnostic-screen="questions"${diagnosticPreviewView !== 'questions' ? ' hidden' : ''}>
+          <div class="diag-question-filter">${['all','incorrect','correct'].map(filter => `<button class="diag-filter-chip${diagnosticQuestionFilter === filter ? ' active' : ''}" type="button" data-diagnostic-question-filter="${filter}">${filter === 'all' ? 'All Questions' : filter[0].toUpperCase() + filter.slice(1)} (${diagnosticQuestionSamples.filter(item => filter === 'all' || item.status === filter).length})</button>`).join('')}</div>
+          <div class="diag-report-column">${visibleQuestions.map((question,index) => `<article class="diag-question-card"><div class="diag-question-meta"><span>${question.type}</span><span>${index + 1}/${visibleQuestions.length}</span></div><h4>${question.title}</h4>${question.choices.map((choice,choiceIndex) => `<div class="diag-answer-choice${choiceIndex === question.correct ? ' correct' : choiceIndex === question.selected ? ' selected-wrong' : ''}"><i></i><span>${String.fromCharCode(65 + choiceIndex)}. ${choice}</span></div>`).join('')}<div class="diag-answer-note"><strong>${question.status === 'correct' ? 'Correct' : 'Explanation'}</strong>${question.explanation}</div></article>`).join('')}</div>
+        </section>`;
+
+      document.querySelectorAll('[data-diagnostic-preview-view]').forEach(button => button.addEventListener('click', () => { diagnosticPreviewView = button.dataset.diagnosticPreviewView; renderDiagnosticPreview(course); }));
+      document.querySelectorAll('[data-diagnostic-topic-filter]').forEach(button => button.addEventListener('click', () => { diagnosticTopicFilter = button.dataset.diagnosticTopicFilter; renderDiagnosticPreview(course); }));
+      document.querySelectorAll('[data-diagnostic-question-filter]').forEach(button => button.addEventListener('click', () => { diagnosticQuestionFilter = button.dataset.diagnosticQuestionFilter; renderDiagnosticPreview(course); }));
+      document.querySelectorAll('[data-diagnostic-topic-action]').forEach(button => button.addEventListener('click', () => showToast(button.dataset.diagnosticTopicAction + ' opened')));
     }
 
     const capabilityGroups = {
@@ -3068,6 +3169,9 @@
     function openDiagnosticDialog() {
       const diagnosticDialog = document.getElementById('diagnosticDialog');
       const diagnosticDate = document.getElementById('diagnosticTestDate');
+      diagnosticPreviewView = 'score';
+      diagnosticTopicFilter = 'all';
+      diagnosticQuestionFilter = 'all';
       populateDiagnosticExams();
       populateDiagnosticScores();
       const today = new Date();
