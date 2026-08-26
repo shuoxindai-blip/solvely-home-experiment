@@ -1883,7 +1883,6 @@
       </section>
 
       <section class="exam-predictor-workspace" id="examPredictorWorkspace" aria-labelledby="examPredictorSampleTitle" hidden>
-        <button class="course-back" id="examPredictorBack" type="button"><svg class="icon"><use href="#i-chevron"/></svg><span>Back to homepage</span></button>
         <header class="predictor-page-header">
           <div>
             <p class="predictor-breadcrumb"><span>Exam Predictor</span><i></i><span>Exam Sets</span></p>
@@ -2110,7 +2109,7 @@
         examples: [
           { tag: 'Geometry', title: 'Reflection over y-axis', description: 'Adjust triangle vertices and track their reflected coordinates.', prompt: 'Reflect triangle PQR over the y-axis and write the coordinates of P′, Q′, and R′.', preview: 'graph-reflection', simulator: 'assets/simulators/reflection-over-y-axis.html' },
           { tag: 'Economics', title: 'Negative Externality & Pigouvian Tax', description: 'Compare private and social costs, then test the corrective tax.', prompt: 'Demand is Q = 1,200 − 4P and supply is Q = −240 + 2P. Marginal external damage is $12 per unit. Determine how many more units the free market produces than the social optimum and calculate the deadweight loss.', preview: 'graph-externality', simulator: 'assets/simulators/negative-externality-pigouvian-tax.html' },
-          { tag: 'Calculus', title: 'LIMITS AT INFINITY', description: 'Explore the squeeze theorem and the horizontal asymptote.', prompt: 'For f(x) = sin(2x) / x, find the limits as x approaches positive and negative infinity and identify all horizontal asymptotes.', preview: 'graph-limits', simulator: 'assets/simulators/limits-at-infinity.html' }
+          { tag: 'Calculus', title: 'Limits at infinity', description: 'Explore the squeeze theorem and the horizontal asymptote.', prompt: 'For f(x) = sin(2x) / x, find the limits as x approaches positive and negative infinity and identify all horizontal asymptotes.', preview: 'graph-limits', simulator: 'assets/simulators/limits-at-infinity.html' }
         ]
       },
       video: {
@@ -2470,7 +2469,7 @@
         ['Model Selection',98,30],['Stationarity Testing',96,0],['ARIMA Modeling',94,0],['SARIMA Modeling',92,0],
         ['Dynamic Regression',91,0],['Panel Data',89,0],['Logistic Regression',87,0],['Heteroscedasticity WLS',85,0],['Regression Diagnostics',83,0]
       ];
-      const visibleTopics = detail ? topics : topics.slice(0,4);
+      const visibleTopics = detail ? topics : topics.slice(0,5);
       return `<div class="example-preview exam-feature-visual exam-topics-visual${detail ? ' is-detail' : ''}"><h3 class="exam-visual-heading">Predicted Exam Topics</h3><div class="exam-topics-table"><div class="exam-topics-head"><span>Topic</span><span>Likelihood</span><span>Mastery</span></div>${visibleTopics.map(([label,likelihood,mastery]) => `<div class="exam-topic-row"><span>${label}</span><strong class="exam-likelihood${likelihood < 95 ? ' mid' : ''}">${likelihood}%</strong><span class="exam-mastery"><strong>${mastery}%</strong><span class="exam-mastery-track"><i style="width:${mastery}%"></i></span></span></div>`).join('')}</div></div>`;
     }
 
@@ -4530,7 +4529,6 @@
     document.getElementById('examCourseSearch').addEventListener('input', renderCourseCatalog);
     document.getElementById('examCourseFilter').addEventListener('change', renderCourseCatalog);
     document.getElementById('courseBackButton').addEventListener('click', closeCoursePackage);
-    document.getElementById('examPredictorBack').addEventListener('click', closeExamPredictorSample);
     document.querySelector('[data-predictor-task]').addEventListener('click', event => {
       const task = event.currentTarget;
       const completed = task.getAttribute('aria-pressed') === 'true';
