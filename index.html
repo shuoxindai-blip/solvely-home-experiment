@@ -1016,6 +1016,19 @@
     .exam-catalog-heading span { display:block; margin-bottom:5px; color:#0f8a67; font-size:10px; font-weight:750; letter-spacing:.09em; }
     .exam-catalog-heading h2 { margin:0; font-size:21px; letter-spacing:-.02em; }
     .exam-catalog-heading p { margin:0 0 1px auto; max-width:470px; color:var(--muted); font-size:12px; line-height:1.45; text-align:right; }
+    .diagnostic-entry { min-height:146px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:20px; margin-bottom:16px; padding:20px 22px; overflow:hidden; position:relative; border:1px solid rgba(20,126,245,.2); border-radius:18px; background:linear-gradient(120deg,#f4f9ff 0%,#f8fbff 54%,#eef8f4 100%); box-shadow:0 12px 32px rgba(35,83,136,.08); }
+    .diagnostic-entry::after { content:""; width:180px; height:180px; position:absolute; right:-62px; top:-94px; border-radius:50%; background:rgba(20,126,245,.08); pointer-events:none; }
+    .diagnostic-entry-icon { width:64px; height:64px; display:grid; place-items:center; position:relative; z-index:1; border-radius:18px; background:#fff; color:#147ef5; box-shadow:0 9px 22px rgba(20,126,245,.14); }
+    .diagnostic-entry-icon .icon { width:29px; height:29px; }
+    .diagnostic-entry-copy { min-width:0; position:relative; z-index:1; }
+    .diagnostic-entry-meta { display:flex; align-items:center; flex-wrap:wrap; gap:7px; margin-bottom:7px; color:#147ef5; font-size:9px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
+    .diagnostic-entry-meta span { display:inline-flex; align-items:center; gap:5px; }
+    .diagnostic-entry-meta span + span::before { content:""; width:3px; height:3px; margin-right:2px; border-radius:50%; background:currentColor; opacity:.55; }
+    .diagnostic-entry h3 { margin:0; color:var(--text); font-size:20px; letter-spacing:-.025em; }
+    .diagnostic-entry p { max-width:610px; margin:7px 0 0; color:var(--muted); font-size:11px; line-height:1.55; }
+    .diagnostic-entry-button { min-width:152px; height:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; position:relative; z-index:1; padding:0 17px; border:0; border-radius:12px; background:#147ef5; color:#fff; font-size:11px; font-weight:760; cursor:pointer; box-shadow:0 9px 20px rgba(20,126,245,.22); transition:transform .16s ease,background .16s ease; }
+    .diagnostic-entry-button:hover { transform:translateY(-1px); background:#086fe2; }
+    .diagnostic-entry-button .icon { width:15px; height:15px; }
     .exam-catalog-toolbar { display:flex; gap:10px; margin-bottom:13px; }
     .exam-search-wrap { flex:1; height:43px; display:flex; align-items:center; gap:9px; padding:0 13px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--muted); }
     .exam-search-wrap input { width:100%; border:0; outline:0; background:transparent; color:var(--text); }
@@ -1030,6 +1043,91 @@
     .course-card p { margin:0; color:var(--muted); font-size:10px; line-height:1.5; }
     .course-stats { display:flex; gap:9px; margin-top:10px; color:#0f8a67; font-size:9px; font-weight:650; }
     .course-empty { padding:24px; border:1px dashed var(--line); border-radius:14px; color:var(--muted); text-align:center; }
+
+    .diagnostic-dialog { width:min(920px,calc(100vw - 30px)); max-height:min(820px,calc(100vh - 30px)); padding:0; overflow:hidden; border:1px solid var(--line); border-radius:24px; background:var(--surface); color:var(--text); box-shadow:0 30px 90px rgba(15,30,52,.26); }
+    .diagnostic-dialog[open] { display:flex; flex-direction:column; }
+    .diagnostic-dialog::backdrop { background:rgba(19,23,31,.4); backdrop-filter:blur(4px); }
+    .diagnostic-dialog-head { display:flex; align-items:flex-start; gap:15px; padding:24px 26px 19px; border-bottom:1px solid var(--line); background:linear-gradient(120deg,rgba(20,126,245,.08),rgba(15,138,103,.06)); }
+    .diagnostic-dialog-icon { width:46px; height:46px; flex:0 0 auto; display:grid; place-items:center; border-radius:14px; background:#147ef5; color:#fff; box-shadow:0 8px 18px rgba(20,126,245,.2); }
+    .diagnostic-dialog-icon .icon { width:22px; height:22px; }
+    .diagnostic-dialog-title { min-width:0; }
+    .diagnostic-dialog-title span { display:block; margin-bottom:4px; color:#147ef5; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .diagnostic-dialog-title h2 { margin:0; font-size:21px; letter-spacing:-.025em; }
+    .diagnostic-dialog-title p { margin:5px 0 0; color:var(--muted); font-size:10px; line-height:1.45; }
+    .diagnostic-dialog-close { width:36px; height:36px; flex:0 0 auto; display:grid; place-items:center; margin-left:auto; padding:0; border:0; border-radius:10px; background:transparent; color:var(--muted); cursor:pointer; }
+    .diagnostic-dialog-close:hover { background:var(--surface-hover); color:var(--text); }
+    .diagnostic-setup { display:grid; grid-template-columns:300px minmax(0,1fr); align-items:start; gap:22px; padding:24px 26px 26px; overflow:auto; }
+    .diagnostic-setup-fields { display:grid; gap:16px; }
+    .diagnostic-field { display:grid; gap:7px; }
+    .diagnostic-field span { color:var(--text); font-size:11px; font-weight:700; }
+    .diagnostic-field select,.diagnostic-field input { width:100%; height:47px; appearance:none; padding:0 13px; border:1px solid var(--line); border-radius:12px; outline:0; background:var(--surface); color:var(--text); font:600 11px/1 inherit; }
+    .diagnostic-field select:focus,.diagnostic-field input:focus { border-color:rgba(20,126,245,.62); box-shadow:0 0 0 3px rgba(20,126,245,.1); }
+    .diagnostic-field-select { position:relative; }
+    .diagnostic-field-select .icon { position:absolute; right:13px; top:15px; pointer-events:none; color:var(--muted); }
+    .diagnostic-field-select select { padding-right:40px; }
+    .diagnostic-setup-note { display:flex; align-items:flex-start; gap:9px; margin:0; padding:11px 12px; border-radius:11px; background:rgba(20,126,245,.07); color:var(--muted); font-size:9px; line-height:1.5; }
+    .diagnostic-setup-note .icon { width:15px; height:15px; flex:0 0 auto; margin-top:1px; color:#147ef5; }
+    .diagnostic-continue,.diagnostic-start { width:100%; height:47px; border:0; border-radius:12px; background:#147ef5; color:#fff; font-size:11px; font-weight:760; cursor:pointer; box-shadow:0 9px 20px rgba(20,126,245,.18); }
+    .diagnostic-continue:hover,.diagnostic-start:hover { background:#086fe2; }
+    .diagnostic-preview-pane { min-width:0; padding:16px; border:1px solid #edf0f3; border-radius:18px; background:#f6f8fa; color:#15171a; }
+    .diagnostic-preview-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:11px; }
+    .diagnostic-preview-head span { color:#2499e8; font-size:8px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; }
+    .diagnostic-preview-head strong { font-size:11px; }
+    .diagnostic-preview-grid { display:grid; grid-template-columns:1.08fr .92fr; gap:10px; }
+    .sample-report-stack { min-width:0; display:grid; gap:10px; align-content:start; }
+    .sample-report-card,.sample-topics-card,.sample-overview { min-width:0; overflow:hidden; border-radius:14px; background:#fff; box-shadow:0 5px 16px rgba(27,46,70,.08); }
+    .sample-report-banner { min-height:49px; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; position:relative; overflow:hidden; background:linear-gradient(135deg,#3287b5,#3f9dcc); }
+    .sample-report-banner::after { content:""; width:145px; height:70px; position:absolute; right:-24px; bottom:-44px; border:1px solid rgba(255,255,255,.16); border-radius:50%; box-shadow:0 0 0 13px rgba(255,255,255,.05),0 0 0 26px rgba(255,255,255,.035); }
+    .sample-report-banner strong { position:relative; z-index:1; color:#fff; font-size:11px; }
+    .sample-report-banner span { position:relative; z-index:1; padding:4px 6px; border-radius:6px; background:rgba(12,34,55,.2); font-size:7px; font-weight:800; letter-spacing:.06em; }
+    .sample-report-body { padding:12px; }
+    .sample-score-label { color:#2499e8; font-size:8px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+    .sample-total-row { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:8px; margin-top:7px; padding-bottom:10px; border-bottom:1px solid #edf0f3; }
+    .sample-total-score strong { color:#111; font-size:31px; line-height:1; letter-spacing:-.04em; }
+    .sample-total-score em { margin-left:3px; color:#9ca2aa; font-size:11px; font-style:normal; }
+    .sample-score-meta { color:#5e636b; font-size:7px; line-height:1.45; text-align:right; }
+    .sample-percentile { display:inline-flex; margin-top:5px; padding:4px 6px; border-radius:5px; background:#edf6ff; color:#007aff; font-size:7px; }
+    .sample-section-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin-top:10px; }
+    .sample-section { min-width:0; }
+    .sample-section + .sample-section { padding-left:9px; border-left:1px solid #edf0f3; }
+    .sample-section span { display:block; min-height:20px; color:#2499e8; font-size:7px; font-weight:760; line-height:1.35; text-transform:uppercase; }
+    .sample-section strong { display:inline-block; margin-top:4px; color:#111; font-size:19px; }
+    .sample-section em { margin-left:3px; color:#9ca2aa; font-size:8px; font-style:normal; }
+    .sample-section small { display:block; margin-top:3px; color:#5e636b; font-size:6.5px; line-height:1.35; }
+    .sample-overview { padding:11px 12px; color:#24272b; font-size:7px; line-height:1.48; }
+    .sample-overview strong { display:block; margin-bottom:5px; color:#2499e8; font-size:7px; letter-spacing:.04em; text-transform:uppercase; }
+    .sample-topics-card { padding:12px; }
+    .sample-topics-head { display:flex; align-items:flex-start; justify-content:space-between; gap:9px; margin-bottom:10px; }
+    .sample-topics-head strong { font-size:11px; }
+    .sample-topics-head span { color:#8e99aa; font-size:7px; }
+    .sample-topic { padding:9px; border:1px solid #edf0f3; border-radius:10px; background:#f8fafc; }
+    .sample-topic + .sample-topic { margin-top:7px; }
+    .sample-topic-top { display:flex; align-items:flex-start; justify-content:space-between; gap:7px; }
+    .sample-topic-top strong { min-width:0; font-size:8px; line-height:1.35; }
+    .sample-topic-top span { flex:0 0 auto; padding:3px 5px; border-radius:5px; background:#fff0f2; color:#f45c6a; font-size:6px; font-weight:760; }
+    .sample-topic-bar { height:4px; margin-top:7px; overflow:hidden; border-radius:6px; background:#e7ebef; }
+    .sample-topic-bar i { height:100%; display:block; border-radius:inherit; background:#46aaf1; }
+    .sample-topic-meta { display:flex; justify-content:space-between; gap:8px; margin-top:5px; color:#818996; font-size:6px; }
+    .sample-topics-cta { width:100%; height:30px; margin-top:9px; border:0; border-radius:16px; background:#007aff; color:#fff; font-size:8px; font-weight:760; }
+    .diagnostic-preview-value { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    .diagnostic-preview-value span { padding:5px 7px; border-radius:7px; background:#eaf4ff; color:#147ef5; font-size:6.5px; font-weight:700; }
+    .diagnostic-ready { padding:28px 26px 26px; text-align:center; }
+    .diagnostic-ready[hidden],.diagnostic-setup[hidden] { display:none; }
+    .diagnostic-ready-mark { width:62px; height:62px; display:grid; place-items:center; margin:0 auto 15px; border-radius:20px; background:rgba(15,138,103,.1); color:#0f8a67; }
+    .diagnostic-ready-mark .icon { width:29px; height:29px; }
+    .diagnostic-ready h3 { margin:0; font-size:21px; letter-spacing:-.025em; }
+    .diagnostic-ready > p { max-width:390px; margin:8px auto 0; color:var(--muted); font-size:10px; line-height:1.55; }
+    .diagnostic-ready-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:20px 0; }
+    .diagnostic-ready-summary div { min-width:0; padding:11px 8px; border:1px solid var(--line); border-radius:11px; background:var(--surface-raised); }
+    .diagnostic-ready-summary span,.diagnostic-ready-summary strong { display:block; }
+    .diagnostic-ready-summary span { color:var(--muted); font-size:8px; }
+    .diagnostic-ready-summary strong { margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:10px; }
+    .diagnostic-ready-benefits { display:flex; justify-content:center; flex-wrap:wrap; gap:7px; margin-bottom:18px; }
+    .diagnostic-ready-benefits span { padding:6px 8px; border-radius:8px; background:rgba(15,138,103,.08); color:#0f8a67; font-size:8px; font-weight:700; }
+    .diagnostic-edit { margin-top:10px; padding:7px 12px; border:0; background:transparent; color:var(--muted); font-size:9px; font-weight:700; cursor:pointer; }
+    .diagnostic-edit:hover { color:#147ef5; }
+    body.dark .diagnostic-entry { border-color:rgba(93,164,255,.25); background:linear-gradient(120deg,#1d2a3a,#1d2734 58%,#1d302e); }
+    body.dark .diagnostic-entry-icon { background:#243448; }
 
     .course-workspace { width:min(1040px,calc(100% - 56px)); margin:0 auto; padding:28px 0 56px; }
     .course-workspace[hidden] { display:none; }
@@ -1575,6 +1673,16 @@
       .calculator-panel.expanded .calc-tabs { width:min(430px,90%); }
       .exam-catalog-heading { display:block; }
       .exam-catalog-heading p { margin:8px 0 0; text-align:left; }
+      .diagnostic-entry { grid-template-columns:auto minmax(0,1fr); gap:14px; padding:17px; }
+      .diagnostic-entry-icon { width:52px; height:52px; border-radius:15px; }
+      .diagnostic-entry-icon .icon { width:24px; height:24px; }
+      .diagnostic-entry h3 { font-size:18px; }
+      .diagnostic-entry-button { width:100%; grid-column:1 / -1; }
+      .diagnostic-dialog-head { padding:19px 18px 16px; }
+      .diagnostic-setup { grid-template-columns:1fr; padding:20px 18px 22px; }
+      .diagnostic-ready { padding:20px 18px 22px; }
+      .diagnostic-preview-grid { grid-template-columns:1fr; }
+      .diagnostic-ready-summary { grid-template-columns:1fr; }
       .exam-catalog-toolbar { flex-direction:column; }
       .exam-filter-wrap { width:100%; }
       .course-grid { grid-template-columns:1fr; }
@@ -1850,6 +1958,15 @@
         </section>
         <section class="exam-catalog" id="examCatalog" aria-labelledby="examCatalogTitle" hidden>
           <div class="exam-catalog-heading"><div><span>READY-MADE PREP</span><h2 id="examCatalogTitle">Standardized test courses</h2></div><p>Topic study, mock exams, results, and targeted improvement.</p></div>
+          <section class="diagnostic-entry" aria-labelledby="diagnosticEntryTitle">
+            <div class="diagnostic-entry-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></div>
+            <div class="diagnostic-entry-copy">
+              <div class="diagnostic-entry-meta"><span>Free diagnostic</span><span>About 10 min</span></div>
+              <h3 id="diagnosticEntryTitle">Take a Free Diagnostic</h3>
+              <p>See your predicted score, weakest skills, and exactly what to study next.</p>
+            </div>
+            <button class="diagnostic-entry-button" id="diagnosticEntryButton" type="button">Start free test<svg class="icon"><use href="#i-chevron"/></svg></button>
+          </section>
           <div class="exam-catalog-toolbar">
             <label class="exam-search-wrap"><svg class="icon"><use href="#i-search"/></svg><input id="examCourseSearch" aria-label="Search standardized exam courses" placeholder="Search SAT, ACT, AP, Abitur..." /></label>
             <label class="exam-filter-wrap"><span class="sr-only">Filter exam packages</span><select id="examCourseFilter" aria-label="Filter exam packages"><option value="all">All courses</option><option value="sat">SAT</option><option value="act">ACT</option><option value="ap">AP</option><option value="abitur">Abitur</option></select><svg class="icon"><use href="#i-chevron"/></svg></label>
@@ -1990,6 +2107,33 @@
     </div>
     <div class="dialog-body"><div class="dialog-preview" id="dialogPreview"></div><div class="dialog-interaction" id="dialogInteraction"></div><div class="dialog-prompt" id="dialogPrompt"></div></div>
     <div class="dialog-actions"><button class="dialog-button" id="dialogCancel" hidden>Close</button><button class="dialog-button primary" id="useExampleButton">Use this prompt</button></div>
+  </dialog>
+
+  <dialog class="diagnostic-dialog" id="diagnosticDialog" aria-labelledby="diagnosticDialogTitle">
+    <header class="diagnostic-dialog-head">
+      <div class="diagnostic-dialog-icon" aria-hidden="true"><svg class="icon"><use href="#i-chart"/></svg></div>
+      <div class="diagnostic-dialog-title"><span>Free · about 10 minutes</span><h2 id="diagnosticDialogTitle">Set up your diagnostic</h2><p>Three quick details help us benchmark your performance.</p></div>
+      <button class="diagnostic-dialog-close" id="diagnosticDialogClose" type="button" aria-label="Close diagnostic setup"><svg class="icon"><use href="#i-close"/></svg></button>
+    </header>
+    <form class="diagnostic-setup" id="diagnosticSetupForm">
+      <div class="diagnostic-setup-fields">
+        <label class="diagnostic-field"><span>Which exam are you preparing for?</span><span class="diagnostic-field-select"><select id="diagnosticExam" required aria-label="Choose an exam"></select><svg class="icon"><use href="#i-chevron"/></svg></span></label>
+        <label class="diagnostic-field"><span>What score are you aiming for?</span><span class="diagnostic-field-select"><select id="diagnosticTargetScore" required aria-label="Choose a target score"></select><svg class="icon"><use href="#i-chevron"/></svg></span></label>
+        <label class="diagnostic-field"><span>When is your exam?</span><input id="diagnosticTestDate" type="date" required aria-label="Choose your test date" /></label>
+        <p class="diagnostic-setup-note"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg><span>Your answers personalize the score estimate and study recommendations. No payment required.</span></p>
+        <button class="diagnostic-continue" type="submit">Build my diagnostic</button>
+      </div>
+      <aside class="diagnostic-preview-pane" id="diagnosticPreviewPane" aria-label="Sample diagnostic report"></aside>
+    </form>
+    <section class="diagnostic-ready" id="diagnosticReady" aria-live="polite" hidden>
+      <div class="diagnostic-ready-mark" aria-hidden="true"><svg class="icon"><use href="#i-target"/></svg></div>
+      <h3 id="diagnosticReadyTitle">Your diagnostic is ready</h3>
+      <p>Answer 10 adaptive questions to get a predicted score and a focused study plan.</p>
+      <div class="diagnostic-ready-summary"><div><span>Exam</span><strong id="diagnosticReadyExam"></strong></div><div><span>Goal</span><strong id="diagnosticReadyScore"></strong></div><div><span>Test date</span><strong id="diagnosticReadyDate"></strong></div></div>
+      <div class="diagnostic-ready-benefits"><span>Predicted score</span><span>Weakest skills</span><span>What to study next</span></div>
+      <button class="diagnostic-start" id="diagnosticStart" type="button">Start 10-min diagnostic</button>
+      <button class="diagnostic-edit" id="diagnosticEdit" type="button">Edit details</button>
+    </section>
   </dialog>
 
   <dialog class="crop-dialog" id="cropDialog" aria-labelledby="cropDialogTitle">
@@ -2335,6 +2479,69 @@
       {family:'abitur',label:'ABITUR',title:'Abitur Chemie',topics:'22',videos:'22',questions:'950+',search:'german chemistry chemie germany'},
       {family:'abitur',label:'ABITUR',title:'Abitur Physik',topics:'20',videos:'20',questions:'850+',search:'german physics physik germany'}
     ];
+    const diagnosticScoreOptions = {
+      sat: ['1000','1100','1200','1300','1400','1500','1550+'],
+      act: ['20','24','28','30','32','34','36'],
+      ap: ['3','4','5'],
+      abitur: ['3.0','2.5','2.0','1.5','1.0']
+    };
+
+    function diagnosticPreviewProfile(course) {
+      if (course.family === 'sat') return {
+        exam:'SAT® Prep 2026', total:'1350', scale:'/1600', range:'1310–1390', average:'1050', percentile:'90th percentile',
+        sections:[['Reading & Writing','640','/800','Range 610–670'],['Mathematics','710','/800','Range 680–740']],
+        overview:'Reading & Writing is your stronger section. Focus next on Advanced Math and Standard English Conventions.',
+        topics:[['Advanced Math','92% likely',36,'Not started'],['Standard English Conventions','89% likely',52,'6 of 12 answered'],['Problem-Solving & Data Analysis','81% likely',72,'In progress']]
+      };
+      if (course.family === 'act') return {
+        exam:'ACT Prep 2026', total:'29', scale:'/36', range:'28–30', average:'20.7', percentile:'91st percentile',
+        sections:[['English','30','/36','Range 29–32'],['Mathematics','27','/36','Range 25–29']],
+        overview:'English is your stronger section. Prioritize functions, modeling, and multi-step mathematics under time pressure.',
+        topics:[['Functions & modeling','93% likely',31,'Not started'],['Integrating Essential Skills','87% likely',48,'5 of 12 answered'],['Production of Writing','78% likely',69,'In progress']]
+      };
+      if (course.family === 'ap') {
+        let topics = [['Core concepts & applications','91% likely',35,'Not started'],['Evidence-based reasoning','86% likely',51,'4 of 10 answered'],['Timed free response','79% likely',67,'In progress']];
+        if (course.title.includes('Calculus')) topics = [['Applications of derivatives','94% likely',28,'Not started'],['Integration techniques','88% likely',49,'5 of 12 answered'],['Differential equations','81% likely',66,'In progress']];
+        else if (course.title.includes('Biology')) topics = [['Cellular energetics','93% likely',32,'Not started'],['Gene expression','86% likely',47,'4 of 10 answered'],['Natural selection','80% likely',68,'In progress']];
+        else if (course.title.includes('History')) topics = [['Contextualization','92% likely',34,'Not started'],['Evidence in DBQs','87% likely',50,'2 essays reviewed'],['Causation & continuity','79% likely',70,'In progress']];
+        return {
+          exam:course.title, total:'4', scale:'/5', range:'3–4', average:'2.8', percentile:'82nd percentile',
+          sections:[['Multiple choice','37','/45','Range 34–40'],['Free response','14','/18','Range 12–16']],
+          overview:'Your content recall is strong. The fastest score gain comes from timed free response and evidence-based reasoning.', topics
+        };
+      }
+      return {
+        exam:course.title, total:'1.8', scale:' grade', range:'1.6–2.0', average:'2.3', percentile:'Top 18%',
+        sections:[['Schriftlich','12','/15','Spanne 11–13'],['Mündlich','11','/15','Spanne 10–12']],
+        overview:'Gute Grundlagen. Der größte Hebel liegt bei Begründungen, Transferaufgaben und sicherem Arbeiten unter Zeitdruck.',
+        topics:[['Transferaufgaben','92% relevant',34,'Noch nicht begonnen'],['Begründungen & Lösungswege','86% relevant',51,'5 von 12 bearbeitet'],['Prüfungstempo','78% relevant',68,'In Bearbeitung']]
+      };
+    }
+
+    function renderDiagnosticPreview(course) {
+      const profile = diagnosticPreviewProfile(course);
+      document.getElementById('diagnosticPreviewPane').innerHTML = `
+        <div class="diagnostic-preview-head"><span>What you’ll get</span><strong>Sample report</strong></div>
+        <div class="diagnostic-preview-grid">
+          <div class="sample-report-stack">
+            <section class="sample-report-card" aria-label="${profile.exam} sample score report">
+              <div class="sample-report-banner"><strong>${profile.exam}</strong><span>EXAMPLE</span></div>
+              <div class="sample-report-body">
+                <span class="sample-score-label">Total score</span>
+                <div class="sample-total-row"><div class="sample-total-score"><strong>${profile.total}</strong><em>${profile.scale}</em><span class="sample-percentile">${profile.percentile}</span></div><div class="sample-score-meta">Score range: ${profile.range}<br>Average: ${profile.average}</div></div>
+                <div class="sample-section-grid">${profile.sections.map(section => `<div class="sample-section"><span>${section[0]}</span><strong>${section[1]}</strong><em>${section[2]}</em><small>${section[3]}</small></div>`).join('')}</div>
+              </div>
+            </section>
+            <div class="sample-overview"><strong>${course.label} overview ✦</strong>${profile.overview}</div>
+          </div>
+          <section class="sample-topics-card" aria-label="Topics to improve sample">
+            <div class="sample-topics-head"><div><strong>Topics to Improve</strong><br><span>Ranked by score impact</span></div><span>Sample</span></div>
+            ${profile.topics.map(topic => `<div class="sample-topic"><div class="sample-topic-top"><strong>${topic[0]}</strong><span>${topic[1]}</span></div><div class="sample-topic-bar"><i style="width:${topic[2]}%"></i></div><div class="sample-topic-meta"><span>Mastery ${topic[2]}%</span><span>${topic[3]}</span></div></div>`).join('')}
+            <button class="sample-topics-cta" type="button" tabindex="-1">Practice Weak Topics</button>
+          </section>
+        </div>
+        <div class="diagnostic-preview-value"><span>Predicted score</span><span>Weakest skills</span><span>Exact next steps</span></div>`;
+    }
 
     const capabilityGroups = {
       study: ['solver', 'graph', 'video', 'flashcards', 'quiz', 'guide', 'podcast'],
@@ -2826,6 +3033,67 @@
       ).join('');
       document.getElementById('courseEmpty').hidden = courses.length !== 0;
       grid.querySelectorAll('[data-course-index]').forEach(card => card.addEventListener('click', () => openCoursePackage(Number(card.dataset.courseIndex))));
+    }
+
+    function diagnosticDateValue(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2,'0');
+      const day = String(date.getDate()).padStart(2,'0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function populateDiagnosticExams() {
+      const examSelect = document.getElementById('diagnosticExam');
+      if (examSelect.options.length) return;
+      const groups = [
+        ['College admissions',['sat','act']],
+        ['AP exams',['ap']],
+        ['Abitur exams',['abitur']]
+      ];
+      examSelect.innerHTML = groups.map(([label,families]) => `<optgroup label="${label}">${examCoursePackages.map((course,index) => families.includes(course.family) ? `<option value="${index}">${course.title}</option>` : '').join('')}</optgroup>`).join('');
+    }
+
+    function populateDiagnosticScores() {
+      const examIndex = Number(document.getElementById('diagnosticExam').value) || 0;
+      const course = examCoursePackages[examIndex];
+      const family = course.family;
+      const targetSelect = document.getElementById('diagnosticTargetScore');
+      const previousValue = targetSelect.value;
+      targetSelect.innerHTML = diagnosticScoreOptions[family].map(score => `<option value="${score}">${score}</option>`).join('');
+      if ([...targetSelect.options].some(option => option.value === previousValue)) targetSelect.value = previousValue;
+      else targetSelect.selectedIndex = Math.floor((targetSelect.options.length - 1) * .66);
+      renderDiagnosticPreview(course);
+    }
+
+    function openDiagnosticDialog() {
+      const diagnosticDialog = document.getElementById('diagnosticDialog');
+      const diagnosticDate = document.getElementById('diagnosticTestDate');
+      populateDiagnosticExams();
+      populateDiagnosticScores();
+      const today = new Date();
+      diagnosticDate.min = diagnosticDateValue(today);
+      if (!diagnosticDate.value) {
+        const defaultDate = new Date(today);
+        defaultDate.setDate(defaultDate.getDate() + 42);
+        diagnosticDate.value = diagnosticDateValue(defaultDate);
+      }
+      document.getElementById('diagnosticSetupForm').hidden = false;
+      document.getElementById('diagnosticReady').hidden = true;
+      if (!diagnosticDialog.open) diagnosticDialog.showModal();
+    }
+
+    function showDiagnosticReady() {
+      const examIndex = Number(document.getElementById('diagnosticExam').value) || 0;
+      const course = examCoursePackages[examIndex];
+      const score = document.getElementById('diagnosticTargetScore').value;
+      const dateValue = document.getElementById('diagnosticTestDate').value;
+      const date = new Date(`${dateValue}T12:00:00`);
+      document.getElementById('diagnosticReadyTitle').textContent = `Your ${course.label === 'ABITUR' ? course.title : course.label} diagnostic is ready`;
+      document.getElementById('diagnosticReadyExam').textContent = course.title;
+      document.getElementById('diagnosticReadyScore').textContent = score;
+      document.getElementById('diagnosticReadyDate').textContent = date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      document.getElementById('diagnosticSetupForm').hidden = true;
+      document.getElementById('diagnosticReady').hidden = false;
     }
 
     function courseSubject(course) {
@@ -4523,6 +4791,24 @@
     document.getElementById('chatButton').addEventListener('click', () => showToast('Solvely support is ready'));
     document.getElementById('dialogClose').addEventListener('click', closeDialog);
     document.getElementById('dialogCancel').addEventListener('click', closeDialog);
+    document.getElementById('diagnosticEntryButton').addEventListener('click', openDiagnosticDialog);
+    document.getElementById('diagnosticDialogClose').addEventListener('click', () => document.getElementById('diagnosticDialog').close());
+    document.getElementById('diagnosticExam').addEventListener('change', populateDiagnosticScores);
+    document.getElementById('diagnosticSetupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      showDiagnosticReady();
+    });
+    document.getElementById('diagnosticEdit').addEventListener('click', () => {
+      document.getElementById('diagnosticSetupForm').hidden = false;
+      document.getElementById('diagnosticReady').hidden = true;
+    });
+    document.getElementById('diagnosticStart').addEventListener('click', () => {
+      document.getElementById('diagnosticDialog').close();
+      showToast('Diagnostic started · 10 adaptive questions');
+    });
+    document.getElementById('diagnosticDialog').addEventListener('click', event => {
+      if (event.target === event.currentTarget) event.currentTarget.close();
+    });
     document.getElementById('cropDialogClose').addEventListener('click', closeCropDialog);
     cropDone.addEventListener('click',applyAllCrops);
     cropSelection.addEventListener('pointerdown',startCropGesture);
