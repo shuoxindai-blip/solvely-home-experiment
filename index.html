@@ -865,7 +865,8 @@
     .dialog-preview .mini-card { height: 145px; padding: 18px; }
     .dialog-preview .mini-card:nth-child(1) { left: 80px; top: 48px; }
     .dialog-preview .mini-card:nth-child(2) { right: 80px; top: 50px; }
-    .dialog-prompt { margin-top: 15px; padding: 13px 14px; border-left: 3px solid var(--accent); background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .dialog-prompt { margin-top: 15px; padding: 11px 14px 13px; border-left: 3px solid var(--accent); background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .dialog-prompt::before { content:"Prompt"; display:block; margin-bottom:4px; color:var(--accent); font-size:8px; font-weight:760; letter-spacing:.09em; text-transform:uppercase; }
     .dialog-interaction { margin-top:14px; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
     .dialog-interaction h3 { margin:0 0 10px; font-size:14px; }
     .graph-control { display:grid; gap:10px; }
@@ -1988,7 +1989,7 @@
       <button class="dialog-close" id="dialogClose" aria-label="Close preview"><svg class="icon"><use href="#i-close"/></svg></button>
     </div>
     <div class="dialog-body"><div class="dialog-preview" id="dialogPreview"></div><div class="dialog-interaction" id="dialogInteraction"></div><div class="dialog-prompt" id="dialogPrompt"></div></div>
-    <div class="dialog-actions"><button class="dialog-button" id="dialogCancel" hidden>Close</button><button class="dialog-button primary" id="useExampleButton">Use this example</button></div>
+    <div class="dialog-actions"><button class="dialog-button" id="dialogCancel" hidden>Close</button><button class="dialog-button primary" id="useExampleButton">Use this prompt</button></div>
   </dialog>
 
   <dialog class="crop-dialog" id="cropDialog" aria-labelledby="cropDialogTitle">
@@ -3312,8 +3313,6 @@
         if (facts) facts.innerHTML = structure.facts.map(([label,value]) => `<div class="chemistry-fact"><small>${label}</small><strong>${value}</strong></div>`).join('');
         document.getElementById('dialogTitle').textContent = structure.title;
         document.getElementById('dialogDescription').textContent = structure.summary;
-        document.getElementById('dialogPrompt').textContent = structure.question;
-        if (selectedExample) selectedExample.activePrompt = structure.question;
       };
       interaction.querySelectorAll('[data-chemistry-index]').forEach(tab => tab.addEventListener('click', () => renderChemistryStructure(Number(tab.dataset.chemistryIndex))));
       if (chemistryStructures.length) renderChemistryStructure(0);
@@ -3657,12 +3656,28 @@
       openExampleData(example, capabilityKey);
     }
 
+    function reusablePromptFor(capabilityKey, example) {
+      if (capabilityKey === 'solver') {
+        if (example.preview === 'solver-parabola-line') return 'Solve my problem with an interactive graph.';
+        if (example.preview === 'video-solver-circles') return 'Explain my problem with a step-by-step video.';
+        if (example.preview === 'chemistry') return 'Visualize the chemical structure in my problem.';
+        if (example.preview === 'accounting') return 'Analyze my financial problem step by step.';
+      }
+      if (capabilityKey === 'graph') return 'Create an interactive graph for my problem.';
+      if (capabilityKey === 'video') return 'Explain my problem with a step-by-step video.';
+      if (capabilityKey === 'flashcards') return 'Turn my study materials into flashcards.';
+      if (capabilityKey === 'quiz') return 'Create a quiz from my study materials.';
+      if (capabilityKey === 'guide') return 'Create a study guide from my materials.';
+      if (capabilityKey === 'podcast') return 'Turn my study materials into a podcast.';
+      return example.prompt;
+    }
+
     function openExampleData(example, capabilityKey) {
       const capability = capabilityData[capabilityKey];
       if (!capability || !example) return;
       selectedExample = example;
       selectedExampleCapability = capabilityKey;
-      selectedExample.activePrompt = selectedExample.prompt;
+      selectedExample.activePrompt = reusablePromptFor(capabilityKey, selectedExample);
       const hasSimulator = Boolean(selectedExample.simulator);
       const hasInteractiveFlashcards = capabilityKey === 'flashcards' && Array.isArray(selectedExample.cards);
       const hasInteractiveQuiz = capabilityKey === 'quiz' && Array.isArray(selectedExample.options);
@@ -3682,9 +3697,9 @@
         : dialogPreviewMarkup(selectedExample.preview, selectedExample);
       document.getElementById('dialogInteraction').innerHTML = hasSimulator ? '' : interactionMarkup(selectedExample.preview, selectedExample);
       document.getElementById('dialogInteraction').hidden = hasSimulator;
-      document.getElementById('dialogPrompt').hidden = hasInteractiveQuiz || hasStudyGuide;
-      document.getElementById('dialogPrompt').textContent = selectedExample.prompt;
-      document.getElementById('useExampleButton').textContent = 'Use this example';
+      document.getElementById('dialogPrompt').hidden = false;
+      document.getElementById('dialogPrompt').textContent = selectedExample.activePrompt;
+      document.getElementById('useExampleButton').textContent = 'Use this prompt';
       dialog.showModal();
       if (!hasSimulator) bindDialogInteraction(selectedExample.preview, selectedExample);
     }
