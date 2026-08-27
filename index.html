@@ -229,7 +229,7 @@
     .composer-shell.writing-layout > .popover,
     .composer-shell.writing-layout > .link-popover { display:none !important; }
     .composer-shell.writing-layout .writing-composer-content { display:block; }
-    .composer-shell.writing-layout .capability-strip { height:56px; align-items:center; justify-content:center; gap:34px; padding:0 24px; border-bottom:1px solid var(--line); overflow-x:auto; }
+    .composer-shell.writing-layout .capability-strip { height:56px; align-items:center; justify-content:safe center; gap:22px; padding:0 24px; border-bottom:1px solid var(--line); overflow-x:auto; }
     .composer-shell.writing-layout .capability-button { position:relative; height:56px; padding:0 3px; border:0; border-radius:0; background:transparent; color:var(--muted); font-size:14px; font-weight:600; }
     .composer-shell.writing-layout .capability-button .icon { display:block; width:17px; height:17px; }
     .composer-shell.writing-layout .capability-button:hover { background:transparent; color:var(--text); }
@@ -239,6 +239,13 @@
     .writing-text-panel { min-height:264px; }
     .writing-panel-head { margin-bottom:10px; }
     .writing-panel-head h2 { margin:0; color:var(--text); font-size:16px; line-height:24px; font-weight:700; }
+    .writing-tool-options { min-height:34px; padding:0 18px 8px; display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+    .writing-tool-options[hidden] { display:none; }
+    .writing-option-label { margin-right:2px; color:var(--muted); font-size:12px; font-weight:600; }
+    .writing-option-chip { height:30px; padding:0 12px; border:1px solid var(--line-strong); border-radius:999px; background:var(--surface); color:var(--muted); font:600 12px/1 inherit; cursor:pointer; }
+    .writing-option-chip:hover { background:var(--surface-hover); color:var(--text); }
+    .writing-option-chip[aria-pressed="true"] { border-color:rgba(0,122,255,.28); background:rgba(0,122,255,.08); color:#007aff; }
+    .writing-option-select { height:34px; padding:0 30px 0 12px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); color:var(--text); font:600 12px/1 inherit; }
     .writing-editor-wrap { position:relative; min-height:116px; }
     .writing-editor { width:100%; min-height:76px; padding:0; resize:none; border:0; outline:0; background:transparent; color:var(--text); font:400 16px/24px Inter,ui-sans-serif,system-ui,sans-serif; }
     .writing-editor::placeholder { color:var(--subtle); }
@@ -2043,6 +2050,7 @@
             <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Type or paste a problem to solve"></textarea>
           </div>
           <div class="attachment-row" id="attachmentRow" role="list" aria-label="Attached sources"></div>
+          <div class="writing-tool-options" id="writingToolOptions" hidden></div>
           <div class="composer-toolbar">
             <button class="tool-button" id="attachButton" aria-label="Attach files" title="Attach files"><svg class="icon"><use href="#i-upload"/></svg></button>
             <button class="tool-button" id="imageButton" aria-label="Upload images" title="Upload images"><svg class="icon"><use href="#i-image"/></svg></button>
@@ -2626,9 +2634,12 @@
     };
 
     const writingToolData = {
-      humanizer: { label:'Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste AI-generated text to make it sound more natural', description:'Humanize your text to see the result here.', examples:[] },
-      detector: { label:'Detector', icon:'i-search', action:'Check for AI', placeholder:'Paste text to check whether it may be AI-generated', description:'Run AI detection to see the analysis here.', examples:[] },
-      research: { label:'Research', icon:'i-search', action:'Search', placeholder:'Enter your topic, research question, or assignment prompt to start searching for credible sources.', description:'Run AI research to see a structured result here.', examples:[] }
+      research: { label:'Research', icon:'i-search', action:'Search', placeholder:'Enter your topic, research question, or assignment prompt to start searching for credible sources.', description:'Run AI research to see a structured result here.', examples:[] },
+      paraphraser: { label:'Paraphraser', icon:'i-edit', action:'Paraphrase', placeholder:'Paste text to rewrite while preserving its meaning', description:'Rewrite text with clearer phrasing while preserving its meaning.', examples:[] },
+      plagiarism: { label:'Plagiarism Checker', icon:'i-search', action:'Scan for plagiarism', placeholder:'Paste text to scan for possible matching sources', description:'Check text for possible matching passages and sources.', examples:[] },
+      detector: { label:'Detector', icon:'i-exam', action:'Check for AI', placeholder:'Paste text to check whether it may be AI-generated', description:'Run AI detection to see the analysis here.', examples:[] },
+      aiCitation: { label:'Citation', icon:'i-book', action:'Generate citation', placeholder:'Enter a URL, page title, DOI, or keywords', description:'Generate a formatted citation and in-text reference.', examples:[] },
+      humanizer: { label:'Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste AI-generated text to make it sound more natural', description:'Humanize your text to see the result here.', examples:[] }
     };
     Object.assign(capabilityData, writingToolData);
 
@@ -2765,7 +2776,7 @@
     const capabilityGroups = {
       study: ['solver', 'graph', 'video', 'flashcards', 'quiz', 'guide', 'podcast'],
       exam: ['mock'],
-      writing: ['research', 'humanizer', 'detector']
+      writing: ['research', 'paraphraser', 'plagiarism', 'detector', 'aiCitation', 'humanizer']
     };
     const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
     const creationSourceLimit = 10;
@@ -3218,9 +3229,35 @@
       const isResearch = key === 'research';
       document.getElementById('writingTextScreen').hidden = isResearch;
       document.getElementById('researchToolScreen').hidden = !isResearch;
+      const draftTitles = {
+        paraphraser: 'Original text',
+        plagiarism: 'Original text',
+        detector: 'Text to analyze',
+        aiCitation: 'Source details',
+        humanizer: 'Original text'
+      };
+      const resultTitles = {
+        paraphraser: 'Paraphrased text',
+        plagiarism: 'Plagiarism scan',
+        detector: 'AI detection analysis',
+        aiCitation: 'Generated citation',
+        humanizer: 'Humanized text'
+      };
+      document.getElementById('writingDraftTitle').textContent = draftTitles[key] || 'Original text';
       writingEditor.placeholder = tool.placeholder;
       writingActionButton.querySelector('span').textContent = tool.action;
-      document.getElementById('writingResultTitle').textContent = key === 'detector' ? 'AI detection analysis' : 'Humanized text';
+      document.getElementById('writingResultTitle').textContent = resultTitles[key] || 'Result';
+      const writingToolOptions = document.getElementById('writingToolOptions');
+      if (key === 'paraphraser') {
+        writingToolOptions.hidden = false;
+        writingToolOptions.innerHTML = `<span class="writing-option-label">Style</span>${['Standard','Fluent','Academic','Shorter','Custom'].map((style, index) => `<button class="writing-option-chip" type="button" data-paraphrase-style="${style}" aria-pressed="${index === 0}">${style}</button>`).join('')}`;
+      } else if (key === 'aiCitation') {
+        writingToolOptions.hidden = false;
+        writingToolOptions.innerHTML = `<label class="writing-option-label" for="citationFormat">Format</label><select class="writing-option-select" id="citationFormat" aria-label="Citation format"><option>APA 7th</option><option>MLA 9th</option><option>Chicago</option><option>Harvard</option></select><label class="writing-option-label" for="citationSourceType">Source type</label><select class="writing-option-select" id="citationSourceType" aria-label="Citation source type"><option>Website</option><option>Journal article</option><option>Book</option><option>Video</option></select>`;
+      } else {
+        writingToolOptions.hidden = true;
+        writingToolOptions.innerHTML = '';
+      }
       if (resetResult) {
         document.getElementById('writingResultPanel').hidden = true;
         document.getElementById('researchResult').hidden = true;
@@ -3243,7 +3280,11 @@
         .replace(/\bOverall,?\b/g, 'Taken together,')
         .replace(/During this time/gi, 'As the season unfolds');
       if (key === 'plagiarism') return `No matching passages found in this demo check.\n\nOriginality estimate: 98%\nChecked ${value.trim().split(/\s+/).length} words.`;
-      if (key === 'aiCitation') return `APA 7\nAuthor, A. A. (2026). ${value.trim().slice(0,72)}${value.trim().length > 72 ? '…' : ''}. Publisher or Website.\n\nIn-text citation: (Author, 2026)`;
+      if (key === 'aiCitation') {
+        const format = document.getElementById('citationFormat')?.value || 'APA 7th';
+        const sourceType = document.getElementById('citationSourceType')?.value || 'Website';
+        return `${format} · ${sourceType}\nAuthor, A. A. (2026). ${value.trim().slice(0,72)}${value.trim().length > 72 ? '…' : ''}. Publisher or Website.\n\nIn-text citation: (Author, 2026)`;
+      }
       if (key === 'research') return `Research outline\n\n1. Define the central question\n2. Review credible primary and secondary sources\n3. Compare the strongest claims and evidence\n4. Identify open questions\n5. Summarize practical conclusions\n\nTopic: ${value.trim()}`;
       return value
         .replace(/\bMany individuals\b/g, 'A lot of people')
@@ -3792,6 +3833,11 @@
       if (!preservePrompt) promptInput.value = '';
       updateComposerTools(key);
       if (writingToolData[key]) updateWritingTool(key);
+      else {
+        const writingToolOptions = document.getElementById('writingToolOptions');
+        writingToolOptions.hidden = true;
+        writingToolOptions.innerHTML = '';
+      }
       renderCapabilities();
       renderExamples();
       const catalog = document.getElementById('examCatalog');
@@ -4830,6 +4876,11 @@
     });
     researchInput.addEventListener('keydown', event => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !researchActionButton.disabled) researchActionButton.click();
+    });
+    document.getElementById('writingToolOptions').addEventListener('click', event => {
+      const option = event.target.closest('[data-paraphrase-style]');
+      if (!option) return;
+      document.querySelectorAll('[data-paraphrase-style]').forEach(button => button.setAttribute('aria-pressed', String(button === option)));
     });
     document.getElementById('writingPasteButton').addEventListener('click', async () => {
       try {
