@@ -2790,6 +2790,7 @@
     const writingMinimumWordsToast = 'Please enter at least 30 words.';
     const citationCharacterLimitToast = 'Source input is limited to 300 characters.';
     const researchCharacterLimitToast = 'Only the first 300 characters were searched - shorten your query for better results.';
+    const paraphraserCustomInstructionToast = 'Please enter a custom instruction';
     const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
     const creationSourceLimit = 10;
     const creationSourceLimitToast = 'You can add up to 10 sources to each creation.';
@@ -4326,6 +4327,15 @@
     }
     function validateWritingSubmission() {
       const value = promptInput.value.trim();
+      if (selectedCapability === 'paraphraser') {
+        const customStyleSelected = document.querySelector('[data-paraphrase-style="Custom"][aria-pressed="true"]');
+        const customInstruction = document.getElementById('paraphraseCustomInstruction');
+        if (customStyleSelected && customInstruction && !customInstruction.value.trim()) {
+          showToast(paraphraserCustomInstructionToast);
+          customInstruction.focus();
+          return false;
+        }
+      }
       if (writingMinimumWordCapabilities.has(selectedCapability) && countWords(value) < writingMinimumWords) {
         showToast(writingMinimumWordsToast);
         return false;
