@@ -335,7 +335,6 @@
     .citation-selector-button { height:38px; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; border:0; border-radius:11px; background:transparent; color:var(--muted); font:600 11px/1 inherit; white-space:nowrap; cursor:pointer; }
     .citation-selector-button:hover,
     .citation-selector-button[aria-expanded="true"] { background:var(--surface-hover); color:var(--text); }
-    .citation-selector-prefix { color:var(--subtle); font-weight:520; }
     .citation-selector-value { color:currentColor; font-weight:680; }
     .citation-selector-button .icon { width:14px; height:14px; }
     .citation-dropdown-menu { position:absolute; z-index:30; top:46px; right:0; width:200px; padding:7px; border:1px solid var(--line); border-radius:14px; background:var(--surface); box-shadow:var(--shadow); transform-origin:top right; }
@@ -1033,18 +1032,13 @@
     .example-dialog[data-mode="step-solution"] .dialog-body { position:relative; background:#fff; }
     .recording-answer-page { color:#20242a; }
     .recording-question-image { width:min(62%,560px); max-height:330px; display:block; margin:0 0 18px auto; object-fit:contain; border-radius:14px; }
-    .recording-thought { display:flex; align-items:center; gap:8px; padding:0; border:0; background:transparent; color:#2a2e35; font-size:12px; cursor:pointer; }
-    .recording-thought span:nth-of-type(2) { color:#707783; }
-    .recording-ai-badge { width:24px; height:24px; display:grid; place-items:center; border-radius:7px; background:linear-gradient(145deg,#4438d6,#765af0); color:#fff !important; font-size:9px; font-weight:800; box-shadow:inset -4px -4px 0 rgba(255,196,30,.22); }
-    .recording-thought-panel { margin:10px 0 2px 32px; padding:10px 12px; border-left:2px solid #6c55e7; border-radius:0 9px 9px 0; background:#f7f5ff; color:#636b78; font-size:10px; line-height:1.5; }
-    .recording-final-title { margin:19px 0 12px; color:#35c41d; font-size:20px; }
+    .recording-final-title { margin:0 0 12px; color:#35c41d; font-size:20px; }
     .recording-final-card { display:grid; gap:9px; padding:17px 18px; border-radius:14px; background:#f4fff4; color:#171b21; font-size:13px; line-height:1.2; }
     .recording-final-card strong { margin-bottom:2px; }
     .recording-final-card b { font-size:14px; }
     .recording-video-card { display:grid; grid-template-columns:145px minmax(0,1fr) auto; align-items:center; gap:14px; margin-top:16px; padding:11px; border:1px solid #e0e3e8; border-radius:15px; background:#fff; }
-    .recording-video-thumb { position:relative; overflow:hidden; aspect-ratio:290 / 144; border-radius:10px; background:#fff; }
+    .recording-video-thumb { position:relative; overflow:hidden; aspect-ratio:298 / 168; border-radius:10px; background:#fff; }
     .recording-video-thumb img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
-    .recording-video-thumb span { position:absolute; right:7px; bottom:6px; padding:3px 5px; border-radius:5px; background:rgba(12,17,28,.72); color:#fff; font-size:8px; font-weight:700; }
     .recording-video-card strong { display:block; color:#20242a; font-size:12px; }
     .recording-video-card p { display:-webkit-box; overflow:hidden; margin:5px 0 0; color:#747b87; font-size:9px; line-height:1.45; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
     .recording-video-action { min-width:112px; height:38px; display:inline-flex; align-items:center; justify-content:center; border:1px solid #dfe3e8; border-radius:20px; background:#fff; color:#20242a; font-size:10px; font-weight:750; }
@@ -1841,7 +1835,6 @@
       .model-button > span:not(.brand-mini) { display: none; }
       .model-button { padding: 0 7px; }
       .citation-selector-button { padding:0 7px; }
-      .citation-selector-prefix { display:none; }
       .citation-dropdown-menu { width:184px; }
       .send-button { min-width: 42px; width: 42px; padding: 0; }
       .send-button span { display: none; }
@@ -2082,7 +2075,7 @@
             <output class="writing-word-count" id="writingWordCount" aria-label="Word count" hidden>0 words</output>
             <div class="citation-selectors" id="citationSelectors" aria-label="Citation settings" hidden>
               <div class="citation-dropdown">
-                <button class="citation-selector-button" id="citationFormatButton" type="button" data-citation-trigger="format" aria-haspopup="menu" aria-expanded="false" aria-controls="citationFormatMenu"><span class="citation-selector-prefix">Format</span><span class="citation-selector-value" id="citationFormatLabel">APA 7th</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+                <button class="citation-selector-button" id="citationFormatButton" type="button" data-citation-trigger="format" aria-haspopup="menu" aria-expanded="false" aria-controls="citationFormatMenu"><span class="citation-selector-value" id="citationFormatLabel">APA 7th</span><svg class="icon"><use href="#i-chevron"/></svg></button>
                 <div class="citation-dropdown-menu" id="citationFormatMenu" role="menu" aria-label="Citation format" hidden>
                   <p class="model-menu-title">Format</p>
                   <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="format" data-citation-value="APA 7th"><span class="model-letter">A</span><span><strong>APA 7th</strong></span><span class="model-check">✓</span></button>
@@ -2095,7 +2088,7 @@
                 </div>
               </div>
               <div class="citation-dropdown">
-                <button class="citation-selector-button" id="citationSourceTypeButton" type="button" data-citation-trigger="sourceType" aria-haspopup="menu" aria-expanded="false" aria-controls="citationSourceTypeMenu"><span class="citation-selector-prefix">Source type</span><span class="citation-selector-value" id="citationSourceTypeLabel">Website</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+                <button class="citation-selector-button" id="citationSourceTypeButton" type="button" data-citation-trigger="sourceType" aria-haspopup="menu" aria-expanded="false" aria-controls="citationSourceTypeMenu"><span class="citation-selector-value" id="citationSourceTypeLabel">Website</span><svg class="icon"><use href="#i-chevron"/></svg></button>
                 <div class="citation-dropdown-menu" id="citationSourceTypeMenu" role="menu" aria-label="Citation source type" hidden>
                   <p class="model-menu-title">Source type</p>
                   <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="sourceType" data-citation-value="Website"><span class="model-letter">W</span><span><strong>Website</strong></span><span class="model-check">✓</span></button>
@@ -3201,12 +3194,10 @@
     function solverStepSolutionDialogPreview() {
       return `<div class="recording-answer-page" data-solver-answer>
         <img class="recording-question-image" src="assets/solver-parallelogram-question.png" alt="Geometry problem asking to solve for r in parallelogram LMNO" />
-        <button class="recording-thought" type="button" data-solver-thought aria-expanded="false"><span class="recording-ai-badge">S</span><strong>Solvely AI</strong><span>thought for 8s</span><span aria-hidden="true">⌄</span></button>
-        <div class="recording-thought-panel" data-solver-thought-panel hidden>I identified opposite and consecutive angle relationships, solved for t first, then used the supplementary angles to solve for r.</div>
         <h3 class="recording-final-title">Final Answer</h3>
         <section class="recording-final-card"><strong>1.</strong><span>A. 15</span><span>B. 25</span><b>✓ C. 30</b><span>D. 120</span></section>
         <section class="recording-video-card">
-          <div class="recording-video-thumb"><img src="assets/solver-parallelogram-video.png" alt="Parallelogram angle properties video thumbnail" /><span>▶ 00:43</span></div>
+          <div class="recording-video-thumb"><img src="assets/solver-parallelogram-video.png" alt="Mathematics video thumbnail with a blue cat and parabola graph" /></div>
           <div><strong>Video Explanation: Solve Parallelogram Angle Properties...</strong><p>Observe how consecutive interior angles sum to 180 degrees in this geometric breakdown. Watch the algebraic relationship between variables unfold as we isolate r.</p></div>
           <span class="recording-video-action">▶ Watch Now</span>
         </section>
@@ -4251,16 +4242,6 @@
       interaction.querySelectorAll('[data-solution-step]').forEach(step => step.addEventListener('click', () => {
         interaction.querySelectorAll('[data-solution-step]').forEach(item => item.classList.toggle('active', item === step));
       }));
-      const solverAnswer = document.querySelector('#dialogPreview [data-solver-answer]');
-      if (solverAnswer) {
-        const thoughtButton = solverAnswer.querySelector('[data-solver-thought]');
-        const thoughtPanel = solverAnswer.querySelector('[data-solver-thought-panel]');
-        thoughtButton.addEventListener('click', () => {
-          const expanded = thoughtButton.getAttribute('aria-expanded') === 'true';
-          thoughtButton.setAttribute('aria-expanded', String(!expanded));
-          thoughtPanel.hidden = expanded;
-        });
-      }
     }
 
     const examPrepFeatureDetails = [
