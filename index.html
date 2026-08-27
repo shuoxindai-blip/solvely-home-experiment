@@ -221,55 +221,59 @@
     .composer-input::placeholder { color: var(--subtle); }
 
     .writing-composer-content { display:none; }
-    .composer-shell.writing-layout { border-radius:16px; border-color:transparent; box-shadow:0 2px 20px rgba(0,0,0,.08); }
-    .composer-shell.writing-layout:focus-within { border-color:transparent; box-shadow:0 2px 20px rgba(0,0,0,.08); }
+    .composer-shell.writing-layout { overflow:hidden; border-radius:24px; border-color:var(--line); background:var(--surface); box-shadow:0 12px 38px rgba(24,39,75,.08); }
+    .composer-shell.writing-layout:focus-within { border-color:var(--line); box-shadow:0 12px 38px rgba(24,39,75,.08); }
     .composer-shell.writing-layout > .composer-input-wrap,
     .composer-shell.writing-layout > .attachment-row,
     .composer-shell.writing-layout > .composer-toolbar,
     .composer-shell.writing-layout > .popover,
     .composer-shell.writing-layout > .link-popover { display:none !important; }
     .composer-shell.writing-layout .writing-composer-content { display:block; }
-    .composer-shell.writing-layout .capability-strip { height:48px; align-items:center; gap:32px; padding:0 24px; border-bottom:1px solid #e6e8ea; overflow-x:auto; }
-    .composer-shell.writing-layout .capability-button { position:relative; height:48px; padding:0; border:0; border-radius:0; background:transparent; color:#8a8d94; font-size:16px; font-weight:600; }
-    .composer-shell.writing-layout .capability-button .icon { display:none; }
-    .composer-shell.writing-layout .capability-button:hover { background:transparent; color:#111; }
-    .composer-shell.writing-layout .capability-button[aria-selected="true"] { border:0; background:transparent; color:#111; }
-    .composer-shell.writing-layout .capability-button[aria-selected="true"]::after { content:""; position:absolute; left:0; right:0; bottom:5px; height:3px; border-radius:999px; background:#5d79ff; }
-    .writing-split { min-height:480px; display:grid; grid-template-columns:1fr 1fr; }
-    .writing-draft-panel, .writing-result-panel { min-width:0; padding:24px; }
-    .writing-draft-panel { position:relative; display:flex; flex-direction:column; border-right:1px solid #e6e8ea; }
-    .writing-panel-head { min-height:28px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
-    .writing-panel-head h2 { margin:0; color:#111; font-size:20px; line-height:1.4; font-weight:650; letter-spacing:-.02em; }
-    .writing-head-actions { display:flex; align-items:center; gap:22px; }
-    .writing-head-action { display:inline-flex; align-items:center; gap:7px; padding:0; border:0; background:transparent; color:#555a66; font:500 15px/1.4 inherit; cursor:pointer; white-space:nowrap; }
-    .writing-head-action:hover { color:#111; }
-    .writing-head-action .icon { width:19px; height:19px; }
-    .writing-editor-wrap { position:relative; min-height:326px; flex:1; overflow:hidden; padding:6px; border:1.5px solid rgba(96,120,255,.12); border-radius:12px; background:#fff; box-shadow:0 0 60px rgba(96,120,255,.12); }
-    .writing-editor { width:100%; height:100%; min-height:311px; padding:8px; resize:none; border:0; outline:0; background:transparent; color:#474c58; font:400 16px/24px Inter,ui-sans-serif,system-ui,sans-serif; }
-    .writing-editor::placeholder { color:#c0c1c5; }
-    .writing-sample-button { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); height:42px; padding:0 18px; display:inline-flex; align-items:center; gap:7px; border:1px solid #e6e8ea; border-radius:999px; background:#fff; color:#252a34; font:600 14px/1 inherit; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.03); }
-    .writing-sample-button:hover { background:#f8f9fb; }
-    .writing-sample-button .icon { width:17px; height:17px; }
-    .writing-sample-button[hidden] { display:none; }
-    .writing-draft-footer { margin-top:18px; display:flex; align-items:center; gap:16px; }
-    .writing-word-count { color:#555a66; font-size:14px; }
-    .writing-action-button { width:180px; height:42px; margin-left:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; background:#007aff; color:#fff; font:600 16px/1.4 inherit; cursor:pointer; }
-    .writing-action-button:disabled { background:#9fc8ff; cursor:not-allowed; }
-    .writing-action-button .icon { width:18px; height:18px; }
-    .writing-result-panel { color:#555a66; }
-    .writing-result-panel h2 { margin:0 0 12px; color:#111; font-size:20px; line-height:1.4; font-weight:650; letter-spacing:-.02em; }
-    .writing-result-content { min-height:340px; color:#555a66; font-size:16px; line-height:1.6; white-space:pre-wrap; }
-    .writing-result-content.has-result { color:#2d3440; }
-    .writing-history-popover { position:absolute; z-index:12; top:62px; right:24px; width:240px; padding:12px; border:1px solid #e6e8ea; border-radius:12px; background:#fff; box-shadow:0 12px 34px rgba(0,0,0,.12); }
-    .writing-history-popover[hidden] { display:none; }
-    .writing-history-popover strong { display:block; margin-bottom:7px; color:#111; font-size:13px; }
-    .writing-history-popover p { margin:0; color:#737986; font-size:12px; line-height:1.45; }
-    body.dark .composer-shell.writing-layout { background:#1b212d; box-shadow:0 2px 20px rgba(0,0,0,.3); }
-    body.dark .composer-shell.writing-layout .capability-strip, body.dark .writing-draft-panel { border-color:#333; }
-    body.dark .composer-shell.writing-layout .capability-button { color:#858b96; }
-    body.dark .composer-shell.writing-layout .capability-button:hover, body.dark .composer-shell.writing-layout .capability-button[aria-selected="true"], body.dark .writing-panel-head h2, body.dark .writing-result-panel h2 { color:#fff; }
-    body.dark .writing-editor-wrap, body.dark .writing-sample-button, body.dark .writing-history-popover { border-color:#333; background:#1b212d; box-shadow:0 0 60px rgba(0,0,0,.12); }
-    body.dark .writing-editor, body.dark .writing-result-content.has-result { color:#e6ebf4; }
+    .composer-shell.writing-layout .capability-strip { height:56px; align-items:center; justify-content:center; gap:34px; padding:0 24px; border-bottom:1px solid var(--line); overflow-x:auto; }
+    .composer-shell.writing-layout .capability-button { position:relative; height:56px; padding:0 3px; border:0; border-radius:0; background:transparent; color:var(--muted); font-size:14px; font-weight:600; }
+    .composer-shell.writing-layout .capability-button .icon { display:block; width:17px; height:17px; }
+    .composer-shell.writing-layout .capability-button:hover { background:transparent; color:var(--text); }
+    .composer-shell.writing-layout .capability-button[aria-selected="true"] { border:0; background:transparent; color:#007aff; }
+    .composer-shell.writing-layout .capability-button[aria-selected="true"]::after { content:""; position:absolute; left:0; right:0; bottom:0; height:2px; border-radius:999px 999px 0 0; background:#007aff; }
+    .writing-text-screen { padding:20px 24px 22px; }
+    .writing-text-panel { min-height:264px; }
+    .writing-panel-head { margin-bottom:10px; }
+    .writing-panel-head h2 { margin:0; color:var(--text); font-size:16px; line-height:24px; font-weight:700; }
+    .writing-editor-wrap { position:relative; min-height:116px; }
+    .writing-editor { width:100%; min-height:76px; padding:0; resize:none; border:0; outline:0; background:transparent; color:var(--text); font:400 16px/24px Inter,ui-sans-serif,system-ui,sans-serif; }
+    .writing-editor::placeholder { color:var(--subtle); }
+    .writing-inline-actions { min-height:34px; display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    .writing-inline-button { height:30px; padding:0 13px; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line-strong); border-radius:999px; background:var(--surface); color:var(--text); font:550 12px/1 inherit; cursor:pointer; }
+    .writing-inline-button:hover { background:var(--surface-hover); }
+    .writing-inline-button .icon { width:14px; height:14px; }
+    .writing-draft-footer { margin-top:14px; padding-top:10px; display:flex; align-items:center; gap:6px; border-top:1px solid var(--line); }
+    .writing-footer-upload { width:38px; height:38px; display:grid; place-items:center; padding:0; border:0; border-radius:11px; background:transparent; color:var(--muted); cursor:pointer; }
+    .writing-footer-upload:hover { background:var(--surface-hover); color:var(--text); }
+    .writing-footer-upload .icon { width:18px; height:18px; }
+    .writing-action-button, .research-action-button { min-width:116px; height:38px; margin-left:auto; padding:0 18px; display:inline-flex; align-items:center; justify-content:center; gap:7px; border:0; border-radius:999px; background:#007aff; color:#fff; font:650 13px/1 inherit; cursor:pointer; }
+    .writing-action-button:disabled, .research-action-button:disabled { background:#8dc5ff; cursor:not-allowed; }
+    .writing-action-button .icon, .research-action-button .icon { width:16px; height:16px; }
+    .writing-result-panel { margin-top:18px; padding:18px; border:1px solid var(--line); border-radius:16px; background:var(--surface-soft); }
+    .writing-result-panel[hidden], .research-result[hidden], .research-tool-screen[hidden], .writing-text-screen[hidden] { display:none; }
+    .writing-result-panel h2, .research-result h2 { margin:0 0 8px; color:var(--text); font-size:15px; line-height:1.4; font-weight:700; }
+    .writing-result-content, .research-result-content { color:var(--muted); font-size:14px; line-height:1.65; white-space:pre-wrap; }
+    .writing-result-content.has-result, .research-result-content.has-result { color:var(--text); }
+    .research-tool-screen { min-height:430px; padding:48px 24px 60px; }
+    .research-entry { width:min(700px,100%); margin:0 auto; }
+    .research-entry-card { padding:16px 10px 10px 18px; border:1px solid var(--line); border-radius:20px; background:var(--surface); box-shadow:0 4px 4px rgba(0,122,255,.05),0 0 60px rgba(96,120,255,.08); }
+    .research-input { width:100%; min-height:68px; padding:0 4px; resize:none; border:0; outline:0; background:transparent; color:var(--text); font:400 16px/24px Inter,ui-sans-serif,system-ui,sans-serif; }
+    .research-input::placeholder { color:var(--subtle); }
+    .research-entry-footer { margin-top:8px; padding-top:8px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--line); }
+    .research-samples-label { margin:12px 10px 6px; color:var(--muted); font-size:13px; }
+    .research-samples { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .research-sample-card { min-height:112px; padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; box-shadow:0 0 12px rgba(96,120,255,.04); }
+    .research-sample-card:hover { border-color:rgba(0,122,255,.32); transform:translateY(-1px); }
+    .research-sample-card .icon { width:20px; height:20px; margin-bottom:5px; color:#007aff; }
+    .research-sample-card strong, .research-sample-card span { display:block; }
+    .research-sample-card strong { margin-bottom:3px; font-size:12px; }
+    .research-sample-card span { color:var(--muted); font-size:12px; line-height:1.45; }
+    .research-result { width:min(700px,100%); margin:18px auto 0; padding:18px; border:1px solid var(--line); border-radius:16px; background:var(--surface-soft); }
+    body.dark .composer-shell.writing-layout { background:#1b212d; box-shadow:0 12px 38px rgba(0,0,0,.3); }
     .attachment-row { display:flex; flex-wrap:wrap; align-items:flex-start; gap:8px; min-height:0; padding:0 18px 10px; }
     .attachment-row:empty { display: none; }
     .attachment-chip { position:relative; min-width:0; display:flex; align-items:center; border:1px solid var(--line); background:var(--surface-soft); color:var(--muted); }
@@ -1663,16 +1667,17 @@
       .hero { margin-bottom: 18px; }
       .hero h1 { font-size: 28px; }
       .workspace-mode-switch { margin-top:14px; }
-      .workspace-mode-button { min-width:100px; height:40px; padding-inline:15px; font-size:14px; }
+      .workspace-mode-button { min-width:88px; height:40px; padding-inline:12px; font-size:13px; }
       .composer-shell { border-radius: 20px; }
       .capability-strip { padding-inline: 9px; }
       .composer-input-wrap { padding: 14px 14px 9px; }
       .composer-input { min-height: 68px; font-size: 16px; }
       .composer-toolbar { margin-inline: 9px; }
-      .writing-split { grid-template-columns:1fr; }
-      .writing-draft-panel { border-right:0; border-bottom:1px solid var(--line); }
-      .writing-result-panel { min-height:320px; }
-      .composer-shell.writing-layout .capability-strip { gap:22px; }
+      .composer-shell.writing-layout .capability-strip { justify-content:flex-start; gap:22px; }
+      .writing-text-screen { padding:18px 16px 20px; }
+      .research-tool-screen { min-height:0; padding:28px 16px 32px; }
+      .research-samples { grid-template-columns:1fr; }
+      .research-sample-card { min-height:92px; }
       .model-button > span:not(.brand-mini) { display: none; }
       .model-button { padding: 0 7px; }
       .send-button { min-width: 42px; width: 42px; padding: 0; }
@@ -1891,6 +1896,7 @@
           <div class="workspace-mode-switch" id="workspaceModeSwitch" role="tablist" aria-label="Choose workspace mode">
             <button class="workspace-mode-button" role="tab" aria-selected="true" data-workspace-mode="study"><svg class="icon"><use href="#i-book"/></svg><span>Study</span></button>
             <button class="workspace-mode-button" role="tab" aria-selected="false" data-workspace-mode="exam"><svg class="icon"><use href="#i-target"/></svg><span>Exam Prep</span></button>
+            <button class="workspace-mode-button" role="tab" aria-selected="false" data-workspace-mode="writing"><svg class="icon"><use href="#i-wand"/></svg><span>Writing</span></button>
           </div>
         </header>
 
@@ -1927,29 +1933,40 @@
             <p id="linkPopoverHelp">Public webpages, videos, and document links are supported.</p>
           </div>
           <div class="writing-composer-content" id="writingComposerContent">
-            <div class="writing-split">
-              <section class="writing-draft-panel" aria-labelledby="writingDraftTitle">
-                <div class="writing-panel-head">
-                  <h2 id="writingDraftTitle">Your Draft</h2>
-                  <div class="writing-head-actions">
-                    <button class="writing-head-action" id="writingUploadButton" type="button"><svg class="icon"><use href="#i-upload"/></svg><span>Upload File</span></button>
-                    <button class="writing-head-action" id="writingHistoryButton" type="button" aria-expanded="false"><svg class="icon"><use href="#i-history"/></svg><span>History</span></button>
+            <div class="writing-text-screen" id="writingTextScreen" hidden>
+              <section class="writing-text-panel" aria-labelledby="writingDraftTitle">
+                <div class="writing-panel-head"><h2 id="writingDraftTitle">Original text</h2></div>
+                <div class="writing-editor-wrap">
+                  <textarea class="writing-editor" id="writingEditor" aria-label="Original text" placeholder="Paste AI-generated text here, upload a file, or try a sample"></textarea>
+                  <div class="writing-inline-actions">
+                    <button class="writing-inline-button" id="writingPasteButton" type="button"><svg class="icon"><use href="#i-file"/></svg><span>Paste</span></button>
+                    <button class="writing-inline-button" id="writingSampleButton" type="button"><svg class="icon"><use href="#i-spark"/></svg><span>Try a sample</span></button>
                   </div>
                 </div>
-                <div class="writing-editor-wrap">
-                  <textarea class="writing-editor" id="writingEditor" aria-label="Your draft" placeholder="Paste your text here, or upload a file (PDF, Word, TXT)..."></textarea>
-                  <button class="writing-sample-button" id="writingSampleButton" type="button"><svg class="icon"><use href="#i-spark"/></svg><span>Try a sample</span></button>
-                </div>
                 <div class="writing-draft-footer">
-                  <span class="writing-word-count" id="writingWordCount">0 words</span>
+                  <button class="writing-footer-upload" id="writingUploadButton" type="button" aria-label="Upload file" title="Upload file"><svg class="icon"><use href="#i-upload"/></svg></button>
                   <button class="writing-action-button" id="writingActionButton" type="button" disabled><svg class="icon"><use href="#i-spark"/></svg><span>Humanize</span></button>
                 </div>
-                <div class="writing-history-popover" id="writingHistoryPopover" hidden><strong>Recent writing</strong><p>No processed drafts yet. Your latest result will appear here.</p></div>
+                <section class="writing-result-panel" id="writingResultPanel" aria-labelledby="writingResultTitle" hidden>
+                  <h2 id="writingResultTitle">Result</h2>
+                  <div class="writing-result-content" id="writingResultContent"></div>
+                </section>
               </section>
-              <section class="writing-result-panel" aria-labelledby="writingResultTitle">
-                <h2 id="writingResultTitle">Result</h2>
-                <div class="writing-result-content" id="writingResultContent">Humanize your text to see the result here.</div>
-              </section>
+            </div>
+            <div class="research-tool-screen" id="researchToolScreen">
+              <div class="research-entry">
+                <div class="research-entry-card">
+                  <textarea class="research-input" id="researchInput" aria-label="Research topic" placeholder="Enter your topic, research question, or assignment prompt to start searching for credible sources."></textarea>
+                  <div class="research-entry-footer"><button class="writing-footer-upload" id="researchUploadButton" type="button" aria-label="Upload file" title="Upload file"><svg class="icon"><use href="#i-upload"/></svg></button><button class="research-action-button" id="researchActionButton" type="button" disabled><svg class="icon"><use href="#i-search"/></svg><span>Search</span></button></div>
+                </div>
+                <p class="research-samples-label">Or, try searching for:</p>
+                <div class="research-samples">
+                  <button class="research-sample-card" type="button" data-research-sample="Educational data science in higher education"><svg class="icon"><use href="#i-search"/></svg><strong>Topic</strong><span>Educational data science in higher education</span></button>
+                  <button class="research-sample-card" type="button" data-research-sample="Write a literature review examining the relationship between social media use and student wellbeing."><svg class="icon"><use href="#i-book"/></svg><strong>Assignment</strong><span>Write a literature review examining the relationship...</span></button>
+                  <button class="research-sample-card" type="button" data-research-sample="How does sleep paralysis affect mental wellbeing?"><svg class="icon"><use href="#i-chat"/></svg><strong>Question</strong><span>How does sleep paralysis affect mental wellbeing?</span></button>
+                </div>
+              </div>
+              <section class="research-result" id="researchResult" aria-labelledby="researchResultTitle" hidden><h2 id="researchResultTitle">Research result</h2><div class="research-result-content" id="researchResultContent"></div></section>
             </div>
           </div>
           <input id="fileInput" type="file" multiple hidden />
@@ -2473,12 +2490,12 @@
     };
 
     const writingToolData = {
-      humanizer: { label:'AI Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste your text here, or upload a file (PDF, Word, TXT)...', description:'Humanize your text to see the result here.', examples:[] },
-      detector: { label:'AI Detector', icon:'i-search', action:'Detect AI', placeholder:'Paste text to check whether it was written by AI...', description:'Run AI detection to see the analysis here.', examples:[] },
+      humanizer: { label:'Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste AI-generated text here, upload a file, or try a sample', description:'Humanize your text to see the result here.', examples:[] },
+      detector: { label:'Detector', icon:'i-search', action:'Check for AI', placeholder:'Paste AI-generated text here, upload a file, or try a sample', description:'Run AI detection to see the analysis here.', examples:[] },
       paraphraser: { label:'AI Paraphraser', icon:'i-wand', action:'Paraphrase', placeholder:'Paste your text here to paraphrase it...', description:'Paraphrase your text to see the result here.', examples:[] },
       plagiarism: { label:'Plagiarism Checker', icon:'i-exam', action:'Check plagiarism', placeholder:'Paste your text here to check for matching content...', description:'Check your text to see the plagiarism result here.', examples:[] },
       aiCitation: { label:'AI Citation', icon:'i-book', action:'Create citation', placeholder:'Paste source details, a DOI, or a URL here...', description:'Create a citation to see the formatted result here.', examples:[] },
-      research: { label:'AI Research', icon:'i-search', action:'Research', placeholder:'Describe the topic you want to research...', description:'Run AI research to see a structured result here.', examples:[] }
+      research: { label:'Research', icon:'i-search', action:'Search', placeholder:'Enter your topic, research question, or assignment prompt to start searching for credible sources.', description:'Run AI research to see a structured result here.', examples:[] }
     };
     Object.assign(capabilityData, writingToolData);
 
@@ -2609,7 +2626,7 @@
     const capabilityGroups = {
       study: ['solver', 'graph', 'video', 'flashcards', 'quiz', 'guide', 'podcast'],
       exam: ['mock'],
-      writing: ['humanizer', 'detector', 'paraphraser', 'plagiarism', 'aiCitation', 'research']
+      writing: ['research', 'humanizer', 'detector']
     };
     const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
     const creationSourceLimit = 10;
@@ -2639,6 +2656,9 @@
     const writingEditor = document.getElementById('writingEditor');
     const writingActionButton = document.getElementById('writingActionButton');
     const writingResultContent = document.getElementById('writingResultContent');
+    const researchInput = document.getElementById('researchInput');
+    const researchActionButton = document.getElementById('researchActionButton');
+    const researchResultContent = document.getElementById('researchResultContent');
     const workspaceStatus = document.getElementById('workspaceStatus');
     const toast = document.getElementById('toast');
     const dialog = document.getElementById('exampleDialog');
@@ -2658,7 +2678,6 @@
     let geogebraInitPromise = null;
     let calculatorRestorePosition = null;
     let mediaTimer = null;
-    let writingHistory = [];
     let cropImageChips = [];
     let activeCropIndex = 0;
     let cropWorkingStates = new Map();
@@ -3012,23 +3031,26 @@
     }
 
     function updateWritingEditorState() {
-      const words = writingEditor.value.trim() ? writingEditor.value.trim().split(/\s+/).length : 0;
-      document.getElementById('writingWordCount').textContent = `${words} word${words === 1 ? '' : 's'}`;
-      document.getElementById('writingSampleButton').hidden = writingEditor.value.length > 0;
       writingActionButton.disabled = !writingEditor.value.trim();
+      researchActionButton.disabled = !researchInput.value.trim();
     }
 
     function updateWritingTool(key, resetResult = true) {
       const tool = writingToolData[key];
       if (!tool) return;
-      document.getElementById('writingHistoryPopover').hidden = true;
-      document.getElementById('writingHistoryButton').setAttribute('aria-expanded', 'false');
+      const isResearch = key === 'research';
+      document.getElementById('writingTextScreen').hidden = isResearch;
+      document.getElementById('researchToolScreen').hidden = !isResearch;
       writingEditor.placeholder = tool.placeholder;
       writingActionButton.querySelector('span').textContent = tool.action;
-      document.getElementById('writingResultTitle').textContent = key === 'detector' ? 'Analysis' : key === 'plagiarism' ? 'Plagiarism Result' : key === 'aiCitation' ? 'Citation' : key === 'research' ? 'Research Result' : 'Result';
+      document.getElementById('writingResultTitle').textContent = key === 'detector' ? 'AI detection analysis' : 'Humanized text';
       if (resetResult) {
-        writingResultContent.textContent = tool.description;
+        document.getElementById('writingResultPanel').hidden = true;
+        document.getElementById('researchResult').hidden = true;
+        writingResultContent.textContent = '';
         writingResultContent.classList.remove('has-result');
+        researchResultContent.textContent = '';
+        researchResultContent.classList.remove('has-result');
       }
       updateWritingEditorState();
     }
@@ -4579,8 +4601,23 @@
     });
     linkInput.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); document.getElementById('addLinkButton').click(); } });
     writingEditor.addEventListener('input', updateWritingEditorState);
+    researchInput.addEventListener('input', updateWritingEditorState);
     writingEditor.addEventListener('keydown', event => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !writingActionButton.disabled) writingActionButton.click();
+    });
+    researchInput.addEventListener('keydown', event => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !researchActionButton.disabled) researchActionButton.click();
+    });
+    document.getElementById('writingPasteButton').addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (!text) return showToast('Clipboard is empty');
+        writingEditor.value = text;
+        updateWritingEditorState();
+        writingEditor.focus();
+      } catch (error) {
+        showToast('Paste permission is unavailable. Use ⌘V or Ctrl+V.');
+      }
     });
     document.getElementById('writingSampleButton').addEventListener('click', () => {
       writingEditor.value = 'Spring is a beautiful season that brings warmth and new life to the environment. During this time, flowers begin to bloom and trees turn green again. The weather becomes more pleasant, and people often spend more time outdoors. Many individuals feel happier and more energetic as the days grow longer. Spring also represents a fresh start and new opportunities for growth and development. Overall, it is a season that has a positive impact on both nature and human emotions.';
@@ -4588,27 +4625,27 @@
       writingEditor.focus();
     });
     document.getElementById('writingUploadButton').addEventListener('click', () => document.getElementById('writingFileInput').click());
+    document.getElementById('researchUploadButton').addEventListener('click', () => document.getElementById('writingFileInput').click());
     document.getElementById('writingFileInput').addEventListener('change', event => {
       const file = event.target.files[0];
       if (!file) return;
+      const targetEditor = selectedCapability === 'research' ? researchInput : writingEditor;
       if (file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt')) {
         const reader = new FileReader();
-        reader.addEventListener('load', () => { writingEditor.value = String(reader.result || ''); updateWritingEditorState(); showToast(file.name + ' uploaded'); });
+        reader.addEventListener('load', () => { targetEditor.value = String(reader.result || ''); updateWritingEditorState(); showToast(file.name + ' uploaded'); });
         reader.readAsText(file);
       } else {
-        writingEditor.value = `Uploaded file: ${file.name}\n\nPaste or review the extracted text here before processing.`;
+        targetEditor.value = `Uploaded file: ${file.name}\n\nPaste or review the extracted text here before processing.`;
         updateWritingEditorState();
         showToast(file.name + ' uploaded');
       }
       event.target.value = '';
     });
-    document.getElementById('writingHistoryButton').addEventListener('click', event => {
-      const popover = document.getElementById('writingHistoryPopover');
-      popover.hidden = !popover.hidden;
-      event.currentTarget.setAttribute('aria-expanded', String(!popover.hidden));
-      const copy = popover.querySelector('p');
-      copy.textContent = writingHistory.length ? writingHistory.slice(-3).reverse().join('\n') : 'No processed drafts yet. Your latest result will appear here.';
-    });
+    document.querySelectorAll('[data-research-sample]').forEach(button => button.addEventListener('click', () => {
+      researchInput.value = button.dataset.researchSample;
+      updateWritingEditorState();
+      researchInput.focus();
+    }));
     writingActionButton.addEventListener('click', () => {
       const value = writingEditor.value.trim();
       if (!value) return;
@@ -4620,10 +4657,24 @@
       setTimeout(() => {
         writingResultContent.textContent = processWritingText(toolKey, value);
         writingResultContent.classList.add('has-result');
-        writingHistory.push(`${writingToolData[toolKey].label} · ${value.split(/\s+/).length} words`);
+        document.getElementById('writingResultPanel').hidden = false;
         label.textContent = originalLabel;
         writingActionButton.disabled = false;
         showToast(originalLabel + ' complete');
+      }, 420);
+    });
+    researchActionButton.addEventListener('click', () => {
+      const value = researchInput.value.trim();
+      if (!value) return;
+      researchActionButton.disabled = true;
+      researchActionButton.querySelector('span').textContent = 'Searching…';
+      setTimeout(() => {
+        researchResultContent.textContent = processWritingText('research', value);
+        researchResultContent.classList.add('has-result');
+        document.getElementById('researchResult').hidden = false;
+        researchActionButton.querySelector('span').textContent = 'Search';
+        researchActionButton.disabled = false;
+        showToast('Research ready');
       }, 420);
     });
     document.getElementById('fileInput').addEventListener('change', event => { addFiles(event.target.files); event.target.value = ''; });
