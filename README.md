@@ -6,8 +6,8 @@ This is a dependency-free static prototype. All page structure, interactions, an
 
 - Product behavior and example data live in `index.html`, primarily under `capabilityData`.
 - The complete page-to-source mapping is documented in [`docs/ASSET_HANDOFF.md`](docs/ASSET_HANDOFF.md).
-- The PRD appendix that explains all 20 asset groups, 59 local files, and 7 external runtime references is documented in [`docs/PRD_ASSET_CATALOG.md`](docs/PRD_ASSET_CATALOG.md).
-- [`assets/catalog.json`](assets/catalog.json) is the machine-readable source of truth for local files and external runtime resources, including inactive and phase-2 references.
+- The PRD appendix that explains all 19 asset groups, 57 local files, and 7 external runtime references is documented in [`docs/PRD_ASSET_CATALOG.md`](docs/PRD_ASSET_CATALOG.md).
+- [`assets/catalog.json`](assets/catalog.json) is the machine-readable source of truth for local files and external runtime resources, including source and phase-2 resources.
 - Before committing asset changes, run `node scripts/check-assets.mjs` to catch missing files, unindexed files, broken runtime references, and assets not yet tracked by Git or uploaded upstream.
 
 ## Preview locally

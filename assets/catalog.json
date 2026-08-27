@@ -4,7 +4,6 @@
   "statusDefinitions": {
     "runtime": "Loaded by the current prototype.",
     "source": "Original source retained for editing or regeneration; not loaded directly.",
-    "reference": "Approved alternative or inactive example retained for handoff.",
     "phase_2": "Reserved for Exam Prep or Diagnostic phase 2; not part of phase 1 implementation."
   },
   "groups": [
@@ -155,8 +154,7 @@
       "files": [
         { "path": "assets/flashcards/kidney-anatomy.webp", "role": "Human Anatomy card image", "status": "runtime" },
         { "path": "assets/flashcards/radial-gravitational-field.webp", "role": "Gravitational Field card image", "status": "runtime" },
-        { "path": "assets/flashcards/biological-psychology-motor-hierarchy.webp", "role": "Biological Psychology card image", "status": "runtime" },
-        { "path": "assets/flashcards/sankey-diagram.webp", "role": "Inactive energy-flow flashcard reference", "status": "reference" }
+        { "path": "assets/flashcards/biological-psychology-motor-hierarchy.webp", "role": "Biological Psychology card image", "status": "runtime" }
       ]
     },
     {
@@ -255,15 +253,6 @@
       "files": [
         { "path": "assets/podcasts/03_foundations_of_early_human_civilization.mp3", "role": "Episode audio", "status": "runtime" },
         { "path": "assets/podcasts/03_foundations_of_early_human_civilization.txt", "role": "Editable timestamped transcript source", "status": "source" }
-      ]
-    },
-    {
-      "id": "study.study-set.brain-sample",
-      "surface": "Study · Study Set",
-      "scenario": "How the Brain Works — quiz and flashcard composition",
-      "implementation": "Not enabled in capabilityData",
-      "files": [
-        { "path": "assets/brain-study-set-sample.png", "role": "Inactive study-set composition reference", "status": "reference" }
       ]
     },
     {

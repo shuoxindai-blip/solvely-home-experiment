@@ -7,7 +7,7 @@
 - 每个素材对应哪个产品模块和示例场景。
 - 开发应从哪个代码入口接入。
 - 哪些文件可以在当前原型中直接使用。
-- 哪些文件只是源文件、备用参考或二期素材。
+- 哪些文件只是源文件或二期素材。
 
 > “分组”是按产品场景建立的素材包，不等于文件夹。一个分组可以包含封面图、详情页、音频、字幕或文档等多个相关文件。
 
@@ -15,13 +15,12 @@
 
 | 项目 | 数量 | 说明 |
 |---|---:|---|
-| 场景分组 | 20 | 按产品页面、功能和示例场景组织 |
-| 本地索引文件 | 59 | `groups[].files[]` 中记录的唯一仓库文件 |
+| 场景分组 | 19 | 按产品页面、功能和示例场景组织 |
+| 本地索引文件 | 57 | `groups[].files[]` 中记录的唯一仓库文件 |
 | 外部运行时资源 | 7 | `groups[].externalResources[]` 中记录的 4 个远程 HTML 和 3 张远程图片 |
-| 资源引用总数 | 66 | 59 个本地文件 + 7 个外部运行时资源 |
+| 资源引用总数 | 64 | 57 个本地文件 + 7 个外部运行时资源 |
 | `runtime` | 51 | 当前原型直接加载，一期可接入 |
 | `source` | 5 | 用于编辑、裁剪或重新生成，不应代替已存在的运行时文件 |
-| `reference` | 2 | 备用或未启用示例，不得默认接入当前页面 |
 | `phase_2` | 1 | Exam Prep / Diagnostic 二期素材，一期不接入 |
 
 ## 3. 开发使用规则
@@ -29,12 +28,11 @@
 1. 以 `assets/catalog.json` 为素材路径、用途和状态的唯一信息源。
 2. 一期实现只允许默认接入 `runtime` 文件。
 3. `source` 文件仅用于重新生成运行时素材，不在页面中直接加载。
-4. `reference` 文件需在产品确认启用场景后，再补充代码配置。
-5. `phase_2` 文件需等待二期流程和页面方案确认，不得接入一期。
-6. `externalResources` 中的 `runtime` 项是案例详情的必需内容，不是可选外链；远程 HTML 必须提供加载失败和重试状态。
-7. 新增、删除或替换本地/外部资源后，开发必须执行 `node scripts/check-assets.mjs`，且校验结果不得包含错误或 Git 跟踪警告。
+4. `phase_2` 文件需等待二期流程和页面方案确认，不得接入一期。
+5. `externalResources` 中的 `runtime` 项是案例详情的必需内容，不是可选外链；远程 HTML 必须提供加载失败和重试状态。
+6. 新增、删除或替换本地/外部资源后，开发必须执行 `node scripts/check-assets.mjs`，且校验结果不得包含错误或 Git 跟踪警告。
 
-## 4. 20 个分组与 59 个本地索引文件
+## 4. 19 个分组与 57 个本地索引文件
 
 ### 4.1 `global.mobile-download`
 
@@ -150,7 +148,6 @@
 | 20 | `assets/flashcards/kidney-anatomy.webp` | Human Anatomy 卡片图片 | `runtime` |
 | 21 | `assets/flashcards/radial-gravitational-field.webp` | Gravitational Field 卡片图片 | `runtime` |
 | 22 | `assets/flashcards/biological-psychology-motor-hierarchy.webp` | Biological Psychology 卡片图片 | `runtime` |
-| 23 | `assets/flashcards/sankey-diagram.webp` | 未启用的能量流向闪卡参考图 | `reference` |
 
 ### 4.11 `study.quiz.examples`
 
@@ -160,9 +157,9 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 24 | `assets/quizzes/blood-glucose-feedback.webp` | 血糖负反馈题目图 | `runtime` |
-| 25 | `assets/quizzes/fish-apparent-depth.webp` | 折射与视深度题目图 | `runtime` |
-| 26 | `assets/quizzes/ionic-crystal-lattice.webp` | 离子晶格题目图 | `runtime` |
+| 23 | `assets/quizzes/blood-glucose-feedback.webp` | 血糖负反馈题目图 | `runtime` |
+| 24 | `assets/quizzes/fish-apparent-depth.webp` | 折射与视深度题目图 | `runtime` |
+| 25 | `assets/quizzes/ionic-crystal-lattice.webp` | 离子晶格题目图 | `runtime` |
 
 ### 4.12 `study.guide.mitochondrial-dna`
 
@@ -172,16 +169,16 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 27 | `assets/study-guides/mitochondrial-dna/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
-| 28 | `assets/study-guides/mitochondrial-dna/repeat-replication.webp` | Repeat replication 章节卡片图 | `runtime` |
-| 29 | `assets/study-guides/mitochondrial-dna/imprinting-reset.webp` | Imprinting reset 章节卡片图 | `runtime` |
-| 30 | `assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp` | Prader–Willi mechanisms 章节卡片图 | `runtime` |
-| 31 | `assets/study-guides/mitochondrial-dna/maternal-inheritance.svg` | Maternal inheritance 章节卡片图 | `runtime` |
-| 32 | `assets/study-guides/mitochondrial-dna/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
-| 33 | `assets/study-guides/mitochondrial-dna/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
-| 34 | `assets/study-guides/mitochondrial-dna/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
-| 35 | `assets/study-guides/mitochondrial-dna/images/image_04.webp` | Markdown 正文插图 04 | `runtime` |
-| 36 | `assets/study-guides/mitochondrial-dna/images/image_05.webp` | Markdown 正文插图 05 | `runtime` |
+| 26 | `assets/study-guides/mitochondrial-dna/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
+| 27 | `assets/study-guides/mitochondrial-dna/repeat-replication.webp` | Repeat replication 章节卡片图 | `runtime` |
+| 28 | `assets/study-guides/mitochondrial-dna/imprinting-reset.webp` | Imprinting reset 章节卡片图 | `runtime` |
+| 29 | `assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp` | Prader–Willi mechanisms 章节卡片图 | `runtime` |
+| 30 | `assets/study-guides/mitochondrial-dna/maternal-inheritance.svg` | Maternal inheritance 章节卡片图 | `runtime` |
+| 31 | `assets/study-guides/mitochondrial-dna/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
+| 32 | `assets/study-guides/mitochondrial-dna/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
+| 33 | `assets/study-guides/mitochondrial-dna/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
+| 34 | `assets/study-guides/mitochondrial-dna/images/image_04.webp` | Markdown 正文插图 04 | `runtime` |
+| 35 | `assets/study-guides/mitochondrial-dna/images/image_05.webp` | Markdown 正文插图 05 | `runtime` |
 
 ### 4.13 `study.guide.prehistoric-art`
 
@@ -191,13 +188,13 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 37 | `assets/study-guides/prehistoric-art/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
-| 38 | `assets/study-guides/prehistoric-art/lascaux.webp` | Lascaux 章节卡片图 | `runtime` |
-| 39 | `assets/study-guides/prehistoric-art/stonehenge.webp` | Stonehenge 章节卡片图 | `runtime` |
-| 40 | `assets/study-guides/prehistoric-art/terra-cotta.webp` | Terra cotta 章节卡片图 | `runtime` |
-| 41 | `assets/study-guides/prehistoric-art/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
-| 42 | `assets/study-guides/prehistoric-art/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
-| 43 | `assets/study-guides/prehistoric-art/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
+| 36 | `assets/study-guides/prehistoric-art/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
+| 37 | `assets/study-guides/prehistoric-art/lascaux.webp` | Lascaux 章节卡片图 | `runtime` |
+| 38 | `assets/study-guides/prehistoric-art/stonehenge.webp` | Stonehenge 章节卡片图 | `runtime` |
+| 39 | `assets/study-guides/prehistoric-art/terra-cotta.webp` | Terra cotta 章节卡片图 | `runtime` |
+| 40 | `assets/study-guides/prehistoric-art/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
+| 41 | `assets/study-guides/prehistoric-art/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
+| 42 | `assets/study-guides/prehistoric-art/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
 
 ### 4.14 `study.guide.law-crime`
 
@@ -207,9 +204,9 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 44 | `assets/study-guides/law-crime/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
-| 45 | `assets/study-guides/law-crime/image_01.webp` | Dark figure of crime 示意图 | `runtime` |
-| 46 | `assets/study-guides/law-crime/image_02.webp` | Crime rates 图表 | `runtime` |
+| 43 | `assets/study-guides/law-crime/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
+| 44 | `assets/study-guides/law-crime/image_01.webp` | Dark figure of crime 示意图 | `runtime` |
+| 45 | `assets/study-guides/law-crime/image_02.webp` | Crime rates 图表 | `runtime` |
 
 ### 4.15 `study.podcast.shared`
 
@@ -219,11 +216,11 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 47 | `assets/podcasts/transcripts.js` | 运行时带时间戳字幕数据 | `runtime` |
-| 48 | `assets/podcasts/hosts/lexie.webp` | 主持人 Lexie 头像 | `runtime` |
-| 49 | `assets/podcasts/hosts/noah.webp` | 主持人 Noah 头像 | `runtime` |
-| 50 | `assets/podcasts/hosts/cardi-c.webp` | 主持人 Cardi C 头像 | `runtime` |
-| 51 | `assets/podcasts/hosts/david-duck.webp` | 主持人 David Duck 头像 | `runtime` |
+| 46 | `assets/podcasts/transcripts.js` | 运行时带时间戳字幕数据 | `runtime` |
+| 47 | `assets/podcasts/hosts/lexie.webp` | 主持人 Lexie 头像 | `runtime` |
+| 48 | `assets/podcasts/hosts/noah.webp` | 主持人 Noah 头像 | `runtime` |
+| 49 | `assets/podcasts/hosts/cardi-c.webp` | 主持人 Cardi C 头像 | `runtime` |
+| 50 | `assets/podcasts/hosts/david-duck.webp` | 主持人 David Duck 头像 | `runtime` |
 
 ### 4.16 `study.podcast.unit-rates`
 
@@ -233,8 +230,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 52 | `assets/podcasts/01_defining_and_calculating_unit_rates.mp3` | Podcast 单集音频 | `runtime` |
-| 53 | `assets/podcasts/01_defining_and_calculating_unit_rates.txt` | 可编辑的带时间戳字幕源文件 | `source` |
+| 51 | `assets/podcasts/01_defining_and_calculating_unit_rates.mp3` | Podcast 单集音频 | `runtime` |
+| 52 | `assets/podcasts/01_defining_and_calculating_unit_rates.txt` | 可编辑的带时间戳字幕源文件 | `source` |
 
 ### 4.17 `study.podcast.photosynthesis`
 
@@ -244,8 +241,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 54 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.mp3` | Podcast 单集音频 | `runtime` |
-| 55 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.txt` | 可编辑的带时间戳字幕源文件 | `source` |
+| 53 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.mp3` | Podcast 单集音频 | `runtime` |
+| 54 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.txt` | 可编辑的带时间戳字幕源文件 | `source` |
 
 ### 4.18 `study.podcast.civilization`
 
@@ -255,20 +252,10 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 56 | `assets/podcasts/03_foundations_of_early_human_civilization.mp3` | Podcast 单集音频 | `runtime` |
-| 57 | `assets/podcasts/03_foundations_of_early_human_civilization.txt` | 可编辑的带时间戳字幕源文件 | `source` |
+| 55 | `assets/podcasts/03_foundations_of_early_human_civilization.mp3` | Podcast 单集音频 | `runtime` |
+| 56 | `assets/podcasts/03_foundations_of_early_human_civilization.txt` | 可编辑的带时间戳字幕源文件 | `source` |
 
-### 4.19 `study.study-set.brain-sample`
-
-- 页面/模块：Study · Study Set
-- 场景：How the Brain Works Quiz + Flashcard 组合示例
-- 代码入口：尚未加入 `capabilityData`
-
-| # | 索引文件 | 用途 | 状态 |
-|---:|---|---|---|
-| 58 | `assets/brain-study-set-sample.png` | 未启用的 Study Set 组合效果参考图 | `reference` |
-
-### 4.20 `phase-2.exam-progress`
+### 4.19 `phase-2.exam-progress`
 
 - 页面/模块：Exam Prep / Diagnostic
 - 场景：Exam 学习进度与结果拆解
@@ -276,7 +263,7 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 59 | `assets/progress-tracking-exam-results-sample.png` | Exam 进度与结果页面源参考图 | `phase_2` |
+| 57 | `assets/progress-tracking-exam-results-sample.png` | Exam 进度与结果页面源参考图 | `phase_2` |
 
 ## 5. 7 个外部运行时资源
 
@@ -292,10 +279,10 @@
 
 ## 6. 验收标准
 
-- `assets/catalog.json` 中的 `groups` 数量必须为 20。
-- 所有 `groups[].files[]` 去重后的文件数量必须为 59。
-- 59 个索引路径都必须在仓库中存在，且必须被 Git 跟踪。
-- 素材状态计数必须为 `runtime=51`、`source=5`、`reference=2`、`phase_2=1`。
+- `assets/catalog.json` 中的 `groups` 数量必须为 19。
+- 所有 `groups[].files[]` 去重后的文件数量必须为 57。
+- 57 个索引路径都必须在仓库中存在，且必须被 Git 跟踪。
+- 素材状态计数必须为 `runtime=51`、`source=5`、`phase_2=1`。
 - 所有 `runtime` 文件必须存在代码或内容引用，不得出现孤立运行时文件。
 - `externalResources` 必须包含 7 个唯一 HTTPS URL：`remote_html=4`、`remote_image=3`，且每个 `runtime` URL 必须被实现代码引用。
 - 执行 `node scripts/check-assets.mjs` 必须输出 `Asset catalog is complete and all runtime references resolve.`
@@ -305,4 +292,4 @@
 - 视频详情和部分化学结构图使用 `img.justsolvely.com` 远程资源，上线前需确认域名、访问权限、跨域策略和长期可用性。
 - Graphing Calculator 使用 GeoGebra 外部脚本，需保留网络失败的降级提示。
 - 公开 GitHub 仓库当前未声明 License；进入生产前需由项目所有者确认代码和素材授权范围。
-- 本地文件口径为 59；7 个远程 URL 单独纳入 `externalResources`。两者合计为 66 个资源引用。
+- 本地文件口径为 57；7 个远程 URL 单独纳入 `externalResources`。两者合计为 64 个资源引用。
