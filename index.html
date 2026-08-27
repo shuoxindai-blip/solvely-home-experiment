@@ -93,7 +93,7 @@
     .side-meta { display: grid; gap: 10px; }
     .chats { display:flex; align-items:center; gap:12px; padding:0 17px; height:42px; color:#586275; font-size:15px; }
     body.dark .chats { color:#b8c3d5; }
-    .app-download-card { padding:11px; border:1px solid #e1e6ee; border-radius:16px; background:#fff; box-shadow:0 8px 24px rgba(38,51,73,.06); }
+    .app-download-card { position:relative; padding:11px; border:1px solid #e1e6ee; border-radius:16px; background:#fff; box-shadow:0 8px 24px rgba(38,51,73,.06); }
     .app-store-links { display:flex; align-items:center; justify-content:center; gap:7px; }
     .app-store-entry { position:relative; display:flex; }
     .app-store-link { height:32px; display:flex; align-items:center; justify-content:center; border-radius:7px; transition:transform .16s ease,opacity .16s ease; }
@@ -101,15 +101,11 @@
     .app-store-link.google-play { width:107px; }
     .app-store-link:hover { transform:translateY(-1px); opacity:.9; }
     .app-store-link img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
-    .app-qr-popover { position:absolute; z-index:64; bottom:calc(100% + 12px); width:154px; padding:10px; border:1px solid #e1e6ee; border-radius:14px; background:#fff; box-shadow:0 18px 42px rgba(24,35,55,.20); color:#283244; text-align:center; pointer-events:none; opacity:0; visibility:hidden; transform:translateY(7px); transition:opacity .15s ease,visibility .15s ease,transform .15s ease; }
-    .app-store-entry:first-child .app-qr-popover { left:0; }
-    .app-store-entry:last-child .app-qr-popover { right:0; }
-    .app-qr-popover::after { content:""; position:absolute; bottom:-5px; width:10px; height:10px; background:#fff; border-right:1px solid #e1e6ee; border-bottom:1px solid #e1e6ee; transform:rotate(45deg); }
-    .app-store-entry:first-child .app-qr-popover::after { left:42px; }
-    .app-store-entry:last-child .app-qr-popover::after { right:46px; }
+    .app-qr-popover { position:absolute; z-index:64; left:50%; bottom:calc(100% + 12px); width:154px; padding:10px; border:1px solid #e1e6ee; border-radius:14px; background:#fff; box-shadow:0 18px 42px rgba(24,35,55,.20); color:#283244; text-align:center; pointer-events:none; opacity:0; visibility:hidden; transform:translate(-50%,7px); transition:opacity .15s ease,visibility .15s ease,transform .15s ease; }
+    .app-qr-popover::after { content:""; position:absolute; left:50%; bottom:-5px; width:10px; height:10px; margin-left:-5px; background:#fff; border-right:1px solid #e1e6ee; border-bottom:1px solid #e1e6ee; transform:rotate(45deg); }
     .app-qr-popover img { width:132px; height:132px; display:block; margin:0 auto 6px; }
     .app-qr-popover small { font-size:10px; font-weight:650; }
-    .app-store-entry:hover .app-qr-popover, .app-store-entry:focus-within .app-qr-popover { opacity:1; visibility:visible; transform:translateY(0); }
+    .app-download-card:hover .app-qr-popover, .app-download-card:focus-within .app-qr-popover { opacity:1; visibility:visible; transform:translate(-50%,0); }
     body.dark .app-download-card { border-color:#344157; background:#202a3a; }
     body.dark .app-qr-popover { border-color:#344157; background:#202a3a; color:#f3f6fb; }
     body.dark .app-qr-popover::after { border-color:#344157; background:#202a3a; }
@@ -2011,14 +2007,13 @@
         <section class="app-download-card" aria-label="Download the Solvely app">
           <div class="app-store-links">
             <span class="app-store-entry">
-              <a class="app-store-link apple-store" href="https://apps.apple.com/us/app/solvely-ai-study-tools/id6446930976" target="_blank" rel="noopener" aria-describedby="appleQrTooltip" aria-label="Download Solvely on the App Store"><img src="assets/download-on-app-store.svg" alt="Download on the App Store" width="96" height="32" /></a>
-              <span class="app-qr-popover" id="appleQrTooltip" role="tooltip"><img src="assets/solvely-mobile-qr.svg" alt="" width="132" height="132" /><small>Scan to download Solvely</small></span>
+              <a class="app-store-link apple-store" href="https://apps.apple.com/us/app/solvely-ai-study-tools/id6446930976" target="_blank" rel="noopener" aria-describedby="appDownloadQrTooltip" aria-label="Download Solvely on the App Store"><img src="assets/download-on-app-store.svg" alt="Download on the App Store" width="96" height="32" /></a>
             </span>
             <span class="app-store-entry">
-              <a class="app-store-link google-play" href="https://play.google.com/store/apps/details?id=com.solvely.photo.math.solver.calculator.ai" target="_blank" rel="noopener" aria-describedby="googleQrTooltip" aria-label="Get Solvely on Google Play"><img src="assets/get-it-on-google-play-trimmed.png" alt="Get it on Google Play" width="107" height="32" /></a>
-              <span class="app-qr-popover" id="googleQrTooltip" role="tooltip"><img src="assets/solvely-mobile-qr.svg" alt="" width="132" height="132" /><small>Scan to download Solvely</small></span>
+              <a class="app-store-link google-play" href="https://play.google.com/store/apps/details?id=com.solvely.photo.math.solver.calculator.ai" target="_blank" rel="noopener" aria-describedby="appDownloadQrTooltip" aria-label="Get Solvely on Google Play"><img src="assets/get-it-on-google-play-trimmed.png" alt="Get it on Google Play" width="107" height="32" /></a>
             </span>
           </div>
+          <span class="app-qr-popover" id="appDownloadQrTooltip" role="tooltip"><img src="assets/solvely-mobile-qr.svg" alt="" width="132" height="132" /><small>Scan to download Solvely</small></span>
         </section>
         <button class="upgrade" data-toast="Upgrade flow opened"><span class="discount">57%<br>OFF</span><span class="upgrade-label">⬆ Upgrade</span></button>
         <div class="user-row">
