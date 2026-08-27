@@ -294,10 +294,11 @@
     .attachment-image:hover .attachment-remove,
     .attachment-image:focus-within .attachment-crop-action,
     .attachment-image:focus-within .attachment-remove { opacity:1; visibility:visible; }
-    .attachment-document[data-source-kind="file"] .attachment-remove { position:absolute; top:50%; right:7px; width:30px; height:30px; display:grid; place-items:center; padding:0; line-height:0; border:0; background:var(--surface); color:var(--text); box-shadow:0 2px 8px rgba(27,39,70,.12); opacity:0; pointer-events:none; transform:translateY(-50%); transition:opacity .14s ease,background .14s ease; }
-    .attachment-document[data-source-kind="file"] .attachment-remove .icon { width:16px; height:16px; display:block; margin:0; }
-    .attachment-document[data-source-kind="file"]:hover .attachment-remove,
-    .attachment-document[data-source-kind="file"]:focus-within .attachment-remove { opacity:1; pointer-events:auto; }
+    .attachment-document .attachment-remove { position:absolute; top:50%; right:7px; width:30px; height:30px; display:grid; place-items:center; padding:0; line-height:0; border:0; background:var(--surface); color:var(--text); box-shadow:0 2px 8px rgba(27,39,70,.12); opacity:0; pointer-events:none; transform:translateY(-50%); transition:opacity .14s ease,background .14s ease; }
+    .attachment-document .attachment-remove .icon { width:16px; height:16px; display:block; margin:0; }
+    .attachment-document:hover .attachment-remove,
+    .attachment-document:focus-within .attachment-remove { opacity:1; pointer-events:auto; }
+    .attachment-document[data-source-kind="youtube"] .attachment-type-badge { color:#ff0033; }
 
     .composer-toolbar { min-height: 54px; display: flex; align-items: center; gap: 5px; margin: 0 12px; padding: 7px 0 9px; border-top: 1px solid var(--line); }
     .tool-button, .model-button, .send-button {
@@ -1805,7 +1806,7 @@
     @media (hover:none) and (pointer:coarse) {
       .attachment-image .attachment-crop-action,
       .attachment-image .attachment-remove { opacity:1; visibility:visible; }
-      .attachment-document[data-source-kind="file"] .attachment-remove { opacity:1; pointer-events:auto; }
+      .attachment-document .attachment-remove { opacity:1; pointer-events:auto; }
     }
 
     @media (max-width: 430px) {
@@ -4097,7 +4098,7 @@
 
     function pauseDialogAudio() { document.querySelectorAll('#exampleDialog audio').forEach(audio => audio.pause()); }
     function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; pauseDialogAudio(); if (dialog.open) dialog.close(); }
-    function updateSubmit() { sendButton.disabled = !promptInput.value.trim(); }
+    function updateSubmit() { sendButton.disabled = !promptInput.value.trim() && attachedSourceCount() === 0; }
     function showToast(message) {
       clearTimeout(toastTimer);
       toast.textContent = message;
@@ -4119,9 +4120,25 @@
       return attachmentRow.querySelectorAll('[data-source-kind]').length;
     }
 
+    async function fetchYouTubeTitle(url) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      try {
+        const response = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`, { signal:controller.signal });
+        if (!response.ok) throw new Error('YouTube metadata request failed');
+        const metadata = await response.json();
+        const title = typeof metadata.title === 'string' ? metadata.title.trim() : '';
+        if (!title) throw new Error('YouTube title unavailable');
+        return title;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
     function removeAttachmentChip(chip) {
       if (chip.dataset.objectUrl) URL.revokeObjectURL(chip.dataset.objectUrl);
       chip.remove();
+      updateSubmit();
     }
 
     function cropStateForChip(chip) {
@@ -4759,25 +4776,46 @@
         }
         const chip = document.createElement('span');
         chip.className = 'attachment-chip attachment-document';
-        chip.dataset.sourceKind = 'link';
+        chip.dataset.sourceKind = isYouTube ? 'youtube' : 'link';
         chip.setAttribute('role', 'listitem');
-        chip.innerHTML = `<span class="attachment-type-badge">${icon(isYouTube ? 'i-youtube' : 'i-link')}</span><span class="attachment-copy"><strong></strong><small>${isYouTube ? 'YouTube' : 'Web'}</small></span><button class="attachment-remove" type="button" aria-label="Remove link">${icon('i-close')}</button>`;
-        chip.querySelector('strong').textContent = parsed.hostname.replace(/^www\./,'');
-        chip.title = parsed.href;
+        chip.innerHTML = `<span class="attachment-type-badge">${icon(isYouTube ? 'i-youtube' : 'i-link')}</span><span class="attachment-copy"><strong></strong><small>${isYouTube ? 'YouTube source' : 'Web source'}</small></span><button class="attachment-remove" type="button">${icon('i-close')}</button>`;
+        const sourceTitle = chip.querySelector('strong');
+        sourceTitle.textContent = isYouTube ? 'Loading video title…' : parsed.hostname.replace(/^www\./,'');
+        chip.title = isYouTube ? 'Loading YouTube video title' : parsed.href;
         chip.dataset.url = parsed.href;
-        chip.querySelector('button').addEventListener('click', () => removeAttachmentChip(chip));
+        if (isYouTube) {
+          chip.dataset.metadataStatus = 'loading';
+          chip.setAttribute('aria-busy','true');
+        }
+        const removeButton = chip.querySelector('button');
+        removeButton.setAttribute('aria-label', isYouTube ? 'Remove YouTube video' : 'Remove web source');
+        removeButton.addEventListener('click', () => removeAttachmentChip(chip));
         attachmentRow.appendChild(chip);
-        if (!promptInput.value.trim()) promptInput.value = isYouTube
-          ? `Use this YouTube video as the source: ${parsed.href}`
-          : selectedCapability
-            ? `Use the material at ${parsed.href} to ${capabilityData[selectedCapability].action.toLowerCase()} this.`
-            : `Help me learn from the material at ${parsed.href}.`;
+        if (isYouTube) void fetchYouTubeTitle(parsed.href)
+          .then(title => {
+            if (!chip.isConnected) return;
+            sourceTitle.textContent = title;
+            chip.title = title;
+            chip.dataset.metadataStatus = 'resolved';
+          })
+          .catch(() => {
+            if (!chip.isConnected) return;
+            sourceTitle.textContent = 'YouTube video';
+            chip.title = 'YouTube video title unavailable';
+            chip.dataset.metadataStatus = 'fallback';
+          })
+          .finally(() => {
+            if (chip.isConnected) chip.removeAttribute('aria-busy');
+          });
+        if (!isYouTube && !promptInput.value.trim()) promptInput.value = selectedCapability
+          ? `Use the material at ${parsed.href} to ${capabilityData[selectedCapability].action.toLowerCase()} this.`
+          : `Help me learn from the material at ${parsed.href}.`;
         updateSubmit();
         linkInput.value = '';
         linkPopover.hidden = true;
         document.getElementById('linkButton').classList.remove('active');
         document.getElementById('linkButton').setAttribute('aria-expanded','false');
-        showToast(isYouTube ? 'YouTube video added' : 'Study material link added');
+        showToast(isYouTube ? 'YouTube source added' : 'Study material link added');
       } catch {
         linkInput.setCustomValidity(document.getElementById('linkButton').dataset.linkKind === 'youtube' ? 'Enter a valid YouTube URL.' : 'Enter a valid public web address.');
         linkInput.reportValidity();
