@@ -50,6 +50,13 @@
     </section>
   </main>
   <script>
+    let lastReportedHeight = 0;
+    function reportSize() {
+      const height = Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.scrollHeight));
+      if (height === lastReportedHeight) return;
+      lastReportedHeight = height;
+      window.parent.postMessage({ type:'solvely-solver-sample-size', height }, '*');
+    }
     const notes = {
       COGS:'Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.',
       'Operating expenses':'Voltix controls overhead better: operating expenses are 20% of revenue versus 30% for Circuita.',
@@ -62,7 +69,11 @@
       document.querySelectorAll('[data-select]').forEach(item => item.classList.toggle('active',item === button));
       document.querySelectorAll('[data-metric]').forEach(cell => cell.classList.toggle('is-highlighted',cell.dataset.metric === metric));
       document.getElementById('readout').textContent = notes[metric];
+      requestAnimationFrame(reportSize);
     });
+    new ResizeObserver(() => requestAnimationFrame(reportSize)).observe(document.body);
+    window.addEventListener('resize', reportSize);
+    requestAnimationFrame(reportSize);
   </script>
 </body>
 </html>

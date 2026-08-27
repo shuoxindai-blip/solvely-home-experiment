@@ -811,6 +811,8 @@
     .example-dialog .dialog-head { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
     .example-dialog[data-mode="solver-document"] { width:min(900px, calc(100vw - 30px)); max-height:min(840px, calc(100vh - 30px)); }
+    .example-dialog[data-mode="chemistry-document"] { width:min(820px, calc(100vw - 30px)); max-height:min(760px, calc(100vh - 30px)); }
+    .example-dialog[data-mode="accounting-document"] { width:min(800px, calc(100vw - 30px)); max-height:min(680px, calc(100vh - 30px)); }
     .example-dialog[data-mode="exam-feature"], .example-dialog[data-mode="step-solution"] { width:min(900px,calc(100vw - 30px)); max-height:min(840px,calc(100vh - 30px)); }
     .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"],.example-dialog[data-mode="study-guide"] { max-height:min(820px,calc(100vh - 30px)); }
     .example-dialog[data-mode="study-guide"] { width:min(900px,calc(100vw - 30px)); }
@@ -825,10 +827,12 @@
     .dialog-close:hover { background: var(--surface-hover); }
     .dialog-body { min-height:0; padding: 20px 22px; overflow: auto; }
     .dialog-preview { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-soft); }
-    .example-dialog[data-mode="simulator"] .dialog-preview,.example-dialog[data-mode="solver-document"] .dialog-preview { background:#fff; }
+    .example-dialog[data-mode="simulator"] .dialog-preview,.example-dialog[data-mode="solver-document"] .dialog-preview,.example-dialog[data-mode="chemistry-document"] .dialog-preview,.example-dialog[data-mode="accounting-document"] .dialog-preview { background:#fff; }
     .example-dialog[data-mode="video-player"] .dialog-preview { background:#0f172a; }
     .simulator-frame { width:100%; height:460px; display:block; border:0; background:#fff; }
     .example-dialog[data-mode="solver-document"] .simulator-frame { height:min(680px,calc(100vh - 190px)); }
+    .example-dialog[data-mode="chemistry-document"] .simulator-frame { height:500px; }
+    .example-dialog[data-mode="accounting-document"] .simulator-frame { height:410px; }
     .example-dialog[data-mode="video-player"] .simulator-frame { height:min(515px, calc((100vw - 76px) * .5625)); background:#0f172a; }
     .dialog-preview .example-preview { min-height: 245px; border: 0; border-radius: 0; }
     .dialog-preview .preview-equation, .dialog-preview .preview-flashcards, .dialog-preview .preview-quiz, .dialog-preview .preview-guide, .dialog-preview .preview-podcast, .dialog-preview .preview-exam { height: 245px; }

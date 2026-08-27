@@ -56,12 +56,12 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
         examples: [
           { tag: 'Algebra', title: 'Interactive graph', dialogTitle: 'Parabola & Linear Intersection', description: 'Adjust both functions and track their intersection points.', prompt: 'Graph f(x) = −x² − x + 6 and g(x) = x + 6, then find their intersection points.', preview: 'solver-parabola-line', simulator: 'assets/simulators/parabola-linear-intersection.html', cta: 'Try graphing' },
           { tag: 'Geometry', title: 'Step-by-step solution', dialogTitle: 'Solve for r in Parallelogram LMNO', description: 'Follow each angle relationship and algebra step to reach the checked answer.', prompt: 'Given the diagram of parallelogram LMNO, solve for r.', preview: 'solver-step-solution', simulator: 'assets/solver-samples/step-by-step-solution.html', embedMode: 'solver-document', cta: 'View solution' },
-          { tag: 'Chemistry', title: 'Structure visualization', description: 'Explore solved organic and inorganic structure examples.', prompt: 'Draw the structure of (m)-ethylaniline.', preview: 'chemistry', simulator: 'assets/solver-samples/chemistry-structure-visualization.html', embedMode: 'solver-document', coverImage: 'assets/solver-chemistry-structure-cover.png', cta: 'Use this example', structures: [
+          { tag: 'Chemistry', title: 'Structure visualization', description: 'Explore solved organic and inorganic structure examples.', prompt: 'Draw the structure of (m)-ethylaniline.', preview: 'chemistry', simulator: 'assets/solver-samples/chemistry-structure-visualization.html', embedMode: 'chemistry-document', coverImage: 'assets/solver-chemistry-structure-cover.png', cta: 'Use this example', structures: [
             { title:'(m)-Ethylaniline', question:'Draw the structure of (m)-ethylaniline.', summary:'An aniline ring with an ethyl group at the meta (3-) position.', image:'assets/solver-samples/m-ethylaniline.png', questionId:'2026_08_24_jqep8i711jb8mpjuy7c8', answerId:'2026_08_24_jqep8i711jb8mpjuy7c8#1787631940993', facts:[['Parent structure','Aniline'],['Substitution','Ethyl at C-3 (meta)'],['IUPAC name','3-ethylaniline'],['Molecular formula','C₈H₁₁N']] },
             { title:'SF₄ Lewis structure', question:'Draw the correct Lewis structure for SF₄. Include all lone pairs and nonzero formal charges.', summary:'Sulfur forms four S–F single bonds and keeps one equatorial lone pair, producing a seesaw shape.', image:'assets/solver-samples/sf4-lewis-structure.png', questionId:'2026_08_22_e751f7b4d7a0d407eb68', answerId:'2026_08_22_e751f7b4d7a0d407eb68#1787443487570', facts:[['Valence electrons','34'],['S lone pairs','1'],['Molecular geometry','Seesaw'],['Formal charges','All atoms: 0']] },
             { title:'2-Isopropyloxolane', question:'Draw the structure of 2-isopropyloxolane.', summary:'A saturated five-membered oxolane ring with an isopropyl group attached at carbon 2.', image:'assets/solver-samples/2-isopropyloxolane.png', facts:[['Parent ring','Oxolane / tetrahydrofuran'],['Substitution','Isopropyl at C-2'],['Molecular formula','C₇H₁₄O'],['SMILES','CC(C)C1CCCO1']] }
           ] },
-          { tag: 'Accounting', title: 'Financial analysis', dialogTitle: 'Vertical Analysis', description: 'Compare cost structure and margins between two companies.', prompt: 'Complete a vertical analysis comparing Voltix and Circuita. Voltix: revenue $500M, COGS $350M, and operating expenses $100M. Circuita: revenue $800M, COGS $480M, and operating expenses $240M. Determine which company manages production costs and overhead more efficiently.', preview: 'accounting', simulator: 'assets/solver-samples/financial-analysis.html', embedMode: 'solver-document', cta: 'Use this example' }
+          { tag: 'Accounting', title: 'Financial analysis', dialogTitle: 'Vertical Analysis', description: 'Compare cost structure and margins between two companies.', prompt: 'Complete a vertical analysis comparing Voltix and Circuita. Voltix: revenue $500M, COGS $350M, and operating expenses $100M. Circuita: revenue $800M, COGS $480M, and operating expenses $240M. Determine which company manages production costs and overhead more efficiently.', preview: 'accounting', simulator: 'assets/solver-samples/financial-analysis.html', embedMode: 'accounting-document', cta: 'Use this example' }
         ]
       },
       graph: {
@@ -2832,9 +2832,17 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     const solverSampleMessageHandler = event => {
       const frame = document.querySelector('#dialogPreview iframe');
-      if (!frame || event.source !== frame.contentWindow || event.data?.type !== 'solvely-solver-sample-title') return;
-      if (typeof event.data.title === 'string') document.getElementById('dialogTitle').textContent = event.data.title;
-      if (typeof event.data.description === 'string') document.getElementById('dialogDescription').textContent = event.data.description;
+      if (!frame || event.source !== frame.contentWindow) return;
+      if (event.data?.type === 'solvely-solver-sample-title') {
+        if (typeof event.data.title === 'string') document.getElementById('dialogTitle').textContent = event.data.title;
+        if (typeof event.data.description === 'string') document.getElementById('dialogDescription').textContent = event.data.description;
+        return;
+      }
+      if (event.data?.type !== 'solvely-solver-sample-size') return;
+      if (!['chemistry-document', 'accounting-document'].includes(dialog.dataset.mode)) return;
+      const contentHeight = Math.ceil(Number(event.data.height));
+      if (!Number.isFinite(contentHeight) || contentHeight <= 0) return;
+      frame.style.height = `${Math.min(1600, Math.max(240, contentHeight))}px`;
     };
     window.addEventListener('message', solverSampleMessageHandler);
 

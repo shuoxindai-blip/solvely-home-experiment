@@ -41,6 +41,13 @@
     const selector = document.getElementById('selector');
     const summary = document.getElementById('summary');
     const facts = document.getElementById('facts');
+    let lastReportedHeight = 0;
+    function reportSize() {
+      const height = Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.scrollHeight));
+      if (height === lastReportedHeight) return;
+      lastReportedHeight = height;
+      window.parent.postMessage({ type:'solvely-solver-sample-size', height }, '*');
+    }
     function render(index) {
       const structure = structures[index];
       image.src = structure.image;
@@ -49,10 +56,15 @@
       facts.innerHTML = structure.facts.map(([label,value]) => `<div class="fact"><small>${label}</small><strong>${value}</strong></div>`).join('');
       selector.querySelectorAll('.tab').forEach((tab,tabIndex) => { const active = tabIndex === index; tab.classList.toggle('active',active); tab.setAttribute('aria-selected',String(active)); });
       window.parent.postMessage({ type:'solvely-solver-sample-title', title:structure.title, description:structure.summary }, '*');
+      requestAnimationFrame(reportSize);
     }
     selector.innerHTML = structures.map((structure,index) => `<button class="tab" type="button" role="tab" data-index="${index}">${structure.title}</button>`).join('');
     selector.addEventListener('click', event => { const tab = event.target.closest('[data-index]'); if (tab) render(Number(tab.dataset.index)); });
+    image.addEventListener('load', reportSize);
+    new ResizeObserver(() => requestAnimationFrame(reportSize)).observe(document.body);
+    window.addEventListener('resize', reportSize);
     render(0);
+    requestAnimationFrame(reportSize);
   </script>
 </body>
 </html>
