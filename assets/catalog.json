@@ -38,7 +38,14 @@
       "files": [
         { "path": "assets/solver-video-intersecting-circles.png", "role": "Example-card preview", "status": "runtime" }
       ],
-      "externalDetail": "Remote Solvely video-player HTML URL in capabilityData"
+      "externalResources": [
+        {
+          "url": "https://img.justsolvely.com/solvely-solve/html/2026_08_24_f0259c07361fe821ce3e_1787583893888.html",
+          "role": "Intersecting Circles remote video-player detail",
+          "type": "remote_html",
+          "status": "runtime"
+        }
+      ]
     },
     {
       "id": "study.solver.chemistry-structure",
@@ -49,7 +56,26 @@
         { "path": "assets/solver-chemistry-structure-cover.png", "role": "Example-card preview", "status": "runtime" },
         { "path": "assets/chemistry-structure.png", "role": "Original compact chemistry reference", "status": "source" }
       ],
-      "externalDetail": "Three remote chemistry structure images in capabilityData.structures"
+      "externalResources": [
+        {
+          "url": "https://img.justsolvely.com/chemistry-pubchem/2026_07_15_bfcc7f6ceeaa64fe224a_1784127249983.png",
+          "role": "(m)-Ethylaniline solved structure image",
+          "type": "remote_image",
+          "status": "runtime"
+        },
+        {
+          "url": "https://img.justsolvely.com/chemistry-pubchem/2026_07_14_5dafb19eb3243e0b8432_1784066879099.png",
+          "role": "SF4 Lewis structure solved image",
+          "type": "remote_image",
+          "status": "runtime"
+        },
+        {
+          "url": "https://img.justsolvely.com/chemistry-pubchem/2026_07_27_631128b862b4e2c5ac59_1785170849765.png",
+          "role": "2-Isopropyloxolane solved structure image",
+          "type": "remote_image",
+          "status": "runtime"
+        }
+      ]
     },
     {
       "id": "study.solver.financial-analysis",
@@ -100,7 +126,26 @@
         { "path": "assets/video-statistics.png", "role": "Reading a BMI Dotplot preview", "status": "runtime" },
         { "path": "assets/video-geometry.png", "role": "3D Shapes & Nets preview", "status": "runtime" }
       ],
-      "externalDetail": "Each example opens a remote Solvely video-player HTML URL"
+      "externalResources": [
+        {
+          "url": "https://img.justsolvely.com/solvely-solve/html/2025_07_14_fd4e936d9081a1ec45b9g_1768557153773.html",
+          "role": "Velocity & Distance Analysis remote video-player detail",
+          "type": "remote_html",
+          "status": "runtime"
+        },
+        {
+          "url": "https://img.justsolvely.com/solvely-solve/html/2026_01_10_dbd6a55ef31baa12ff35_1768795344086.html",
+          "role": "Reading a BMI Dotplot remote video-player detail",
+          "type": "remote_html",
+          "status": "runtime"
+        },
+        {
+          "url": "https://img.justsolvely.com/solvely-solve/html/2026_01_11_bc9d48edb87b30c11777_1768810149374.html",
+          "role": "3D Shapes & Nets remote video-player detail",
+          "type": "remote_html",
+          "status": "runtime"
+        }
+      ]
     },
     {
       "id": "study.flashcards.examples",
@@ -167,22 +212,6 @@
         { "path": "assets/study-guides/law-crime/study_guide.md", "role": "Full source guide", "status": "runtime" },
         { "path": "assets/study-guides/law-crime/image_01.webp", "role": "Dark figure of crime diagram", "status": "runtime" },
         { "path": "assets/study-guides/law-crime/image_02.webp", "role": "Crime rates chart", "status": "runtime" }
-      ]
-    },
-    {
-      "id": "study.guide.acids-bases",
-      "surface": "Study · Study Guide",
-      "scenario": "CHEM1020 Acids and Bases",
-      "implementation": "Not enabled in capabilityData",
-      "files": [
-        { "path": "assets/study-guides/acids-bases/study_guide.md", "role": "Full source guide", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/dissociation.webp", "role": "Candidate section-card image — dissociation", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/autoprotolysis.webp", "role": "Candidate section-card image — autoprotolysis", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/ph-scale.webp", "role": "Candidate section-card image — pH scale", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/images/image_01.webp", "role": "Markdown image 01", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/images/image_02.webp", "role": "Markdown image 02", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/images/image_03.webp", "role": "Markdown image 03", "status": "reference" },
-        { "path": "assets/study-guides/acids-bases/images/image_04.webp", "role": "Markdown image 04", "status": "reference" }
       ]
     },
     {

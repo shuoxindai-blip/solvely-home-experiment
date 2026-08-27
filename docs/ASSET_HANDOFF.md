@@ -1,14 +1,17 @@
 # Asset handoff index
 
-Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for every local source file in this prototype. It maps each file to a product surface, example scenario, implementation anchor, role, and lifecycle status.
+Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for every local file and external runtime resource in this prototype. `files` contains the 59 repository files; `externalResources` contains the 7 remote HTML/image references. Both map resources to a product surface, example scenario, implementation anchor, role, and lifecycle status.
+
+For the product-requirement explanation of all 20 groups, 59 local files, and 7 external runtime references, see [`PRD_ASSET_CATALOG.md`](PRD_ASSET_CATALOG.md).
 
 ## How developers should wire a case
 
 1. Find the case below or search its `id` in `assets/catalog.json`.
 2. Start from the listed `implementation` anchor in `index.html`.
 3. Use only files marked `runtime` for the current prototype.
-4. Keep `source` files editable, but do not load them directly when a compiled or cropped runtime asset is listed.
-5. Do not wire `phase_2` files into phase 1. Exam Prep and Diagnostic require a separate phase-2 flow decision.
+4. Treat `externalResources` marked `runtime` as required detail content, not optional links; provide a loading failure and retry state for remote HTML.
+5. Keep `source` files editable, but do not load them directly when a compiled or cropped runtime asset is listed.
+6. Do not wire `phase_2` files into phase 1. Exam Prep and Diagnostic require a separate phase-2 flow decision.
 
 ## Page-to-asset map
 
@@ -26,7 +29,6 @@ Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for e
 | Study · Flashcards | Anatomy, gravitational field, psychology | `capabilityData.flashcards` | Each WEBP belongs to the named card in its deck; Sankey diagram is an inactive reference |
 | Study · Quiz | Biology, physics, chemistry questions | `capabilityData.quiz` | Each WEBP belongs to the matching quiz question and dialog |
 | Study · Study Guide | Mitochondrial DNA, prehistoric art, law & crime | `capabilityData.guide` | `study_guide.md` is the full guide; top-level images are section cards; nested `images/` files are markdown illustrations |
-| Study · Study Guide | Acids and Bases | Not enabled | Complete retained example; all files are reference-only until the case is added to `capabilityData.guide` |
 | Study · Podcast | Three podcast episodes | `capabilityData.podcast` | MP3 is runtime audio; TXT is editable transcript source; `transcripts.js` is the runtime timestamp bundle; host WEBPs are shared avatars |
 | Study · Study Set | How the Brain Works | Not enabled | Composite quiz + flashcard image is an inactive `reference`, not a current runtime card |
 | Exam Prep / Diagnostic | Exam results reference | Phase 2 only | Exam progress screenshot is retained as `phase_2`; do not treat it as a phase-1 UI asset |

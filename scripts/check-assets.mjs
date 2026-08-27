@@ -26,6 +26,8 @@ function walk(directory) {
 const groups = Array.isArray(catalog.groups) ? catalog.groups : [];
 const groupIds = new Set();
 const catalogFiles = new Map();
+const externalResources = new Map();
+const allowedExternalTypes = new Set(['remote_html', 'remote_image']);
 
 for (const group of groups) {
   if (!group.id) errors.push('A catalog group is missing id.');
@@ -46,6 +48,28 @@ for (const group of groups) {
     }
     catalogFiles.set(file.path, group.id);
     if (!fs.existsSync(path.join(root, file.path))) errors.push(`${file.path}: catalogued file is missing`);
+  }
+
+  for (const resource of group.externalResources || []) {
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(resource.url);
+    } catch {
+      errors.push(`${group.id}: invalid external resource URL ${resource.url || '(missing)'}`);
+      continue;
+    }
+    if (parsedUrl.protocol !== 'https:') errors.push(`${resource.url}: external resources must use HTTPS`);
+    if (!resource.role) errors.push(`${resource.url}: missing role`);
+    if (!allowedExternalTypes.has(resource.type)) {
+      errors.push(`${resource.url}: unknown external resource type ${resource.type || '(missing)'}`);
+    }
+    if (!allowedStatuses.has(resource.status)) {
+      errors.push(`${resource.url}: unknown status ${resource.status || '(missing)'}`);
+    }
+    if (externalResources.has(resource.url)) {
+      errors.push(`${resource.url}: external resource catalogued more than once (${externalResources.get(resource.url)} and ${group.id})`);
+    }
+    externalResources.set(resource.url, group.id);
   }
 }
 
@@ -79,6 +103,19 @@ for (const asset of runtimeFiles) {
   if (!referenced) errors.push(`${asset}: marked runtime but no source file references it`);
 }
 
+const runtimeExternalResources = [...groups]
+  .flatMap((group) => group.externalResources || [])
+  .filter((resource) => resource.status === 'runtime');
+
+for (const resource of runtimeExternalResources) {
+  const referenced = searchableFiles.some((source) => {
+    if (source === 'assets/catalog.json') return false;
+    const absolute = path.join(root, source);
+    return fs.existsSync(absolute) && fs.readFileSync(absolute, 'utf8').includes(resource.url);
+  });
+  if (!referenced) errors.push(`${resource.url}: marked runtime but no source file references it`);
+}
+
 let tracked = new Set();
 try {
   tracked = new Set(execFileSync('git', ['ls-files', 'assets'], { cwd: root, encoding: 'utf8' }).trim().split('\n').filter(Boolean));
@@ -102,6 +139,7 @@ try {
 
 console.log(`Asset catalog: ${catalogFiles.size} files in ${groups.length} groups`);
 console.log(`Status counts: ${[...allowedStatuses].map((status) => `${status}=${[...groups].flatMap((group) => group.files || []).filter((file) => file.status === status).length}`).join(', ')}`);
+console.log(`External resource catalog: ${externalResources.size} references (${[...allowedExternalTypes].map((type) => `${type}=${[...groups].flatMap((group) => group.externalResources || []).filter((resource) => resource.type === type).length}`).join(', ')})`);
 
 if (warnings.length) {
   console.log('\nWarnings:');
