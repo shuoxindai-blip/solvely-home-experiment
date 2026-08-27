@@ -227,7 +227,6 @@
     .composer-shell.writing-layout > .attachment-row,
     .composer-shell.writing-layout > .composer-toolbar,
     .composer-shell.writing-layout > .popover,
-    .composer-shell.writing-layout > .math-tools-host,
     .composer-shell.writing-layout > .link-popover { display:none !important; }
     .composer-shell.writing-layout .writing-composer-content { display:block; }
     .composer-shell.writing-layout .capability-strip { height:48px; align-items:center; gap:32px; padding:0 24px; border-bottom:1px solid #e6e8ea; overflow-x:auto; }
@@ -339,15 +338,6 @@
     .model-menu-title { margin: 7px 9px 5px; color: var(--subtle); font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
     .model-option.active { background: var(--accent-soft); }
 
-    .math-panel { margin: 0 12px 12px; padding: 10px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-soft); }
-    .math-panel[hidden] { display: none; }
-    .math-panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; color: var(--muted); font-size: 11px; font-weight: 650; }
-    .math-panel-head button { width: 27px; height: 27px; display: grid; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--muted); cursor: pointer; }
-    .math-panel-head button:hover { background: var(--surface-hover); }
-    .math-grid { display: grid; grid-template-columns: repeat(10, minmax(38px, 1fr)); gap: 6px; }
-    .math-key { height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); font-family: Georgia, serif; cursor: pointer; }
-    .math-key:hover { border-color: rgba(var(--accent-rgb), .4); color: var(--accent); }
-
     .calculator {
       position: fixed; z-index: 50; right: 24px; bottom: 24px; width: 310px; padding: 12px; border: 1px solid var(--line); border-radius: 17px;
       background: var(--surface); box-shadow: var(--shadow);
@@ -361,40 +351,6 @@
     .calc-key { height: 38px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-soft); color: var(--text); cursor: pointer; }
     .calc-key:hover { background: var(--surface-hover); }
     .calc-key.operator { background: var(--accent-soft); color: var(--accent); }
-
-    .math-tools-host:empty { display:none; }
-    .math-keyboard { margin:0 12px 12px; border:1px solid var(--line); border-radius:13px; background:var(--surface); overflow:hidden; box-shadow:var(--shadow-soft); }
-    .math-keyboard-head { height:45px; display:flex; align-items:center; gap:4px; padding:0 12px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; }
-    .math-keyboard-head::-webkit-scrollbar { display:none; }
-    .math-category { height:44px; flex:0 0 auto; padding:0 12px; border:0; background:transparent; color:var(--muted); cursor:pointer; font-family:Georgia,serif; font-size:14px; }
-    .math-category.active { color:var(--accent); box-shadow:inset 0 -2px var(--accent); }
-    .math-close { margin-left:auto; width:31px; height:31px; flex:0 0 auto; border:0; border-radius:8px; background:transparent; cursor:pointer; display:grid; place-items:center; color:var(--muted); }
-    .math-close:hover { background:var(--surface-hover); }
-    .math-keyboard-body { display:flex; flex-direction:column; gap:12px; padding:12px; }
-    .math-key-grid { display:grid; grid-template-columns:repeat(var(--math-columns,10),minmax(0,1fr)); gap:8px; }
-    .math-key { min-width:0; height:42px; border:1px solid var(--line); border-radius:8px; background:var(--surface-soft); color:var(--text); cursor:pointer; font-family:Georgia,serif; font-size:17px; display:grid; place-items:center; }
-    .math-key:hover { border-color:rgba(var(--accent-rgb),.48); background:var(--accent-soft); color:var(--accent); }
-    .math-key:active { transform:translateY(1px); }
-    .math-key .math-template { display:inline-flex; align-items:center; justify-content:center; min-width:26px; line-height:1; }
-    .math-key .math-fraction { display:inline-grid; grid-template-rows:1fr 1fr; min-width:22px; line-height:1; text-align:center; }
-    .math-key .math-fraction > span:first-child { padding:0 5px 3px; border-bottom:1.5px solid currentColor; }
-    .math-key .math-fraction > span:last-child { padding:3px 5px 0; }
-    .math-key .math-root { display:inline-flex; align-items:flex-end; font-size:22px; line-height:1; }
-    .math-key .math-radicand { min-width:16px; padding:3px 4px 0; border-top:1.5px solid currentColor; font-size:15px; }
-    .math-key .math-nth-root { display:inline-flex; align-items:flex-start; }
-    .math-key .math-nth-root > sup { margin-right:-2px; font-size:10px; }
-    .math-key .math-bounded { display:inline-grid; grid-template-columns:auto auto; grid-template-rows:10px 18px 10px; align-items:center; justify-items:center; line-height:1; }
-    .math-key .math-bounded > sup { grid-column:2; grid-row:1; font-size:9px; }
-    .math-key .math-bounded > b { grid-column:1 / 3; grid-row:2; font-size:23px; font-weight:400; }
-    .math-key .math-bounded > sub { grid-column:2; grid-row:3; font-size:9px; }
-    .math-key .math-binomial { display:inline-grid; grid-template-rows:1fr 1fr; padding:0 7px; position:relative; line-height:1; font-size:12px; }
-    .math-key .math-binomial::before,.math-key .math-binomial::after { position:absolute; top:50%; transform:translateY(-50%); font-size:25px; }
-    .math-key .math-binomial::before { content:"("; left:0; }
-    .math-key .math-binomial::after { content:")"; right:0; }
-    .math-key .math-function { font-style:normal; }
-    .math-key .math-vector { position:relative; padding-top:5px; font-style:italic; }
-    .math-key .math-vector::before { content:"→"; position:absolute; left:50%; top:-8px; transform:translateX(-50%); font-style:normal; font-size:14px; }
-    .math-key .math-dot-product { display:inline-flex; align-items:center; gap:3px; font-style:italic; }
 
     .calculator-panel { position:fixed; z-index:100; left:24px; top:180px; width:360px; height:500px; padding:12px; border:1px solid var(--line); border-radius:18px; background:var(--surface); box-shadow:0 18px 48px rgba(34,50,80,.20); display:flex; flex-direction:column; overflow:hidden; transition:width .2s ease,height .2s ease,border-radius .2s ease,box-shadow .2s ease; }
     .calculator-panel[hidden] { display:none; }
@@ -838,7 +794,7 @@
 
     .example-dialog { width: min(680px, calc(100vw - 30px)); max-height: min(720px, calc(100vh - 30px)); padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--text); box-shadow: 0 28px 90px rgba(0,0,0,.22); }
     .example-dialog[open] { display:flex; flex-direction:column; }
-    .example-dialog .dialog-head,.example-dialog .dialog-actions { flex:0 0 auto; }
+    .example-dialog .dialog-head { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
     .example-dialog[data-mode="exam-feature"] { width:min(900px,calc(100vw - 30px)); max-height:min(840px,calc(100vh - 30px)); }
     .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"],.example-dialog[data-mode="study-guide"] { max-height:min(820px,calc(100vh - 30px)); }
@@ -864,8 +820,6 @@
     .dialog-preview .mini-card { height: 145px; padding: 18px; }
     .dialog-preview .mini-card:nth-child(1) { left: 80px; top: 48px; }
     .dialog-preview .mini-card:nth-child(2) { right: 80px; top: 50px; }
-    .dialog-prompt { margin-top: 15px; padding: 11px 14px 13px; border-left: 3px solid var(--accent); background: var(--surface-soft); color: var(--muted); font-size: 12px; line-height: 1.5; }
-    .dialog-prompt::before { content:"Prompt"; display:block; margin-bottom:4px; color:var(--accent); font-size:8px; font-weight:760; letter-spacing:.09em; text-transform:uppercase; }
     .dialog-interaction { margin-top:14px; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--surface-soft); }
     .dialog-interaction h3 { margin:0 0 10px; font-size:14px; }
     .graph-control { display:grid; gap:10px; }
@@ -966,9 +920,6 @@
     .insight-chip { min-height:36px; padding:0 12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--muted); font-size:11px; font-weight:650; cursor:pointer; }
     .insight-chip.active { border-color:rgba(var(--accent-rgb),.46); background:var(--accent-soft); color:var(--accent); }
     .insight-readout { margin:11px 1px 0; color:var(--text); font-size:11px; line-height:1.45; }
-    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 15px 22px 20px; border-top: 1px solid var(--line); }
-    .dialog-button { height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 12px; cursor: pointer; }
-    .dialog-button.primary { border-color: var(--accent); background: var(--accent); color: white; font-weight: 650; }
     .feature-detail-list { display:grid; gap:8px; }
     .feature-detail-item { display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px; align-items:start; padding:10px; border:1px solid var(--line); border-radius:11px; background:var(--surface); }
     .feature-detail-item span { width:30px; height:30px; display:grid; place-items:center; border-radius:9px; background:rgba(35,104,240,.1); color:#2368f0; font-size:11px; font-weight:760; }
@@ -1642,9 +1593,6 @@
       .predictor-page-grid { gap:24px; }
       .predictor-topic-head,
       .predictor-topic-row { grid-template-columns:minmax(150px,1fr) 78px 105px; padding-inline:20px; }
-      .math-grid { grid-template-columns: repeat(6, minmax(38px, 1fr)); }
-      .math-keyboard { overflow-x:auto; }
-      .math-keyboard-head,.math-keyboard-body { min-width:760px; }
       .examples-description { display: none; }
       .examples-grid.four-up { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .study-example-group-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -1687,7 +1635,6 @@
       .example-card { grid-template-columns: 1fr 42%; grid-template-rows: auto auto 1fr; min-height: 150px; column-gap: 14px; }
       .example-meta, .example-card h3 { grid-column: 1; }
       .example-preview { grid-column: 2; grid-row: 1 / 4; min-height: 118px; }
-      .math-grid { grid-template-columns: repeat(5, minmax(38px, 1fr)); }
       .chat-button { display: none; }
     }
 
@@ -1750,7 +1697,6 @@
       .flash-back-image { height:190px; }
       .flash-back-content.has-image strong { font-size:14px; }
       .popover { left: 10px; right:auto; width: calc(100% - 20px); }
-      .math-grid { grid-template-columns: repeat(4, minmax(38px, 1fr)); }
       .calculator { inset: auto 10px 10px; width: auto; }
       .calculator-panel { width:min(360px,calc(100vw - 16px)); height:min(500px,calc(100vh - 16px)); }
       .calculator-panel.expanded { width:calc(100vw - 8px); height:calc(100vh - 8px); padding:10px; border-radius:18px; }
@@ -1858,7 +1804,6 @@
     <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M21.2 7.2a2.8 2.8 0 0 0-2-2C17.4 4.7 12 4.7 12 4.7s-5.4 0-7.2.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2.3 12a29 29 0 0 0 .5 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.2.5 7.2.5s5.4 0 7.2-.5a2.8 2.8 0 0 0 2-2 29 29 0 0 0 .5-4.8 29 29 0 0 0-.5-4.8Z"/><path d="m10 9 5 3-5 3Z"/></symbol>
     <symbol id="i-game" viewBox="0 0 24 24"><path d="M7 8h10a5 5 0 0 1 4.6 6.9l-1.2 3a2.5 2.5 0 0 1-4.1.8L14.8 17H9.2l-1.5 1.7a2.5 2.5 0 0 1-4.1-.8l-1.2-3A5 5 0 0 1 7 8Z"/><path d="M7 12v4M5 14h4M16 13h.01M19 15h.01"/></symbol>
     <symbol id="i-calculator" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M7 5h10v4H7zM8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></symbol>
-    <symbol id="i-variable" viewBox="0 0 24 24"><path d="M8 21s-4-3-4-9 4-9 4-9M16 3s4 3 4 9-4 9-4 9M15 9 9 15M9 9l6 6"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-crop" viewBox="0 0 24 24"><path d="M7 3v13a4 4 0 0 0 4 4h10M3 7h13a4 4 0 0 1 4 4v10"/></symbol>
   </svg>
@@ -1953,14 +1898,13 @@
           <div class="capability-strip" id="capabilityStrip" role="tablist" aria-label="Choose a learning capability"></div>
 
           <div class="composer-input-wrap">
-            <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Type, paste, upload, or drag and drop anything you want to learn"></textarea>
+            <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Type or paste a problem to solve"></textarea>
           </div>
           <div class="attachment-row" id="attachmentRow" role="list" aria-label="Attached sources"></div>
           <div class="composer-toolbar">
             <button class="tool-button" id="attachButton" aria-label="Attach files" title="Attach files"><svg class="icon"><use href="#i-upload"/></svg></button>
             <button class="tool-button" id="imageButton" aria-label="Upload images" title="Upload images"><svg class="icon"><use href="#i-image"/></svg></button>
             <button class="tool-button" id="linkButton" aria-label="Paste a study material link" aria-expanded="false" title="Paste link"><svg class="icon"><use href="#i-link"/></svg></button>
-            <button class="tool-button" id="mathButton" aria-label="Open math input" aria-expanded="false" title="Math input"><svg class="icon"><use href="#i-variable"/></svg></button>
             <button class="tool-button phase-one-hidden" id="calculatorButton" aria-label="Open calculator" aria-expanded="false" title="Calculator"><svg class="icon"><use href="#i-calculator"/></svg></button>
             <span class="toolbar-spacer"></span>
             <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
@@ -1978,7 +1922,6 @@
             <button class="model-option" role="menuitem" data-model="Claude Opus"><span class="model-letter">C</span><span><strong>Claude Opus</strong><small>Eloquent, thoughtful, linguist</small></span><span class="model-check"></span></button>
           </div>
 
-          <div class="math-tools-host" id="mathToolsHost"></div>
           <div class="link-popover" id="linkPopover" hidden>
             <div class="link-popover-row"><input id="linkInput" type="url" inputmode="url" aria-label="Study material URL" placeholder="https://example.com/study-material" /><button id="addLinkButton" type="button">Add link</button></div>
             <p id="linkPopoverHelp">Public webpages, videos, and document links are supported.</p>
@@ -2186,8 +2129,7 @@
       <div class="dialog-head-copy"><span id="dialogKicker"></span><h2 id="dialogTitle"></h2><p id="dialogDescription"></p></div>
       <button class="dialog-close" id="dialogClose" aria-label="Close preview"><svg class="icon"><use href="#i-close"/></svg></button>
     </div>
-    <div class="dialog-body"><div class="dialog-preview" id="dialogPreview"></div><div class="dialog-interaction" id="dialogInteraction"></div><div class="dialog-prompt" id="dialogPrompt"></div></div>
-    <div class="dialog-actions"><button class="dialog-button" id="dialogCancel" hidden>Close</button><button class="dialog-button primary" id="useExampleButton">Use this prompt</button></div>
+    <div class="dialog-body"><div class="dialog-preview" id="dialogPreview"></div><div class="dialog-interaction" id="dialogInteraction"></div></div>
   </dialog>
 
   <dialog class="diagnostic-dialog" id="diagnosticDialog" aria-labelledby="diagnosticDialogTitle">
@@ -2316,7 +2258,7 @@
     const capabilityData = {
       solver: {
         label: 'Solver', icon: 'i-solver', action: 'Solve',
-        placeholder: 'Type, paste, or upload a problem to solve',
+        placeholder: 'Type or paste a problem to solve',
         description: 'Get a checked answer with a clear, step-by-step explanation.',
         examples: [
           { tag: 'Algebra', title: 'Interactive graph', dialogTitle: 'Parabola & Linear Intersection', description: 'Adjust both functions and track their intersection points.', prompt: 'Graph f(x) = −x² − x + 6 and g(x) = x + 6, then find their intersection points.', preview: 'solver-parabola-line', simulator: 'assets/simulators/parabola-linear-intersection.html', cta: 'Try graphing' },
@@ -2691,7 +2633,6 @@
     const examplesDescription = document.getElementById('examplesDescription');
     const multiModelProof = document.getElementById('multiModelProof');
     const attachmentRow = document.getElementById('attachmentRow');
-    const mathToolsHost = document.getElementById('mathToolsHost');
     const calculatorPanel = document.getElementById('calculatorPanel');
     const linkPopover = document.getElementById('linkPopover');
     const linkInput = document.getElementById('linkInput');
@@ -2709,8 +2650,6 @@
     const cropThumbnails = document.getElementById('cropThumbnails');
     const cropDone = document.getElementById('cropDone');
     let selectedCapability = null;
-    let selectedExample = null;
-    let selectedExampleCapability = null;
     let toastTimer;
     let dragDepth = 0;
     let calcExpression = '';
@@ -3055,8 +2994,6 @@
     }
 
     function resetStudyWorkspace() {
-      selectedExample = null;
-      selectedExampleCapability = null;
       selectCapability('solver', false);
     }
 
@@ -3581,18 +3518,15 @@
     function updateComposerTools(key) {
       const attachButton = document.getElementById('attachButton');
       const linkButton = document.getElementById('linkButton');
-      const mathButton = document.getElementById('mathButton');
       const calculatorButton = document.getElementById('calculatorButton');
       const modelButton = document.getElementById('modelButton');
       const youtubeCapabilities = ['guide', 'flashcards', 'quiz', 'podcast'];
       const writingCapability = capabilityGroups.writing.includes(key);
-      const showMathTools = ['solver', 'graph', 'video'].includes(key);
       const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : writingCapability ? 'link' : 'none';
       const supportsMultipleSources = multiSourceCapabilities.has(key);
 
       attachButton.setAttribute('aria-label', supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
       attachButton.title = supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
-      mathButton.hidden = !showMathTools;
       // Phase 1: preserve the calculator implementation while hiding its homepage entry.
       calculatorButton.hidden = true;
       modelButton.hidden = key !== 'solver';
@@ -3617,9 +3551,6 @@
       if (!capabilityData[key]) return;
       selectedCapability = key;
       const capability = capabilityData[key];
-      mathToolsHost.innerHTML = '';
-      document.getElementById('mathButton').classList.remove('active');
-      document.getElementById('mathButton').setAttribute('aria-expanded','false');
       linkPopover.hidden = true;
       document.getElementById('linkButton').classList.remove('active');
       document.getElementById('linkButton').setAttribute('aria-expanded','false');
@@ -4023,10 +3954,7 @@
     function openExamPrepFeature(index) {
       const feature = capabilityData.mock.examples[index];
       if (!feature) return;
-      selectedExample = feature;
-      selectedExampleCapability = 'mock';
       dialog.dataset.mode = 'exam-feature';
-      dialog.dataset.featureIndex = String(index);
       document.getElementById('dialogIcon').innerHTML = icon('i-target');
       document.getElementById('dialogKicker').textContent = `Exam Prep feature · ${feature.tag}`;
       document.getElementById('dialogTitle').textContent = feature.title;
@@ -4035,8 +3963,6 @@
       document.getElementById('dialogPreview').innerHTML = examFeatureDetailVisual(feature.preview);
       document.getElementById('dialogInteraction').innerHTML = featureDetailMarkup(index);
       document.getElementById('dialogInteraction').hidden = false;
-      document.getElementById('dialogPrompt').hidden = true;
-      document.getElementById('useExampleButton').textContent = 'View sample plan';
       dialog.showModal();
     }
 
@@ -4048,52 +3974,30 @@
       openExampleData(example, capabilityKey);
     }
 
-    function reusablePromptFor(capabilityKey, example) {
-      if (capabilityKey === 'solver') {
-        if (example.preview === 'solver-parabola-line') return 'Solve my problem with an interactive graph.';
-        if (example.preview === 'video-solver-circles') return 'Explain my problem with a step-by-step video.';
-        if (example.preview === 'chemistry') return 'Visualize the chemical structure in my problem.';
-        if (example.preview === 'accounting') return 'Solve my financial problem with a clear table.';
-      }
-      if (capabilityKey === 'graph') return 'Create an interactive graph for my problem.';
-      if (capabilityKey === 'video') return 'Explain my problem with a step-by-step video.';
-      if (capabilityKey === 'flashcards') return 'Turn my study materials into flashcards.';
-      if (capabilityKey === 'quiz') return 'Create a quiz from my study materials.';
-      if (capabilityKey === 'guide') return 'Create a study guide from my materials.';
-      if (capabilityKey === 'podcast') return 'Turn my study materials into a podcast.';
-      return example.prompt;
-    }
-
     function openExampleData(example, capabilityKey) {
       const capability = capabilityData[capabilityKey];
       if (!capability || !example) return;
-      selectedExample = example;
-      selectedExampleCapability = capabilityKey;
-      selectedExample.activePrompt = reusablePromptFor(capabilityKey, selectedExample);
-      const hasSimulator = Boolean(selectedExample.simulator);
-      const hasInteractiveFlashcards = capabilityKey === 'flashcards' && Array.isArray(selectedExample.cards);
-      const hasInteractiveQuiz = capabilityKey === 'quiz' && Array.isArray(selectedExample.options);
-      const hasChemistryCases = selectedExample.preview === 'chemistry' && Array.isArray(selectedExample.structures);
-      const hasPodcastAudio = selectedExample.preview === 'podcast' && Boolean(selectedExample.audio);
-      const hasStudyGuide = selectedExample.preview === 'guide' && Array.isArray(selectedExample.sections);
-      const displayTitle = selectedExample.dialogTitle || selectedExample.title;
-      dialog.dataset.mode = hasSimulator ? (selectedExample.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : hasStudyGuide ? 'study-guide' : 'example';
+      const hasSimulator = Boolean(example.simulator);
+      const hasInteractiveFlashcards = capabilityKey === 'flashcards' && Array.isArray(example.cards);
+      const hasInteractiveQuiz = capabilityKey === 'quiz' && Array.isArray(example.options);
+      const hasChemistryCases = example.preview === 'chemistry' && Array.isArray(example.structures);
+      const hasPodcastAudio = example.preview === 'podcast' && Boolean(example.audio);
+      const hasStudyGuide = example.preview === 'guide' && Array.isArray(example.sections);
+      const displayTitle = example.dialogTitle || example.title;
+      dialog.dataset.mode = hasSimulator ? (example.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : hasStudyGuide ? 'study-guide' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
-      document.getElementById('dialogKicker').textContent = `${capability.label} · ${selectedExample.tag}`;
+      document.getElementById('dialogKicker').textContent = `${capability.label} · ${example.tag}`;
       document.getElementById('dialogTitle').textContent = displayTitle;
-      document.getElementById('dialogDescription').textContent = selectedExample.description;
+      document.getElementById('dialogDescription').textContent = example.description;
       document.getElementById('dialogPreview').hidden = hasInteractiveFlashcards || hasInteractiveQuiz || hasStudyGuide;
       document.getElementById('dialogPreview').innerHTML = hasSimulator
-        ? `<iframe class="simulator-frame" src="${selectedExample.simulator}" title="${displayTitle} interactive simulator" loading="eager" sandbox="allow-scripts"></iframe>`
-        : dialogPreviewMarkup(selectedExample.preview, selectedExample);
-      document.getElementById('dialogInteraction').innerHTML = hasSimulator ? '' : interactionMarkup(selectedExample.preview, selectedExample);
+        ? `<iframe class="simulator-frame" src="${example.simulator}" title="${displayTitle} interactive simulator" loading="eager" sandbox="allow-scripts"></iframe>`
+        : dialogPreviewMarkup(example.preview, example);
+      document.getElementById('dialogInteraction').innerHTML = hasSimulator ? '' : interactionMarkup(example.preview, example);
       document.getElementById('dialogInteraction').hidden = hasSimulator;
-      document.getElementById('dialogPrompt').hidden = false;
-      document.getElementById('dialogPrompt').textContent = selectedExample.activePrompt;
-      document.getElementById('useExampleButton').textContent = 'Use this prompt';
       dialog.showModal();
-      if (!hasSimulator) bindDialogInteraction(selectedExample.preview, selectedExample);
+      if (!hasSimulator) bindDialogInteraction(example.preview, example);
     }
 
     function pauseDialogAudio() { document.querySelectorAll('#exampleDialog audio').forEach(audio => audio.pause()); }
@@ -4397,155 +4301,6 @@
     }
 
     promptInput.addEventListener('input', () => { promptInput.style.height = 'auto'; promptInput.style.height = `${Math.min(promptInput.scrollHeight, 160)}px`; updateSubmit(); });
-    const createMathKey = (name, display, insert, latex = insert) => ({ name, display, insert, latex });
-    const fractionDisplay = (top = '□', bottom = '□') => '<span class="math-fraction"><span>' + top + '</span><span>' + bottom + '</span></span>';
-    const rootDisplay = (index = '') => index
-      ? '<span class="math-nth-root"><sup>' + index + '</sup><span class="math-root">√<span class="math-radicand">□</span></span></span>'
-      : '<span class="math-root">√<span class="math-radicand">□</span></span>';
-    const boundedDisplay = (symbol, upper = '□', lower = '□') => '<span class="math-bounded"><sup>' + upper + '</sup><b>' + symbol + '</b><sub>' + lower + '</sub></span>';
-    const functionDisplay = value => '<span class="math-function">' + value + '</span>';
-    const vectorDisplay = value => '<span class="math-vector">' + value + '</span>';
-    const mathCommonKeys = [
-      createMathKey('Fraction', fractionDisplay(), '\\frac{□}{□}'),
-      createMathKey('Superscript', '<span class="math-template"><i>x</i><sup>□</sup></span>', 'x^{□}'),
-      createMathKey('Subscript', '<span class="math-template"><i>x</i><sub>□</sub></span>', 'x_{□}'),
-      createMathKey('Square root', rootDisplay(), '\\sqrt{□}'),
-      createMathKey('Nth root', rootDisplay('□'), '\\sqrt[□]{□}'),
-      createMathKey('Logarithm with base', '<span class="math-template">' + functionDisplay('log') + '<sub>□</sub></span>', '\\log_{□}(□)'),
-      createMathKey('Definite integral', boundedDisplay('∫'), '\\int_{□}^{□}'),
-      createMathKey('Bounded summation', boundedDisplay('∑'), '\\sum_{□}^{□}'),
-      createMathKey('Pi', 'π', 'π', '\\pi'),
-      createMathKey('Infinity', '∞', '∞', '\\infty')
-    ];
-    const mathKeyCategories = {
-      popular: { label:'Popular', columns:10, keys:[
-        createMathKey('Addition','+','+'), createMathKey('Subtraction','−','−','-'), createMathKey('Multiplication','×','×','\\times'),
-        createMathKey('Division','÷','÷','\\div'), createMathKey('Factorial','!','!'), createMathKey('Common logarithm',functionDisplay('log'),'\\log(□)'),
-        createMathKey('Natural logarithm',functionDisplay('ln'),'\\ln(□)'), createMathKey('Square','<span class="math-template"><i>x</i><sup>2</sup></span>','x^{2}'),
-        createMathKey('Reciprocal','<span class="math-template"><i>x</i><sup>−1</sup></span>','x^{-1}'),
-        createMathKey('Binomial coefficient','<span class="math-binomial"><span>n</span><span>k</span></span>','\\binom{n}{k}'),
-        createMathKey('Pi','π','π','\\pi'), createMathKey('Vector',vectorDisplay('□'),'\\vec{□}'), createMathKey("Euler's number",'<i>e</i>','e'),
-        createMathKey('Exponential function','<span class="math-template"><i>e</i><sup>x</sup></span>','e^{x}'), createMathKey('Imaginary unit','<i>i</i>','i')
-      ]},
-      trig: { label:'sin cos', columns:8, keys:[
-        createMathKey('Theta','<i>θ</i>','θ','\\theta'), createMathKey('Degrees','<span class="math-template">□°</span>','□°','□^{\\circ}'),
-        createMathKey('Sine',functionDisplay('sin'),'\\sin(□)'), createMathKey('Cosine',functionDisplay('cos'),'\\cos(□)'), createMathKey('Tangent',functionDisplay('tan'),'\\tan(□)'),
-        createMathKey('Cotangent',functionDisplay('cot'),'\\cot(□)'), createMathKey('Cosecant',functionDisplay('csc'),'\\csc(□)'), createMathKey('Secant',functionDisplay('sec'),'\\sec(□)'),
-        createMathKey('Hyperbolic sine',functionDisplay('sinh'),'\\sinh(□)'), createMathKey('Hyperbolic cosine',functionDisplay('cosh'),'\\cosh(□)'),
-        createMathKey('Hyperbolic tangent',functionDisplay('tanh'),'\\tanh(□)'), createMathKey('Hyperbolic cotangent',functionDisplay('coth'),'\\coth(□)'),
-        createMathKey('Inverse sine',functionDisplay('arcsin'),'\\arcsin(□)'), createMathKey('Inverse cosine',functionDisplay('arccos'),'\\arccos(□)'),
-        createMathKey('Inverse tangent',functionDisplay('arctan'),'\\arctan(□)'), createMathKey('Inverse cosecant',functionDisplay('arccsc'),'\\operatorname{arccsc}(□)'),
-        createMathKey('Inverse secant',functionDisplay('arcsec'),'\\operatorname{arcsec}(□)'), createMathKey('Inverse cotangent',functionDisplay('arccot'),'\\operatorname{arccot}(□)'),
-        createMathKey('Approximately equal','≈','≈','\\approx'), createMathKey('Congruent','≅','≅','\\cong'), createMathKey('Perpendicular','⊥','⊥','\\perp'),
-        createMathKey('Parallel','∥','∥','\\parallel'), createMathKey('Vector',vectorDisplay('□'),'\\vec{□}'),
-        createMathKey('Vector dot product','<span class="math-dot-product">' + vectorDisplay('u') + '<b>·</b>' + vectorDisplay('v') + '</span>','\\vec{u}\\cdot\\vec{v}'),
-        createMathKey('Directed segment AB',vectorDisplay('AB'),'\\overrightarrow{AB}')
-      ]},
-      calculus: { label:'Calculus', columns:10, keys:[
-        createMathKey('Definite integral',boundedDisplay('∫'),'\\int_{□}^{□}'), createMathKey('Derivative with respect to x',fractionDisplay('<i>d</i>','<i>dx</i>'),'\\frac{d}{dx}'),
-        createMathKey('Partial derivative with respect to x',fractionDisplay('∂','∂x'),'\\frac{\\partial}{\\partial x}'),
-        createMathKey('Limit as x approaches a value','<span class="math-template">' + functionDisplay('lim') + '<sub>x→□</sub></span>','\\lim_{x\\to□}'),
-        createMathKey('Bounded summation',boundedDisplay('∑'),'\\sum_{□}^{□}'), createMathKey('Indexed bounded product',boundedDisplay('∏','□','i=□'),'\\prod_{i=□}^{□}'),
-        createMathKey('Bounded product',boundedDisplay('∏'),'\\prod_{□}^{□}'), createMathKey('Contour integral',boundedDisplay('∮'),'\\oint_{□}^{□}'),
-        createMathKey('Second derivative',fractionDisplay('<i>d</i><sup>2</sup>','<i>dx</i><sup>2</sup>'),'\\frac{d^{2}}{dx^{2}}'),
-        createMathKey('Second partial derivative',fractionDisplay('∂<sup>2</sup>','∂x<sup>2</sup>'),'\\frac{\\partial^{2}}{\\partial x^{2}}'),
-        createMathKey('Laplacian','∇²','∇²','\\nabla^{2}')
-      ]},
-      comparisons: { label:'≥ ≠', columns:10, keys:[
-        createMathKey('Greater than','&gt;','>','>'), createMathKey('Less than','&lt;','<','<'), createMathKey('Equal','=','='),
-        createMathKey('Greater than or equal','≥','≥','\\geq'), createMathKey('Less than or equal','≤','≤','\\leq'), createMathKey('Not equal','≠','≠','\\neq'),
-        createMathKey('Plus or minus','±','±','\\pm'), createMathKey('Identical or equivalent','≡','≡','\\equiv'), createMathKey('Much greater than','≫','≫','\\gg'),
-        createMathKey('Much less than','≪','≪','\\ll'), createMathKey('Similar to','∼','∼','\\sim'), createMathKey('Asymptotically equal','≃','≃','\\simeq'),
-        createMathKey('Approximately equal','≈','≈','\\approx'), createMathKey('Not approximately equal','≉','≉','\\not\\approx')
-      ]},
-      sets: { label:'∈ ⊂', columns:10, keys:[
-        createMathKey('For all','∀','∀','\\forall'), createMathKey('There exists','∃','∃','\\exists'), createMathKey('Empty set','∅','∅','\\varnothing'),
-        createMathKey('Element of','∈','∈','\\in'), createMathKey('Not an element of','∉','∉','\\notin'), createMathKey('Contains as member','∋','∋','\\ni'),
-        createMathKey('Proper subset','⊂','⊂','\\subset'), createMathKey('Subset or equal','⊆','⊆','\\subseteq'), createMathKey('Proper superset','⊃','⊃','\\supset'),
-        createMathKey('Union','∪','∪','\\cup'), createMathKey('Intersection','∩','∩','\\cap'), createMathKey('Disjoint union','⊔','⊔','\\sqcup'),
-        createMathKey('Logical and','∧','∧','\\land'), createMathKey('Logical or','∨','∨','\\lor'), createMathKey('Precedes','≺','≺','\\prec'),
-        createMathKey('Precedes or equal','≼','≼','\\preceq'), createMathKey('Succeeds','≻','≻','\\succ'), createMathKey('Logical not','¬','¬','\\neg'),
-        createMathKey('Indexed union',boundedDisplay('∪','b','a'),'\\bigcup_{a}^{b}'), createMathKey('Indexed intersection',boundedDisplay('∩','b','a'),'\\bigcap_{a}^{b}')
-      ]},
-      arrows: { label:'→', columns:10, keys:[
-        createMathKey('Left arrow','←','←','\\leftarrow'), createMathKey('Right arrow','→','→','\\rightarrow'), createMathKey('Left-right arrow','↔','↔','\\leftrightarrow'),
-        createMathKey('Left double arrow','⇐','⇐','\\Leftarrow'), createMathKey('Right double arrow','⇒','⇒','\\Rightarrow'),
-        createMathKey('Left-right double arrow','⇔','⇔','\\Leftrightarrow'), createMathKey('Maps to','↦','↦','\\mapsto'),
-        createMathKey('Up arrow','↑','↑','\\uparrow'), createMathKey('Down arrow','↓','↓','\\downarrow'), createMathKey('Up-down arrow','↕','↕','\\updownarrow'),
-        createMathKey('Descending diagonal dots','⋱','⋱','\\ddots'), createMathKey('Centered dots','⋯','⋯','\\cdots'),
-        createMathKey('Horizontal ellipsis','…','…','\\ldots'), createMathKey('Vertical dots','⋮','⋮','\\vdots')
-      ]},
-      greek: { label:'Ω Δ', columns:10, keys:[
-        createMathKey('Uppercase Sigma','Σ','Σ','\\Sigma'), createMathKey('Uppercase Pi','Π','Π','\\Pi'), createMathKey('Uppercase Gamma','Γ','Γ','\\Gamma'),
-        createMathKey('Uppercase Delta','Δ','Δ','\\Delta'), createMathKey('Nabla','∇','∇','\\nabla'), createMathKey('Uppercase Theta','Θ','Θ','\\Theta'),
-        createMathKey('Uppercase Lambda','Λ','Λ','\\Lambda'), createMathKey('Uppercase Phi','Φ','Φ','\\Phi'), createMathKey('Uppercase Psi','Ψ','Ψ','\\Psi'),
-        createMathKey('Uppercase Omega','Ω','Ω','\\Omega'), createMathKey('Uppercase Upsilon','Υ','Υ','\\Upsilon'), createMathKey('Uppercase Xi','Ξ','Ξ','\\Xi'),
-        createMathKey('Alpha','<i>α</i>','α','\\alpha'), createMathKey('Beta','<i>β</i>','β','\\beta'), createMathKey('Gamma','<i>γ</i>','γ','\\gamma'),
-        createMathKey('Delta','<i>δ</i>','δ','\\delta'), createMathKey('Epsilon','<i>ε</i>','ε','\\epsilon'), createMathKey('Zeta','<i>ζ</i>','ζ','\\zeta'),
-        createMathKey('Eta','<i>η</i>','η','\\eta'), createMathKey('Theta','<i>θ</i>','θ','\\theta'), createMathKey('Mu','<i>μ</i>','μ','\\mu'),
-        createMathKey('Nu','<i>ν</i>','ν','\\nu'), createMathKey('Xi','<i>ξ</i>','ξ','\\xi'), createMathKey('Rho','<i>ρ</i>','ρ','\\rho'),
-        createMathKey('Sigma','<i>σ</i>','σ','\\sigma'), createMathKey('Tau','<i>τ</i>','τ','\\tau'), createMathKey('Phi','<i>φ</i>','φ','\\phi'),
-        createMathKey('Chi','<i>χ</i>','χ','\\chi'), createMathKey('Psi','<i>ψ</i>','ψ','\\psi'), createMathKey('Omega','<i>ω</i>','ω','\\omega')
-      ]}
-    };
-    function escapeMathAttribute(value) {
-      return String(value).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-    }
-    function mathKeyMarkup(key) {
-      const name = escapeMathAttribute(key.name);
-      return '<button type="button" class="math-key" data-math-value="' + escapeMathAttribute(key.insert) + '" data-math-latex="' + escapeMathAttribute(key.latex) + '" aria-label="' + name + '" title="' + name + '">' + key.display + '</button>';
-    }
-    function mathKeyboardMarkup() {
-      const categories = Object.entries(mathKeyCategories).map(([id, category], index) =>
-        '<button type="button" class="math-category' + (index === 0 ? ' active' : '') + '" data-math-category="' + id + '" aria-selected="' + String(index === 0) + '">' + category.label + '</button>'
-      ).join('');
-      return '<div class="math-keyboard" aria-label="Math keyboard"><div class="math-keyboard-head" role="tablist" aria-label="Math symbol categories">' + categories + '<button type="button" class="math-close" data-close-math aria-label="Close math keyboard">' + icon('i-close') + '</button></div><div class="math-keyboard-body"><div class="math-key-grid math-common-grid" style="--math-columns:10" aria-label="Common math templates">' + mathCommonKeys.map(mathKeyMarkup).join('') + '</div><div class="math-key-grid math-category-grid" style="--math-columns:10" aria-label="Popular symbols">' + mathKeyCategories.popular.keys.map(mathKeyMarkup).join('') + '</div></div></div>';
-    }
-    function bindMathKeyEvents(scope) {
-      scope.querySelectorAll('[data-math-value]').forEach(key => key.addEventListener('click', () => insertAdvancedMath(key.dataset.mathValue)));
-    }
-    function renderMathCategory(categoryId) {
-      const category = mathKeyCategories[categoryId] || mathKeyCategories.popular;
-      const grid = mathToolsHost.querySelector('.math-category-grid');
-      if (!grid) return;
-      grid.style.setProperty('--math-columns', category.columns);
-      grid.setAttribute('aria-label', category.label + ' symbols');
-      grid.innerHTML = category.keys.map(mathKeyMarkup).join('');
-      bindMathKeyEvents(grid);
-    }
-    function toggleMathKeyboard(event) {
-      const button = event.currentTarget;
-      const opening = mathToolsHost.innerHTML.trim() === '';
-      mathToolsHost.innerHTML = opening ? mathKeyboardMarkup() : '';
-      button.classList.toggle('active', opening);
-      button.setAttribute('aria-expanded', String(opening));
-      if (!opening) return;
-      mathToolsHost.querySelector('[data-close-math]').addEventListener('click', () => {
-        mathToolsHost.innerHTML = '';
-        button.classList.remove('active');
-        button.setAttribute('aria-expanded','false');
-      });
-      bindMathKeyEvents(mathToolsHost);
-      mathToolsHost.querySelectorAll('.math-category').forEach(category => category.addEventListener('click', () => {
-        mathToolsHost.querySelectorAll('.math-category').forEach(item => {
-          const active = item === category;
-          item.classList.toggle('active', active);
-          item.setAttribute('aria-selected', String(active));
-        });
-        renderMathCategory(category.dataset.mathCategory);
-      }));
-    }
-    function insertAdvancedMath(value) {
-      const start = promptInput.selectionStart ?? promptInput.value.length;
-      const end = promptInput.selectionEnd ?? start;
-      promptInput.value = promptInput.value.slice(0,start) + value + promptInput.value.slice(end);
-      const placeholder = value.indexOf('□');
-      promptInput.focus();
-      if (placeholder >= 0) promptInput.setSelectionRange(start + placeholder, start + placeholder + 1);
-      else promptInput.setSelectionRange(start + value.length,start + value.length);
-      updateSubmit();
-    }
-
     function inferStudyCapability(value) {
       const prompt = value.toLowerCase();
       if (/\b(graph|plot|chart|visuali[sz]e|coordinate|parabola)\b/.test(prompt)) return 'graph';
@@ -4873,7 +4628,6 @@
     });
     document.getElementById('fileInput').addEventListener('change', event => { addFiles(event.target.files); event.target.value = ''; });
     document.getElementById('imageInput').addEventListener('change', event => { addFiles(event.target.files); event.target.value = ''; });
-    document.getElementById('mathButton').addEventListener('click', toggleMathKeyboard);
     document.getElementById('calculatorButton').addEventListener('click', toggleAdvancedCalculator);
 
     document.getElementById('modelButton').addEventListener('click', event => {
@@ -4951,7 +4705,6 @@
     }));
     document.getElementById('chatButton').addEventListener('click', () => showToast('Solvely support is ready'));
     document.getElementById('dialogClose').addEventListener('click', closeDialog);
-    document.getElementById('dialogCancel').addEventListener('click', closeDialog);
     document.getElementById('diagnosticEntryButton').addEventListener('click', openDiagnosticDialog);
     document.getElementById('diagnosticDialogClose').addEventListener('click', () => document.getElementById('diagnosticDialog').close());
     document.getElementById('diagnosticExam').addEventListener('change', populateDiagnosticScores);
@@ -4973,21 +4726,6 @@
     document.getElementById('cropDialogClose').addEventListener('click', closeCropDialog);
     cropDone.addEventListener('click',applyAllCrops);
     cropSelection.addEventListener('pointerdown',startCropGesture);
-    document.getElementById('useExampleButton').addEventListener('click', () => {
-      if (!selectedExample) return;
-      if (dialog.dataset.mode === 'exam-feature') {
-        const featureIndex = Number(dialog.dataset.featureIndex) || 0;
-        closeDialog();
-        openExamPredictorSample(featureIndex);
-        return;
-      }
-      if (selectedExampleCapability && selectedExampleCapability !== selectedCapability) selectCapability(selectedExampleCapability, false);
-      promptInput.value = selectedExample.activePrompt || selectedExample.prompt;
-      updateSubmit();
-      closeDialog();
-      promptInput.focus();
-      document.getElementById('composerShell').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
     document.getElementById('examCourseSearch').addEventListener('input', renderCourseCatalog);
     document.getElementById('examCourseFilter').addEventListener('change', renderCourseCatalog);
     document.getElementById('courseBackButton').addEventListener('click', closeCoursePackage);
