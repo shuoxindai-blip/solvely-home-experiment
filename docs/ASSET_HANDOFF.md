@@ -1,8 +1,8 @@
 # Asset handoff index
 
-Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for every local file and external runtime resource in this prototype. `files` contains the 57 repository files; `externalResources` contains the 7 remote HTML/image references. Both map resources to a product surface, example scenario, implementation anchor, role, and lifecycle status.
+Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for every local file and external runtime resource in this prototype. `files` contains the 59 repository files; `externalResources` contains the 6 remote HTML/image references. Both map resources to a product surface, example scenario, implementation anchor, role, and lifecycle status.
 
-For the product-requirement explanation of all 19 groups, 57 local files, and 7 external runtime references, see [`PRD_ASSET_CATALOG.md`](PRD_ASSET_CATALOG.md).
+For the product-requirement explanation of all 19 groups, 59 local files, and 6 external runtime references, see [`PRD_ASSET_CATALOG.md`](PRD_ASSET_CATALOG.md).
 
 ## How developers should wire a case
 
@@ -19,7 +19,7 @@ For the product-requirement explanation of all 19 groups, 57 local files, and 7 
 | --- | --- | --- | --- |
 | Global header | Mobile app download | `.app-download` / `.app-store-link` | App Store badge + cropped Google Play badge + QR are runtime; uncropped Google Play badge is source |
 | Study · Solver | Parabola & Linear Intersection | `capabilityData.solver.examples[0]` | Preview PNG opens the local interactive simulator HTML |
-| Study · Solver | Intersecting Circles | `capabilityData.solver.examples[1]` | Preview PNG opens the remote video-player URL |
+| Study · Solver | Parallelogram LMNO step-by-step solution | `capabilityData.solver.examples[1]` | Problem image and video thumbnail are runtime; the full answer and interactions are native HTML |
 | Study · Solver | Chemistry structure visualization | `capabilityData.solver.examples[2]` | Cover PNG identifies the example; detail structures load from remote Solvely URLs; compact PNG is source only |
 | Study · Solver | Financial / Vertical Analysis | `capabilityData.solver.examples[3]` | WEBP is the example preview; detail table is native HTML |
 | Study · Graph | Reflection over y-axis | `capabilityData.graph.examples[0]` | Preview PNG opens the matching local simulator HTML |

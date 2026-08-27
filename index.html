@@ -800,7 +800,7 @@
     .example-dialog[open] { display:flex; flex-direction:column; }
     .example-dialog .dialog-head { flex:0 0 auto; }
     .example-dialog[data-mode="simulator"], .example-dialog[data-mode="video-player"] { width:min(960px, calc(100vw - 30px)); max-height:min(820px, calc(100vh - 30px)); }
-    .example-dialog[data-mode="exam-feature"] { width:min(900px,calc(100vw - 30px)); max-height:min(840px,calc(100vh - 30px)); }
+    .example-dialog[data-mode="exam-feature"], .example-dialog[data-mode="step-solution"] { width:min(900px,calc(100vw - 30px)); max-height:min(840px,calc(100vh - 30px)); }
     .example-dialog[data-mode="chemistry"],.example-dialog[data-mode="podcast-player"],.example-dialog[data-mode="quiz-player"],.example-dialog[data-mode="study-guide"] { max-height:min(820px,calc(100vh - 30px)); }
     .example-dialog[data-mode="study-guide"] { width:min(900px,calc(100vw - 30px)); }
     .example-dialog::backdrop { background: rgba(19, 23, 31, .35); backdrop-filter: blur(4px); }
@@ -920,6 +920,136 @@
     .solution-step small { color:var(--muted); line-height:1.35; }
     .solution-step.active { border-color:rgba(var(--accent-rgb),.5); background:var(--accent-soft); }
     .solution-step.active span { background:var(--accent); color:#fff; }
+    .preview-step-solution { height:104px; display:grid; grid-template-columns:minmax(0,1fr) 118px; gap:10px; padding:10px; background:linear-gradient(145deg,#f2fbf5,#f7faff); }
+    .preview-step-copy { min-width:0; display:grid; align-content:center; gap:6px; padding:7px 8px; border:1px solid rgba(32,153,99,.16); border-radius:10px; background:#fff; box-shadow:0 6px 16px rgba(43,74,63,.06); }
+    .preview-step-copy small { color:#16865d; font-size:6px; font-weight:780; letter-spacing:.08em; }
+    .preview-step-copy strong { color:#1c2735; font-size:12px; line-height:1.2; }
+    .preview-step-copy span { color:#687587; font-size:6.5px; line-height:1.35; }
+    .preview-step-list { display:grid; align-content:center; gap:5px; }
+    .preview-step-list span { display:grid; grid-template-columns:14px minmax(0,1fr); align-items:center; gap:5px; color:#566477; font-size:5.5px; }
+    .preview-step-list b { width:14px; height:14px; display:grid; place-items:center; border-radius:5px; background:#eaf2ff; color:#2368f0; font-size:6px; }
+    .example-dialog[data-mode="step-solution"] .dialog-body { padding:18px 20px 22px; background:#f7f9fc; }
+    .example-dialog[data-mode="step-solution"] .dialog-preview { overflow:visible; border:0; background:transparent; }
+    .example-dialog[data-mode="step-solution"] .dialog-interaction { margin-top:18px; padding:0; border:0; background:transparent; }
+    .solver-answer-summary { padding:22px; border:1px solid #cfe8da; border-radius:17px; background:linear-gradient(180deg,#f4fbf7 0%,#fff 38%); box-shadow:0 10px 28px rgba(27,76,54,.05); }
+    .solver-answer-heading { display:flex; align-items:center; gap:9px; margin-bottom:18px; color:#147452; }
+    .solver-answer-heading span { width:28px; height:28px; display:grid; place-items:center; border-radius:9px; background:#dcf5e8; font-size:15px; }
+    .solver-answer-heading h3 { margin:0; font-size:18px; }
+    .solver-answer-block + .solver-answer-block { margin-top:18px; }
+    .solver-answer-block h4 { margin:0 0 8px; font-size:13px; }
+    .solver-answer-block p { margin:0; color:#536173; font-size:12px; line-height:1.55; }
+    .solver-answer-block p strong { color:#152132; }
+    .solver-feature-table-wrap { overflow:auto; border:1px solid #e0e7ef; border-radius:12px; background:#fff; }
+    .solver-feature-table { width:100%; border-collapse:collapse; font-size:11px; }
+    .solver-feature-table th,.solver-feature-table td { padding:10px 12px; border-bottom:1px solid #e7edf3; text-align:left; vertical-align:middle; }
+    .solver-feature-table th { background:#f6f8fb; color:#536173; font-size:10px; font-weight:720; }
+    .solver-feature-table td:first-child { color:#536173; font-weight:700; }
+    .solver-feature-table tr:last-child td { border-bottom:0; }
+    .solver-area-result { display:flex; align-items:baseline; gap:8px; }
+    .solver-area-result strong { color:#147452; font-size:24px; }
+    .solver-area-result span { color:#687587; font-size:11px; }
+    .solver-graph-shell { margin-top:8px; overflow:hidden; border:1px solid #e1e7ef; border-radius:13px; background:#fff; }
+    .solver-graph-shell svg { width:100%; height:auto; display:block; }
+    .solver-graph-grid { stroke:#edf1f5; stroke-width:1; }
+    .solver-graph-axis { stroke:#9aa7b7; stroke-width:1.4; }
+    .solver-answer-utility { position:relative; display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:17px; padding-top:15px; border-top:1px solid #e4eaf0; }
+    .solver-compare,.solver-helpful button,.solver-answer-actions button,.solver-video-watch { min-height:34px; display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:0 11px; border:1px solid #dce3eb; border-radius:9px; background:#fff; color:#536173; font:650 10px/1 inherit; cursor:pointer; }
+    .solver-compare:hover,.solver-helpful button:hover,.solver-answer-actions button:hover { border-color:#9db9ef; color:#2368f0; }
+    .solver-model-menu { position:absolute; left:0; top:54px; z-index:5; width:190px; display:grid; gap:5px; padding:8px; border:1px solid #dce3eb; border-radius:11px; background:#fff; box-shadow:0 16px 35px rgba(23,37,59,.14); }
+    .solver-model-menu[hidden] { display:none; }
+    .solver-model-menu button { min-height:34px; display:flex; align-items:center; gap:8px; padding:0 9px; border:0; border-radius:8px; background:transparent; color:#344154; font-size:10px; text-align:left; cursor:pointer; }
+    .solver-model-menu button:hover { background:#f2f6fc; }
+    .solver-model-dot { width:18px; height:18px; display:grid; place-items:center; border-radius:6px; background:#eef4ff; color:#2368f0; font-size:8px; font-weight:800; }
+    .solver-helpful { display:flex; align-items:center; gap:7px; color:#6c7888; font-size:10px; }
+    .solver-helpful button.active { border-color:#72bd99; background:#effaf4; color:#147452; }
+    .solver-video-card { display:grid; grid-template-columns:80px minmax(0,1fr) auto; align-items:center; gap:14px; margin-top:14px; padding:14px; border:1px solid #e0e6ee; border-radius:14px; background:#fff; }
+    .solver-video-thumb { height:58px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(145deg,#e9f2ff,#eef9f3); color:#2368f0; }
+    .solver-video-thumb span { width:28px; height:28px; display:grid; place-items:center; border-radius:50%; background:#fff; box-shadow:0 5px 14px rgba(35,104,240,.18); }
+    .solver-video-copy strong,.solver-video-copy span { display:block; }
+    .solver-video-copy strong { color:#1b2738; font-size:11px; }
+    .solver-video-copy span { margin-top:4px; color:#738092; font-size:9px; line-height:1.4; }
+    .solver-video-watch { border:0; background:#2368f0; color:#fff; }
+    .solver-video-watch.is-playing { background:#eaf2ff; color:#2368f0; }
+    .solver-explanation { display:grid; gap:11px; }
+    .solver-explanation-head { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; }
+    .solver-explanation-head h3 { margin:0; color:#182436; font-size:18px; }
+    .solver-explanation-head p { margin:3px 0 0; color:#778396; font-size:10px; }
+    .solver-step-nav { display:flex; gap:5px; }
+    .solver-step-nav button { width:28px; height:28px; display:grid; place-items:center; padding:0; border:1px solid #dbe4ee; border-radius:8px; background:#fff; color:#758194; font-size:9px; font-weight:750; cursor:pointer; }
+    .solver-step-nav button.active { border-color:#2368f0; background:#2368f0; color:#fff; }
+    .solver-answer-step { display:grid; grid-template-columns:32px minmax(0,1fr); gap:12px; padding:15px; border:1px solid #d9e7f8; border-radius:14px; background:#f2f7fd; transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+    .solver-answer-step.is-focused { border-color:#70a0ef; box-shadow:0 8px 22px rgba(35,104,240,.09); transform:translateY(-1px); }
+    .solver-step-number { width:32px; height:32px; display:grid; place-items:center; border-radius:10px; background:#dfeeff; color:#2368f0; font-size:11px; font-weight:800; }
+    .solver-step-content h4 { margin:1px 0 7px; color:#1e2a3a; font-size:12px; }
+    .solver-step-content p { margin:0; color:#59677a; font-size:11px; line-height:1.55; }
+    .solver-step-content p + p { margin-top:6px; }
+    .solver-equation-stack { display:grid; gap:5px; margin-top:9px; padding:11px 13px; border-radius:10px; background:#fff; color:#273449; font:600 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .solver-step-content .solver-feature-table-wrap { margin-top:9px; }
+    .solver-answer-actions { display:flex; gap:7px; padding:3px 1px 0; }
+    .solver-answer-actions button.active { border-color:#70a0ef; background:#eaf2ff; color:#2368f0; }
+    .preview-step-solution { display:block; padding:9px; background:#f5f7fb; }
+    .preview-solution-sheet { height:100%; display:grid; grid-template-columns:68px minmax(0,1fr); grid-template-rows:auto auto 1fr; gap:4px 8px; padding:8px 10px; overflow:hidden; border:1px solid #e5e9ef; border-radius:10px; background:#fff; box-shadow:0 5px 14px rgba(36,48,75,.05); }
+    .preview-solution-final { align-self:start; color:#36bd24; font-size:6.5px; font-weight:800; }
+    .preview-solution-answer { align-self:start; color:#1f2937; font-size:9px; font-weight:800; }
+    .preview-solution-explanation { grid-column:1 / -1; color:#1683ed; font-size:6.5px; font-weight:800; }
+    .preview-solution-steps { grid-column:1 / -1; display:grid; gap:3px; }
+    .preview-solution-steps span { display:grid; grid-template-columns:12px minmax(0,1fr); align-items:center; gap:5px; color:#657184; font-size:5px; line-height:1.2; }
+    .preview-solution-steps b { width:12px; height:12px; display:grid; place-items:center; border-radius:50%; background:#e9f2ff; color:#2368f0; font-size:5px; }
+    .example-dialog[data-mode="step-solution"] .dialog-body { position:relative; background:#fff; }
+    .recording-answer-page { color:#20242a; }
+    .recording-question-image { width:min(62%,560px); max-height:330px; display:block; margin:0 0 18px auto; object-fit:contain; border-radius:14px; }
+    .recording-thought { display:flex; align-items:center; gap:8px; padding:0; border:0; background:transparent; color:#2a2e35; font-size:12px; cursor:pointer; }
+    .recording-thought span:nth-of-type(2) { color:#707783; }
+    .recording-ai-badge { width:24px; height:24px; display:grid; place-items:center; border-radius:7px; background:linear-gradient(145deg,#4438d6,#765af0); color:#fff !important; font-size:9px; font-weight:800; box-shadow:inset -4px -4px 0 rgba(255,196,30,.22); }
+    .recording-thought-panel { margin:10px 0 2px 32px; padding:10px 12px; border-left:2px solid #6c55e7; border-radius:0 9px 9px 0; background:#f7f5ff; color:#636b78; font-size:10px; line-height:1.5; }
+    .recording-final-title { margin:19px 0 12px; color:#35c41d; font-size:20px; }
+    .recording-final-card { display:grid; gap:9px; padding:17px 18px; border-radius:14px; background:#f4fff4; color:#171b21; font-size:13px; line-height:1.2; }
+    .recording-final-card strong { margin-bottom:2px; }
+    .recording-final-card b { font-size:14px; }
+    .recording-video-card { display:grid; grid-template-columns:145px minmax(0,1fr) auto; align-items:center; gap:14px; margin-top:16px; padding:11px; border:1px solid #e0e3e8; border-radius:15px; background:#fff; }
+    .recording-video-thumb { height:78px; position:relative; overflow:hidden; border-radius:10px; background:#10172e; }
+    .recording-video-thumb img { width:100%; height:100%; display:block; object-fit:cover; }
+    .recording-video-thumb span { position:absolute; right:7px; bottom:6px; padding:3px 5px; border-radius:5px; background:rgba(12,17,28,.72); color:#fff; font-size:8px; font-weight:700; }
+    .recording-video-card strong { display:block; color:#20242a; font-size:12px; }
+    .recording-video-card p { display:-webkit-box; overflow:hidden; margin:5px 0 0; color:#747b87; font-size:9px; line-height:1.45; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    .recording-video-card > button { min-width:112px; height:38px; border:1px solid #dfe3e8; border-radius:20px; background:#fff; color:#20242a; font-size:10px; font-weight:750; cursor:pointer; }
+    .recording-video-card > button.is-playing { border-color:#7256e8; background:#f3f0ff; color:#6548d9; }
+    .recording-helpful { display:flex; align-items:center; gap:10px; margin-top:16px; padding:14px 16px; border:1px solid #e0e3e8; border-radius:15px; background:#fff; }
+    .recording-helpful > div { min-width:0; margin-right:auto; }
+    .recording-helpful strong,.recording-helpful span { display:block; }
+    .recording-helpful strong { font-size:13px; }
+    .recording-helpful span { margin-top:3px; color:#858b96; font-size:9px; }
+    .recording-helpful button { min-width:78px; height:36px; border:0; border-radius:18px; background:#f6f8fa; color:#333941; font-size:10px; font-weight:700; cursor:pointer; }
+    .recording-helpful button.active { background:#ecf6ff; color:#2368f0; }
+    .recording-explanation { color:#20242a; }
+    .recording-explanation > h3 { margin:0 0 13px; color:#1683ed; font-size:20px; }
+    .recording-explanation > h4 { margin:0 0 17px; font-size:14px; }
+    .recording-step { display:grid; grid-template-columns:30px minmax(0,1fr); gap:10px; position:relative; padding-bottom:18px; }
+    .recording-step:not(:last-of-type)::before { content:""; width:1px; position:absolute; left:14px; top:30px; bottom:0; background:#e4e7eb; }
+    .recording-step.is-focused:not(:last-of-type)::before { background:#2d7df0; }
+    .recording-step:hover:not(:last-of-type)::before { background:#2d7df0; }
+    .recording-step > button { width:30px; height:30px; z-index:1; display:grid; place-items:center; padding:0; border:0; border-radius:50%; background:#f1f3f5; color:#20242a; font-size:10px; font-weight:800; cursor:pointer; }
+    .recording-step.is-focused > button { background:#2d7df0; color:#fff; }
+    .recording-step:hover > button { background:#2d7df0; color:#fff; }
+    .recording-step h5 { margin:4px 0 9px; font-size:13px; }
+    .recording-step p { margin:0; color:#5d626c; font-size:11px; line-height:1.65; }
+    .recording-step ul { display:grid; gap:7px; margin:10px 0 0; padding-left:19px; color:#606670; font:12px/1.45 Georgia,serif; }
+    .recording-equations { display:grid; justify-content:center; gap:3px; margin-top:9px; color:#555b64; font:15px/1.35 Georgia,serif; text-align:center; }
+    @media (max-width:640px) {
+      .solver-answer-summary { padding:16px; }
+      .solver-video-card { grid-template-columns:64px minmax(0,1fr); }
+      .solver-video-watch { grid-column:1 / -1; }
+      .solver-explanation-head { align-items:flex-start; flex-direction:column; }
+      .solver-answer-step { grid-template-columns:28px minmax(0,1fr); padding:12px; }
+      .solver-step-number { width:28px; height:28px; }
+      .solver-answer-utility { align-items:flex-start; flex-direction:column; }
+      .solver-model-menu { top:48px; }
+      .recording-question-image { width:100%; }
+      .recording-video-card { grid-template-columns:90px minmax(0,1fr); }
+      .recording-video-card > button { grid-column:1 / -1; width:100%; }
+      .recording-helpful { align-items:flex-start; flex-wrap:wrap; }
+      .recording-helpful > div { width:100%; }
+    }
     .insight-selector { display:flex; flex-wrap:wrap; gap:8px; }
     .insight-chip { min-height:36px; padding:0 12px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--muted); font-size:11px; font-weight:650; cursor:pointer; }
     .insight-chip.active { border-color:rgba(var(--accent-rgb),.46); background:var(--accent-soft); color:var(--accent); }
@@ -2279,7 +2409,7 @@
         description: 'Get a checked answer with a clear, step-by-step explanation.',
         examples: [
           { tag: 'Algebra', title: 'Interactive graph', dialogTitle: 'Parabola & Linear Intersection', description: 'Adjust both functions and track their intersection points.', prompt: 'Graph f(x) = −x² − x + 6 and g(x) = x + 6, then find their intersection points.', preview: 'solver-parabola-line', simulator: 'assets/simulators/parabola-linear-intersection.html', cta: 'Try graphing' },
-          { tag: 'Geometry', title: 'Video explanation', dialogTitle: 'Intersecting Circles', description: 'See how intersecting radii form a right triangle.', prompt: 'Explain how to find the distance between the centers of two intersecting circles using their radii and a right triangle.', preview: 'video-solver-circles', simulator: 'https://img.justsolvely.com/solvely-solve/html/2026_08_24_f0259c07361fe821ce3e_1787583893888.html', embedMode: 'video-player', cta: 'Watch explanation' },
+          { tag: 'Geometry', title: 'Step-by-step solution', dialogTitle: 'Solve for r in Parallelogram LMNO', description: 'Follow each angle relationship and algebra step to reach the checked answer.', prompt: 'Given the diagram of parallelogram LMNO, solve for r.', preview: 'solver-step-solution', cta: 'View solution' },
           { tag: 'Chemistry', title: 'Structure visualization', description: 'Explore solved organic and inorganic structure examples.', prompt: 'Draw the structure of (m)-ethylaniline.', preview: 'chemistry', coverImage: 'assets/solver-chemistry-structure-cover.png', cta: 'Use this example', structures: [
             { title:'(m)-Ethylaniline', question:'Draw the structure of (m)-ethylaniline.', summary:'An aniline ring with an ethyl group at the meta (3-) position.', image:'https://img.justsolvely.com/chemistry-pubchem/2026_07_15_bfcc7f6ceeaa64fe224a_1784127249983.png', questionId:'2026_08_24_jqep8i711jb8mpjuy7c8', answerId:'2026_08_24_jqep8i711jb8mpjuy7c8#1787631940993', facts:[['Parent structure','Aniline'],['Substitution','Ethyl at C-3 (meta)'],['IUPAC name','3-ethylaniline'],['Molecular formula','C₈H₁₁N']] },
             { title:'SF₄ Lewis structure', question:'Draw the correct Lewis structure for SF₄. Include all lone pairs and nonzero formal charges.', summary:'Sulfur forms four S–F single bonds and keeps one equatorial lone pair, producing a seesaw shape.', image:'https://img.justsolvely.com/chemistry-pubchem/2026_07_14_5dafb19eb3243e0b8432_1784066879099.png', questionId:'2026_08_22_e751f7b4d7a0d407eb68', answerId:'2026_08_22_e751f7b4d7a0d407eb68#1787443487570', facts:[['Valence electrons','34'],['S lone pairs','1'],['Molecular geometry','Seesaw'],['Formal charges','All atoms: 0']] },
@@ -2978,8 +3108,42 @@
       return `<div class="study-guide-markdown-shell" data-guide-markdown data-markdown-src="${example.markdown || ''}"><div class="study-guide-markdown-loading">Rendering the original study guide…</div></div>`;
     }
 
+    function solverStepSolutionPreview() {
+      return `<div class="example-preview preview-step-solution">
+        <div class="preview-solution-sheet"><strong class="preview-solution-final">Final Answer</strong><span class="preview-solution-answer">✓ C. 30</span><strong class="preview-solution-explanation">Explanation</strong><div class="preview-solution-steps"><span><b>1</b>Understand angle properties</span><span><b>2</b>Solve for the variable t</span><span><b>3</b>Solve for r and verify</span></div></div>
+      </div>`;
+    }
+
+    function solverStepSolutionDialogPreview() {
+      return `<div class="recording-answer-page" data-solver-answer>
+        <img class="recording-question-image" src="assets/solver-parallelogram-question.png" alt="Geometry problem asking to solve for r in parallelogram LMNO" />
+        <button class="recording-thought" type="button" data-solver-thought aria-expanded="false"><span class="recording-ai-badge">S</span><strong>Solvely AI</strong><span>thought for 8s</span><span aria-hidden="true">⌄</span></button>
+        <div class="recording-thought-panel" data-solver-thought-panel hidden>I identified opposite and consecutive angle relationships, solved for t first, then used the supplementary angles to solve for r.</div>
+        <h3 class="recording-final-title">Final Answer</h3>
+        <section class="recording-final-card"><strong>1.</strong><span>A. 15</span><span>B. 25</span><b>✓ C. 30</b><span>D. 120</span></section>
+        <section class="recording-video-card">
+          <div class="recording-video-thumb"><img src="assets/solver-parallelogram-video.png" alt="Parallelogram angle properties video thumbnail" /><span>▶ 00:43</span></div>
+          <div><strong>Video Explanation: Solve Parallelogram Angle Properties...</strong><p>Observe how consecutive interior angles sum to 180 degrees in this geometric breakdown. Watch the algebraic relationship between variables unfold as we isolate r.</p></div>
+          <button type="button" data-solver-video>▶ Watch Now</button>
+        </section>
+        <section class="recording-helpful"><div><strong>Was this answer helpful?</strong><span>Your feedback helps me learn and get smarter for you 🙏</span></div><button type="button" data-solver-helpful="yes">👍 Yes</button><button type="button" data-solver-helpful="no">👎 No</button></section>
+      </div>`;
+    }
+
+    function solverStepSolutionInteraction() {
+      return `<section class="recording-explanation" data-solver-explanation>
+        <h3>Explanation</h3><h4>Solving for <i>r</i> in parallelogram <i>LMNO</i></h4>
+        <article class="recording-step is-focused" data-solver-step-card="1"><button type="button" data-solver-step-link="1">1</button><div><h5>Understanding parallelogram properties</h5><p>In a parallelogram, opposite angles are equal, and consecutive angles are supplementary (they add up to 180°). We can use these properties to set up equations for the variables <i>t</i> and <i>r</i>. From the diagram, we have:</p><ul><li>m∠L = (4r)°</li><li>m∠M = (3t − 15)°</li><li>m∠O = (2t + 10)°</li></ul></div></article>
+        <article class="recording-step" data-solver-step-card="2"><button type="button" data-solver-step-link="2">2</button><div><h5>Solving for the variable <i>t</i></h5><p>Since ∠O and ∠M are opposite angles, they must be equal. We set their expressions equal to each other to solve for <i>t</i>:</p><div class="recording-equations"><span>2t + 10 = 3t − 15</span><span>10 + 15 = 3t − 2t</span><span>25 = t</span></div></div></article>
+        <article class="recording-step" data-solver-step-card="3"><button type="button" data-solver-step-link="3">3</button><div><h5>Calculating the measure of angle <i>O</i></h5><p>Now that we know t = 25, we can substitute this value back into the expression for m∠O to find its numerical measure:</p><div class="recording-equations"><span>m∠O = 2(25) + 10</span><span>= 50 + 10</span><span>= 60°</span></div></div></article>
+        <article class="recording-step" data-solver-step-card="4"><button type="button" data-solver-step-link="4">4</button><div><h5>Solving for <i>r</i></h5><p>Angles L and O are consecutive angles, meaning they are supplementary. We set their sum to 180° and solve for r:</p><div class="recording-equations"><span>4r + 60 = 180</span><span>4r = 180 − 60</span><span>4r = 120</span><span>r = 120 / 4</span><span>r = 30</span></div></div></article>
+        <article class="recording-step" data-solver-step-card="5"><button type="button" data-solver-step-link="5">5</button><div><h5>Answer</h5><p><strong>The correct answer is C. 30.</strong></p></div></article>
+      </section>`;
+    }
+
     function previewMarkup(type, example = null) {
       if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
+      if (type === 'solver-step-solution') return solverStepSolutionPreview();
       if (type === 'graph') return graphPreview();
       if (type.startsWith('video')) return videoPreview(type);
       if (type === 'chemistry') return chemistryPreview(example);
@@ -2997,6 +3161,7 @@
     }
 
     function dialogPreviewMarkup(type, example = null) {
+      if (type === 'solver-step-solution') return solverStepSolutionDialogPreview();
       if (type === 'accounting') return accountingDialogPreview();
       if (type === 'chemistry') return chemistryDialogPreview(example);
       if (type === 'podcast') return podcastDialogPreview(example);
@@ -3618,6 +3783,7 @@
 
     function interactionMarkup(type, example = null) {
       if (type.startsWith('exam-')) type = 'exam';
+      if (type === 'solver-step-solution') return solverStepSolutionInteraction();
       if (type === 'graph') return '<div class="graph-control"><label for="exampleGraphRange"><span>Move along the curve</span><output data-graph-x>2.0</output></label><input id="exampleGraphRange" type="range" min="-4" max="6" value="2" step="0.1" data-graph-slider><p class="graph-readout" data-graph-readout>At x = 2.0, y = −1.00</p></div>';
       if (type === 'video') return '<div class="media-control-row"><button class="media-toggle" type="button" data-media-toggle aria-label="Play explanation">' + icon('i-play') + '</button><span class="media-copy"><strong>Generated explanation</strong><span>Geometry walkthrough</span></span><span class="interaction-time" data-media-time>0:05 / 1:18</span></div><div class="interaction-progress"><span data-media-progress></span></div>';
       if (type === 'chemistry') return chemistryInteractionMarkup(example);
@@ -3937,6 +4103,37 @@
       interaction.querySelectorAll('[data-solution-step]').forEach(step => step.addEventListener('click', () => {
         interaction.querySelectorAll('[data-solution-step]').forEach(item => item.classList.toggle('active', item === step));
       }));
+      const solverAnswer = document.querySelector('#dialogPreview [data-solver-answer]');
+      if (solverAnswer) {
+        const thoughtButton = solverAnswer.querySelector('[data-solver-thought]');
+        const thoughtPanel = solverAnswer.querySelector('[data-solver-thought-panel]');
+        thoughtButton.addEventListener('click', () => {
+          const expanded = thoughtButton.getAttribute('aria-expanded') === 'true';
+          thoughtButton.setAttribute('aria-expanded', String(!expanded));
+          thoughtPanel.hidden = expanded;
+        });
+        solverAnswer.querySelectorAll('[data-solver-helpful]').forEach(button => button.addEventListener('click', () => {
+          solverAnswer.querySelectorAll('[data-solver-helpful]').forEach(item => item.classList.toggle('active', item === button));
+          showToast(button.dataset.solverHelpful === 'yes' ? 'Thanks for the feedback' : 'Feedback noted');
+        }));
+        const videoButton = solverAnswer.querySelector('[data-solver-video]');
+        videoButton.addEventListener('click', () => {
+          const playing = videoButton.classList.toggle('is-playing');
+          videoButton.textContent = playing ? 'Playing · 00:08 / 00:43' : '▶ Watch Now';
+          showToast(playing ? 'Video explanation started' : 'Video explanation paused');
+        });
+      }
+      const solverExplanation = interaction.querySelector('[data-solver-explanation]');
+      if (solverExplanation) {
+        const focusStep = stepNumber => {
+          solverExplanation.querySelectorAll('[data-solver-step-link]').forEach(button => button.classList.toggle('active', Number(button.dataset.solverStepLink) === stepNumber));
+          solverExplanation.querySelectorAll('[data-solver-step-card]').forEach(card => card.classList.toggle('is-focused', Number(card.dataset.solverStepCard) === stepNumber));
+          const activeCard = solverExplanation.querySelector(`[data-solver-step-card="${stepNumber}"]`);
+          if (activeCard) activeCard.scrollIntoView({ behavior:'smooth', block:'nearest' });
+        };
+        solverExplanation.querySelectorAll('[data-solver-step-link]').forEach(button => button.addEventListener('click', () => focusStep(Number(button.dataset.solverStepLink))));
+        solverExplanation.querySelectorAll('[data-solver-step-card]').forEach(card => card.addEventListener('click', () => focusStep(Number(card.dataset.solverStepCard))));
+      }
     }
 
     const examPrepFeatureDetails = [
@@ -4006,7 +4203,7 @@
       const hasPodcastAudio = example.preview === 'podcast' && Boolean(example.audio);
       const hasStudyGuide = example.preview === 'guide' && Array.isArray(example.sections);
       const displayTitle = example.dialogTitle || example.title;
-      dialog.dataset.mode = hasSimulator ? (example.embedMode || 'simulator') : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : hasStudyGuide ? 'study-guide' : 'example';
+      dialog.dataset.mode = hasSimulator ? (example.embedMode || 'simulator') : example.preview === 'solver-step-solution' ? 'step-solution' : hasInteractiveFlashcards ? 'flashcard-study' : hasInteractiveQuiz ? 'quiz-player' : hasChemistryCases ? 'chemistry' : hasPodcastAudio ? 'podcast-player' : hasStudyGuide ? 'study-guide' : 'example';
       dialog.removeAttribute('data-feature-index');
       document.getElementById('dialogIcon').innerHTML = icon(capability.icon);
       document.getElementById('dialogKicker').textContent = `${capability.label} · ${example.tag}`;

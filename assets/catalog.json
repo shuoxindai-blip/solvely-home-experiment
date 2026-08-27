@@ -30,20 +30,14 @@
       ]
     },
     {
-      "id": "study.solver.intersecting-circles",
+      "id": "study.solver.parallelogram-step-solution",
       "surface": "Study · Solver",
-      "scenario": "Video explanation — Intersecting Circles",
+      "scenario": "Step-by-step solution — Parallelogram LMNO",
       "implementation": "capabilityData.solver.examples[1]",
       "files": [
-        { "path": "assets/solver-video-intersecting-circles.png", "role": "Example-card preview", "status": "runtime" }
-      ],
-      "externalResources": [
-        {
-          "url": "https://img.justsolvely.com/solvely-solve/html/2026_08_24_f0259c07361fe821ce3e_1787583893888.html",
-          "role": "Intersecting Circles remote video-player detail",
-          "type": "remote_html",
-          "status": "runtime"
-        }
+        { "path": "assets/solver-parallelogram-question.png", "role": "Problem image shown in the example card and answer detail", "status": "runtime" },
+        { "path": "assets/solver-parallelogram-video.png", "role": "Video explanation thumbnail shown in the answer detail", "status": "runtime" },
+        { "path": "assets/solver-video-intersecting-circles.png", "role": "Previous Intersecting Circles card source retained for rollback; the current solution UI is native HTML/SVG", "status": "source" }
       ]
     },
     {
