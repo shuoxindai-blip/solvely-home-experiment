@@ -79,7 +79,7 @@
     {
       "id": "study.solver.financial-analysis",
       "surface": "Study · Solver",
-      "scenario": "Financial Analysis — Vertical Analysis",
+      "scenario": "Financial analysis — Vertical Analysis",
       "implementation": "capabilityData.solver.examples[3] / accountingPreview()",
       "files": [
         { "path": "assets/solver-financial-analysis-cover.webp", "role": "Example-card preview", "status": "runtime" }

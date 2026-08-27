@@ -84,7 +84,7 @@
 ### 4.5 `study.solver.financial-analysis`
 
 - 页面/模块：Study · Solver
-- 场景：Financial Analysis — Vertical Analysis
+- 场景：Financial analysis — Vertical Analysis
 - 代码入口：`capabilityData.solver.examples[3]` / `accountingPreview()`
 
 | # | 索引文件 | 用途 | 状态 |
