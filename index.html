@@ -921,7 +921,7 @@
     .quiz-answer.wrong { border-color:#dc6571; background:rgba(220,65,80,.09); color:#b73343; }
     .quiz-feedback { grid-column:1 / -1; margin:3px 0 0; color:var(--muted); font-size:11px; }
     .quiz-session { display:grid; gap:14px; }
-    .quiz-session-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--muted); font-size:10px; }
+    .quiz-session-meta { display:flex; align-items:center; gap:10px; color:var(--muted); font-size:10px; }
     .quiz-session-meta strong { color:var(--accent); font-size:10px; }
     .quiz-question { margin:0; font-size:18px; line-height:1.4; letter-spacing:-.015em; }
     .quiz-question-figure { width:min(100%,var(--quiz-image-max,420px)); max-height:360px; display:grid; place-items:center; justify-self:center; overflow:hidden; margin:0; padding:10px; border:1px solid var(--line); border-radius:14px; background:#fff; }
@@ -1818,7 +1818,6 @@
       .multi-model-proof p { max-width:none; }
       .solution-stepper { grid-template-columns:1fr; }
       .quiz-question { font-size:16px; }
-      .quiz-session-meta { align-items:flex-start; flex-direction:column; gap:3px; }
       .quiz-choice { grid-template-columns:28px minmax(0,1fr); padding:9px; }
       .quiz-choice-letter { width:28px; height:28px; }
     }
@@ -2389,7 +2388,7 @@
         description: 'Check understanding with adaptive questions and instant feedback.',
         examples: [
           {
-            tag:'Biology', title:'Blood Glucose Negative Feedback', description:'Insulin, glucagon, and liver regulation.', preview:'quiz', questionId:'92993092', studySet:'Module 1: Endocrine and Reproductive Systems',
+            tag:'Biology', title:'Blood Glucose Negative Feedback', description:'Insulin, glucagon, and liver regulation.', preview:'quiz',
             dialogTitle:'Blood Glucose Negative Feedback', image:'assets/quizzes/blood-glucose-feedback.webp', imageAlt:'Diagram showing insulin and glucagon negative feedback control of blood glucose through the pancreas, liver, and tissue cells', imageMaxWidth:420,
             question:'Using the diagram, which statement best explains how the liver contributes to negative feedback control of blood glucose in both directions?',
             prompt:'Quiz me on how the liver contributes to negative feedback control of blood glucose in both directions.',
@@ -2402,7 +2401,7 @@
             overallExplanation:'The liver is an effector in two opposing pathways. Insulin promotes glycogen formation and lowers blood glucose, while glucagon promotes glycogen breakdown and raises blood glucose. The pancreas acts as the control center by releasing the appropriate hormone.'
           },
           {
-            tag:'Physics', title:'Refraction & Apparent Depth', description:'Why a fish appears shallower from above.', preview:'quiz', questionId:'92985166', studySet:'Wave Physics and Behavior Fundamentals',
+            tag:'Physics', title:'Refraction & Apparent Depth', description:'Why a fish appears shallower from above.', preview:'quiz',
             dialogTitle:'Refraction & Apparent Depth', image:'assets/quizzes/fish-apparent-depth.webp', imageAlt:'Diagram showing light rays refracting from a fish underwater toward an observer above the surface', imageMaxWidth:360,
             question:'A fish is viewed from above the water surface. In the diagram, the fish appears at a depth shallower than its real position. What best explains this apparent depth effect?',
             prompt:'Quiz me on why a fish appears shallower than its real position when viewed from above water.',
@@ -2415,7 +2414,7 @@
             overallExplanation:'The fish appears shallower because of refraction at the water–air boundary. Light speeds up and bends away from the normal when moving from water to air, and the backward extensions of the refracted rays form a virtual image above the real fish.'
           },
           {
-            tag:'Chemistry', title:'Ionic Crystal Lattice', description:'How opposite charges form an ordered solid.', preview:'quiz', questionId:'92990839', studySet:'Unit 1 topic 12 and 3',
+            tag:'Chemistry', title:'Ionic Crystal Lattice', description:'How opposite charges form an ordered solid.', preview:'quiz',
             dialogTitle:'Ionic Crystal Lattice', image:'assets/quizzes/ionic-crystal-lattice.webp', imageAlt:'Two-dimensional and three-dimensional diagrams of alternating sodium and chloride ions in a crystal lattice', imageMaxWidth:420,
             question:'Why do ionic compounds form a crystalline lattice?',
             prompt:'Quiz me on why ionic compounds form a crystalline lattice.',
@@ -2866,16 +2865,15 @@
 
     function quizPreview(example) {
       const question = example && example.question ? example.question : 'Check your understanding';
-      const studySet = example && example.studySet ? example.studySet : 'Study set';
       const options = example && Array.isArray(example.options) ? example.options : [{key:'A'},{key:'B'},{key:'C'},{key:'D'}];
       if (example && example.image) return `<div class="example-preview preview-quiz has-image"><div class="quiz-preview-image"><img src="${example.image}" alt="${example.imageAlt || ''}" loading="lazy"></div><div class="quiz-preview-side"><div class="quiz-preview-copy"><small>Image question · ${example.tag}</small><strong>${question}</strong></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div></div>`;
-      return `<div class="example-preview preview-quiz"><div class="quiz-preview-copy"><small>1 question · ${studySet}</small><strong>${question}</strong><span>Choose an answer for instant feedback</span></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div>`;
+      return `<div class="example-preview preview-quiz"><div class="quiz-preview-copy"><small>1 question</small><strong>${question}</strong><span>Choose an answer for instant feedback</span></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div>`;
     }
 
     function quizInteractionMarkup(example) {
       const options = example && Array.isArray(example.options) ? example.options : [];
       return `<div class="quiz-session" data-quiz-session>
-        <div class="quiz-session-meta"><strong>Question 1 of 1</strong><span>${example.studySet} · ID ${example.questionId}</span></div>
+        <div class="quiz-session-meta"><strong>Question 1 of 1</strong></div>
         <h3 class="quiz-question">${example.question}</h3>
         ${example.image ? `<figure class="quiz-question-figure" style="--quiz-image-max:${example.imageMaxWidth || 420}px"><img src="${example.image}" alt="${example.imageAlt || ''}"></figure>` : ''}
         <div class="quiz-options">${options.map(option => `<button class="quiz-choice" type="button" data-quiz-option="${option.key}" data-correct="${option.correct}" data-explanation="${option.explanation}" aria-label="Option ${option.key}: ${option.text}"><span class="quiz-choice-letter">${option.key}</span><span class="quiz-choice-text">${option.text}</span></button>`).join('')}</div>
