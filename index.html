@@ -2260,6 +2260,7 @@
   </aside>
 
   <button class="chat-button" id="chatButton" aria-label="Open support chat"><svg class="icon"><use href="#i-chat"/></svg></button>
+  <div class="sr-only" id="workspaceStatus" role="status" aria-live="polite" aria-atomic="true"></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/podcasts/transcripts.js"></script>
@@ -2699,6 +2700,7 @@
     const writingEditor = document.getElementById('writingEditor');
     const writingActionButton = document.getElementById('writingActionButton');
     const writingResultContent = document.getElementById('writingResultContent');
+    const workspaceStatus = document.getElementById('workspaceStatus');
     const toast = document.getElementById('toast');
     const dialog = document.getElementById('exampleDialog');
     const cropDialog = document.getElementById('cropDialog');
@@ -3072,7 +3074,7 @@
       });
       if (mode === 'study') resetStudyWorkspace();
       else selectCapability(capabilityGroups[mode][0], false);
-      if (announce) showToast(mode === 'study' ? 'Study workspace selected' : mode === 'exam' ? 'Exam Prep workspace selected' : 'Writing workspace selected');
+      if (announce) workspaceStatus.textContent = mode === 'study' ? 'Study workspace selected' : mode === 'exam' ? 'Exam Prep workspace selected' : 'Writing workspace selected';
     }
 
     function updateWritingEditorState() {
