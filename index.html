@@ -397,8 +397,6 @@
     .examples-heading { display: flex; align-items: flex-end; gap: 24px; margin-bottom: 13px; }
     .examples-heading[hidden] { display:none; }
     .examples-copy { min-width: 0; }
-    .examples-copy span { display: block; margin-bottom: 4px; color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .examples-copy span[hidden] { display:none; }
     .examples-copy h2 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
     .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
     .multi-model-proof { margin-left:auto; display:flex; align-items:center; gap:10px; min-width:0; padding:7px 10px 7px 9px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.72); box-shadow:0 4px 14px rgba(32,49,83,.06); }
@@ -2114,7 +2112,7 @@
 
         <section class="examples-section" aria-label="Examples">
           <div class="examples-heading" id="examplesHeading" hidden>
-            <div class="examples-copy"><span id="examplesKicker">Explore examples</span><h2 id="examplesTitle" hidden></h2></div>
+            <div class="examples-copy"><h2 id="examplesTitle" hidden></h2></div>
             <div class="multi-model-proof" id="multiModelProof" aria-label="Cross-check across AI models for highest accuracy" hidden>
               <div class="multi-model-logos" aria-hidden="true">
                 <span class="multi-model-logo" title="ChatGPT">
@@ -3258,7 +3256,6 @@
     function renderExamples() {
       const capability = capabilityData[selectedCapability];
       const examplesSection = document.querySelector('.examples-section');
-      const examplesKicker = document.getElementById('examplesKicker');
 
       if (workspaceMode === 'writing') {
         const isResearch = selectedCapability === 'research';
@@ -3269,7 +3266,6 @@
           return;
         }
         examplesHeading.hidden = false;
-        examplesKicker.hidden = true;
         examplesTitle.hidden = false;
         examplesTitle.textContent = 'Or, try searching for:';
         examplesDescription.hidden = true;
@@ -3291,8 +3287,6 @@
       examplesSection.classList.remove('research-suggestions');
       const isExamPrepOverview = selectedCapability === 'mock';
       examplesHeading.hidden = false;
-      examplesKicker.hidden = false;
-      examplesKicker.textContent = 'Selected capability';
       examplesTitle.hidden = false;
       examplesTitle.textContent = selectedCapability === 'mock' ? 'Exam prep plan' : `${capability.label} examples`;
       examplesDescription.textContent = capability.description;
