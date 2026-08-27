@@ -1942,7 +1942,6 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
         const active = option.dataset.citationValue === selectedValue;
         option.classList.toggle('active', active);
         option.setAttribute('aria-checked', String(active));
-        option.querySelector('.model-check').textContent = active ? '✓' : '';
       });
     }
     function countWords(value) { return value.trim() ? (value.match(/\S+/g) || []).length : 0; }

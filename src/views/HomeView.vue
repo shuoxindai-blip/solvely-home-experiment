@@ -140,22 +140,22 @@
                 <button class="citation-selector-button" id="citationFormatButton" type="button" data-citation-trigger="format" aria-haspopup="menu" aria-expanded="false" aria-controls="citationFormatMenu"><span class="citation-selector-value" id="citationFormatLabel">APA 7th</span><svg class="icon"><use href="#i-chevron"/></svg></button>
                 <div class="citation-dropdown-menu" id="citationFormatMenu" role="menu" aria-label="Citation format" hidden>
                   <p class="model-menu-title">Format</p>
-                  <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="format" data-citation-value="APA 7th"><span class="model-letter">A</span><span><strong>APA 7th</strong></span><span class="model-check">✓</span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="MLA"><span class="model-letter">M</span><span><strong>MLA</strong></span><span class="model-check"></span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="Chicago"><span class="model-letter">C</span><span><strong>Chicago</strong></span><span class="model-check"></span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="ASA"><span class="model-letter">A</span><span><strong>ASA</strong></span><span class="model-check"></span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="IEEE"><span class="model-letter">I</span><span><strong>IEEE</strong></span><span class="model-check"></span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="AMA"><span class="model-letter">A</span><span><strong>AMA</strong></span><span class="model-check"></span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="Harvard"><span class="model-letter">H</span><span><strong>Harvard</strong></span><span class="model-check"></span></button>
+                  <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="format" data-citation-value="APA 7th"><strong>APA 7th</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="MLA"><strong>MLA</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="Chicago"><strong>Chicago</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="ASA"><strong>ASA</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="IEEE"><strong>IEEE</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="AMA"><strong>AMA</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="Harvard"><strong>Harvard</strong></button>
                 </div>
               </div>
               <div class="citation-dropdown">
                 <button class="citation-selector-button" id="citationSourceTypeButton" type="button" data-citation-trigger="sourceType" aria-haspopup="menu" aria-expanded="false" aria-controls="citationSourceTypeMenu"><span class="citation-selector-value" id="citationSourceTypeLabel">Website</span><svg class="icon"><use href="#i-chevron"/></svg></button>
                 <div class="citation-dropdown-menu" id="citationSourceTypeMenu" role="menu" aria-label="Citation source type" hidden>
                   <p class="model-menu-title">Source type</p>
-                  <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="sourceType" data-citation-value="Website"><span class="model-letter">W</span><span><strong>Website</strong></span><span class="model-check">✓</span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="sourceType" data-citation-value="Book"><span class="model-letter">B</span><span><strong>Book</strong></span><span class="model-check"></span></button>
-                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="sourceType" data-citation-value="Journal Article"><span class="model-letter">J</span><span><strong>Journal Article</strong></span><span class="model-check"></span></button>
+                  <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="sourceType" data-citation-value="Website"><strong>Website</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="sourceType" data-citation-value="Book"><strong>Book</strong></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="sourceType" data-citation-value="Journal Article"><strong>Journal Article</strong></button>
                 </div>
               </div>
             </div>
