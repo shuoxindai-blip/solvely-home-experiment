@@ -329,6 +329,18 @@
     .toolbar-spacer { flex: 1; }
     .writing-word-count { margin-right:7px; color:var(--subtle); font-size:12px; font-weight:560; font-variant-numeric:tabular-nums; white-space:nowrap; }
     .writing-word-count[hidden] { display:none; }
+    .citation-selectors { display:flex; align-items:center; gap:2px; }
+    .citation-selectors[hidden] { display:none; }
+    .citation-dropdown { position:relative; }
+    .citation-selector-button { height:38px; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:0 10px; border:0; border-radius:11px; background:transparent; color:var(--muted); font:600 11px/1 inherit; white-space:nowrap; cursor:pointer; }
+    .citation-selector-button:hover,
+    .citation-selector-button[aria-expanded="true"] { background:var(--surface-hover); color:var(--text); }
+    .citation-selector-prefix { color:var(--subtle); font-weight:520; }
+    .citation-selector-value { color:currentColor; font-weight:680; }
+    .citation-selector-button .icon { width:14px; height:14px; }
+    .citation-dropdown-menu { position:absolute; z-index:30; top:46px; right:0; width:200px; padding:7px; border:1px solid var(--line); border-radius:14px; background:var(--surface); box-shadow:var(--shadow); transform-origin:top right; }
+    .citation-dropdown-menu[hidden] { display:none; }
+    .citation-dropdown-menu .model-option { grid-template-columns:30px 1fr auto; }
     .link-popover { position:absolute; left:18px; bottom:64px; z-index:80; width:min(420px,calc(100% - 36px)); padding:12px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 18px 44px rgba(23,34,56,.16); }
     .link-popover-row { display:flex; gap:8px; }
     .link-popover input { min-width:0; flex:1; height:42px; padding:0 13px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); font:inherit; outline:none; }
@@ -1828,6 +1840,9 @@
       .research-sample-card { min-height:92px; }
       .model-button > span:not(.brand-mini) { display: none; }
       .model-button { padding: 0 7px; }
+      .citation-selector-button { padding:0 7px; }
+      .citation-selector-prefix { display:none; }
+      .citation-dropdown-menu { width:184px; }
       .send-button { min-width: 42px; width: 42px; padding: 0; }
       .send-button span { display: none; }
       .examples-heading { align-items:center; gap:12px; }
@@ -2065,6 +2080,30 @@
             <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
             <button class="tool-button phase-one-hidden" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
             <output class="writing-word-count" id="writingWordCount" aria-label="Word count" hidden>0 words</output>
+            <div class="citation-selectors" id="citationSelectors" aria-label="Citation settings" hidden>
+              <div class="citation-dropdown">
+                <button class="citation-selector-button" id="citationFormatButton" type="button" data-citation-trigger="format" aria-haspopup="menu" aria-expanded="false" aria-controls="citationFormatMenu"><span class="citation-selector-prefix">Format</span><span class="citation-selector-value" id="citationFormatLabel">APA 7th</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+                <div class="citation-dropdown-menu" id="citationFormatMenu" role="menu" aria-label="Citation format" hidden>
+                  <p class="model-menu-title">Format</p>
+                  <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="format" data-citation-value="APA 7th"><span class="model-letter">A</span><span><strong>APA 7th</strong></span><span class="model-check">✓</span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="MLA"><span class="model-letter">M</span><span><strong>MLA</strong></span><span class="model-check"></span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="Chicago"><span class="model-letter">C</span><span><strong>Chicago</strong></span><span class="model-check"></span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="ASA"><span class="model-letter">A</span><span><strong>ASA</strong></span><span class="model-check"></span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="IEEE"><span class="model-letter">I</span><span><strong>IEEE</strong></span><span class="model-check"></span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="AMA"><span class="model-letter">A</span><span><strong>AMA</strong></span><span class="model-check"></span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="format" data-citation-value="Harvard"><span class="model-letter">H</span><span><strong>Harvard</strong></span><span class="model-check"></span></button>
+                </div>
+              </div>
+              <div class="citation-dropdown">
+                <button class="citation-selector-button" id="citationSourceTypeButton" type="button" data-citation-trigger="sourceType" aria-haspopup="menu" aria-expanded="false" aria-controls="citationSourceTypeMenu"><span class="citation-selector-prefix">Source type</span><span class="citation-selector-value" id="citationSourceTypeLabel">Website</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+                <div class="citation-dropdown-menu" id="citationSourceTypeMenu" role="menu" aria-label="Citation source type" hidden>
+                  <p class="model-menu-title">Source type</p>
+                  <button class="model-option active" type="button" role="menuitemradio" aria-checked="true" data-citation-option="sourceType" data-citation-value="Website"><span class="model-letter">W</span><span><strong>Website</strong></span><span class="model-check">✓</span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="sourceType" data-citation-value="Book"><span class="model-letter">B</span><span><strong>Book</strong></span><span class="model-check"></span></button>
+                  <button class="model-option" type="button" role="menuitemradio" aria-checked="false" data-citation-option="sourceType" data-citation-value="Journal Article"><span class="model-letter">J</span><span><strong>Journal Article</strong></span><span class="model-check"></span></button>
+                </div>
+              </div>
+            </div>
             <button class="send-button" id="sendButton" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="sendLabel">Ask</span></button>
           </div>
 
@@ -2795,6 +2834,8 @@
     const citationCharacterLimitToast = 'Source input is limited to 300 characters.';
     const researchCharacterLimitToast = 'Only the first 300 characters were searched - shorten your query for better results.';
     const paraphraserCustomInstructionToast = 'Please enter a custom instruction';
+    let selectedCitationFormat = 'APA 7th';
+    let selectedCitationSourceType = 'Website';
     const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
     const creationSourceLimit = 10;
     const creationSourceLimitToast = 'You can add up to 10 sources to each creation.';
@@ -2812,6 +2853,7 @@
     const sendButton = document.getElementById('sendButton');
     const sendLabel = document.getElementById('sendLabel');
     const writingWordCount = document.getElementById('writingWordCount');
+    const citationSelectors = document.getElementById('citationSelectors');
     const examplesGrid = document.getElementById('examplesGrid');
     const examplesHeading = document.getElementById('examplesHeading');
     const examplesTitle = document.getElementById('examplesTitle');
@@ -3269,9 +3311,6 @@
       if (key === 'paraphraser') {
         writingToolOptions.hidden = false;
         writingToolOptions.innerHTML = `<span class="writing-option-label">Style</span>${['Standard','Fluent','Academic','Shorter','Custom'].map((style, index) => `<button class="writing-option-chip" type="button" data-paraphrase-style="${style}" aria-pressed="${index === 0}">${style}</button>`).join('')}<input class="writing-custom-instruction" id="paraphraseCustomInstruction" type="text" aria-label="Custom paraphrasing instructions" placeholder="Enter your custom instructions" hidden>`;
-      } else if (key === 'aiCitation') {
-        writingToolOptions.hidden = false;
-        writingToolOptions.innerHTML = `<label class="writing-option-label" for="citationFormat">Format</label><select class="writing-option-select" id="citationFormat" aria-label="Citation format"><option>APA 7th</option><option>MLA</option><option>Chicago</option><option>ASA</option><option>IEEE</option><option>AMA</option><option>Harvard</option></select><label class="writing-option-label" for="citationSourceType">Source type</label><select class="writing-option-select" id="citationSourceType" aria-label="Citation source type"><option>Website</option><option>Book</option><option>Journal Article</option></select>`;
       } else {
         writingToolOptions.hidden = true;
         writingToolOptions.innerHTML = '';
@@ -3299,9 +3338,7 @@
         .replace(/During this time/gi, 'As the season unfolds');
       if (key === 'plagiarism') return `No matching passages found in this demo check.\n\nOriginality estimate: 98%\nChecked ${value.trim().split(/\s+/).length} words.`;
       if (key === 'aiCitation') {
-        const format = document.getElementById('citationFormat')?.value || 'APA 7th';
-        const sourceType = document.getElementById('citationSourceType')?.value || 'Website';
-        return `${format} · ${sourceType}\nAuthor, A. A. (2026). ${value.trim().slice(0,72)}${value.trim().length > 72 ? '…' : ''}. Publisher or Website.\n\nIn-text citation: (Author, 2026)`;
+        return `${selectedCitationFormat} · ${selectedCitationSourceType}\nAuthor, A. A. (2026). ${value.trim().slice(0,72)}${value.trim().length > 72 ? '…' : ''}. Publisher or Website.\n\nIn-text citation: (Author, 2026)`;
       }
       if (key === 'research') return `Research outline\n\n1. Define the central question\n2. Review credible primary and secondary sources\n3. Compare the strongest claims and evidence\n4. Identify open questions\n5. Summarize practical conclusions\n\nTopic: ${value.trim()}`;
       return value
@@ -3850,6 +3887,9 @@
       sendLabel.textContent = capability.action;
       if (!preservePrompt) promptInput.value = '';
       updateComposerTools(key);
+      citationSelectors.hidden = key !== 'aiCitation';
+      if (key === 'aiCitation') syncCitationSelectors();
+      else closeCitationMenus();
       if (writingToolData[key]) updateWritingTool(key);
       else {
         const writingToolOptions = document.getElementById('writingToolOptions');
@@ -4311,6 +4351,23 @@
     function updateSubmit() {
       sendButton.disabled = !promptInput.value.trim() && attachedSourceCount() === 0;
       updateWritingWordCount();
+    }
+    function closeCitationMenus() {
+      document.querySelectorAll('.citation-dropdown-menu').forEach(menu => { menu.hidden = true; });
+      document.querySelectorAll('[data-citation-trigger]').forEach(button => button.setAttribute('aria-expanded', 'false'));
+    }
+    function syncCitationSelectors() {
+      document.getElementById('citationFormatLabel').textContent = selectedCitationFormat;
+      document.getElementById('citationSourceTypeLabel').textContent = selectedCitationSourceType;
+      document.getElementById('citationFormatButton').setAttribute('aria-label', `Citation format: ${selectedCitationFormat}`);
+      document.getElementById('citationSourceTypeButton').setAttribute('aria-label', `Citation source type: ${selectedCitationSourceType}`);
+      document.querySelectorAll('[data-citation-option]').forEach(option => {
+        const selectedValue = option.dataset.citationOption === 'format' ? selectedCitationFormat : selectedCitationSourceType;
+        const active = option.dataset.citationValue === selectedValue;
+        option.classList.toggle('active', active);
+        option.setAttribute('aria-checked', String(active));
+        option.querySelector('.model-check').textContent = active ? '✓' : '';
+      });
     }
     function countWords(value) { return value.trim() ? (value.match(/\S+/g) || []).length : 0; }
     function updateWritingWordCount() {
@@ -4966,6 +5023,28 @@
       customInstruction.hidden = !customSelected;
       if (customSelected) customInstruction.focus();
     });
+    citationSelectors.addEventListener('click', event => {
+      const trigger = event.target.closest('[data-citation-trigger]');
+      if (trigger) {
+        const type = trigger.dataset.citationTrigger;
+        const menu = document.getElementById(type === 'format' ? 'citationFormatMenu' : 'citationSourceTypeMenu');
+        const opening = menu.hidden;
+        closeCitationMenus();
+        menu.hidden = !opening;
+        trigger.setAttribute('aria-expanded', String(opening));
+        return;
+      }
+      const option = event.target.closest('[data-citation-option]');
+      if (!option) return;
+      if (option.dataset.citationOption === 'format') selectedCitationFormat = option.dataset.citationValue;
+      else selectedCitationSourceType = option.dataset.citationValue;
+      syncCitationSelectors();
+      closeCitationMenus();
+      document.getElementById(option.dataset.citationOption === 'format' ? 'citationFormatButton' : 'citationSourceTypeButton').focus();
+    });
+    document.addEventListener('click', event => {
+      if (!event.target.closest('#citationSelectors')) closeCitationMenus();
+    });
     document.getElementById('writingPasteButton').addEventListener('click', async () => {
       try {
         const text = await navigator.clipboard.readText();
@@ -5161,6 +5240,7 @@
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
         document.getElementById('modelPopover').hidden = true;
+        closeCitationMenus();
         if (document.body.classList.contains('history-open')) closeHistoryDrawer(false);
         if (app.classList.contains('mobile-sidebar-open')) app.classList.remove('mobile-sidebar-open');
       }
