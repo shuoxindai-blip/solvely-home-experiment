@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "entrypoint": "index.html",
+  "entrypoint": "src/main.js",
   "statusDefinitions": {
     "runtime": "Loaded by the current prototype.",
     "source": "Original source retained for editing or regeneration; not loaded directly.",
@@ -11,7 +11,7 @@
       "id": "global.mobile-download",
       "surface": "Global header",
       "scenario": "Mobile app download entry and QR popover",
-      "implementation": "index.html · .app-download / .app-store-link",
+      "implementation": "src/views/HomeView.vue · .app-download / .app-store-link",
       "files": [
         { "path": "assets/download-on-app-store.svg", "role": "App Store badge", "status": "runtime" },
         { "path": "assets/get-it-on-google-play-trimmed.png", "role": "Google Play badge used in UI", "status": "runtime" },
@@ -35,6 +35,7 @@
       "scenario": "Step-by-step solution — Parallelogram LMNO",
       "implementation": "capabilityData.solver.examples[1]",
       "files": [
+        { "path": "assets/solver-samples/step-by-step-solution.html", "role": "Reusable local step-by-step answer document with hover navigation", "status": "runtime" },
         { "path": "assets/solver-parallelogram-question.png", "role": "Problem image shown in the example card and answer detail", "status": "runtime" },
         { "path": "assets/solver-parallelogram-video.png", "role": "Video explanation thumbnail shown in the answer detail", "status": "runtime" },
         { "path": "assets/solver-video-intersecting-circles.png", "role": "Previous Intersecting Circles card source retained for rollback; the current solution UI is native HTML/SVG", "status": "source" }
@@ -47,36 +48,21 @@
       "implementation": "capabilityData.solver.examples[2]",
       "files": [
         { "path": "assets/solver-chemistry-structure-cover.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/solver-samples/chemistry-structure-visualization.html", "role": "Reusable local chemistry structure document with three tabbed cases", "status": "runtime" },
+        { "path": "assets/solver-samples/m-ethylaniline.png", "role": "Local solved structure — (m)-Ethylaniline", "status": "runtime" },
+        { "path": "assets/solver-samples/sf4-lewis-structure.png", "role": "Local solved structure — SF4 Lewis structure", "status": "runtime" },
+        { "path": "assets/solver-samples/2-isopropyloxolane.png", "role": "Local solved structure — 2-Isopropyloxolane", "status": "runtime" },
         { "path": "assets/chemistry-structure.png", "role": "Original compact chemistry reference", "status": "source" }
-      ],
-      "externalResources": [
-        {
-          "url": "https://img.justsolvely.com/chemistry-pubchem/2026_07_15_bfcc7f6ceeaa64fe224a_1784127249983.png",
-          "role": "(m)-Ethylaniline solved structure image",
-          "type": "remote_image",
-          "status": "runtime"
-        },
-        {
-          "url": "https://img.justsolvely.com/chemistry-pubchem/2026_07_14_5dafb19eb3243e0b8432_1784066879099.png",
-          "role": "SF4 Lewis structure solved image",
-          "type": "remote_image",
-          "status": "runtime"
-        },
-        {
-          "url": "https://img.justsolvely.com/chemistry-pubchem/2026_07_27_631128b862b4e2c5ac59_1785170849765.png",
-          "role": "2-Isopropyloxolane solved structure image",
-          "type": "remote_image",
-          "status": "runtime"
-        }
       ]
     },
     {
       "id": "study.solver.financial-analysis",
       "surface": "Study · Solver",
       "scenario": "Financial analysis — Vertical Analysis",
-      "implementation": "capabilityData.solver.examples[3] / accountingPreview()",
+      "implementation": "capabilityData.solver.examples[3] / financial-analysis.html",
       "files": [
-        { "path": "assets/solver-financial-analysis-cover.webp", "role": "Example-card preview", "status": "runtime" }
+        { "path": "assets/solver-financial-analysis-cover.webp", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/solver-samples/financial-analysis.html", "role": "Reusable local vertical-analysis document with metric highlighting", "status": "runtime" }
       ]
     },
     {

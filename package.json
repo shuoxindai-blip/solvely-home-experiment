@@ -1,0 +1,38 @@
+{
+  "name": "solvely-home-experiment",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit",
+    "verify": "npm run typecheck && npm run build"
+  },
+  "dependencies": {
+    "@tiptap/starter-kit": "^2.11.5",
+    "@tiptap/vue-3": "^2.11.5",
+    "echarts": "6.1.0",
+    "element-plus": "2.11.1",
+    "katex": "^0.16.21",
+    "naive-ui": "2.41.0",
+    "pinia": "2.1.7",
+    "vue": "3.3.4",
+    "vue-router": "4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.8",
+    "@vue/compiler-sfc": "3.3.4",
+    "autoprefixer": "^10.4.21",
+    "less": "^4.2.2",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2",
+    "vite": "8.2.2",
+    "vue-tsc": "^2.2.8"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

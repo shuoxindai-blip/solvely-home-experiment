@@ -1,12 +1,12 @@
 # Solvely Home Experiment — Design Handoff
 
-This is a dependency-free static prototype. All page structure, interactions, and SVG interface graphics are implemented in `index.html`; supporting images are stored in `assets/`.
+This is the production-ready Vue implementation of the Solvely home experiment. It uses Vue 3.3.4, Vite, Vue Router, Pinia, Element Plus, Naive UI, Tailwind CSS, Less, Tiptap, KaTeX, and ECharts; supporting images and reusable sample documents live in `assets/`.
 
 ## Developer handoff
 
-- Product behavior and example data live in `index.html`, primarily under `capabilityData`.
+- The browser entry is `src/main.js`; the page template is `src/views/HomeView.vue`; current product behavior and example data live in `src/features/home/initHomeExperience.js`, primarily under `capabilityData`.
 - The complete page-to-source mapping is documented in [`docs/ASSET_HANDOFF.md`](docs/ASSET_HANDOFF.md).
-- The PRD appendix that explains all 19 asset groups, 59 local files, and 6 external runtime references is documented in [`docs/PRD_ASSET_CATALOG.md`](docs/PRD_ASSET_CATALOG.md).
+- The PRD appendix that explains all 19 asset groups, 65 local files, and 3 external runtime references is documented in [`docs/PRD_ASSET_CATALOG.md`](docs/PRD_ASSET_CATALOG.md).
 - [`assets/catalog.json`](assets/catalog.json) is the machine-readable source of truth for local files and external runtime resources, including source and phase-2 resources.
 - Before committing asset changes, run `node scripts/check-assets.mjs` to catch missing files, unindexed files, broken runtime references, and assets not yet tracked by Git or uploaded upstream.
 
@@ -15,20 +15,22 @@ This is a dependency-free static prototype. All page structure, interactions, an
 From this folder, run:
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open [http://localhost:4173](http://localhost:4173) in a browser.
+Then open the local Vite URL printed in the terminal.
 
-The page can also be opened by double-clicking `index.html`, but using a local server is recommended. Internet access is required for the embedded GeoGebra calculator service and outbound app-store links.
+Use `npm run verify` to run Vue/TypeScript checks and a production build. Internet access is required for the embedded GeoGebra calculator service and outbound app-store links.
 
 Uploaded image attachments include working hover controls for removal and cropping. The crop editor supports switching across every uploaded image, moving or resizing the crop selection, and saving the cropped previews back into the composer.
 
 ## Deploy to Vercel
 
-No build step is required:
+Build and deploy a preview:
 
 ```bash
+npm run build
 npx vercel deploy
 ```
 

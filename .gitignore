@@ -3,3 +3,5 @@
 .design-evidence/
 .playwright-cli/
 output/
+node_modules/
+dist/

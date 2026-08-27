@@ -89,7 +89,10 @@ const runtimeFiles = [...groups]
   .flatMap((group) => group.files || [])
   .filter((file) => file.status === 'runtime')
   .map((file) => file.path);
-const searchableFiles = ['index.html', ...diskFiles.filter((file) => /\.(?:html|md|js|json|txt)$/.test(file))];
+const sourceFiles = fs.existsSync(path.join(root, 'src'))
+  ? walk(path.join(root, 'src')).filter((file) => /\.(?:html|md|js|json|ts|txt|vue)$/.test(file))
+  : [];
+const searchableFiles = ['index.html', ...sourceFiles, ...diskFiles.filter((file) => /\.(?:html|md|js|json|txt)$/.test(file))];
 
 for (const asset of runtimeFiles) {
   const referenced = searchableFiles.some((source) => {

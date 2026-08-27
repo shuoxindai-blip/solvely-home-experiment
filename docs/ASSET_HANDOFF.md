@@ -1,13 +1,13 @@
 # Asset handoff index
 
-Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for every local file and external runtime resource in this prototype. `files` contains the 59 repository files; `externalResources` contains the 6 remote HTML/image references. Both map resources to a product surface, example scenario, implementation anchor, role, and lifecycle status.
+Use [`assets/catalog.json`](../assets/catalog.json) as the source of truth for every local file and external runtime resource in this prototype. `files` contains the 65 repository files; `externalResources` contains 3 remote HTML references. Both map resources to a product surface, example scenario, implementation anchor, role, and lifecycle status.
 
-For the product-requirement explanation of all 19 groups, 59 local files, and 6 external runtime references, see [`PRD_ASSET_CATALOG.md`](PRD_ASSET_CATALOG.md).
+For the product-requirement explanation of all 19 groups, 65 local files, and 3 external runtime references, see [`PRD_ASSET_CATALOG.md`](PRD_ASSET_CATALOG.md).
 
 ## How developers should wire a case
 
 1. Find the case below or search its `id` in `assets/catalog.json`.
-2. Start from the listed `implementation` anchor in `index.html`.
+2. Start from the listed `implementation` anchor in `src/features/home/initHomeExperience.js` or `src/views/HomeView.vue`.
 3. Use only files marked `runtime` for the current prototype.
 4. Treat `externalResources` marked `runtime` as required detail content, not optional links; provide a loading failure and retry state for remote HTML.
 5. Keep `source` files editable, but do not load them directly when a compiled or cropped runtime asset is listed.
@@ -19,9 +19,9 @@ For the product-requirement explanation of all 19 groups, 59 local files, and 6 
 | --- | --- | --- | --- |
 | Global header | Mobile app download | `.app-download` / `.app-store-link` | App Store badge + cropped Google Play badge + QR are runtime; uncropped Google Play badge is source |
 | Study · Solver | Parabola & Linear Intersection | `capabilityData.solver.examples[0]` | Preview PNG opens the local interactive simulator HTML |
-| Study · Solver | Parallelogram LMNO step-by-step solution | `capabilityData.solver.examples[1]` | Problem image and video thumbnail are runtime; the full answer and interactions are native HTML |
-| Study · Solver | Chemistry structure visualization | `capabilityData.solver.examples[2]` | Cover PNG identifies the example; detail structures load from remote Solvely URLs; compact PNG is source only |
-| Study · Solver | Financial / Vertical Analysis | `capabilityData.solver.examples[3]` | WEBP is the example preview; detail table is native HTML |
+| Study · Solver | Parallelogram LMNO step-by-step solution | `capabilityData.solver.examples[1]` | Problem image and video thumbnail are bundled with a reusable local HTML answer document |
+| Study · Solver | Chemistry structure visualization | `capabilityData.solver.examples[2]` | Cover PNG identifies the example; a local HTML document switches among three bundled structure images |
+| Study · Solver | Financial / Vertical Analysis | `capabilityData.solver.examples[3]` | WEBP is the example preview; a local HTML document owns the table and metric-highlighting interaction |
 | Study · Graph | Reflection over y-axis | `capabilityData.graph.examples[0]` | Preview PNG opens the matching local simulator HTML |
 | Study · Graph | Negative Externality & Pigouvian Tax | `capabilityData.graph.examples[1]` | Preview PNG opens the matching local simulator HTML |
 | Study · Graph | Limits at infinity | `capabilityData.graph.examples[2]` | Preview PNG opens the matching local simulator HTML |

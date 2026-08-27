@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financial analysis</title>
+  <style>
+    :root { color-scheme:light; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; --line:#e1e6ee; --accent:#2368f0; --accent-soft:#edf3ff; --text:#26344a; --muted:#526077; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#fff; color:var(--text); }
+    main { width:min(760px,100%); margin:0 auto; padding:18px; }
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:16px; background:#fff; }
+    table { width:100%; min-width:570px; border-collapse:collapse; color:var(--muted); font-size:11px; }
+    caption { padding:16px 18px 10px; color:#254b86; font-size:11px; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
+    th,td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap; }
+    th { background:#eef4ff; color:#254b86; font-size:10px; font-weight:800; }
+    th:first-child,td:first-child { text-align:left; }
+    tbody tr:last-child td { border-bottom:0; color:#26344a; font-weight:800; }
+    td[data-metric] { transition:background .18s ease,color .18s ease; }
+    td.is-highlighted { background:var(--accent-soft); color:var(--accent); font-weight:800; }
+    td[data-better="true"].is-highlighted { background:#e6f6f0; color:#16855b; }
+    .insights { margin-top:14px; padding:14px; border:1px solid var(--line); border-radius:14px; background:#f8fafd; }
+    .insights h2 { margin:0 0 10px; font-size:14px; }
+    .selector { display:flex; flex-wrap:wrap; gap:8px; }
+    button { min-height:36px; padding:0 12px; border:1px solid var(--line); border-radius:10px; background:#fff; color:#677386; font:650 11px/1 inherit; cursor:pointer; }
+    button.active { border-color:rgba(35,104,240,.46); background:#eef4ff; color:var(--accent); }
+    .readout { margin:11px 1px 0; font-size:11px; line-height:1.45; }
+    @media (max-width:540px) { main { padding:12px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="table-wrap">
+      <table>
+        <caption>Complete vertical analysis · $M and % of revenue</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Voltix ($M)</th><th scope="col">Voltix (%)</th><th scope="col">Circuita ($M)</th><th scope="col">Circuita (%)</th></tr></thead>
+        <tbody>
+          <tr><td>Revenue</td><td>500</td><td>100%</td><td>800</td><td>100%</td></tr>
+          <tr><td>COGS</td><td>350</td><td class="is-highlighted" data-metric="COGS">70%</td><td>480</td><td class="is-highlighted" data-metric="COGS" data-better="true">60%</td></tr>
+          <tr><td>Gross Profit</td><td>150</td><td>30%</td><td>320</td><td>40%</td></tr>
+          <tr><td>Operating Expenses</td><td>100</td><td data-metric="Operating expenses" data-better="true">20%</td><td>240</td><td data-metric="Operating expenses">30%</td></tr>
+          <tr><td>Net Income</td><td>50</td><td data-metric="Net margin">10%</td><td>80</td><td data-metric="Net margin">10%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <section class="insights">
+      <h2>Key insights</h2>
+      <div class="selector"><button class="active" type="button" data-select="COGS">COGS</button><button type="button" data-select="Operating expenses">Operating expenses</button><button type="button" data-select="Net margin">Net margin</button></div>
+      <p class="readout" id="readout">Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.</p>
+    </section>
+  </main>
+  <script>
+    const notes = {
+      COGS:'Circuita manages production costs more efficiently: COGS is 60% of revenue versus 70% for Voltix.',
+      'Operating expenses':'Voltix controls overhead better: operating expenses are 20% of revenue versus 30% for Circuita.',
+      'Net margin':'Both companies reach a 10% net margin; Circuita’s lower COGS is offset by its higher overhead.'
+    };
+    document.querySelector('.selector').addEventListener('click', event => {
+      const button = event.target.closest('[data-select]');
+      if (!button) return;
+      const metric = button.dataset.select;
+      document.querySelectorAll('[data-select]').forEach(item => item.classList.toggle('active',item === button));
+      document.querySelectorAll('[data-metric]').forEach(cell => cell.classList.toggle('is-highlighted',cell.dataset.metric === metric));
+      document.getElementById('readout').textContent = notes[metric];
+    });
+  </script>
+</body>
+</html>
