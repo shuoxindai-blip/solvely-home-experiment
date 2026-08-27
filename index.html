@@ -246,6 +246,10 @@
     .writing-option-chip:hover { background:var(--surface-hover); color:var(--text); }
     .writing-option-chip[aria-pressed="true"] { border-color:rgba(0,122,255,.28); background:rgba(0,122,255,.08); color:#007aff; }
     .writing-option-select { height:34px; padding:0 30px 0 12px; border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); color:var(--text); font:600 12px/1 inherit; }
+    .writing-custom-instruction { flex:1 0 100%; width:100%; height:44px; margin-top:4px; padding:0 14px; border:1px solid var(--line-strong); border-radius:14px; outline:0; background:var(--surface); color:var(--text); font:400 14px/1.4 Inter,ui-sans-serif,system-ui,sans-serif; }
+    .writing-custom-instruction::placeholder { color:var(--subtle); }
+    .writing-custom-instruction:focus { border-color:rgba(0,122,255,.72); box-shadow:0 0 0 3px rgba(0,122,255,.08); }
+    .writing-custom-instruction[hidden] { display:none; }
     .writing-editor-wrap { position:relative; min-height:116px; }
     .writing-editor { width:100%; min-height:76px; padding:0; resize:none; border:0; outline:0; background:transparent; color:var(--text); font:400 16px/24px Inter,ui-sans-serif,system-ui,sans-serif; }
     .writing-editor::placeholder { color:var(--subtle); }
@@ -3249,7 +3253,7 @@
       const writingToolOptions = document.getElementById('writingToolOptions');
       if (key === 'paraphraser') {
         writingToolOptions.hidden = false;
-        writingToolOptions.innerHTML = `<span class="writing-option-label">Style</span>${['Standard','Fluent','Academic','Shorter','Custom'].map((style, index) => `<button class="writing-option-chip" type="button" data-paraphrase-style="${style}" aria-pressed="${index === 0}">${style}</button>`).join('')}`;
+        writingToolOptions.innerHTML = `<span class="writing-option-label">Style</span>${['Standard','Fluent','Academic','Shorter','Custom'].map((style, index) => `<button class="writing-option-chip" type="button" data-paraphrase-style="${style}" aria-pressed="${index === 0}">${style}</button>`).join('')}<input class="writing-custom-instruction" id="paraphraseCustomInstruction" type="text" aria-label="Custom paraphrasing instructions" placeholder="Enter your custom instructions" hidden>`;
       } else if (key === 'aiCitation') {
         writingToolOptions.hidden = false;
         writingToolOptions.innerHTML = `<label class="writing-option-label" for="citationFormat">Format</label><select class="writing-option-select" id="citationFormat" aria-label="Citation format"><option>APA 7th</option><option>MLA</option><option>Chicago</option><option>ASA</option><option>IEEE</option><option>AMA</option><option>Harvard</option></select><label class="writing-option-label" for="citationSourceType">Source type</label><select class="writing-option-select" id="citationSourceType" aria-label="Citation source type"><option>Website</option><option>Book</option><option>Journal Article</option></select>`;
@@ -4880,6 +4884,11 @@
       const option = event.target.closest('[data-paraphrase-style]');
       if (!option) return;
       document.querySelectorAll('[data-paraphrase-style]').forEach(button => button.setAttribute('aria-pressed', String(button === option)));
+      const customInstruction = document.getElementById('paraphraseCustomInstruction');
+      if (!customInstruction) return;
+      const customSelected = option.dataset.paraphraseStyle === 'Custom';
+      customInstruction.hidden = !customSelected;
+      if (customSelected) customInstruction.focus();
     });
     document.getElementById('writingPasteButton').addEventListener('click', async () => {
       try {
