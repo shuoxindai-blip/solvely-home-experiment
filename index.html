@@ -181,7 +181,6 @@
     .workspace { width: min(1040px, calc(100% - 56px)); margin: 0 auto; padding: 26px 0 48px; }
     .workspace[hidden] { display:none; }
     .hero { max-width: 1040px; margin: 20px auto 24px; text-align: center; }
-    .hero-kicker { margin: 0 0 9px; color: var(--accent); font-size: 11px; font-weight: 720; letter-spacing: .11em; text-transform: uppercase; }
     .hero h1 { margin: 0; font-size: clamp(29px, 2.55vw, 36px); line-height: 1.14; letter-spacing: -.04em; font-weight: 720; white-space:nowrap; }
     .workspace-mode-switch { width:max-content; margin:18px auto 0; padding:4px; display:flex; align-items:center; gap:2px; border-radius:999px; background:#f1f2f4; }
     .workspace-mode-button { min-width:112px; height:44px; padding:0 18px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; background:transparent; color:#8b9099; font:650 15px/1 inherit; cursor:pointer; transition:background .18s ease,color .18s ease,box-shadow .18s ease; }
@@ -1716,7 +1715,6 @@
       .course-content-grid { grid-template-columns:1fr; }
       .course-skill-row { grid-template-columns:90px minmax(80px,1fr) 32px; gap:8px; padding-inline:14px; }
       .hero { margin-bottom: 18px; }
-      .hero-kicker { display: block; margin-bottom: 7px; font-size: 10px; }
       .hero h1 { font-size: 28px; }
       .workspace-mode-switch { margin-top:14px; }
       .workspace-mode-button { min-width:100px; height:40px; padding-inline:15px; font-size:14px; }
@@ -1946,8 +1944,7 @@
 
       <div class="workspace" id="homeWorkspace">
         <header class="hero">
-          <p class="hero-kicker">MEET SOLVELY</p>
-          <h1>Your All-in-One AI Study Companion</h1>
+          <h1>Solvely: Your All-in-One Study Companion</h1>
           <div class="workspace-mode-switch" id="workspaceModeSwitch" role="tablist" aria-label="Choose workspace mode">
             <button class="workspace-mode-button" role="tab" aria-selected="true" data-workspace-mode="study"><svg class="icon"><use href="#i-book"/></svg><span>Study</span></button>
             <button class="workspace-mode-button" role="tab" aria-selected="false" data-workspace-mode="exam"><svg class="icon"><use href="#i-target"/></svg><span>Exam Prep</span></button>
