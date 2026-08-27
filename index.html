@@ -3743,16 +3743,18 @@
 
     function updateComposerTools(key) {
       const attachButton = document.getElementById('attachButton');
+      const imageButton = document.getElementById('imageButton');
       const linkButton = document.getElementById('linkButton');
       const calculatorButton = document.getElementById('calculatorButton');
       const modelButton = document.getElementById('modelButton');
       const youtubeCapabilities = ['guide', 'flashcards', 'quiz', 'podcast'];
       const writingCapability = capabilityGroups.writing.includes(key);
-      const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : writingCapability ? 'link' : 'none';
+      const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : 'none';
       const supportsMultipleSources = multiSourceCapabilities.has(key);
 
       attachButton.setAttribute('aria-label', supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
       attachButton.title = supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
+      imageButton.hidden = writingCapability;
       // Phase 1: preserve the calculator implementation while hiding its homepage entry.
       calculatorButton.hidden = true;
       modelButton.hidden = key !== 'solver';
