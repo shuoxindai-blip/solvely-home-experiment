@@ -2781,6 +2781,15 @@
       exam: ['mock'],
       writing: ['research', 'paraphraser', 'plagiarism', 'detector', 'aiCitation', 'humanizer']
     };
+    const writingWordLimitedCapabilities = new Set(['humanizer', 'detector', 'paraphraser']);
+    const writingMinimumWordCapabilities = new Set(['humanizer', 'detector', 'paraphraser', 'plagiarism']);
+    const writingWordLimit = 4000;
+    const writingMinimumWords = 30;
+    const writingCharacterLimit = 300;
+    const writingWordLimitToast = 'You can enter up to 4,000 words. Extra pasted text was removed.';
+    const writingMinimumWordsToast = 'Please enter at least 30 words.';
+    const citationCharacterLimitToast = 'Source input is limited to 300 characters.';
+    const researchCharacterLimitToast = 'Only the first 300 characters were searched - shorten your query for better results.';
     const multiSourceCapabilities = new Set(['flashcards', 'quiz', 'guide', 'podcast', 'mock']);
     const creationSourceLimit = 10;
     const creationSourceLimitToast = 'You can add up to 10 sources to each creation.';
@@ -3841,6 +3850,7 @@
         writingToolOptions.hidden = true;
         writingToolOptions.innerHTML = '';
       }
+      enforceWritingInputLimit();
       renderCapabilities();
       renderExamples();
       const catalog = document.getElementById('examCatalog');
@@ -4293,6 +4303,41 @@
     function pauseDialogAudio() { document.querySelectorAll('#exampleDialog audio').forEach(audio => audio.pause()); }
     function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; pauseDialogAudio(); if (dialog.open) dialog.close(); }
     function updateSubmit() { sendButton.disabled = !promptInput.value.trim() && attachedSourceCount() === 0; }
+    function countWords(value) { return value.trim() ? (value.match(/\S+/g) || []).length : 0; }
+    function truncateToWordLimit(value, limit) {
+      const words = [...value.matchAll(/\S+/g)];
+      if (words.length <= limit) return value;
+      const lastWord = words[limit - 1];
+      return value.slice(0, lastWord.index + lastWord[0].length);
+    }
+    function enforceWritingInputLimit() {
+      if (workspaceMode !== 'writing') return false;
+      if (writingWordLimitedCapabilities.has(selectedCapability) && countWords(promptInput.value) > writingWordLimit) {
+        promptInput.value = truncateToWordLimit(promptInput.value, writingWordLimit);
+        showToast(writingWordLimitToast);
+        return true;
+      }
+      if (selectedCapability === 'aiCitation' && promptInput.value.length > writingCharacterLimit) {
+        promptInput.value = promptInput.value.slice(0, writingCharacterLimit);
+        showToast(citationCharacterLimitToast);
+        return true;
+      }
+      return false;
+    }
+    function validateWritingSubmission() {
+      const value = promptInput.value.trim();
+      if (writingMinimumWordCapabilities.has(selectedCapability) && countWords(value) < writingMinimumWords) {
+        showToast(writingMinimumWordsToast);
+        return false;
+      }
+      if (selectedCapability === 'research' && value.length > writingCharacterLimit) {
+        promptInput.dataset.lastSubmittedValue = value.slice(0, writingCharacterLimit);
+        showToast(researchCharacterLimitToast);
+        return false;
+      }
+      promptInput.dataset.lastSubmittedValue = value;
+      return true;
+    }
     function showToast(message) {
       clearTimeout(toastTimer);
       toast.textContent = message;
@@ -4590,7 +4635,12 @@
       document.getElementById('calculatorDisplay').textContent = calcExpression || '0';
     }
 
-    promptInput.addEventListener('input', () => { promptInput.style.height = 'auto'; promptInput.style.height = `${Math.min(promptInput.scrollHeight, 160)}px`; updateSubmit(); });
+    promptInput.addEventListener('input', () => {
+      enforceWritingInputLimit();
+      promptInput.style.height = 'auto';
+      promptInput.style.height = `${Math.min(promptInput.scrollHeight, 160)}px`;
+      updateSubmit();
+    });
     function inferStudyCapability(value) {
       const prompt = value.toLowerCase();
       if (/\b(graph|plot|chart|visuali[sz]e|coordinate|parabola)\b/.test(prompt)) return 'graph';
@@ -4606,6 +4656,7 @@
     sendButton.addEventListener('click', () => {
       if (sendButton.disabled) return;
       if (workspaceMode === 'writing') {
+        if (!validateWritingSubmission()) return;
         showToast(`${capabilityData[selectedCapability].action} started with Solvely AI`);
         return;
       }
