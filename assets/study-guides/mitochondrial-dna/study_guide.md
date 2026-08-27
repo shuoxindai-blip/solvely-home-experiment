@@ -1,13 +1,3 @@
-# Demo Case: Mitochondrial DNA notes
-
-- Study Guide ID: `1014279`
-- Deck ID: `1744239`
-- Platform: `web`
-- Generated images: **5**
-- User identity: **Anonymized real user**
-
----
-
 # Stable and Dynamic Mutations
 
 ## Mutation stability and repeat diseases

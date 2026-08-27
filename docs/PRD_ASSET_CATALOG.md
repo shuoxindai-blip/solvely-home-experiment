@@ -165,7 +165,7 @@
 
 - 页面/模块：Study · Study Guide
 - 场景：Mitochondrial DNA 学习笔记
-- 代码入口：`capabilityData.guide` · `studyGuideId=1014279`
+- 代码入口：`capabilityData.guide.examples[0]` / `renderStudyGuideMarkdown()`
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
@@ -184,7 +184,7 @@
 
 - 页面/模块：Study · Study Guide
 - 场景：Unit 1 Prehistoric Art
-- 代码入口：`capabilityData.guide` · `studyGuideId=1014115`
+- 代码入口：`capabilityData.guide.examples[1]` / `renderStudyGuideMarkdown()`
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
@@ -200,7 +200,7 @@
 
 - 页面/模块：Study · Study Guide
 - 场景：犯罪定义与刑事责任
-- 代码入口：`capabilityData.guide` · `studyGuideId=1007930`
+- 代码入口：`capabilityData.guide.examples[2]` / `renderStudyGuideMarkdown()`
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|

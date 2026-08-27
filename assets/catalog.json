@@ -172,7 +172,7 @@
       "id": "study.guide.mitochondrial-dna",
       "surface": "Study · Study Guide",
       "scenario": "Mitochondrial DNA notes",
-      "implementation": "capabilityData.guide · studyGuideId 1014279",
+      "implementation": "capabilityData.guide.examples[0] / renderStudyGuideMarkdown()",
       "files": [
         { "path": "assets/study-guides/mitochondrial-dna/study_guide.md", "role": "Full source guide", "status": "runtime" },
         { "path": "assets/study-guides/mitochondrial-dna/repeat-replication.webp", "role": "Section-card image — repeat replication", "status": "runtime" },
@@ -190,7 +190,7 @@
       "id": "study.guide.prehistoric-art",
       "surface": "Study · Study Guide",
       "scenario": "Unit 1 Prehistoric Art",
-      "implementation": "capabilityData.guide · studyGuideId 1014115",
+      "implementation": "capabilityData.guide.examples[1] / renderStudyGuideMarkdown()",
       "files": [
         { "path": "assets/study-guides/prehistoric-art/study_guide.md", "role": "Full source guide", "status": "runtime" },
         { "path": "assets/study-guides/prehistoric-art/lascaux.webp", "role": "Section-card image — Lascaux", "status": "runtime" },
@@ -205,7 +205,7 @@
       "id": "study.guide.law-crime",
       "surface": "Study · Study Guide",
       "scenario": "Definitions of crime and criminal responsibility",
-      "implementation": "capabilityData.guide · studyGuideId 1007930",
+      "implementation": "capabilityData.guide.examples[2] / renderStudyGuideMarkdown()",
       "files": [
         { "path": "assets/study-guides/law-crime/study_guide.md", "role": "Full source guide", "status": "runtime" },
         { "path": "assets/study-guides/law-crime/image_01.webp", "role": "Dark figure of crime diagram", "status": "runtime" },

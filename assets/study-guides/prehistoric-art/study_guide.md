@@ -1,15 +1,3 @@
-# Demo Case: Prehistoric Art History
-
-- Original Study Set: `Unit 1 Prehistoric Art Study Guide`
-- Study Guide ID: `1014115`
-- Deck ID: `1744078`
-- Subject: **Art History / Prehistoric History**
-- Platform: `web`
-- Generated images: **3**
-- User identity: **Anonymized real user**
-
----
-
 # Prehistoric Art Context
 
 ## Periods, Evidence, and Global Scope

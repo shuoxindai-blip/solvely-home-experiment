@@ -541,8 +541,6 @@
     .guide-dialog-summary small { color:var(--accent); font-size:9px; font-weight:780; letter-spacing:.08em; text-transform:uppercase; }
     .guide-dialog-summary strong { font-size:19px; line-height:1.25; letter-spacing:-.02em; }
     .guide-dialog-summary p { margin:0; color:var(--muted); font-size:11px; line-height:1.55; }
-    .guide-dialog-meta { display:flex; flex-wrap:wrap; gap:6px; }
-    .guide-dialog-meta span { padding:5px 7px; border-radius:7px; background:var(--surface); color:var(--muted); font-size:8px; font-weight:680; }
     .study-guide-player { display:grid; grid-template-columns:210px minmax(0,1fr); gap:18px; }
     .guide-section-nav { display:grid; align-content:start; gap:7px; }
     .guide-progress { display:grid; gap:6px; margin-bottom:5px; }
@@ -2440,7 +2438,7 @@
             tag:'Genetics', title:'Mitochondrial DNA notes', description:'Repeat mutations, genomic imprinting, and mitochondrial inheritance.',
             prompt:'Create a study guide from my notes on repeat mutations, genomic imprinting, and mitochondrial inheritance.', preview:'guide',
             coverImage:'assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp', coverAlt:'Prader–Willi syndrome mechanisms including deletion, maternal uniparental disomy, and a methylation defect',
-            studyGuideId:'1014279', deckId:'1744239', sourceLabel:'3 chapters · 5 source images', markdown:'assets/study-guides/mitochondrial-dna/study_guide.md',
+            markdown:'assets/study-guides/mitochondrial-dna/study_guide.md',
             sections:[
               { title:'Stable and Dynamic Mutations', summary:'Understand why repeat variants can expand or contract during transmission and how slippage changes disease severity.', image:'assets/study-guides/mitochondrial-dna/repeat-replication.webp', alt:'Normal trinucleotide repeat replication diagram', bullets:['Stable mutations remain unchanged across generations, while dynamic mutations can expand or contract.','Forward slippage deletes a repeat unit; backward slippage inserts repeats and can cause expansion.','Anticipation describes earlier onset or greater severity after successive repeat expansions.'], terms:['Repeat disease','Strand slippage','Anticipation'] },
               { title:'Genomic Imprinting', summary:'Connect parent-of-origin expression with epigenetic methylation, imprint resetting, and disease risk.', image:'assets/study-guides/mitochondrial-dna/imprinting-reset.webp', alt:'Imprint erasure and sex-specific resetting diagram', bullets:['An imprinted allele is expressed according to whether it came from the mother or father.','Imprints are established during gametogenesis, maintained through replication, and reset in germ cells.','Loss of the functional paternal region on chromosome 15 can cause Prader–Willi syndrome.'], terms:['CpG methylation','Allele-specific expression','Prader–Willi'] },
@@ -2450,7 +2448,7 @@
           {
             tag:'Art History', title:'Unit 1 Prehistoric Art Study Guide', description:'Periods, landmark works, materials, and high-yield analysis terms.',
             prompt:'Create a study guide for Unit 1 Prehistoric Art with landmark works, materials, and analysis vocabulary.', preview:'guide',
-            studyGuideId:'1014115', deckId:'1744078', sourceLabel:'3 chapters · 3 source images', markdown:'assets/study-guides/prehistoric-art/study_guide.md',
+            markdown:'assets/study-guides/prehistoric-art/study_guide.md',
             sections:[
               { title:'Prehistoric Art Context', summary:'Place Paleolithic, Mesolithic, and Neolithic art in a global context before written records.', image:'assets/study-guides/prehistoric-art/lascaux.webp', alt:'Great Hall of the Bulls at Lascaux', bullets:['Paleolithic art reflects hunter-gatherer life; Mesolithic societies were transitioning; Neolithic communities settled and farmed.','Carbon-14 dating and stratigraphy provide evidence when written records do not exist.','Prehistoric art appeared worldwide through ritual objects, ceramics, figurines, cave paintings, and sacred imagery.'], terms:['Paleolithic','Neolithic','Context'] },
               { title:'Major Works and Materials', summary:'Compare landmark works by location, date, material, technique, and possible ritual function.', image:'assets/study-guides/prehistoric-art/stonehenge.webp', alt:'Stonehenge prehistoric monument', bullets:['Lascaux and Tassili n’Ajjer demonstrate pigment-based rock painting and superimposed imagery.','Jade Cong, Stonehenge, the Ambum stone, and funerary steles use durable carved materials.','Ceramic traditions include the Susa beaker, Tlatilco figurines, and incised Lapita fragments.'], terms:['Megalith','Incised','Terra cotta'] },
@@ -2460,7 +2458,7 @@
           {
             tag:'Law', title:'Defining Crime & Criminal Justice', description:'Crime definitions, legal responsibility, data sources, and victimization.',
             prompt:'Create a law study guide covering definitions of crime, criminal responsibility, crime statistics, and victimization.', preview:'guide',
-            studyGuideId:'1007930', deckId:'1737661', sourceLabel:'6 chapters · 2 source images', markdown:'assets/study-guides/law-crime/study_guide.md',
+            markdown:'assets/study-guides/law-crime/study_guide.md',
             sections:[
               { title:'Defining Crime & Criminal Responsibility', summary:'Compare social and legal definitions of crime, then connect actus reus, mens rea, causation, concurrence, and punishment.', image:'assets/study-guides/law-crime/image_01.webp', alt:'Dark figure of crime diagram', bullets:['Social definitions depend on changing norms, while legal definitions focus on intentional penal-code violations.','A complete crime connects harm, legality, actus reus, mens rea, causation, concurrence, and punishment.','Defenses and excuses can reduce or remove criminal responsibility.'], terms:['Actus reus','Mens rea','Legality'] },
               { title:'Crime Statistics & the Dark Figure', summary:'Understand why official crime statistics miss some offenses and how accuracy changes from commission to imprisonment.', image:'assets/study-guides/law-crime/image_01.webp', alt:'Dark figure of crime diagram', bullets:['Undetected, unreported, and unrecorded crime creates the dark figure.','Crime indexes become less accurate farther from the original offense.','Rates make comparisons more meaningful across populations and time.'], terms:['Dark figure','Crime rate','Crime index'] },
@@ -2901,7 +2899,7 @@
     function guideDialogPreview(example) {
       const sections = example && Array.isArray(example.sections) ? example.sections : [];
       const firstSection = sections[0] || { title:'Study guide', summary:example.description, image:'', alt:'Study guide cover' };
-      return `<div class="guide-dialog-hero" data-guide-hero><div class="guide-dialog-figure"><img src="${firstSection.image}" alt="${firstSection.alt}" data-guide-image /></div><div class="guide-dialog-summary"><small>Generated from study materials</small><strong data-guide-hero-title>${firstSection.title}</strong><p data-guide-hero-summary>${firstSection.summary}</p><div class="guide-dialog-meta"><span>${example.sourceLabel}</span><span>Guide ${example.studyGuideId}</span><span>Deck ${example.deckId}</span></div></div></div>`;
+      return `<div class="guide-dialog-hero" data-guide-hero><div class="guide-dialog-figure"><img src="${firstSection.image}" alt="${firstSection.alt}" data-guide-image /></div><div class="guide-dialog-summary"><small>Generated from study materials</small><strong data-guide-hero-title>${firstSection.title}</strong><p data-guide-hero-summary>${firstSection.summary}</p></div></div>`;
     }
 
     function escapeMarkdownHtml(value = '') {
