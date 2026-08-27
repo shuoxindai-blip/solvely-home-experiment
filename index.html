@@ -924,14 +924,6 @@
     .solution-step small { color:var(--muted); line-height:1.35; }
     .solution-step.active { border-color:rgba(var(--accent-rgb),.5); background:var(--accent-soft); }
     .solution-step.active span { background:var(--accent); color:#fff; }
-    .preview-step-solution { height:104px; display:grid; grid-template-columns:minmax(0,1fr) 118px; gap:10px; padding:10px; background:linear-gradient(145deg,#f2fbf5,#f7faff); }
-    .preview-step-copy { min-width:0; display:grid; align-content:center; gap:6px; padding:7px 8px; border:1px solid rgba(32,153,99,.16); border-radius:10px; background:#fff; box-shadow:0 6px 16px rgba(43,74,63,.06); }
-    .preview-step-copy small { color:#16865d; font-size:6px; font-weight:780; letter-spacing:.08em; }
-    .preview-step-copy strong { color:#1c2735; font-size:12px; line-height:1.2; }
-    .preview-step-copy span { color:#687587; font-size:6.5px; line-height:1.35; }
-    .preview-step-list { display:grid; align-content:center; gap:5px; }
-    .preview-step-list span { display:grid; grid-template-columns:14px minmax(0,1fr); align-items:center; gap:5px; color:#566477; font-size:5.5px; }
-    .preview-step-list b { width:14px; height:14px; display:grid; place-items:center; border-radius:5px; background:#eaf2ff; color:#2368f0; font-size:6px; }
     .example-dialog[data-mode="step-solution"] .dialog-body { padding:18px 20px 22px; background:#f7f9fc; }
     .example-dialog[data-mode="step-solution"] .dialog-preview { overflow:visible; border:0; background:transparent; }
     .example-dialog[data-mode="step-solution"] .dialog-interaction { margin-top:18px; padding:0; border:0; background:transparent; }
@@ -991,14 +983,34 @@
     .solver-step-content .solver-feature-table-wrap { margin-top:9px; }
     .solver-answer-actions { display:flex; gap:7px; padding:3px 1px 0; }
     .solver-answer-actions button.active { border-color:#70a0ef; background:#eaf2ff; color:#2368f0; }
-    .preview-step-solution { display:block; padding:9px; background:#f5f7fb; }
-    .preview-solution-sheet { height:100%; display:grid; grid-template-columns:68px minmax(0,1fr); grid-template-rows:auto auto 1fr; gap:4px 8px; padding:8px 10px; overflow:hidden; border:1px solid #e5e9ef; border-radius:10px; background:#fff; box-shadow:0 5px 14px rgba(36,48,75,.05); }
-    .preview-solution-final { align-self:start; color:#36bd24; font-size:6.5px; font-weight:800; }
-    .preview-solution-answer { align-self:start; color:#1f2937; font-size:9px; font-weight:800; }
-    .preview-solution-explanation { grid-column:1 / -1; color:#1683ed; font-size:6.5px; font-weight:800; }
-    .preview-solution-steps { grid-column:1 / -1; display:grid; gap:3px; }
-    .preview-solution-steps span { display:grid; grid-template-columns:12px minmax(0,1fr); align-items:center; gap:5px; color:#657184; font-size:5px; line-height:1.2; }
-    .preview-solution-steps b { width:12px; height:12px; display:grid; place-items:center; border-radius:50%; background:#e9f2ff; color:#2368f0; font-size:5px; }
+    .preview-step-solution { display:block; padding:8px; background:#fff; }
+    .preview-solution-sheet { height:100%; display:flex; flex-direction:column; gap:5px; padding:8px 9px; overflow:hidden; border:1px solid #e2e8f1; border-radius:10px; background:#fff; box-shadow:0 5px 14px rgba(36,48,75,.045); transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease; }
+    .example-card:hover .preview-solution-sheet { border-color:#cdd9eb; box-shadow:0 7px 17px rgba(35,104,240,.08); transform:translateY(-1px); }
+    .preview-solution-answer-row { display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:5px; border-bottom:1px solid #edf1f5; }
+    .preview-solution-final { color:#16865d; font-size:6.5px; font-weight:800; }
+    .preview-solution-answer { min-width:38px; padding:3px 6px; border:1px solid #cce9d8; border-radius:6px; background:#f1fbf5; color:#147452; font-size:8.5px; font-weight:800; text-align:center; }
+    .preview-solution-explanation { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#2368f0; }
+    .preview-solution-explanation strong { font-size:6.5px; font-weight:800; }
+    .preview-solution-explanation span { color:#7a8798; font-size:5px; font-weight:650; }
+    .preview-solution-steps { position:relative; display:grid; gap:3px; }
+    .preview-solution-steps::before { content:""; position:absolute; left:5.5px; top:6px; bottom:6px; width:1px; background:#dce8fb; }
+    .preview-solution-steps span { position:relative; z-index:1; display:grid; grid-template-columns:12px minmax(0,1fr); align-items:center; gap:6px; min-height:12px; color:#536174; line-height:1.2; }
+    .preview-solution-steps b { width:12px; height:12px; display:grid; place-items:center; border-radius:50%; background:#eaf2ff; color:#2368f0; box-shadow:0 0 0 2px #fff; font-size:5px; }
+    .preview-solution-steps strong { overflow:hidden; font-size:5.15px; font-weight:640; text-overflow:ellipsis; white-space:nowrap; }
+    @media (prefers-reduced-motion: reduce) { .preview-solution-sheet { transition:none; } .example-card:hover .preview-solution-sheet { transform:none; } }
+    @media (max-width:680px) {
+      .preview-solution-sheet { justify-content:center; gap:8px; padding:13px 14px; }
+      .preview-solution-answer-row { padding-bottom:8px; }
+      .preview-solution-final { font-size:8.5px; }
+      .preview-solution-answer { min-width:48px; padding:4px 8px; font-size:11px; }
+      .preview-solution-explanation strong { font-size:8.5px; }
+      .preview-solution-explanation span { font-size:6.5px; }
+      .preview-solution-steps { gap:6px; }
+      .preview-solution-steps::before { left:7.5px; top:8px; bottom:8px; }
+      .preview-solution-steps span { grid-template-columns:16px minmax(0,1fr); gap:8px; min-height:16px; }
+      .preview-solution-steps b { width:16px; height:16px; font-size:6.5px; }
+      .preview-solution-steps strong { font-size:7px; }
+    }
     .example-dialog[data-mode="step-solution"] .dialog-body { position:relative; background:#fff; }
     .recording-answer-page { color:#20242a; }
     .recording-question-image { width:min(62%,560px); max-height:330px; display:block; margin:0 0 18px auto; object-fit:contain; border-radius:14px; }
@@ -3117,7 +3129,11 @@
 
     function solverStepSolutionPreview() {
       return `<div class="example-preview preview-step-solution">
-        <div class="preview-solution-sheet"><strong class="preview-solution-final">Final Answer</strong><span class="preview-solution-answer">✓ C. 30</span><strong class="preview-solution-explanation">Explanation</strong><div class="preview-solution-steps"><span><b>1</b>Understand angle properties</span><span><b>2</b>Solve for the variable t</span><span><b>3</b>Solve for r and verify</span></div></div>
+        <div class="preview-solution-sheet">
+          <div class="preview-solution-answer-row"><span class="preview-solution-final">Final Answer</span><strong class="preview-solution-answer">C. 30</strong></div>
+          <div class="preview-solution-explanation"><strong>Explanation</strong><span>3 clear steps</span></div>
+          <div class="preview-solution-steps"><span><b>1</b><strong>Use angle properties</strong></span><span><b>2</b><strong>Solve t = 25</strong></span><span><b>3</b><strong>Find r = 30 and verify</strong></span></div>
+        </div>
       </div>`;
     }
 
