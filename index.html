@@ -3252,7 +3252,7 @@
         writingToolOptions.innerHTML = `<span class="writing-option-label">Style</span>${['Standard','Fluent','Academic','Shorter','Custom'].map((style, index) => `<button class="writing-option-chip" type="button" data-paraphrase-style="${style}" aria-pressed="${index === 0}">${style}</button>`).join('')}`;
       } else if (key === 'aiCitation') {
         writingToolOptions.hidden = false;
-        writingToolOptions.innerHTML = `<label class="writing-option-label" for="citationFormat">Format</label><select class="writing-option-select" id="citationFormat" aria-label="Citation format"><option>APA 7th</option><option>MLA 9th</option><option>Chicago</option><option>Harvard</option></select><label class="writing-option-label" for="citationSourceType">Source type</label><select class="writing-option-select" id="citationSourceType" aria-label="Citation source type"><option>Website</option><option>Journal article</option><option>Book</option><option>Video</option></select>`;
+        writingToolOptions.innerHTML = `<label class="writing-option-label" for="citationFormat">Format</label><select class="writing-option-select" id="citationFormat" aria-label="Citation format"><option>APA 7th</option><option>MLA</option><option>Chicago</option><option>ASA</option><option>IEEE</option><option>AMA</option><option>Harvard</option></select><label class="writing-option-label" for="citationSourceType">Source type</label><select class="writing-option-select" id="citationSourceType" aria-label="Citation source type"><option>Website</option><option>Book</option><option>Journal Article</option></select>`;
       } else {
         writingToolOptions.hidden = true;
         writingToolOptions.innerHTML = '';
