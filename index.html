@@ -266,7 +266,7 @@
     .research-entry-footer { margin-top:8px; padding-top:8px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--line); }
     .research-samples-label { margin:12px 10px 6px; color:var(--muted); font-size:13px; }
     .research-samples { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-    .research-sample-card { min-height:112px; padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; box-shadow:0 0 12px rgba(96,120,255,.04); }
+    .research-sample-card { width:100%; min-height:112px; padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:var(--surface); color:var(--text); text-align:left; cursor:pointer; box-shadow:0 0 12px rgba(96,120,255,.04); transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
     .research-sample-card:hover { border-color:rgba(0,122,255,.32); transform:translateY(-1px); }
     .research-sample-card .icon { width:20px; height:20px; margin-bottom:5px; color:#007aff; }
     .research-sample-card strong, .research-sample-card span { display:block; }
@@ -391,10 +391,14 @@
     .geogebra-attribution a { color:inherit; text-decoration:none; }
 
     .examples-section { margin-top: 28px; }
+    .examples-section.research-suggestions .examples-heading { align-items:center; }
+    .examples-section.research-suggestions .examples-copy h2 { font-size:18px; font-weight:650; }
+    .examples-section.research-suggestions .research-sample-card:hover { box-shadow:var(--shadow-soft); }
     .examples-heading { display: flex; align-items: flex-end; gap: 24px; margin-bottom: 13px; }
     .examples-heading[hidden] { display:none; }
     .examples-copy { min-width: 0; }
     .examples-copy span { display: block; margin-bottom: 4px; color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .examples-copy span[hidden] { display:none; }
     .examples-copy h2 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
     .examples-description { margin-left: auto; max-width: 430px; color: var(--muted); font-size: 12px; line-height: 1.45; text-align: right; }
     .multi-model-proof { margin-left:auto; display:flex; align-items:center; gap:10px; min-width:0; padding:7px 10px 7px 9px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.72); box-shadow:0 4px 14px rgba(32,49,83,.06); }
@@ -2620,14 +2624,17 @@
     };
 
     const writingToolData = {
-      humanizer: { label:'Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste AI-generated text here, upload a file, or try a sample', description:'Humanize your text to see the result here.', examples:[] },
-      detector: { label:'Detector', icon:'i-search', action:'Check for AI', placeholder:'Paste AI-generated text here, upload a file, or try a sample', description:'Run AI detection to see the analysis here.', examples:[] },
-      paraphraser: { label:'AI Paraphraser', icon:'i-wand', action:'Paraphrase', placeholder:'Paste your text here to paraphrase it...', description:'Paraphrase your text to see the result here.', examples:[] },
-      plagiarism: { label:'Plagiarism Checker', icon:'i-exam', action:'Check plagiarism', placeholder:'Paste your text here to check for matching content...', description:'Check your text to see the plagiarism result here.', examples:[] },
-      aiCitation: { label:'AI Citation', icon:'i-book', action:'Create citation', placeholder:'Paste source details, a DOI, or a URL here...', description:'Create a citation to see the formatted result here.', examples:[] },
+      humanizer: { label:'Humanizer', icon:'i-wand', action:'Humanize', placeholder:'Paste AI-generated text to make it sound more natural', description:'Humanize your text to see the result here.', examples:[] },
+      detector: { label:'Detector', icon:'i-search', action:'Check for AI', placeholder:'Paste text to check whether it may be AI-generated', description:'Run AI detection to see the analysis here.', examples:[] },
       research: { label:'Research', icon:'i-search', action:'Search', placeholder:'Enter your topic, research question, or assignment prompt to start searching for credible sources.', description:'Run AI research to see a structured result here.', examples:[] }
     };
     Object.assign(capabilityData, writingToolData);
+
+    const researchSuggestions = [
+      { label:'Topic', icon:'i-search', prompt:'Educational data science in higher education' },
+      { label:'Assignment', icon:'i-book', prompt:'Write a literature review examining the relationship between social media use and student wellbeing.' },
+      { label:'Question', icon:'i-chat', prompt:'How does sleep paralysis affect mental wellbeing?' }
+    ];
 
     const examCoursePackages = [
       {family:'sat',label:'SAT',title:'SAT Prep 2026',topics:'100+',videos:'100+',questions:'4,800+',search:'digital college admissions math reading writing'},
@@ -3184,9 +3191,8 @@
     function selectWorkspaceMode(mode, announce = true) {
       if (!capabilityGroups[mode]) return;
       workspaceMode = mode;
-      document.getElementById('composerShell').classList.toggle('writing-layout', mode === 'writing');
+      document.getElementById('composerShell').classList.remove('writing-layout');
       capabilityStrip.hidden = mode === 'exam';
-      document.querySelector('.examples-section').hidden = mode === 'writing';
       document.querySelectorAll('[data-workspace-mode]').forEach(button => {
         button.setAttribute('aria-selected', String(button.dataset.workspaceMode === mode));
       });
@@ -3243,9 +3249,42 @@
 
     function renderExamples() {
       const capability = capabilityData[selectedCapability];
+      const examplesSection = document.querySelector('.examples-section');
+      const examplesKicker = document.getElementById('examplesKicker');
+
+      if (workspaceMode === 'writing') {
+        const isResearch = selectedCapability === 'research';
+        examplesSection.hidden = !isResearch;
+        examplesSection.classList.toggle('research-suggestions', isResearch);
+        if (!isResearch) {
+          examplesGrid.innerHTML = '';
+          return;
+        }
+        examplesHeading.hidden = false;
+        examplesKicker.hidden = true;
+        examplesTitle.hidden = false;
+        examplesTitle.textContent = 'Or, try searching for:';
+        examplesDescription.hidden = true;
+        multiModelProof.hidden = true;
+        examplesGrid.className = 'examples-grid';
+        examplesGrid.innerHTML = researchSuggestions.map((suggestion, index) => `
+          <button class="research-sample-card" type="button" data-research-suggestion="${index}" aria-label="Use research suggestion: ${suggestion.prompt}">
+            ${icon(suggestion.icon)}<strong>${suggestion.label}</strong><span>${suggestion.prompt}</span>
+          </button>`).join('');
+        examplesGrid.querySelectorAll('[data-research-suggestion]').forEach(button => button.addEventListener('click', () => {
+          promptInput.value = researchSuggestions[Number(button.dataset.researchSuggestion)].prompt;
+          promptInput.dispatchEvent(new Event('input', { bubbles:true }));
+          promptInput.focus();
+        }));
+        return;
+      }
+
+      examplesSection.hidden = false;
+      examplesSection.classList.remove('research-suggestions');
       const isExamPrepOverview = selectedCapability === 'mock';
       examplesHeading.hidden = false;
-      document.getElementById('examplesKicker').textContent = 'Selected capability';
+      examplesKicker.hidden = false;
+      examplesKicker.textContent = 'Selected capability';
       examplesTitle.hidden = false;
       examplesTitle.textContent = selectedCapability === 'mock' ? 'Exam prep plan' : `${capability.label} examples`;
       examplesDescription.textContent = capability.description;
@@ -4534,6 +4573,10 @@
     promptInput.addEventListener('keydown', event => { if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !sendButton.disabled) sendButton.click(); });
     sendButton.addEventListener('click', () => {
       if (sendButton.disabled) return;
+      if (workspaceMode === 'writing') {
+        showToast(`${capabilityData[selectedCapability].action} started with Solvely AI`);
+        return;
+      }
       if (!selectedCapability) {
         const inferredCapability = inferStudyCapability(promptInput.value);
         selectCapability(inferredCapability, true);
