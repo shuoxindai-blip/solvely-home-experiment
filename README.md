@@ -2,6 +2,13 @@
 
 This is a dependency-free static prototype. All page structure, interactions, and SVG interface graphics are implemented in `index.html`; supporting images are stored in `assets/`.
 
+## Developer handoff
+
+- Product behavior and example data live in `index.html`, primarily under `capabilityData`.
+- The complete page-to-source mapping is documented in [`docs/ASSET_HANDOFF.md`](docs/ASSET_HANDOFF.md).
+- [`assets/catalog.json`](assets/catalog.json) is the machine-readable source of truth for all local assets, including inactive and phase-2 references.
+- Before committing asset changes, run `node scripts/check-assets.mjs` to catch missing files, unindexed files, broken runtime references, and assets not yet tracked by Git or uploaded upstream.
+
 ## Preview locally
 
 From this folder, run:

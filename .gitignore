@@ -1,3 +1,5 @@
 .vercel
 .env*
 .design-evidence/
+.playwright-cli/
+output/

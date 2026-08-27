@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "entrypoint": "index.html",
+  "statusDefinitions": {
+    "runtime": "Loaded by the current prototype.",
+    "source": "Original source retained for editing or regeneration; not loaded directly.",
+    "reference": "Approved alternative or inactive example retained for handoff.",
+    "phase_2": "Reserved for Exam Prep or Diagnostic phase 2; not part of phase 1 implementation."
+  },
+  "groups": [
+    {
+      "id": "global.mobile-download",
+      "surface": "Global header",
+      "scenario": "Mobile app download entry and QR popover",
+      "implementation": "index.html · .app-download / .app-store-link",
+      "files": [
+        { "path": "assets/download-on-app-store.svg", "role": "App Store badge", "status": "runtime" },
+        { "path": "assets/get-it-on-google-play-trimmed.png", "role": "Google Play badge used in UI", "status": "runtime" },
+        { "path": "assets/get-it-on-google-play.png", "role": "Uncropped Google Play source", "status": "source" },
+        { "path": "assets/solvely-mobile-qr.svg", "role": "Shared app-download QR code", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.solver.parabola-intersection",
+      "surface": "Study · Solver",
+      "scenario": "Interactive graph — Parabola & Linear Intersection",
+      "implementation": "capabilityData.solver.examples[0]",
+      "files": [
+        { "path": "assets/solver-parabola-intersection-cover.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/simulators/parabola-linear-intersection.html", "role": "Interactive detail experience", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.solver.intersecting-circles",
+      "surface": "Study · Solver",
+      "scenario": "Video explanation — Intersecting Circles",
+      "implementation": "capabilityData.solver.examples[1]",
+      "files": [
+        { "path": "assets/solver-video-intersecting-circles.png", "role": "Example-card preview", "status": "runtime" }
+      ],
+      "externalDetail": "Remote Solvely video-player HTML URL in capabilityData"
+    },
+    {
+      "id": "study.solver.chemistry-structure",
+      "surface": "Study · Solver",
+      "scenario": "Structure visualization — Chemistry",
+      "implementation": "capabilityData.solver.examples[2]",
+      "files": [
+        { "path": "assets/solver-chemistry-structure-cover.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/chemistry-structure.png", "role": "Original compact chemistry reference", "status": "source" }
+      ],
+      "externalDetail": "Three remote chemistry structure images in capabilityData.structures"
+    },
+    {
+      "id": "study.solver.financial-analysis",
+      "surface": "Study · Solver",
+      "scenario": "Financial Analysis — Vertical Analysis",
+      "implementation": "capabilityData.solver.examples[3] / accountingPreview()",
+      "files": [
+        { "path": "assets/solver-financial-analysis-cover.webp", "role": "Example-card preview", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.graph.reflection",
+      "surface": "Study · Graph",
+      "scenario": "Reflection over the y-axis",
+      "implementation": "capabilityData.graph.examples[0]",
+      "files": [
+        { "path": "assets/graph-reflection-over-y-axis.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/simulators/reflection-over-y-axis.html", "role": "Interactive detail experience", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.graph.negative-externality",
+      "surface": "Study · Graph",
+      "scenario": "Negative Externality & Pigouvian Tax",
+      "implementation": "capabilityData.graph.examples[1]",
+      "files": [
+        { "path": "assets/graph-negative-externality.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/simulators/negative-externality-pigouvian-tax.html", "role": "Interactive detail experience", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.graph.limits-at-infinity",
+      "surface": "Study · Graph",
+      "scenario": "Limits at infinity",
+      "implementation": "capabilityData.graph.examples[2]",
+      "files": [
+        { "path": "assets/graph-limits-at-infinity.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/simulators/limits-at-infinity.html", "role": "Interactive detail experience", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.video.examples",
+      "surface": "Study · Video",
+      "scenario": "Video example cards",
+      "implementation": "capabilityData.video / videoPreview()",
+      "files": [
+        { "path": "assets/video-physics.png", "role": "Velocity & Distance Analysis preview", "status": "runtime" },
+        { "path": "assets/video-statistics.png", "role": "Reading a BMI Dotplot preview", "status": "runtime" },
+        { "path": "assets/video-geometry.png", "role": "3D Shapes & Nets preview", "status": "runtime" }
+      ],
+      "externalDetail": "Each example opens a remote Solvely video-player HTML URL"
+    },
+    {
+      "id": "study.flashcards.examples",
+      "surface": "Study · Flashcards",
+      "scenario": "Flashcard example decks",
+      "implementation": "capabilityData.flashcards",
+      "files": [
+        { "path": "assets/flashcards/kidney-anatomy.webp", "role": "Human Anatomy card image", "status": "runtime" },
+        { "path": "assets/flashcards/radial-gravitational-field.webp", "role": "Gravitational Field card image", "status": "runtime" },
+        { "path": "assets/flashcards/biological-psychology-motor-hierarchy.webp", "role": "Biological Psychology card image", "status": "runtime" },
+        { "path": "assets/flashcards/sankey-diagram.webp", "role": "Inactive energy-flow flashcard reference", "status": "reference" }
+      ]
+    },
+    {
+      "id": "study.quiz.examples",
+      "surface": "Study · Quiz",
+      "scenario": "Quiz example questions",
+      "implementation": "capabilityData.quiz",
+      "files": [
+        { "path": "assets/quizzes/blood-glucose-feedback.webp", "role": "Blood Glucose Negative Feedback question", "status": "runtime" },
+        { "path": "assets/quizzes/fish-apparent-depth.webp", "role": "Refraction & Apparent Depth question", "status": "runtime" },
+        { "path": "assets/quizzes/ionic-crystal-lattice.webp", "role": "Ionic Crystal Lattice question", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.guide.mitochondrial-dna",
+      "surface": "Study · Study Guide",
+      "scenario": "Mitochondrial DNA notes",
+      "implementation": "capabilityData.guide · studyGuideId 1014279",
+      "files": [
+        { "path": "assets/study-guides/mitochondrial-dna/study_guide.md", "role": "Full source guide", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/repeat-replication.webp", "role": "Section-card image — repeat replication", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/imprinting-reset.webp", "role": "Section-card image — imprinting reset", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp", "role": "Section-card image — Prader–Willi mechanisms", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/maternal-inheritance.svg", "role": "Section-card image — maternal inheritance", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/images/image_01.webp", "role": "Markdown image 01", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/images/image_02.webp", "role": "Markdown image 02", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/images/image_03.webp", "role": "Markdown image 03", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/images/image_04.webp", "role": "Markdown image 04", "status": "runtime" },
+        { "path": "assets/study-guides/mitochondrial-dna/images/image_05.webp", "role": "Markdown image 05", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.guide.prehistoric-art",
+      "surface": "Study · Study Guide",
+      "scenario": "Unit 1 Prehistoric Art",
+      "implementation": "capabilityData.guide · studyGuideId 1014115",
+      "files": [
+        { "path": "assets/study-guides/prehistoric-art/study_guide.md", "role": "Full source guide", "status": "runtime" },
+        { "path": "assets/study-guides/prehistoric-art/lascaux.webp", "role": "Section-card image — Lascaux", "status": "runtime" },
+        { "path": "assets/study-guides/prehistoric-art/stonehenge.webp", "role": "Section-card image — Stonehenge", "status": "runtime" },
+        { "path": "assets/study-guides/prehistoric-art/terra-cotta.webp", "role": "Section-card image — terra cotta", "status": "runtime" },
+        { "path": "assets/study-guides/prehistoric-art/images/image_01.webp", "role": "Markdown image 01", "status": "runtime" },
+        { "path": "assets/study-guides/prehistoric-art/images/image_02.webp", "role": "Markdown image 02", "status": "runtime" },
+        { "path": "assets/study-guides/prehistoric-art/images/image_03.webp", "role": "Markdown image 03", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.guide.law-crime",
+      "surface": "Study · Study Guide",
+      "scenario": "Definitions of crime and criminal responsibility",
+      "implementation": "capabilityData.guide · studyGuideId 1007930",
+      "files": [
+        { "path": "assets/study-guides/law-crime/study_guide.md", "role": "Full source guide", "status": "runtime" },
+        { "path": "assets/study-guides/law-crime/image_01.webp", "role": "Dark figure of crime diagram", "status": "runtime" },
+        { "path": "assets/study-guides/law-crime/image_02.webp", "role": "Crime rates chart", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.guide.acids-bases",
+      "surface": "Study · Study Guide",
+      "scenario": "CHEM1020 Acids and Bases",
+      "implementation": "Not enabled in capabilityData",
+      "files": [
+        { "path": "assets/study-guides/acids-bases/study_guide.md", "role": "Full source guide", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/dissociation.webp", "role": "Candidate section-card image — dissociation", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/autoprotolysis.webp", "role": "Candidate section-card image — autoprotolysis", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/ph-scale.webp", "role": "Candidate section-card image — pH scale", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/images/image_01.webp", "role": "Markdown image 01", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/images/image_02.webp", "role": "Markdown image 02", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/images/image_03.webp", "role": "Markdown image 03", "status": "reference" },
+        { "path": "assets/study-guides/acids-bases/images/image_04.webp", "role": "Markdown image 04", "status": "reference" }
+      ]
+    },
+    {
+      "id": "study.podcast.shared",
+      "surface": "Study · Podcast",
+      "scenario": "Shared podcast player resources",
+      "implementation": "assets/podcasts/transcripts.js / podcast dialog",
+      "files": [
+        { "path": "assets/podcasts/transcripts.js", "role": "Runtime timestamped transcript bundle", "status": "runtime" },
+        { "path": "assets/podcasts/hosts/lexie.webp", "role": "Host avatar — Lexie", "status": "runtime" },
+        { "path": "assets/podcasts/hosts/noah.webp", "role": "Host avatar — Noah", "status": "runtime" },
+        { "path": "assets/podcasts/hosts/cardi-c.webp", "role": "Host avatar — Cardi C", "status": "runtime" },
+        { "path": "assets/podcasts/hosts/david-duck.webp", "role": "Host avatar — David Duck", "status": "runtime" }
+      ]
+    },
+    {
+      "id": "study.podcast.unit-rates",
+      "surface": "Study · Podcast",
+      "scenario": "Defining and Calculating Unit Rates",
+      "implementation": "capabilityData.podcast.examples[0] · transcriptKey unitRates",
+      "files": [
+        { "path": "assets/podcasts/01_defining_and_calculating_unit_rates.mp3", "role": "Episode audio", "status": "runtime" },
+        { "path": "assets/podcasts/01_defining_and_calculating_unit_rates.txt", "role": "Editable timestamped transcript source", "status": "source" }
+      ]
+    },
+    {
+      "id": "study.podcast.photosynthesis",
+      "surface": "Study · Podcast",
+      "scenario": "Photosynthesis: Crash Course Biology #8",
+      "implementation": "capabilityData.podcast.examples[1] · transcriptKey photosynthesis",
+      "files": [
+        { "path": "assets/podcasts/02_photosynthesis_crash_course_biology_8.mp3", "role": "Episode audio", "status": "runtime" },
+        { "path": "assets/podcasts/02_photosynthesis_crash_course_biology_8.txt", "role": "Editable timestamped transcript source", "status": "source" }
+      ]
+    },
+    {
+      "id": "study.podcast.civilization",
+      "surface": "Study · Podcast",
+      "scenario": "Foundations of Early Human Civilization",
+      "implementation": "capabilityData.podcast.examples[2] · transcriptKey civilization",
+      "files": [
+        { "path": "assets/podcasts/03_foundations_of_early_human_civilization.mp3", "role": "Episode audio", "status": "runtime" },
+        { "path": "assets/podcasts/03_foundations_of_early_human_civilization.txt", "role": "Editable timestamped transcript source", "status": "source" }
+      ]
+    },
+    {
+      "id": "study.study-set.brain-sample",
+      "surface": "Study · Study Set",
+      "scenario": "How the Brain Works — quiz and flashcard composition",
+      "implementation": "Not enabled in capabilityData",
+      "files": [
+        { "path": "assets/brain-study-set-sample.png", "role": "Inactive study-set composition reference", "status": "reference" }
+      ]
+    },
+    {
+      "id": "phase-2.exam-progress",
+      "surface": "Exam Prep / Diagnostic",
+      "scenario": "Exam progress and result breakdown",
+      "implementation": "Do not wire into phase 1; confirm final phase-2 flow first",
+      "files": [
+        { "path": "assets/progress-tracking-exam-results-sample.png", "role": "Exam progress and results source reference", "status": "phase_2" }
+      ]
+    }
+  ]
+}
