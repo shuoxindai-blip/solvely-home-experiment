@@ -327,6 +327,8 @@
     .model-button .brand-mini { width: 21px; height: 21px; display: grid; place-items: center; border-radius: 7px; background: var(--accent); color: white; }
     .model-button .brand-mini .icon { width: 14px; height: 14px; }
     .toolbar-spacer { flex: 1; }
+    .writing-word-count { margin-right:7px; color:var(--subtle); font-size:12px; font-weight:560; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .writing-word-count[hidden] { display:none; }
     .link-popover { position:absolute; left:18px; bottom:64px; z-index:80; width:min(420px,calc(100% - 36px)); padding:12px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:0 18px 44px rgba(23,34,56,.16); }
     .link-popover-row { display:flex; gap:8px; }
     .link-popover input { min-width:0; flex:1; height:42px; padding:0 13px; border:1px solid var(--line); border-radius:11px; background:var(--surface); color:var(--text); font:inherit; outline:none; }
@@ -2062,6 +2064,7 @@
             <span class="toolbar-spacer"></span>
             <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
             <button class="tool-button phase-one-hidden" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
+            <output class="writing-word-count" id="writingWordCount" aria-label="Word count" hidden>0 words</output>
             <button class="send-button" id="sendButton" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="sendLabel">Ask</span></button>
           </div>
 
@@ -2783,6 +2786,7 @@
     };
     const writingWordLimitedCapabilities = new Set(['humanizer', 'detector', 'paraphraser']);
     const writingMinimumWordCapabilities = new Set(['humanizer', 'detector', 'paraphraser', 'plagiarism']);
+    const writingWordCountCapabilities = new Set(['research', 'paraphraser', 'plagiarism', 'detector', 'humanizer']);
     const writingWordLimit = 4000;
     const writingMinimumWords = 30;
     const writingCharacterLimit = 300;
@@ -2807,6 +2811,7 @@
     const coursePackagePanel = document.getElementById('coursePackagePanel');
     const sendButton = document.getElementById('sendButton');
     const sendLabel = document.getElementById('sendLabel');
+    const writingWordCount = document.getElementById('writingWordCount');
     const examplesGrid = document.getElementById('examplesGrid');
     const examplesHeading = document.getElementById('examplesHeading');
     const examplesTitle = document.getElementById('examplesTitle');
@@ -4303,8 +4308,18 @@
 
     function pauseDialogAudio() { document.querySelectorAll('#exampleDialog audio').forEach(audio => audio.pause()); }
     function closeDialog() { clearInterval(mediaTimer); mediaTimer = null; pauseDialogAudio(); if (dialog.open) dialog.close(); }
-    function updateSubmit() { sendButton.disabled = !promptInput.value.trim() && attachedSourceCount() === 0; }
+    function updateSubmit() {
+      sendButton.disabled = !promptInput.value.trim() && attachedSourceCount() === 0;
+      updateWritingWordCount();
+    }
     function countWords(value) { return value.trim() ? (value.match(/\S+/g) || []).length : 0; }
+    function updateWritingWordCount() {
+      const shouldShow = workspaceMode === 'writing' && writingWordCountCapabilities.has(selectedCapability);
+      writingWordCount.hidden = !shouldShow;
+      if (!shouldShow) return;
+      const count = countWords(promptInput.value);
+      writingWordCount.textContent = `${count.toLocaleString('en-US')} ${count === 1 ? 'word' : 'words'}`;
+    }
     function truncateToWordLimit(value, limit) {
       const words = [...value.matchAll(/\S+/g)];
       if (words.length <= limit) return value;
