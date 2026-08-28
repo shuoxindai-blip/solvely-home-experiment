@@ -1,3 +1,11 @@
+import {
+  WRITING_FILE_ACCEPT,
+  WRITING_FILE_CAPABILITIES,
+  WRITING_UNSUPPORTED_FILE_TOAST,
+  isSupportedWritingFile,
+  selectWritingFiles
+} from './writingFilePolicy.js';
+
 export function initHomeExperience({ onWorkspaceChange } = {}) {
     const icon = id => `<svg class="icon"><use href="#${id}"/></svg>`;
     const extensionTargets = {
@@ -1428,18 +1436,21 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     function updateComposerTools(key) {
       const attachButton = document.getElementById('attachButton');
       const imageButton = document.getElementById('imageButton');
+      const fileInput = document.getElementById('fileInput');
       const linkButton = document.getElementById('linkButton');
       const calculatorButton = document.getElementById('calculatorButton');
       const modelButton = document.getElementById('modelButton');
       const youtubeCapabilities = ['guide', 'flashcards', 'quiz', 'podcast'];
       const writingCapability = capabilityGroups.writing.includes(key);
-      const supportsFileUpload = key !== 'research' && key !== 'aiCitation';
+      const supportsFileUpload = capabilitySupportsFileUpload(key);
       const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : 'none';
       const supportsMultipleSources = multiSourceCapabilities.has(key);
 
       attachButton.hidden = !supportsFileUpload;
-      attachButton.setAttribute('aria-label', supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
-      attachButton.title = supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
+      attachButton.setAttribute('aria-label', writingCapability ? 'Upload PDF, Word, or TXT' : supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
+      attachButton.title = writingCapability ? 'Upload PDF, Word, or TXT' : supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
+      fileInput.accept = writingCapability ? WRITING_FILE_ACCEPT : '';
+      fileInput.multiple = !writingCapability;
       imageButton.hidden = writingCapability;
       // Phase 1: preserve the calculator implementation while hiding its homepage entry.
       calculatorButton.hidden = true;
@@ -2243,6 +2254,19 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     function filterFilesForCurrentCapability(files) {
       const incoming = [...files];
+      if (capabilityGroups.writing.includes(selectedCapability)) {
+        const existingFiles = attachmentRow.querySelectorAll('[data-source-kind="file"]').length;
+        const result = selectWritingFiles(incoming, {
+          enabled: WRITING_FILE_CAPABILITIES.has(selectedCapability),
+          hasExistingFile: existingFiles > 0
+        });
+        return {
+          accepted: result.accepted,
+          limited: Boolean(result.toast),
+          limitMessage: result.toast || '',
+          suppressToast: !result.toast && (incoming.length > 1 || !result.accepted.length)
+        };
+      }
       if (multiSourceCapabilities.has(selectedCapability)) {
         const available = Math.max(0, creationSourceLimit - attachedSourceCount());
         return { accepted: incoming.slice(0, available), limited: incoming.length > available, limitMessage: creationSourceLimitToast };
@@ -2262,15 +2286,21 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       return { accepted: [], limited: incoming.length > 0, limitMessage: problemSourceLimitToast };
     }
 
+    function capabilitySupportsFileUpload(key = selectedCapability) {
+      return !capabilityGroups.writing.includes(key) || WRITING_FILE_CAPABILITIES.has(key);
+    }
+
     function addFiles(files) {
-      const { accepted, limited, limitMessage } = filterFilesForCurrentCapability(files);
+      const { accepted, limited, limitMessage, suppressToast = false } = filterFilesForCurrentCapability(files);
       accepted.forEach(file => attachmentRow.appendChild(createFileChip(file)));
       if (accepted.length && !promptInput.value.trim()) promptInput.value = selectedCapability
         ? `Use my uploaded material to ${capabilityData[selectedCapability].action.toLowerCase()} this.`
         : 'Help me learn from my uploaded material.';
       updateSubmit();
-      if (limited) showToast(limitMessage);
-      else if (accepted.length) showToast(`${accepted.length} source${accepted.length === 1 ? '' : 's'} added`);
+      if (!suppressToast) {
+        if (limited) showToast(limitMessage);
+        else if (accepted.length) showToast(`${accepted.length} source${accepted.length === 1 ? '' : 's'} added`);
+      }
     }
 
     function insertAtCursor(value) {
@@ -2642,6 +2672,11 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     document.getElementById('writingFileInput').addEventListener('change', event => {
       const file = event.target.files[0];
       if (!file) return;
+      if (!isSupportedWritingFile(file)) {
+        event.target.value = '';
+        showToast(WRITING_UNSUPPORTED_FILE_TOAST);
+        return;
+      }
       const targetEditor = writingEditor;
       if (file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt')) {
         const reader = new FileReader();
@@ -2716,10 +2751,33 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     });
 
     const composerShell = document.getElementById('composerShell');
-    composerShell.addEventListener('dragenter', event => { event.preventDefault(); dragDepth += 1; composerShell.classList.add('dragging'); });
-    composerShell.addEventListener('dragover', event => { event.preventDefault(); if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy'; });
-    composerShell.addEventListener('dragleave', event => { event.preventDefault(); dragDepth = Math.max(0, dragDepth - 1); if (!dragDepth) composerShell.classList.remove('dragging'); });
-    composerShell.addEventListener('drop', event => { event.preventDefault(); dragDepth = 0; composerShell.classList.remove('dragging'); addFiles(event.dataTransfer.files); });
+    composerShell.addEventListener('dragenter', event => {
+      event.preventDefault();
+      if (!capabilitySupportsFileUpload()) return;
+      dragDepth += 1;
+      composerShell.classList.add('dragging');
+    });
+    composerShell.addEventListener('dragover', event => {
+      event.preventDefault();
+      if (event.dataTransfer) event.dataTransfer.dropEffect = capabilitySupportsFileUpload() ? 'copy' : 'none';
+    });
+    composerShell.addEventListener('dragleave', event => {
+      event.preventDefault();
+      if (!capabilitySupportsFileUpload()) {
+        dragDepth = 0;
+        composerShell.classList.remove('dragging');
+        return;
+      }
+      dragDepth = Math.max(0, dragDepth - 1);
+      if (!dragDepth) composerShell.classList.remove('dragging');
+    });
+    composerShell.addEventListener('drop', event => {
+      event.preventDefault();
+      dragDepth = 0;
+      composerShell.classList.remove('dragging');
+      if (!capabilitySupportsFileUpload()) return;
+      addFiles(event.dataTransfer.files);
+    });
 
     document.getElementById('sidebarCollapse').addEventListener('click', () => app.classList.toggle('sidebar-collapsed'));
     sidebar.addEventListener('mouseenter', () => {

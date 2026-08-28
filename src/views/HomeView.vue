@@ -198,7 +198,7 @@
           </div>
           <input id="fileInput" type="file" multiple hidden />
           <input id="imageInput" type="file" accept="image/*" multiple hidden />
-          <input id="writingFileInput" type="file" accept=".pdf,.doc,.docx,.txt,text/plain,application/pdf" hidden />
+          <input id="writingFileInput" type="file" accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" hidden />
         </section>
 
         <section class="examples-section" aria-label="Examples">
