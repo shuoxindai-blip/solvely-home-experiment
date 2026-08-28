@@ -65,7 +65,7 @@
     body.dark .sidebar { background: rgba(19,27,42,.96); border-color:#344157; }
     .brand-row { height: 54px; flex: 0 0 54px; display: flex; align-items: center; gap: 10px; padding: 0 10px 0 3px; }
     .brand-mark { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 auto; }
-    .brand-logo { width: 26px; height: 26px; display: block; overflow: visible; filter: drop-shadow(0 3px 6px rgba(45,73,215,.16)); }
+    .brand-logo { width:26px; height:26px; display:block; border-radius:6px; object-fit:cover; filter:drop-shadow(0 3px 6px rgba(45,73,215,.16)); }
     .brand { min-width: 0; overflow: hidden; color: var(--text); font-size: 16px; line-height: 1; font-weight: 760; letter-spacing: -.35px; white-space: nowrap; }
     .sidebar-collapse, .mobile-menu { width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: #95a0b1; cursor: pointer; }
     .sidebar-collapse { margin-left: auto; }
@@ -312,8 +312,8 @@
     .model-button, .citation-selector-button { font-size:11px; font-weight:400; line-height:normal; }
     .model-button { padding: 0 11px; background: transparent; color: var(--muted); }
     .model-button:hover { background: var(--surface-hover); color: var(--text); }
-    .model-button .brand-mini { width: 21px; height: 21px; display: grid; place-items: center; border-radius: 7px; background: var(--accent); color: white; }
-    .model-button .brand-mini .icon { width: 14px; height: 14px; }
+    .model-button .brand-mini { width:21px; height:21px; display:grid; place-items:center; overflow:hidden; border-radius:6px; }
+    .model-button .brand-mini img { width:100%; height:100%; display:block; object-fit:cover; }
     .toolbar-spacer { flex: 1; }
     .writing-word-count { margin-right:7px; color:var(--subtle); font-size:12px; font-weight:560; font-variant-numeric:tabular-nums; white-space:nowrap; }
     .writing-word-count[hidden] { display:none; }
@@ -347,6 +347,7 @@
     .model-option { width: 100%; display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 8px; padding: 9px; border: 0; border-radius: 10px; background: transparent; text-align: left; cursor: pointer; }
     .model-option:hover { background: var(--surface-hover); }
     .model-option .model-letter { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: var(--surface-soft); color: var(--accent); font-size: 11px; font-weight: 750; }
+    .model-option .model-brand-logo { width:28px; height:28px; display:block; border-radius:8px; object-fit:cover; }
     .model-option strong, .model-option small { display: block; }
     .model-option strong { font-size: 12px; }
     .model-option small { margin-top: 2px; color: var(--subtle); font-size: 9px; }
@@ -417,7 +418,8 @@
     .multi-model-logo { position:relative; width:27px; height:27px; display:grid; place-items:center; margin-left:-5px; overflow:hidden; border:1.5px solid var(--surface); border-radius:50%; background:var(--surface); box-shadow:0 1px 5px rgba(31,45,72,.14); }
     .multi-model-logo:first-child { margin-left:0; }
     .multi-model-logo svg { width:16px; height:16px; display:block; }
-    .multi-model-logo.solvely svg { width:27px; height:27px; }
+    .multi-model-logo.solvely { border-radius:8px; }
+    .multi-model-logo.solvely img { width:100%; height:100%; display:block; border-radius:inherit; object-fit:cover; }
     .multi-model-proof p { max-width:285px; margin:0; color:var(--muted); font-size:10.5px; font-weight:560; line-height:1.35; }
     .multi-model-proof p strong { color:var(--text); font-weight:680; }
     .examples-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
@@ -1837,7 +1839,7 @@
       .multi-model-proof { padding:6px 8px 6px 7px; }
       .multi-model-logo { width:25px; height:25px; }
       .multi-model-logo svg { width:15px; height:15px; }
-      .multi-model-logo.solvely svg { width:25px; height:25px; }
+      .multi-model-logo.solvely img { width:25px; height:25px; }
       .examples-grid { gap: 9px; }
       .examples-grid.study-overview-grid { gap:26px; }
       .study-example-group + .study-example-group { padding-top:24px; }

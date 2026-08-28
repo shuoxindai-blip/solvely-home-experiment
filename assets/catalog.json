@@ -8,11 +8,12 @@
   },
   "groups": [
     {
-      "id": "global.mobile-download",
-      "surface": "Global header",
-      "scenario": "Mobile app download entry and QR popover",
-      "implementation": "src/views/HomeView.vue · .app-download / .app-store-link",
+      "id": "global.brand-and-mobile-download",
+      "surface": "Global brand and app download",
+      "scenario": "Official Solvely logo, mobile app download entry, and QR popover",
+      "implementation": "src/views/HomeView.vue · .brand-row / .model-button / .multi-model-logo / .app-download",
       "files": [
+        { "path": "assets/solvely-ai-logo.jpeg", "role": "Official Solvely logo shared by the sidebar, model selector, model menu, multi-model proof, and favicon", "status": "runtime" },
         { "path": "assets/download-on-app-store.svg", "role": "App Store badge", "status": "runtime" },
         { "path": "assets/get-it-on-google-play-trimmed.png", "role": "Google Play badge used in UI", "status": "runtime" },
         { "path": "assets/get-it-on-google-play.png", "role": "Uncropped Google Play source", "status": "source" },

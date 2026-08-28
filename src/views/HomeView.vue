@@ -20,7 +20,6 @@
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
     <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V5M16 20v-8M22 20H2"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></symbol>
-    <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v12H8l-4 4z"/><path d="M8 10h8M8 13h5"/></symbol>
     <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9v11h16V9M3 4h18l-2 5H5zM9 20v-6h6v6"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></symbol>
@@ -36,23 +35,7 @@
     <aside class="sidebar" aria-label="Primary navigation">
       <div class="brand-row">
         <div class="brand-mark" aria-hidden="true">
-          <svg class="brand-logo" viewBox="0 0 52 52" role="img">
-            <defs>
-              <linearGradient id="brandSurface" x1="7" y1="5" x2="46" y2="49" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#073FE9"/>
-                <stop offset=".55" stop-color="#2538EE"/>
-                <stop offset="1" stop-color="#5833F4"/>
-              </linearGradient>
-              <linearGradient id="brandGlyph" x1="17" y1="18" x2="35" y2="35" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FFFFFF"/>
-                <stop offset=".52" stop-color="#E9EEFF"/>
-                <stop offset="1" stop-color="#FFFFFF"/>
-              </linearGradient>
-            </defs>
-            <rect width="52" height="52" rx="11" fill="url(#brandSurface)"/>
-            <path d="M12 21v-5.2c0-3.2 2.6-5.8 5.8-5.8H23M29 10h5.2c3.2 0 5.8 2.6 5.8 5.8V21M40 31v5.2c0 3.2-2.6 5.8-5.8 5.8H29M23 42h-5.2c-3.2 0-5.8-2.6-5.8-5.8V31" fill="none" stroke="#fff" stroke-width="2.15" stroke-linecap="round"/>
-            <path d="M17.4 18.7c4.8-1.8 7 .8 9.2 7.2l2.3 6.5c1.1 3.2 3 3.7 6.1 1.4M34.6 19.2c-3.6-1.7-6 .7-8.1 4.8L23 31c-1.5 3-3.5 4.7-6.4 2.9" fill="none" stroke="url(#brandGlyph)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img class="brand-logo" src="/assets/solvely-ai-logo.jpeg" alt="" width="26" height="26" />
         </div>
         <div class="brand">Solvely.ai</div>
         <button class="sidebar-collapse" id="sidebarCollapse" aria-label="Collapse sidebar"><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M9 5v14M14.5 8.5 11 12l3.5 3.5"/></svg></button>
@@ -132,7 +115,7 @@
             <button class="tool-button" id="linkButton" aria-label="Paste a study material link" aria-expanded="false" title="Paste link"><svg class="icon"><use href="#i-link"/></svg></button>
             <button class="tool-button phase-one-hidden" id="calculatorButton" aria-label="Open calculator" aria-expanded="false" title="Calculator"><svg class="icon"><use href="#i-calculator"/></svg></button>
             <span class="toolbar-spacer"></span>
-            <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><svg class="icon"><use href="#i-atom"/></svg></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
+            <button class="model-button" id="modelButton" aria-haspopup="menu" aria-expanded="false"><span class="brand-mini"><img src="/assets/solvely-ai-logo.jpeg" alt="" width="21" height="21" /></span><span id="modelLabel">Solvely AI</span><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
             <button class="tool-button phase-one-hidden" id="voiceButton" aria-label="Voice input" aria-pressed="false" title="Voice input"><svg class="icon"><use href="#i-mic"/></svg></button>
             <output class="writing-word-count" id="writingWordCount" aria-label="Word count" hidden>0 words</output>
             <div class="citation-selectors" id="citationSelectors" aria-label="Citation settings" hidden>
@@ -164,7 +147,7 @@
 
           <div class="popover" id="modelPopover" role="menu" hidden>
             <p class="model-menu-title">Solvely AI</p>
-            <button class="model-option active" role="menuitem" data-model="Solvely AI"><span class="model-letter">S</span><span><strong>Solvely AI</strong><small>Instant answers, reliable results</small></span><span class="model-check">✓</span></button>
+            <button class="model-option active" role="menuitem" data-model="Solvely AI"><img class="model-brand-logo" src="/assets/solvely-ai-logo.jpeg" alt="" width="28" height="28" /><span><strong>Solvely AI</strong><small>Instant answers, reliable results</small></span><span class="model-check">✓</span></button>
             <button class="model-option" role="menuitem" data-model="Multi-model"><span class="model-letter">M</span><span><strong>Multi-model</strong><small>Cross-checked for highest accuracy</small></span><span class="model-check"></span></button>
             <p class="model-menu-title">Third-Party Model</p>
             <button class="model-option" role="menuitem" data-model="GPT Pro"><span class="model-letter">G</span><span><strong>GPT Pro</strong><small>Strong in math and logic</small></span><span class="model-check"></span></button>
@@ -232,9 +215,7 @@
                 <span class="multi-model-logo" title="Claude">
                   <svg viewBox="0 0 24 24"><path fill="#d97757" d="M11.376 24 10.776 23.544 10.44 22.8 10.776 21.312 11.16 19.392 11.472 17.856 11.76 15.96 11.928 15.336 11.904 15.288 11.784 15.312 10.344 17.28 8.16 20.232 6.432 22.056 6.024 22.224 5.304 21.864 5.376 21.192 5.784 20.616 8.16 17.568 9.6 15.672 10.536 14.592 10.512 14.448 10.464 14.448 4.128 18.576 3 18.72 2.496 18.264 2.568 17.52 2.808 17.28 4.704 15.96 9.432 13.32 9.504 13.08 9.432 12.96 9.192 12.96 8.4 12.912 5.712 12.84 3.384 12.744 1.104 12.624.528 12.504 0 11.784.048 11.424.528 11.112 1.224 11.16 2.736 11.28 5.016 11.424 6.672 11.52 9.12 11.784 9.504 11.784 9.552 11.616 9.432 11.52 9.336 11.424 6.96 9.84 4.416 8.16 3.072 7.176 2.352 6.672 1.992 6.216 1.848 5.208 2.496 4.488 3.384 4.56 3.6 4.608 4.488 5.304 6.384 6.768 8.88 8.616 9.24 8.904 9.408 8.808 9.408 8.736 9.24 8.472 7.896 6.024 6.456 3.528 5.808 2.496 5.64 1.872 5.544 1.152 6.288.144 6.696 0 7.704.144 8.112.504 8.736 1.92 9.72 4.152 11.28 7.176 11.736 8.088 11.976 8.904 12.072 9.168 12.24 9.168 12.24 9.024 12.36 7.296 12.6 5.208 12.84 2.52 12.912 1.752 13.296.84 14.04.36 14.616.624 15.096 1.32 15.024 1.752 14.76 3.6 14.184 6.504 13.824 8.472 14.04 8.472 14.28 8.208 15.264 6.912 16.92 4.848 17.64 4.032 18.504 3.12 19.056 2.688 20.088 2.688 20.832 3.816 20.496 4.992 19.44 6.336 18.552 7.464 17.28 9.168 16.512 10.536 16.584 10.632 16.752 10.632 19.608 10.008 21.168 9.744 22.992 9.432 23.832 9.816 23.928 10.2 23.592 11.016 21.624 11.496 19.32 11.952 15.888 12.768 15.84 12.792 15.888 12.864 17.424 13.008 18.096 13.056 19.728 13.056 22.752 13.272 23.544 13.8 24 14.424 23.928 14.928 22.704 15.528 21.072 15.144 17.232 14.232 15.936 13.92 15.744 13.92 15.744 14.016 16.848 15.096 18.84 16.896 21.36 19.224 21.48 19.8 21.168 20.28 20.832 20.232 18.624 18.552 17.76 17.808 15.84 16.2 15.72 16.2 15.72 16.368 16.152 17.016 18.504 20.544 18.624 21.624 18.456 21.96 17.832 22.176 17.184 22.056 15.792 20.136 14.376 17.952 13.224 16.008 13.104 16.104 12.408 23.352 12.096 23.712Z"/></svg>
                 </span>
-                <span class="multi-model-logo solvely" title="Solvely AI">
-                  <svg viewBox="0 0 52 52"><defs><linearGradient id="crossCheckSolvelySurface" x1="7" y1="5" x2="46" y2="49" gradientUnits="userSpaceOnUse"><stop stop-color="#073FE9"/><stop offset=".55" stop-color="#2538EE"/><stop offset="1" stop-color="#5833F4"/></linearGradient><linearGradient id="crossCheckSolvelyGlyph" x1="17" y1="18" x2="35" y2="35" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset=".52" stop-color="#E9EEFF"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><rect width="52" height="52" rx="11" fill="url(#crossCheckSolvelySurface)"/><path d="M12 21v-5.2c0-3.2 2.6-5.8 5.8-5.8H23M29 10h5.2c3.2 0 5.8 2.6 5.8 5.8V21M40 31v5.2c0 3.2-2.6 5.8-5.8 5.8H29M23 42h-5.2c-3.2 0-5.8-2.6-5.8-5.8V31" fill="none" stroke="#fff" stroke-width="2.15" stroke-linecap="round"/><path d="M17.4 18.7c4.8-1.8 7 .8 9.2 7.2l2.3 6.5c1.1 3.2 3 3.7 6.1 1.4M34.6 19.2c-3.6-1.7-6 .7-8.1 4.8L23 31c-1.5 3-3.5 4.7-6.4 2.9" fill="none" stroke="url(#crossCheckSolvelyGlyph)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+                <span class="multi-model-logo solvely" title="Solvely AI"><img src="/assets/solvely-ai-logo.jpeg" alt="" width="27" height="27" /></span>
               </div>
               <p>Cross-check across AI models for <strong>highest accuracy</strong></p>
             </div>

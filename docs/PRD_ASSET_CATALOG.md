@@ -16,10 +16,10 @@
 | 项目 | 数量 | 说明 |
 |---|---:|---|
 | 场景分组 | 19 | 按产品页面、功能和示例场景组织 |
-| 本地索引文件 | 65 | `groups[].files[]` 中记录的唯一仓库文件 |
+| 本地索引文件 | 66 | `groups[].files[]` 中记录的唯一仓库文件 |
 | 外部运行时资源 | 3 | `groups[].externalResources[]` 中记录的 3 个远程 HTML |
-| 资源引用总数 | 68 | 65 个本地文件 + 3 个外部运行时资源 |
-| `runtime` | 58 | 当前原型直接加载，一期可接入 |
+| 资源引用总数 | 69 | 66 个本地文件 + 3 个外部运行时资源 |
+| `runtime` | 59 | 当前原型直接加载，一期可接入 |
 | `source` | 6 | 用于编辑、裁剪、重新生成或回滚，不应代替当前实现 |
 | `phase_2` | 1 | Exam Prep / Diagnostic 二期素材，一期不接入 |
 
@@ -32,20 +32,21 @@
 5. `externalResources` 中的 `runtime` 项是案例详情的必需内容，不是可选外链；远程 HTML 必须提供加载失败和重试状态。
 6. 新增、删除或替换本地/外部资源后，开发必须执行 `node scripts/check-assets.mjs`，且校验结果不得包含错误或 Git 跟踪警告。
 
-## 4. 19 个分组与 65 个本地索引文件
+## 4. 19 个分组与 66 个本地索引文件
 
-### 4.1 `global.mobile-download`
+### 4.1 `global.brand-and-mobile-download`
 
-- 页面/模块：Global header
-- 场景：移动端 App 下载入口和二维码浮层
-- 代码入口：`src/views/HomeView.vue` 中的 `.app-download` / `.app-store-link`
+- 页面/模块：全局品牌标识与 App 下载
+- 场景：正式 Solvely Logo、移动端 App 下载入口和二维码浮层
+- 代码入口：`src/views/HomeView.vue` 中的 `.brand-row` / `.model-button` / `.multi-model-logo` / `.app-download`
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 1 | `assets/download-on-app-store.svg` | App Store 下载徽标 | `runtime` |
-| 2 | `assets/get-it-on-google-play-trimmed.png` | 当前 UI 使用的 Google Play 裁剪徽标 | `runtime` |
-| 3 | `assets/get-it-on-google-play.png` | 未裁剪的 Google Play 源图 | `source` |
-| 4 | `assets/solvely-mobile-qr.svg` | App 下载通用二维码 | `runtime` |
+| 1 | `assets/solvely-ai-logo.jpeg` | 侧栏、模型切换、模型菜单、Multi-model 对比区和浏览器页签共用的正式 Solvely Logo | `runtime` |
+| 2 | `assets/download-on-app-store.svg` | App Store 下载徽标 | `runtime` |
+| 3 | `assets/get-it-on-google-play-trimmed.png` | 当前 UI 使用的 Google Play 裁剪徽标 | `runtime` |
+| 4 | `assets/get-it-on-google-play.png` | 未裁剪的 Google Play 源图 | `source` |
+| 5 | `assets/solvely-mobile-qr.svg` | App 下载通用二维码 | `runtime` |
 
 ### 4.2 `study.solver.parabola-intersection`
 
@@ -55,8 +56,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 5 | `assets/solver-parabola-intersection-cover.png` | 示例卡片封面 | `runtime` |
-| 6 | `assets/simulators/parabola-linear-intersection.html` | 本地互动详情页 | `runtime` |
+| 6 | `assets/solver-parabola-intersection-cover.png` | 示例卡片封面 | `runtime` |
+| 7 | `assets/simulators/parabola-linear-intersection.html` | 本地互动详情页 | `runtime` |
 
 ### 4.3 `study.solver.parallelogram-step-solution`
 
@@ -67,10 +68,10 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 7 | `assets/solver-samples/step-by-step-solution.html` | 可复用的完整逐步解题文档；Step 左侧导览仅在 hover 对应步骤时高亮 | `runtime` |
-| 8 | `assets/solver-parallelogram-question.png` | 示例卡片与答案详情使用的题目图 | `runtime` |
-| 9 | `assets/solver-parallelogram-video.png` | 答案详情中的视频讲解缩略图 | `runtime` |
-| 10 | `assets/solver-video-intersecting-circles.png` | 上一版相交圆卡片图，仅保留用于回滚 | `source` |
+| 8 | `assets/solver-samples/step-by-step-solution.html` | 可复用的完整逐步解题文档；Step 左侧导览仅在 hover 对应步骤时高亮 | `runtime` |
+| 9 | `assets/solver-parallelogram-question.png` | 示例卡片与答案详情使用的题目图 | `runtime` |
+| 10 | `assets/solver-parallelogram-video.png` | 答案详情中的视频讲解缩略图 | `runtime` |
+| 11 | `assets/solver-video-intersecting-circles.png` | 上一版相交圆卡片图，仅保留用于回滚 | `source` |
 
 ### 4.4 `study.solver.chemistry-structure`
 
@@ -81,12 +82,12 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 11 | `assets/solver-chemistry-structure-cover.png` | 化学结构示例卡片封面 | `runtime` |
-| 12 | `assets/solver-samples/chemistry-structure-visualization.html` | 可复用的本地化学结构详情文档，包含 3 个案例 Tab | `runtime` |
-| 13 | `assets/solver-samples/m-ethylaniline.png` | (m)-Ethylaniline 本地解答结构图 | `runtime` |
-| 14 | `assets/solver-samples/sf4-lewis-structure.png` | SF₄ Lewis structure 本地解答结构图 | `runtime` |
-| 15 | `assets/solver-samples/2-isopropyloxolane.png` | 2-Isopropyloxolane 本地解答结构图 | `runtime` |
-| 16 | `assets/chemistry-structure.png` | 原始紧凑版化学结构参考图 | `source` |
+| 12 | `assets/solver-chemistry-structure-cover.png` | 化学结构示例卡片封面 | `runtime` |
+| 13 | `assets/solver-samples/chemistry-structure-visualization.html` | 可复用的本地化学结构详情文档，包含 3 个案例 Tab | `runtime` |
+| 14 | `assets/solver-samples/m-ethylaniline.png` | (m)-Ethylaniline 本地解答结构图 | `runtime` |
+| 15 | `assets/solver-samples/sf4-lewis-structure.png` | SF₄ Lewis structure 本地解答结构图 | `runtime` |
+| 16 | `assets/solver-samples/2-isopropyloxolane.png` | 2-Isopropyloxolane 本地解答结构图 | `runtime` |
+| 17 | `assets/chemistry-structure.png` | 原始紧凑版化学结构参考图 | `source` |
 
 ### 4.5 `study.solver.financial-analysis`
 
@@ -96,8 +97,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 17 | `assets/solver-financial-analysis-cover.webp` | 财务分析示例卡片封面 | `runtime` |
-| 18 | `assets/solver-samples/financial-analysis.html` | 可复用的本地财务纵向分析文档；点击指标后高亮对应百分比并切换结论 | `runtime` |
+| 18 | `assets/solver-financial-analysis-cover.webp` | 财务分析示例卡片封面 | `runtime` |
+| 19 | `assets/solver-samples/financial-analysis.html` | 可复用的本地财务纵向分析文档；点击指标后高亮对应百分比并切换结论 | `runtime` |
 
 ### 4.6 `study.graph.reflection`
 
@@ -107,8 +108,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 19 | `assets/graph-reflection-over-y-axis.png` | 示例卡片封面 | `runtime` |
-| 20 | `assets/simulators/reflection-over-y-axis.html` | 本地互动详情页 | `runtime` |
+| 20 | `assets/graph-reflection-over-y-axis.png` | 示例卡片封面 | `runtime` |
+| 21 | `assets/simulators/reflection-over-y-axis.html` | 本地互动详情页 | `runtime` |
 
 ### 4.7 `study.graph.negative-externality`
 
@@ -118,8 +119,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 21 | `assets/graph-negative-externality.png` | 示例卡片封面 | `runtime` |
-| 22 | `assets/simulators/negative-externality-pigouvian-tax.html` | 本地互动详情页 | `runtime` |
+| 22 | `assets/graph-negative-externality.png` | 示例卡片封面 | `runtime` |
+| 23 | `assets/simulators/negative-externality-pigouvian-tax.html` | 本地互动详情页 | `runtime` |
 
 ### 4.8 `study.graph.limits-at-infinity`
 
@@ -129,8 +130,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 23 | `assets/graph-limits-at-infinity.png` | 示例卡片封面 | `runtime` |
-| 24 | `assets/simulators/limits-at-infinity.html` | 本地互动详情页 | `runtime` |
+| 24 | `assets/graph-limits-at-infinity.png` | 示例卡片封面 | `runtime` |
+| 25 | `assets/simulators/limits-at-infinity.html` | 本地互动详情页 | `runtime` |
 
 ### 4.9 `study.video.examples`
 
@@ -141,9 +142,9 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 25 | `assets/video-physics.png` | Velocity & Distance Analysis 预览图 | `runtime` |
-| 26 | `assets/video-statistics.png` | Reading a BMI Dotplot 预览图 | `runtime` |
-| 27 | `assets/video-geometry.png` | 3D Shapes & Nets 预览图 | `runtime` |
+| 26 | `assets/video-physics.png` | Velocity & Distance Analysis 预览图 | `runtime` |
+| 27 | `assets/video-statistics.png` | Reading a BMI Dotplot 预览图 | `runtime` |
+| 28 | `assets/video-geometry.png` | 3D Shapes & Nets 预览图 | `runtime` |
 
 ### 4.10 `study.flashcards.examples`
 
@@ -153,9 +154,9 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 28 | `assets/flashcards/kidney-anatomy.webp` | Human Anatomy 卡片图片 | `runtime` |
-| 29 | `assets/flashcards/radial-gravitational-field.webp` | Gravitational Field 卡片图片 | `runtime` |
-| 30 | `assets/flashcards/biological-psychology-motor-hierarchy.webp` | Biological Psychology 卡片图片 | `runtime` |
+| 29 | `assets/flashcards/kidney-anatomy.webp` | Human Anatomy 卡片图片 | `runtime` |
+| 30 | `assets/flashcards/radial-gravitational-field.webp` | Gravitational Field 卡片图片 | `runtime` |
+| 31 | `assets/flashcards/biological-psychology-motor-hierarchy.webp` | Biological Psychology 卡片图片 | `runtime` |
 
 ### 4.11 `study.quiz.examples`
 
@@ -165,9 +166,9 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 31 | `assets/quizzes/blood-glucose-feedback.webp` | 血糖负反馈题目图 | `runtime` |
-| 32 | `assets/quizzes/fish-apparent-depth.webp` | 折射与视深度题目图 | `runtime` |
-| 33 | `assets/quizzes/ionic-crystal-lattice.webp` | 离子晶格题目图 | `runtime` |
+| 32 | `assets/quizzes/blood-glucose-feedback.webp` | 血糖负反馈题目图 | `runtime` |
+| 33 | `assets/quizzes/fish-apparent-depth.webp` | 折射与视深度题目图 | `runtime` |
+| 34 | `assets/quizzes/ionic-crystal-lattice.webp` | 离子晶格题目图 | `runtime` |
 
 ### 4.12 `study.guide.mitochondrial-dna`
 
@@ -177,16 +178,16 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 34 | `assets/study-guides/mitochondrial-dna/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
-| 35 | `assets/study-guides/mitochondrial-dna/repeat-replication.webp` | Repeat replication 章节卡片图 | `runtime` |
-| 36 | `assets/study-guides/mitochondrial-dna/imprinting-reset.webp` | Imprinting reset 章节卡片图 | `runtime` |
-| 37 | `assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp` | Prader–Willi mechanisms 章节卡片图 | `runtime` |
-| 38 | `assets/study-guides/mitochondrial-dna/maternal-inheritance.svg` | Maternal inheritance 章节卡片图 | `runtime` |
-| 39 | `assets/study-guides/mitochondrial-dna/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
-| 40 | `assets/study-guides/mitochondrial-dna/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
-| 41 | `assets/study-guides/mitochondrial-dna/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
-| 42 | `assets/study-guides/mitochondrial-dna/images/image_04.webp` | Markdown 正文插图 04 | `runtime` |
-| 43 | `assets/study-guides/mitochondrial-dna/images/image_05.webp` | Markdown 正文插图 05 | `runtime` |
+| 35 | `assets/study-guides/mitochondrial-dna/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
+| 36 | `assets/study-guides/mitochondrial-dna/repeat-replication.webp` | Repeat replication 章节卡片图 | `runtime` |
+| 37 | `assets/study-guides/mitochondrial-dna/imprinting-reset.webp` | Imprinting reset 章节卡片图 | `runtime` |
+| 38 | `assets/study-guides/mitochondrial-dna/prader-willi-mechanisms.webp` | Prader–Willi mechanisms 章节卡片图 | `runtime` |
+| 39 | `assets/study-guides/mitochondrial-dna/maternal-inheritance.svg` | Maternal inheritance 章节卡片图 | `runtime` |
+| 40 | `assets/study-guides/mitochondrial-dna/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
+| 41 | `assets/study-guides/mitochondrial-dna/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
+| 42 | `assets/study-guides/mitochondrial-dna/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
+| 43 | `assets/study-guides/mitochondrial-dna/images/image_04.webp` | Markdown 正文插图 04 | `runtime` |
+| 44 | `assets/study-guides/mitochondrial-dna/images/image_05.webp` | Markdown 正文插图 05 | `runtime` |
 
 ### 4.13 `study.guide.prehistoric-art`
 
@@ -196,13 +197,13 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 44 | `assets/study-guides/prehistoric-art/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
-| 45 | `assets/study-guides/prehistoric-art/lascaux.webp` | Lascaux 章节卡片图 | `runtime` |
-| 46 | `assets/study-guides/prehistoric-art/stonehenge.webp` | Stonehenge 章节卡片图 | `runtime` |
-| 47 | `assets/study-guides/prehistoric-art/terra-cotta.webp` | Terra cotta 章节卡片图 | `runtime` |
-| 48 | `assets/study-guides/prehistoric-art/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
-| 49 | `assets/study-guides/prehistoric-art/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
-| 50 | `assets/study-guides/prehistoric-art/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
+| 45 | `assets/study-guides/prehistoric-art/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
+| 46 | `assets/study-guides/prehistoric-art/lascaux.webp` | Lascaux 章节卡片图 | `runtime` |
+| 47 | `assets/study-guides/prehistoric-art/stonehenge.webp` | Stonehenge 章节卡片图 | `runtime` |
+| 48 | `assets/study-guides/prehistoric-art/terra-cotta.webp` | Terra cotta 章节卡片图 | `runtime` |
+| 49 | `assets/study-guides/prehistoric-art/images/image_01.webp` | Markdown 正文插图 01 | `runtime` |
+| 50 | `assets/study-guides/prehistoric-art/images/image_02.webp` | Markdown 正文插图 02 | `runtime` |
+| 51 | `assets/study-guides/prehistoric-art/images/image_03.webp` | Markdown 正文插图 03 | `runtime` |
 
 ### 4.14 `study.guide.law-crime`
 
@@ -212,9 +213,9 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 51 | `assets/study-guides/law-crime/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
-| 52 | `assets/study-guides/law-crime/image_01.webp` | Dark figure of crime 示意图 | `runtime` |
-| 53 | `assets/study-guides/law-crime/image_02.webp` | Crime rates 图表 | `runtime` |
+| 52 | `assets/study-guides/law-crime/study_guide.md` | 完整 Study Guide 正文 | `runtime` |
+| 53 | `assets/study-guides/law-crime/image_01.webp` | Dark figure of crime 示意图 | `runtime` |
+| 54 | `assets/study-guides/law-crime/image_02.webp` | Crime rates 图表 | `runtime` |
 
 ### 4.15 `study.podcast.shared`
 
@@ -224,11 +225,11 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 54 | `assets/podcasts/transcripts.js` | 运行时带时间戳字幕数据 | `runtime` |
-| 55 | `assets/podcasts/hosts/lexie.webp` | 主持人 Lexie 头像 | `runtime` |
-| 56 | `assets/podcasts/hosts/noah.webp` | 主持人 Noah 头像 | `runtime` |
-| 57 | `assets/podcasts/hosts/cardi-c.webp` | 主持人 Cardi C 头像 | `runtime` |
-| 58 | `assets/podcasts/hosts/david-duck.webp` | 主持人 David Duck 头像 | `runtime` |
+| 55 | `assets/podcasts/transcripts.js` | 运行时带时间戳字幕数据 | `runtime` |
+| 56 | `assets/podcasts/hosts/lexie.webp` | 主持人 Lexie 头像 | `runtime` |
+| 57 | `assets/podcasts/hosts/noah.webp` | 主持人 Noah 头像 | `runtime` |
+| 58 | `assets/podcasts/hosts/cardi-c.webp` | 主持人 Cardi C 头像 | `runtime` |
+| 59 | `assets/podcasts/hosts/david-duck.webp` | 主持人 David Duck 头像 | `runtime` |
 
 ### 4.16 `study.podcast.unit-rates`
 
@@ -238,8 +239,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 59 | `assets/podcasts/01_defining_and_calculating_unit_rates.mp3` | Podcast 单集音频 | `runtime` |
-| 60 | `assets/podcasts/01_defining_and_calculating_unit_rates.txt` | 可编辑的带时间戳字幕源文件 | `source` |
+| 60 | `assets/podcasts/01_defining_and_calculating_unit_rates.mp3` | Podcast 单集音频 | `runtime` |
+| 61 | `assets/podcasts/01_defining_and_calculating_unit_rates.txt` | 可编辑的带时间戳字幕源文件 | `source` |
 
 ### 4.17 `study.podcast.photosynthesis`
 
@@ -249,8 +250,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 61 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.mp3` | Podcast 单集音频 | `runtime` |
-| 62 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.txt` | 可编辑的带时间戳字幕源文件 | `source` |
+| 62 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.mp3` | Podcast 单集音频 | `runtime` |
+| 63 | `assets/podcasts/02_photosynthesis_crash_course_biology_8.txt` | 可编辑的带时间戳字幕源文件 | `source` |
 
 ### 4.18 `study.podcast.civilization`
 
@@ -260,8 +261,8 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 63 | `assets/podcasts/03_foundations_of_early_human_civilization.mp3` | Podcast 单集音频 | `runtime` |
-| 64 | `assets/podcasts/03_foundations_of_early_human_civilization.txt` | 可编辑的带时间戳字幕源文件 | `source` |
+| 64 | `assets/podcasts/03_foundations_of_early_human_civilization.mp3` | Podcast 单集音频 | `runtime` |
+| 65 | `assets/podcasts/03_foundations_of_early_human_civilization.txt` | 可编辑的带时间戳字幕源文件 | `source` |
 
 ### 4.19 `phase-2.exam-progress`
 
@@ -271,7 +272,7 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 65 | `assets/progress-tracking-exam-results-sample.png` | Exam 进度与结果页面源参考图 | `phase_2` |
+| 66 | `assets/progress-tracking-exam-results-sample.png` | Exam 进度与结果页面源参考图 | `phase_2` |
 
 ## 5. 3 个外部运行时资源
 
@@ -284,9 +285,9 @@
 ## 6. 验收标准
 
 - `assets/catalog.json` 中的 `groups` 数量必须为 19。
-- 所有 `groups[].files[]` 去重后的文件数量必须为 65。
-- 65 个索引路径都必须在仓库中存在，且必须被 Git 跟踪。
-- 素材状态计数必须为 `runtime=58`、`source=6`、`phase_2=1`。
+- 所有 `groups[].files[]` 去重后的文件数量必须为 66。
+- 66 个索引路径都必须在仓库中存在，且必须被 Git 跟踪。
+- 素材状态计数必须为 `runtime=59`、`source=6`、`phase_2=1`。
 - 所有 `runtime` 文件必须存在代码或内容引用，不得出现孤立运行时文件。
 - `externalResources` 必须包含 3 个唯一 HTTPS URL：`remote_html=3`、`remote_image=0`，且每个 `runtime` URL 必须被实现代码引用。
 - 执行 `node scripts/check-assets.mjs` 必须输出 `Asset catalog is complete and all runtime references resolve.`
@@ -296,4 +297,4 @@
 - 仅 Video 的 3 个详情 HTML 使用 `img.justsolvely.com` 远程资源；Solver 后三个案例已改为本地 HTML 和本地图片。视频上线前仍需确认域名、访问权限、跨域策略和长期可用性。
 - Graphing Calculator 使用 GeoGebra 外部脚本，需保留网络失败的降级提示。
 - 公开 GitHub 仓库当前未声明 License；进入生产前需由项目所有者确认代码和素材授权范围。
-- 本地文件口径为 65；3 个远程 URL 单独纳入 `externalResources`。两者合计为 68 个资源引用。
+- 本地文件口径为 66；3 个远程 URL 单独纳入 `externalResources`。两者合计为 69 个资源引用。
