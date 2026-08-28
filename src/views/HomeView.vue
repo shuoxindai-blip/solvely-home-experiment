@@ -184,7 +184,7 @@
               <div class="research-entry">
                 <div class="research-entry-card">
                   <textarea class="research-input" id="researchInput" aria-label="Research topic" placeholder="Enter your topic, research question, or assignment prompt to start searching for credible sources."></textarea>
-                  <div class="research-entry-footer"><button class="writing-footer-upload" id="researchUploadButton" type="button" aria-label="Upload file" title="Upload file"><svg class="icon"><use href="#i-upload"/></svg></button><button class="research-action-button" id="researchActionButton" type="button" disabled><svg class="icon"><use href="#i-search"/></svg><span>Search</span></button></div>
+                  <div class="research-entry-footer"><button class="research-action-button" id="researchActionButton" type="button" disabled><svg class="icon"><use href="#i-search"/></svg><span>Search</span></button></div>
                 </div>
                 <p class="research-samples-label">Or, try searching for:</p>
                 <div class="research-samples">

@@ -1433,9 +1433,11 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       const modelButton = document.getElementById('modelButton');
       const youtubeCapabilities = ['guide', 'flashcards', 'quiz', 'podcast'];
       const writingCapability = capabilityGroups.writing.includes(key);
+      const supportsFileUpload = key !== 'research' && key !== 'aiCitation';
       const linkKind = youtubeCapabilities.includes(key) ? 'youtube' : 'none';
       const supportsMultipleSources = multiSourceCapabilities.has(key);
 
+      attachButton.hidden = !supportsFileUpload;
       attachButton.setAttribute('aria-label', supportsMultipleSources ? 'Attach images or files' : 'Attach a file');
       attachButton.title = supportsMultipleSources ? 'Attach images or files · up to 10 sources' : 'Attach a file';
       imageButton.hidden = writingCapability;
@@ -2637,11 +2639,10 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       writingEditor.focus();
     });
     document.getElementById('writingUploadButton').addEventListener('click', () => document.getElementById('writingFileInput').click());
-    document.getElementById('researchUploadButton').addEventListener('click', () => document.getElementById('writingFileInput').click());
     document.getElementById('writingFileInput').addEventListener('change', event => {
       const file = event.target.files[0];
       if (!file) return;
-      const targetEditor = selectedCapability === 'research' ? researchInput : writingEditor;
+      const targetEditor = writingEditor;
       if (file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt')) {
         const reader = new FileReader();
         reader.addEventListener('load', () => { targetEditor.value = String(reader.result || ''); updateWritingEditorState(); showToast(file.name + ' uploaded'); });
