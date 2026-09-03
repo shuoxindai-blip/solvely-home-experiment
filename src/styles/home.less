@@ -657,8 +657,10 @@
     .preview-chemistry { height:104px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; padding:8px; background:#f7f9fd; }
     .chemistry-preview-item { min-width:0; display:grid; place-items:center; overflow:hidden; border:1px solid #e4e9f1; border-radius:9px; background:#fff; }
     .chemistry-preview-item img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
-    .preview-chemistry.cover { display:block; padding:0; background:#fff; }
-    .preview-chemistry.cover img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
+    .preview-chemistry.cover { display:block; padding:8px; background:#fff; }
+    .chemistry-preview-sheet { position:relative; height:100%; min-height:0; overflow:hidden; border:1px solid #e2e8f1; border-radius:10px; background:#fff; box-shadow:0 5px 14px rgba(36,48,75,.045); transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease; }
+    .chemistry-preview-sheet img { position:absolute; inset:5px; width:calc(100% - 10px); height:calc(100% - 10px); display:block; object-fit:contain; object-position:center; }
+    .example-card:hover .chemistry-preview-sheet { border-color:#cdd9eb; box-shadow:0 7px 17px rgba(35,104,240,.08); transform:translateY(-1px); }
     .chemistry-dialog-preview { height:268px; min-height:0; display:grid; place-items:center; padding:18px; overflow:hidden; background:#fff; }
     .chemistry-dialog-preview img { width:auto; height:232px; max-width:100%; display:block; object-fit:contain; object-position:center; }
     .chemistry-case-selector { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }

@@ -48,12 +48,12 @@
       "scenario": "Structure visualization — Chemistry",
       "implementation": "capabilityData.solver.examples[2]",
       "files": [
-        { "path": "assets/solver-chemistry-structure-cover.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/chemistry-structure.png", "role": "Original chemistry structure used in the example-card preview", "status": "runtime" },
         { "path": "assets/solver-samples/chemistry-structure-visualization.html", "role": "Reusable local chemistry structure document with three tabbed cases", "status": "runtime" },
         { "path": "assets/solver-samples/m-ethylaniline.png", "role": "Local solved structure — (m)-Ethylaniline", "status": "runtime" },
         { "path": "assets/solver-samples/sf4-lewis-structure.png", "role": "Local solved structure — SF4 Lewis structure", "status": "runtime" },
         { "path": "assets/solver-samples/2-isopropyloxolane.png", "role": "Local solved structure — 2-Isopropyloxolane", "status": "runtime" },
-        { "path": "assets/chemistry-structure.png", "role": "Original compact chemistry reference", "status": "source" }
+        { "path": "assets/solver-chemistry-structure-cover.png", "role": "Previous bold chemistry cover retained for reference", "status": "source" }
       ]
     },
     {
