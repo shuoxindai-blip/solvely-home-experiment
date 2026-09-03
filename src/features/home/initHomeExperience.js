@@ -515,28 +515,30 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     function parabolaLinePreview() {
       return `<div class="example-preview preview-solver-intersection">
-        <div class="solver-intersection-chart">
-          <svg viewBox="0 0 220 136" preserveAspectRatio="none" role="img" aria-label="Parabola f of x and line g of x intersect at negative two comma four and zero comma six">
-            <defs><clipPath id="solverIntersectionCoverPlot"><rect x="20" y="8" width="190" height="120" rx="2"/></clipPath></defs>
-            <g class="solver-intersection-grid"><path d="M20 8H210M20 32H210M20 56H210M20 80H210M20 104H210M20 128H210"/><path d="M20 8V128M67.5 8V128M115 8V128M162.5 8V128M210 8V128"/></g>
-            <path class="solver-intersection-axis" d="M20 104H210M115 8V128"/>
-            <g clip-path="url(#solverIntersectionCoverPlot)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path class="solver-intersection-symmetry" d="M103.1 8V128"/>
-              <path class="solver-intersection-parabola" d="M35 128C48 91 58 66 67.5 56C79 42 92 29 103.1 29C127 29 151 73 171.3 128"/>
-              <path class="solver-intersection-line" d="M20 80L162.5 8"/>
-            </g>
-            <g class="solver-intersection-ticks"><text x="3" y="11">8</text><text x="3" y="35">6</text><text x="3" y="59">4</text><text x="3" y="83">2</text><text x="5" y="107">0</text><text x="1" y="131">−2</text><text x="15" y="135">−4</text><text x="63" y="135">−2</text><text x="113" y="135">0</text><text x="161" y="135">2</text><text x="207" y="135">4</text></g>
-            <g class="solver-intersection-points"><circle cx="67.5" cy="56" r="4.2"/><circle cx="115" cy="32" r="4.2"/></g>
-            <g class="solver-intersection-labels"><text x="43" y="50">(−2.0, 4.0)</text><text x="117" y="26">(0.0, 6.0)</text></g>
-          </svg>
-          <div class="solver-intersection-legend" aria-hidden="true"><span><i class="parabola"></i>f(x)</span><span><i class="line"></i>g(x)</span><span><i class="point"></i>Intersections</span><span><i class="symmetry"></i>Axis of Symmetry</span></div>
-        </div>
-        <div class="solver-intersection-controls" aria-hidden="true">
-          <strong class="solver-intersection-controls-title">Parameters</strong>
-          <div class="solver-intersection-control"><span><b>Parabola Coeff (a)</b><em>−1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:68%"></b></i></div>
-          <div class="solver-intersection-control"><span><b>Line Gradient (m)</b><em>1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:59%"></b></i></div>
-          <div class="solver-intersection-control"><span><b>Line Y-Intercept (c)</b><em>6.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:65%"></b></i></div>
-          <p>Adjust <b>a</b> to change curvature, <b>m</b> for line slope, and <b>c</b> for the y-intercept.</p>
+        <div class="solver-intersection-sheet">
+          <div class="solver-intersection-chart">
+            <svg viewBox="0 0 220 136" preserveAspectRatio="none" role="img" aria-label="Parabola f of x and line g of x intersect at negative two comma four and zero comma six">
+              <defs><clipPath id="solverIntersectionCoverPlot"><rect x="20" y="8" width="190" height="120" rx="2"/></clipPath></defs>
+              <g class="solver-intersection-grid"><path d="M20 8H210M20 32H210M20 56H210M20 80H210M20 104H210M20 128H210"/><path d="M20 8V128M67.5 8V128M115 8V128M162.5 8V128M210 8V128"/></g>
+              <path class="solver-intersection-axis" d="M20 104H210M115 8V128"/>
+              <g clip-path="url(#solverIntersectionCoverPlot)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path class="solver-intersection-symmetry" d="M103.1 8V128"/>
+                <path class="solver-intersection-parabola" d="M35 128C48 91 58 66 67.5 56C79 42 92 29 103.1 29C127 29 151 73 171.3 128"/>
+                <path class="solver-intersection-line" d="M20 80L162.5 8"/>
+              </g>
+              <g class="solver-intersection-ticks"><text x="3" y="11">8</text><text x="3" y="35">6</text><text x="3" y="59">4</text><text x="3" y="83">2</text><text x="5" y="107">0</text><text x="1" y="131">−2</text><text x="15" y="135">−4</text><text x="63" y="135">−2</text><text x="113" y="135">0</text><text x="161" y="135">2</text><text x="207" y="135">4</text></g>
+              <g class="solver-intersection-points"><circle cx="67.5" cy="56" r="4.2"/><circle cx="115" cy="32" r="4.2"/></g>
+              <g class="solver-intersection-labels"><text x="43" y="50">(−2.0, 4.0)</text><text x="117" y="26">(0.0, 6.0)</text></g>
+            </svg>
+            <div class="solver-intersection-legend" aria-hidden="true"><span><i class="parabola"></i>f(x)</span><span><i class="line"></i>g(x)</span><span><i class="point"></i>Intersections</span><span><i class="symmetry"></i>Axis of Symmetry</span></div>
+          </div>
+          <div class="solver-intersection-controls" aria-hidden="true">
+            <strong class="solver-intersection-controls-title">Parameters</strong>
+            <div class="solver-intersection-control"><span><b>Parabola Coeff (a)</b><em>−1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:68%"></b></i></div>
+            <div class="solver-intersection-control"><span><b>Line Gradient (m)</b><em>1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:59%"></b></i></div>
+            <div class="solver-intersection-control"><span><b>Line Y-Intercept (c)</b><em>6.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:65%"></b></i></div>
+            <p>Adjust <b>a</b> to change curvature, <b>m</b> for line slope, and <b>c</b> for the y-intercept.</p>
+          </div>
         </div>
       </div>`;
     }
@@ -569,7 +571,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     function accountingPreview() {
       return `<div class="example-preview preview-accounting" role="img" aria-label="Complete vertical analysis comparing Voltix and Circuita">
         <div class="accounting-preview-table" aria-hidden="true">
-          <span class="accounting-preview-heading">Item</span><span class="accounting-preview-heading">Voltix ($M)</span><span class="accounting-preview-heading">Voltix (%)</span><span class="accounting-preview-heading">Circuita ($M)</span><span class="accounting-preview-heading">Circuita (%)</span>
+          <span class="accounting-preview-heading">Item</span><span class="accounting-preview-heading">Voltix $M</span><span class="accounting-preview-heading">Voltix %</span><span class="accounting-preview-heading">Circuita $M</span><span class="accounting-preview-heading">Circuita %</span>
           <span>Revenue</span><span>500</span><span>100%</span><span>800</span><span>100%</span>
           <span>COGS</span><span>350</span><strong class="accounting-preview-voltix">70%</strong><span>480</span><strong class="accounting-preview-circuita">60%</strong>
           <span>Gross Profit</span><span>150</span><span>30%</span><span>320</span><span>40%</span>

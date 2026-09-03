@@ -461,7 +461,9 @@
     .preview-graph-image img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
     .preview-graph-image.graph-externality img,
     .preview-graph-image.solver-parabola-line img { object-fit:contain; }
-    .preview-solver-intersection { display:grid; grid-template-columns:minmax(0,1.94fr) minmax(0,1.06fr); gap:6px; padding:6px; background:#fff; color:#111827; }
+    .preview-solver-intersection { display:block; padding:8px; background:#fff; color:#111827; }
+    .solver-intersection-sheet { height:100%; min-height:0; display:grid; grid-template-columns:minmax(0,1.94fr) minmax(0,1.06fr); gap:5px; padding:5px; overflow:hidden; border:1px solid #e2e8f1; border-radius:10px; background:#fff; box-shadow:0 5px 14px rgba(36,48,75,.045); transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease; }
+    .example-card:hover .solver-intersection-sheet { border-color:#cdd9eb; box-shadow:0 7px 17px rgba(35,104,240,.08); transform:translateY(-1px); }
     .solver-intersection-chart { min-width:0; min-height:0; display:grid; grid-template-rows:minmax(0,1fr) auto; }
     .solver-intersection-chart svg { width:100%; height:100%; min-height:0; display:block; overflow:visible; }
     .solver-intersection-grid path { fill:none; stroke:#e1e5eb; stroke-width:.8; vector-effect:non-scaling-stroke; }
@@ -478,16 +480,16 @@
     .solver-intersection-legend i.line { height:0; border-top:2px dashed #ff7900; background:transparent; }
     .solver-intersection-legend i.point { width:5px; height:5px; border-radius:50%; background:#f52218; }
     .solver-intersection-legend i.symmetry { height:0; border-top:2px dashed #13b89a; background:transparent; }
-    .solver-intersection-controls { min-width:0; min-height:0; display:flex; flex-direction:column; gap:2px; padding:5px; border:1px solid #e8ebf0; border-radius:9px; background:#fff; box-shadow:0 5px 12px rgba(15,23,42,.08); }
+    .solver-intersection-controls { min-width:0; min-height:0; display:flex; flex-direction:column; gap:1.5px; padding:4px; border:1px solid #e8ebf0; border-radius:7px; background:#fff; }
     .solver-intersection-controls-title { color:#273247; font-size:6.5px; font-weight:850; letter-spacing:.02em; text-transform:uppercase; }
-    .solver-intersection-control { padding:3px 4px 4px; border:1px solid #edf0f4; border-radius:6px; background:#fbfbfc; }
+    .solver-intersection-control { padding:2px 3px 3px; border:1px solid #edf0f4; border-radius:5px; background:#fbfbfc; }
     .solver-intersection-control > span { display:flex; align-items:center; justify-content:space-between; gap:4px; }
     .solver-intersection-control > span b { overflow:hidden; color:#22262d; font-size:4.5px; font-style:normal; font-weight:760; text-overflow:ellipsis; white-space:nowrap; }
     .solver-intersection-control > span em { flex:0 0 auto; color:#0d4bd7; font-size:5px; font-style:normal; font-weight:820; }
-    .solver-intersection-track { position:relative; height:2px; display:block; margin-top:4px; border-radius:999px; background:#ddd; }
+    .solver-intersection-track { position:relative; height:2px; display:block; margin-top:3px; border-radius:999px; background:#ddd; }
     .solver-intersection-track::before { content:""; position:absolute; inset:0 auto 0 0; width:var(--solver-preview-value); border-radius:inherit; background:#125be0; }
     .solver-intersection-track b { position:absolute; top:50%; left:var(--solver-preview-value); width:8px; height:8px; border:1.5px solid #125be0; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(15,23,42,.22); transform:translate(-50%,-50%); }
-    .solver-intersection-controls p { margin:auto 0 0; padding:3px; border-radius:5px; background:#edf5ff; color:#1749b5; font-size:3.5px; font-weight:560; line-height:1.2; }
+    .solver-intersection-controls p { margin:auto 0 0; padding:2.5px; border-radius:4px; background:#edf5ff; color:#1749b5; font-size:3.2px; font-weight:560; line-height:1.15; }
     .preview-video { position:relative; background:#0b101c; }
     .preview-video img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
     .preview-video::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(8,15,30,.16)); pointer-events:none; }
@@ -671,14 +673,14 @@
     .chemistry-fact small { margin-bottom:3px; color:var(--subtle); font-size:8px; font-weight:720; letter-spacing:.05em; text-transform:uppercase; }
     .chemistry-fact strong { overflow-wrap:anywhere; color:var(--text); font-size:10px; line-height:1.35; }
     .preview-accounting { display:flex; padding:10px 9px 9px; background:#fff; }
-    .accounting-preview-table { flex:1; min-height:0; display:grid; grid-template-columns:1.6fr repeat(4,minmax(0,1fr)); grid-template-rows:repeat(6,minmax(0,1fr)); overflow:hidden; border:1px solid #cdd8e7; border-radius:7px; background:#fff; box-shadow:0 3px 8px rgba(28,44,72,.12); }
-    .accounting-preview-table > span,.accounting-preview-table > strong { min-width:0; display:flex; align-items:center; justify-content:flex-end; padding:0 5px; border-right:1px solid #d9e2ed; border-bottom:1px solid #d9e2ed; color:#46566c; font-size:5.3px; font-weight:540; line-height:1; white-space:nowrap; }
+    .accounting-preview-table { flex:1; min-height:0; display:grid; grid-template-columns:1.6fr repeat(4,minmax(0,1fr)); grid-template-rows:repeat(6,minmax(0,1fr)); overflow:hidden; border:1px solid #e1e6ee; border-radius:7px; background:#fff; box-shadow:0 3px 8px rgba(28,44,72,.08); }
+    .accounting-preview-table > span,.accounting-preview-table > strong { min-width:0; display:flex; align-items:center; justify-content:flex-end; padding:0 5px; border-right:1px solid #e1e6ee; border-bottom:1px solid #e1e6ee; color:#526077; font-size:5.3px; font-weight:540; line-height:1; white-space:nowrap; }
     .accounting-preview-table > :nth-child(5n + 1) { justify-content:flex-start; padding-left:6px; }
     .accounting-preview-table > :nth-child(5n) { border-right:0; }
-    .accounting-preview-table .accounting-preview-heading { background:#0b3a78; color:#fff; font-size:5.15px; font-weight:790; }
-    .accounting-preview-table .accounting-preview-voltix { background:#edf4ff; color:#1362dc; font-weight:850; }
-    .accounting-preview-table .accounting-preview-circuita { background:#e1f4e9; color:#139048; font-weight:850; }
-    .accounting-preview-table .accounting-preview-total { border-top:1px solid #0b3a78; border-bottom:0; color:#0c2f5e; font-weight:850; }
+    .accounting-preview-table .accounting-preview-heading { background:#eef4ff; color:#254b86; font-size:5.15px; font-weight:800; }
+    .accounting-preview-table .accounting-preview-voltix { background:#edf3ff; color:#2368f0; font-weight:800; }
+    .accounting-preview-table .accounting-preview-circuita { background:#e6f6f0; color:#16855b; font-weight:800; }
+    .accounting-preview-table .accounting-preview-total { border-bottom:0; color:#26344a; font-weight:800; }
     .preview-accounting-full { min-height:245px; padding:16px 18px; overflow-x:auto; background:#fff; }
     .accounting-full-table { width:100%; min-width:570px; border-collapse:collapse; color:#526077; font-size:11px; }
     .accounting-full-table caption { padding:0 0 10px; color:#254b86; font-size:11px; font-weight:800; letter-spacing:.08em; text-align:left; text-transform:uppercase; }
