@@ -505,7 +505,6 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     function graphScreenshotPreview(type) {
       const previews = {
-        'solver-parabola-line': { src: 'assets/solver-parabola-intersection-cover.png', alt: 'Parabola and linear function intersection simulator' },
         'graph-reflection': { src: 'assets/graph-reflection-over-y-axis.png', alt: 'Reflection over the y-axis simulator' },
         'graph-externality': { src: 'assets/graph-negative-externality.png', alt: 'Negative externality and Pigouvian tax simulator' },
         'graph-limits': { src: 'assets/graph-limits-at-infinity.png', alt: 'Limits at infinity simulator' }
@@ -515,7 +514,31 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     }
 
     function parabolaLinePreview() {
-      return `<div class="example-preview preview-graph"><svg viewBox="0 0 320 104" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Parabola and linear function intersection graph"><defs><pattern id="solverIntersectionGrid" width="24" height="20" patternUnits="userSpaceOnUse"><path d="M24 0H0V20" fill="none" stroke="var(--line)" stroke-width=".8"/></pattern><clipPath id="solverIntersectionPlot"><rect x="24" y="8" width="272" height="82" rx="4"/></clipPath></defs><rect width="320" height="104" fill="var(--surface-soft)"/><rect x="24" y="8" width="272" height="82" rx="7" fill="url(#solverIntersectionGrid)"/><path d="M24 79H298M140 7V92" fill="none" stroke="var(--line-strong)" stroke-width="1.2"/><g clip-path="url(#solverIntersectionPlot)" fill="none" stroke-linecap="round"><path d="M55 91 C65 60 70 48 79 43 C106 10 156 10 193 36 C217 49 239 73 251 91" stroke="#2368f0" stroke-width="2.7"/><path d="M48 45 273 32" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="5 3"/><path d="M140 8V91" stroke="#9aabc2" stroke-width="1.2" stroke-dasharray="4 3"/></g><g fill="#fff" stroke="#2368f0" stroke-width="2"><circle cx="79" cy="43" r="3.8"/><circle cx="193" cy="36" r="3.8"/></g><g font-family="system-ui,sans-serif" font-size="7" font-weight="700"><text x="239" y="84" fill="#2368f0">f(x)</text><text x="255" y="30" fill="#d97706">g(x)</text></g></svg></div>`;
+      return `<div class="example-preview preview-solver-intersection">
+        <div class="solver-intersection-chart">
+          <svg viewBox="0 0 220 136" preserveAspectRatio="none" role="img" aria-label="Parabola f of x and line g of x intersect at negative two comma four and zero comma six">
+            <defs><clipPath id="solverIntersectionCoverPlot"><rect x="20" y="8" width="190" height="120" rx="2"/></clipPath></defs>
+            <g class="solver-intersection-grid"><path d="M20 8H210M20 32H210M20 56H210M20 80H210M20 104H210M20 128H210"/><path d="M20 8V128M67.5 8V128M115 8V128M162.5 8V128M210 8V128"/></g>
+            <path class="solver-intersection-axis" d="M20 104H210M115 8V128"/>
+            <g clip-path="url(#solverIntersectionCoverPlot)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path class="solver-intersection-symmetry" d="M103.1 8V128"/>
+              <path class="solver-intersection-parabola" d="M35 128C48 91 58 66 67.5 56C79 42 92 29 103.1 29C127 29 151 73 171.3 128"/>
+              <path class="solver-intersection-line" d="M20 80L162.5 8"/>
+            </g>
+            <g class="solver-intersection-ticks"><text x="3" y="11">8</text><text x="3" y="35">6</text><text x="3" y="59">4</text><text x="3" y="83">2</text><text x="5" y="107">0</text><text x="1" y="131">−2</text><text x="15" y="135">−4</text><text x="63" y="135">−2</text><text x="113" y="135">0</text><text x="161" y="135">2</text><text x="207" y="135">4</text></g>
+            <g class="solver-intersection-points"><circle cx="67.5" cy="56" r="4.2"/><circle cx="115" cy="32" r="4.2"/></g>
+            <g class="solver-intersection-labels"><text x="43" y="50">(−2.0, 4.0)</text><text x="117" y="26">(0.0, 6.0)</text></g>
+          </svg>
+          <div class="solver-intersection-legend" aria-hidden="true"><span><i class="parabola"></i>f(x)</span><span><i class="line"></i>g(x)</span><span><i class="point"></i>Intersections</span><span><i class="symmetry"></i>Axis of Symmetry</span></div>
+        </div>
+        <div class="solver-intersection-controls" aria-hidden="true">
+          <strong class="solver-intersection-controls-title">Parameters</strong>
+          <div class="solver-intersection-control"><span><b>Parabola Coeff (a)</b><em>−1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:68%"></b></i></div>
+          <div class="solver-intersection-control"><span><b>Line Gradient (m)</b><em>1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:59%"></b></i></div>
+          <div class="solver-intersection-control"><span><b>Line Y-Intercept (c)</b><em>6.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:65%"></b></i></div>
+          <p>Adjust <b>a</b> to change curvature, <b>m</b> for line slope, and <b>c</b> for the y-intercept.</p>
+        </div>
+      </div>`;
     }
 
     function reflectionGraphPreview() {
@@ -544,7 +567,17 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     }
 
     function accountingPreview() {
-      return `<div class="example-preview preview-accounting"><img src="assets/solver-financial-analysis-cover.webp" alt="Complete vertical analysis comparing Voltix and Circuita" /></div>`;
+      return `<div class="example-preview preview-accounting" role="img" aria-label="Complete vertical analysis comparing Voltix and Circuita">
+        <strong class="accounting-preview-title">Complete vertical analysis · $M and % of revenue</strong>
+        <div class="accounting-preview-table" aria-hidden="true">
+          <span class="accounting-preview-heading">Item</span><span class="accounting-preview-heading">Voltix ($M)</span><span class="accounting-preview-heading">Voltix (%)</span><span class="accounting-preview-heading">Circuita ($M)</span><span class="accounting-preview-heading">Circuita (%)</span>
+          <span>Revenue</span><span>500</span><span>100%</span><span>800</span><span>100%</span>
+          <span>COGS</span><span>350</span><strong class="accounting-preview-voltix">70%</strong><span>480</span><strong class="accounting-preview-circuita">60%</strong>
+          <span>Gross Profit</span><span>150</span><span>30%</span><span>320</span><span>40%</span>
+          <span>Operating Expenses</span><span>100</span><span>20%</span><span>240</span><span>30%</span>
+          <strong class="accounting-preview-total">Net Income</strong><strong class="accounting-preview-total">50</strong><strong class="accounting-preview-total">10%</strong><strong class="accounting-preview-total">80</strong><strong class="accounting-preview-total">10%</strong>
+        </div>
+      </div>`;
     }
 
     function accountingDialogPreview() {
@@ -819,7 +852,8 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     }
 
     function previewMarkup(type, example = null) {
-      if (['graph-reflection','graph-externality','graph-limits','solver-parabola-line'].includes(type)) return graphScreenshotPreview(type);
+      if (type === 'solver-parabola-line') return parabolaLinePreview();
+      if (['graph-reflection','graph-externality','graph-limits'].includes(type)) return graphScreenshotPreview(type);
       if (type === 'solver-step-solution') return solverStepSolutionPreview();
       if (type === 'graph') return graphPreview();
       if (type.startsWith('video')) return videoPreview(type);

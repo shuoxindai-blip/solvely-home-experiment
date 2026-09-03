@@ -19,8 +19,8 @@
 | 本地索引文件 | 66 | `groups[].files[]` 中记录的唯一仓库文件 |
 | 外部运行时资源 | 3 | `groups[].externalResources[]` 中记录的 3 个远程 HTML |
 | 资源引用总数 | 69 | 66 个本地文件 + 3 个外部运行时资源 |
-| `runtime` | 59 | 当前原型直接加载，一期可接入 |
-| `source` | 6 | 用于编辑、裁剪、重新生成或回滚，不应代替当前实现 |
+| `runtime` | 57 | 当前原型直接加载，一期可接入 |
+| `source` | 8 | 用于编辑、裁剪、重新生成或回滚，不应代替当前实现 |
 | `phase_2` | 1 | Exam Prep / Diagnostic 二期素材，一期不接入 |
 
 ## 3. 开发使用规则
@@ -56,7 +56,7 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 6 | `assets/solver-parabola-intersection-cover.png` | 示例卡片封面 | `runtime` |
+| 6 | `assets/solver-parabola-intersection-cover.png` | 原始示例卡片参考图；当前封面已改为原生 HTML/SVG | `source` |
 | 7 | `assets/simulators/parabola-linear-intersection.html` | 本地互动详情页 | `runtime` |
 
 ### 4.3 `study.solver.parallelogram-step-solution`
@@ -97,7 +97,7 @@
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 18 | `assets/solver-financial-analysis-cover.webp` | 财务分析示例卡片封面 | `runtime` |
+| 18 | `assets/solver-financial-analysis-cover.webp` | 原始财务分析参考图；当前封面已改为原生 HTML/CSS 表格 | `source` |
 | 19 | `assets/solver-samples/financial-analysis.html` | 可复用的本地财务纵向分析文档；点击指标后高亮对应百分比并切换结论 | `runtime` |
 
 ### 4.6 `study.graph.reflection`

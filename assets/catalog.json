@@ -26,7 +26,7 @@
       "scenario": "Interactive graph — Parabola & Linear Intersection",
       "implementation": "capabilityData.solver.examples[0]",
       "files": [
-        { "path": "assets/solver-parabola-intersection-cover.png", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/solver-parabola-intersection-cover.png", "role": "Original example-card reference retained for the native HTML/SVG cover", "status": "source" },
         { "path": "assets/simulators/parabola-linear-intersection.html", "role": "Interactive detail experience", "status": "runtime" }
       ]
     },
@@ -62,7 +62,7 @@
       "scenario": "Financial analysis — Vertical Analysis",
       "implementation": "capabilityData.solver.examples[3] / financial-analysis.html",
       "files": [
-        { "path": "assets/solver-financial-analysis-cover.webp", "role": "Example-card preview", "status": "runtime" },
+        { "path": "assets/solver-financial-analysis-cover.webp", "role": "Original example-card reference retained for the native HTML/CSS table cover", "status": "source" },
         { "path": "assets/solver-samples/financial-analysis.html", "role": "Reusable local vertical-analysis document with metric highlighting", "status": "runtime" }
       ]
     },
