@@ -534,9 +534,9 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
           </div>
           <div class="solver-intersection-controls" aria-hidden="true">
             <strong class="solver-intersection-controls-title">Parameters</strong>
-            <div class="solver-intersection-control"><span><b>Parabola Coeff (a)</b><em>−1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:68%"></b></i></div>
-            <div class="solver-intersection-control"><span><b>Line Gradient (m)</b><em>1.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:59%"></b></i></div>
-            <div class="solver-intersection-control"><span><b>Line Y-Intercept (c)</b><em>6.0</em></span><i class="solver-intersection-track"><b style="--solver-preview-value:65%"></b></i></div>
+            <div class="solver-intersection-control"><span><b>Parabola Coeff (a)</b><em>−1.0</em></span><i class="solver-intersection-track" style="--solver-preview-value:68%"><b></b></i></div>
+            <div class="solver-intersection-control"><span><b>Line Gradient (m)</b><em>1.0</em></span><i class="solver-intersection-track" style="--solver-preview-value:59%"><b></b></i></div>
+            <div class="solver-intersection-control"><span><b>Line Y-Intercept (c)</b><em>6.0</em></span><i class="solver-intersection-track" style="--solver-preview-value:65%"><b></b></i></div>
             <p>Adjust <b>a</b> to change curvature, <b>m</b> for line slope, and <b>c</b> for the y-intercept.</p>
           </div>
         </div>
@@ -571,11 +571,11 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     function accountingPreview() {
       return `<div class="example-preview preview-accounting" role="img" aria-label="Complete vertical analysis comparing Voltix and Circuita">
         <div class="accounting-preview-table" aria-hidden="true">
-          <span class="accounting-preview-heading">Item</span><span class="accounting-preview-heading">Voltix $M</span><span class="accounting-preview-heading">Voltix %</span><span class="accounting-preview-heading">Circuita $M</span><span class="accounting-preview-heading">Circuita %</span>
+          <span class="accounting-preview-heading">Item</span><span class="accounting-preview-heading" title="Voltix ($M)">V $M</span><span class="accounting-preview-heading" title="Voltix (%)">V %</span><span class="accounting-preview-heading" title="Circuita ($M)">C $M</span><span class="accounting-preview-heading" title="Circuita (%)">C %</span>
           <span>Revenue</span><span>500</span><span>100%</span><span>800</span><span>100%</span>
           <span>COGS</span><span>350</span><strong class="accounting-preview-voltix">70%</strong><span>480</span><strong class="accounting-preview-circuita">60%</strong>
           <span>Gross Profit</span><span>150</span><span>30%</span><span>320</span><span>40%</span>
-          <span>Operating Expenses</span><span>100</span><span>20%</span><span>240</span><span>30%</span>
+          <span title="Operating Expenses">Op. Exp.</span><span>100</span><span>20%</span><span>240</span><span>30%</span>
           <strong class="accounting-preview-total">Net Income</strong><strong class="accounting-preview-total">50</strong><strong class="accounting-preview-total">10%</strong><strong class="accounting-preview-total">80</strong><strong class="accounting-preview-total">10%</strong>
         </div>
       </div>`;
@@ -820,9 +820,11 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     function solverStepSolutionPreview() {
       return `<div class="example-preview preview-step-solution">
         <div class="preview-solution-sheet">
-          <div class="preview-solution-answer-row"><span class="preview-solution-final">Final Answer</span><strong class="preview-solution-answer">C. 30</strong></div>
-          <div class="preview-solution-explanation"><strong>Explanation</strong><span>5 clear steps</span></div>
-          <div class="preview-solution-steps"><span><b>1</b><strong>Use parallelogram properties</strong></span><span><b>2</b><strong>Solve t = 25</strong></span><span><b>3</b><strong>Find ∠O = 60°</strong></span><span><b>4</b><strong>Solve r = 30</strong></span><span><b>5</b><strong>Confirm C. 30</strong></span></div>
+          <div class="preview-solution-answer-row"><span>Final Answer</span><strong>C. 30</strong></div>
+          <div class="preview-step-flow" aria-hidden="true">
+            <article class="preview-step-item active"><b>2</b><div><strong>Solving for the variable <i>t</i></strong><span>2t + 10 = 3t − 15<br>25 = t</span></div></article>
+            <article class="preview-step-item"><b>3</b><div><strong>Calculating the measure of angle <i>O</i></strong><span>m∠O = 2(25) + 10<br>= 60°</span></div></article>
+          </div>
         </div>
       </div>`;
     }
@@ -1020,6 +1022,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       examplesGrid.classList.remove('study-overview-grid');
       examplesGrid.classList.toggle('four-up', capability.examples.length === 4);
       examplesGrid.classList.toggle('solver-grid', selectedCapability === 'solver');
+      examplesGrid.classList.toggle('exam-prep-grid', selectedCapability === 'mock');
       examplesGrid.innerHTML = capability.examples.map((example, index) => `
         <button class="example-card${isExamPrepOverview ? ' feature-card' : ''}"${isExamPrepOverview ? ` data-feature-index="${index}" aria-label="Learn about ${example.title}"` : ` data-example-index="${index}" aria-label="Preview ${example.title}"`}>
           <span class="example-meta"><span>${example.tag}</span>${icon(capability.icon)}</span>
