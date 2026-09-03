@@ -821,8 +821,8 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       return `<div class="example-preview preview-step-solution">
         <div class="preview-solution-sheet">
           <div class="preview-solution-answer-row"><span class="preview-solution-final">Final Answer</span><strong class="preview-solution-answer">C. 30</strong></div>
-          <div class="preview-solution-explanation"><strong>Explanation</strong><span>3 clear steps</span></div>
-          <div class="preview-solution-steps"><span><b>1</b><strong>Use angle properties</strong></span><span><b>2</b><strong>Solve t = 25</strong></span><span><b>3</b><strong>Find r = 30 and verify</strong></span></div>
+          <div class="preview-solution-explanation"><strong>Explanation</strong><span>5 clear steps</span></div>
+          <div class="preview-solution-steps"><span><b>1</b><strong>Use parallelogram properties</strong></span><span><b>2</b><strong>Solve t = 25</strong></span><span><b>3</b><strong>Find ∠O = 60°</strong></span><span><b>4</b><strong>Solve r = 30</strong></span><span><b>5</b><strong>Confirm C. 30</strong></span></div>
         </div>
       </div>`;
     }
