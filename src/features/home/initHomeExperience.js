@@ -568,7 +568,6 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     function accountingPreview() {
       return `<div class="example-preview preview-accounting" role="img" aria-label="Complete vertical analysis comparing Voltix and Circuita">
-        <strong class="accounting-preview-title">Complete vertical analysis · $M and % of revenue</strong>
         <div class="accounting-preview-table" aria-hidden="true">
           <span class="accounting-preview-heading">Item</span><span class="accounting-preview-heading">Voltix ($M)</span><span class="accounting-preview-heading">Voltix (%)</span><span class="accounting-preview-heading">Circuita ($M)</span><span class="accounting-preview-heading">Circuita (%)</span>
           <span>Revenue</span><span>500</span><span>100%</span><span>800</span><span>100%</span>
