@@ -840,7 +840,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     function solverStepSolutionDialogPreview() {
       return `<div class="recording-answer-page" data-solver-answer>
-        <img class="recording-question-image" src="assets/solver-parallelogram-question.png" alt="Geometry problem asking to solve for r in parallelogram LMNO" />
+        <div class="recording-question-bubble"><img class="recording-question-image" src="assets/solver-parallelogram-question.png" alt="Geometry problem asking to solve for r in parallelogram LMNO" /></div>
         <h3 class="recording-final-title">Final Answer</h3>
         <section class="recording-final-card"><strong>1.</strong><span>A. 15</span><span>B. 25</span><b>✓ C. 30</b><span>D. 120</span></section>
         <section class="recording-video-card">
