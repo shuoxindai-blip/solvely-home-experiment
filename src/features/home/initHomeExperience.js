@@ -134,6 +134,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
           {
             tag:'Biology', title:'Blood Glucose Negative Feedback', description:'Insulin, glucagon, and liver regulation.', preview:'quiz',
             dialogTitle:'Blood Glucose Negative Feedback', image:'assets/quizzes/blood-glucose-feedback.webp', imageAlt:'Diagram showing insulin and glucagon negative feedback control of blood glucose through the pancreas, liver, and tissue cells', imageMaxWidth:420,
+            previewQuestion:'How is blood glucose controlled?',
             question:'Using the diagram, which statement best explains how the liver contributes to negative feedback control of blood glucose in both directions?',
             prompt:'Quiz me on how the liver contributes to negative feedback control of blood glucose in both directions.',
             options:[
@@ -147,6 +148,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
           {
             tag:'Physics', title:'Refraction & Apparent Depth', description:'Why a fish appears shallower from above.', preview:'quiz',
             dialogTitle:'Refraction & Apparent Depth', image:'assets/quizzes/fish-apparent-depth.webp', imageAlt:'Diagram showing light rays refracting from a fish underwater toward an observer above the surface', imageMaxWidth:360,
+            previewQuestion:'Why does the fish look shallow?',
             question:'A fish is viewed from above the water surface. In the diagram, the fish appears at a depth shallower than its real position. What best explains this apparent depth effect?',
             prompt:'Quiz me on why a fish appears shallower than its real position when viewed from above water.',
             options:[
@@ -160,6 +162,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
           {
             tag:'Chemistry', title:'Ionic Crystal Lattice', description:'How opposite charges form an ordered solid.', preview:'quiz',
             dialogTitle:'Ionic Crystal Lattice', image:'assets/quizzes/ionic-crystal-lattice.webp', imageAlt:'Two-dimensional and three-dimensional diagrams of alternating sodium and chloride ions in a crystal lattice', imageMaxWidth:420,
+            previewQuestion:'Why do ionic lattices form?',
             question:'Why do ionic compounds form a crystalline lattice?',
             prompt:'Quiz me on why ionic compounds form a crystalline lattice.',
             options:[
@@ -672,9 +675,11 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
 
     function quizPreview(example) {
       const question = example && example.question ? example.question : 'Check your understanding';
+      const previewQuestion = example && example.previewQuestion ? example.previewQuestion : question;
       const options = example && Array.isArray(example.options) ? example.options : [{key:'A'},{key:'B'},{key:'C'},{key:'D'}];
-      if (example && example.image) return `<div class="example-preview preview-quiz has-image"><div class="quiz-preview-image"><img src="${example.image}" alt="${example.imageAlt || ''}" loading="lazy"></div><div class="quiz-preview-side"><div class="quiz-preview-copy"><small>Image question · ${example.tag}</small><strong>${question}</strong></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div></div>`;
-      return `<div class="example-preview preview-quiz"><div class="quiz-preview-copy"><small>1 question</small><strong>${question}</strong><span>Choose an answer for instant feedback</span></div><div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div></div>`;
+      const answerList = `<div class="quiz-preview-options">${options.map(option => `<div class="quiz-option">${option.key}</div>`).join('')}</div>`;
+      if (example && example.image) return `<div class="example-preview preview-quiz has-image"><div class="quiz-preview-image"><img src="${example.image}" alt="${example.imageAlt || ''}" loading="lazy"></div><div class="quiz-preview-side"><strong class="quiz-preview-question">${previewQuestion}</strong>${answerList}</div></div>`;
+      return `<div class="example-preview preview-quiz"><div class="quiz-preview-side"><strong class="quiz-preview-question">${previewQuestion}</strong>${answerList}</div></div>`;
     }
 
     function quizInteractionMarkup(example) {
