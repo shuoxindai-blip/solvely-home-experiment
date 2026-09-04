@@ -10,7 +10,10 @@
     body { margin:0; background:#fff; color:var(--text); }
     main { width:min(760px,100%); margin:0 auto; padding:18px; }
     .structure-stage { height:268px; display:grid; place-items:center; overflow:hidden; border:1px solid var(--line); border-radius:16px; background:#fff; }
-    .structure-stage img { width:auto; height:232px; max-width:100%; display:block; object-fit:contain; object-position:center; }
+    .structure-artwork { width:100%; height:232px; display:grid; place-items:center; }
+    .structure-artwork img { width:auto; height:232px; max-width:100%; display:block; object-fit:contain; object-position:center; }
+    .structure-artwork.is-cropped { position:relative; width:100%; max-width:var(--art-width); height:auto; aspect-ratio:var(--art-ratio); overflow:hidden; }
+    .structure-artwork.is-cropped img { position:absolute; width:var(--image-width); height:auto; max-width:none; left:var(--image-left); top:var(--image-top); object-fit:initial; }
     .selector { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:14px; }
     .tab { min-height:48px; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--muted); font:680 10px/1.3 inherit; text-align:left; cursor:pointer; transition:border-color .16s ease,background .16s ease,color .16s ease; }
     .tab:hover { border-color:rgba(35,104,240,.35); }
@@ -27,17 +30,18 @@
 </head>
 <body>
   <main>
-    <section class="structure-stage"><img id="structureImage" alt="Tyrosine structure" /></section>
+    <section class="structure-stage"><span class="structure-artwork" id="structureArtwork"><img id="structureImage" alt="Tyrosine structure" /></span></section>
     <div class="selector" role="tablist" aria-label="Chemistry structure examples" id="selector"></div>
     <section class="answer"><p class="summary" id="summary"></p><div class="facts" id="facts"></div></section>
   </main>
   <script>
     const structures = [
-      { title:'Tyrosine', summary:'Tyrosine combines a para-hydroxyphenyl side chain with an α-amino acid backbone.', image:'gallery-33-tyrosine.png', facts:[['Molecular formula','C₉H₁₁NO₃'],['Class','Aromatic amino acid'],['Functional groups','Phenol · amine · carboxyl'],['Gallery reference','#33']] },
-      { title:'2,3-Diaminopropanoic acid', summary:'A three-carbon amino acid with amino groups on both carbon 2 and carbon 3.', image:'gallery-36-diaminopropanoic-acid.png', facts:[['Molecular formula','C₃H₈N₂O₂'],['Amino groups','2'],['IUPAC name','2,3-diaminopropanoic acid'],['Gallery reference','#36']] },
+      { title:'Tyrosine', summary:'Tyrosine combines a para-hydroxyphenyl side chain with an α-amino acid backbone.', image:'gallery-33-tyrosine.png', viewport:{ width:493, ratio:2.152381, imageWidth:113.2743, imageLeft:-6.1947, imageTop:-65.7143 }, facts:[['Molecular formula','C₉H₁₁NO₃'],['Class','Aromatic amino acid'],['Functional groups','Phenol · amine · carboxyl'],['Gallery reference','#33']] },
+      { title:'2,3-Diaminopropanoic acid', summary:'A three-carbon amino acid with amino groups on both carbon 2 and carbon 3.', image:'gallery-36-diaminopropanoic-acid.png', viewport:{ width:353, ratio:1.552894, imageWidth:131.6195, imageLeft:-9.6401, imageTop:-42.9142 }, facts:[['Molecular formula','C₃H₈N₂O₂'],['Amino groups','2'],['IUPAC name','2,3-diaminopropanoic acid'],['Gallery reference','#36']] },
       { title:'Propionic acid Lewis structure', summary:'The complete Lewis structure shows the CH₃CH₂COOH skeleton and both lone pairs on each oxygen.', image:'gallery-32-propionic-acid-lewis.png', facts:[['Molecular formula','C₃H₆O₂'],['Condensed formula','CH₃CH₂COOH'],['Valence electrons','30'],['Gallery reference','#32']] }
     ];
     const image = document.getElementById('structureImage');
+    const artwork = document.getElementById('structureArtwork');
     const selector = document.getElementById('selector');
     const summary = document.getElementById('summary');
     const facts = document.getElementById('facts');
@@ -52,6 +56,20 @@
       const structure = structures[index];
       image.src = structure.image;
       image.alt = structure.title;
+      const viewport = structure.viewport;
+      artwork.classList.toggle('is-cropped',Boolean(viewport));
+      artwork.style.removeProperty('--art-width');
+      artwork.style.removeProperty('--art-ratio');
+      artwork.style.removeProperty('--image-width');
+      artwork.style.removeProperty('--image-left');
+      artwork.style.removeProperty('--image-top');
+      if (viewport) {
+        artwork.style.setProperty('--art-width',`${viewport.width}px`);
+        artwork.style.setProperty('--art-ratio',String(viewport.ratio));
+        artwork.style.setProperty('--image-width',`${viewport.imageWidth}%`);
+        artwork.style.setProperty('--image-left',`${viewport.imageLeft}%`);
+        artwork.style.setProperty('--image-top',`${viewport.imageTop}%`);
+      }
       summary.textContent = structure.summary;
       facts.innerHTML = structure.facts.map(([label,value]) => `<div class="fact"><small>${label}</small><strong>${value}</strong></div>`).join('');
       selector.querySelectorAll('.tab').forEach((tab,tabIndex) => { const active = tabIndex === index; tab.classList.toggle('active',active); tab.setAttribute('aria-selected',String(active)); });

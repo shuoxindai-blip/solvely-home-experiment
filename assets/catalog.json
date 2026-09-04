@@ -48,11 +48,11 @@
       "scenario": "Structure visualization — Chemistry",
       "implementation": "capabilityData.solver.examples[2]",
       "files": [
-        { "path": "assets/solver-samples/gallery-33-tyrosine.png", "role": "Gallery #33 — Tyrosine structure and current example-card preview", "status": "runtime" },
+        { "path": "assets/chemistry-structure.png", "role": "Approved chemistry structure used in the example-card preview", "status": "runtime" },
+        { "path": "assets/solver-samples/gallery-33-tyrosine.png", "role": "Gallery #33 — Tyrosine structure", "status": "runtime" },
         { "path": "assets/solver-samples/gallery-36-diaminopropanoic-acid.png", "role": "Gallery #36 — 2,3-Diaminopropanoic acid structure", "status": "runtime" },
         { "path": "assets/solver-samples/gallery-32-propionic-acid-lewis.png", "role": "Gallery #32 — Propionic acid Lewis structure", "status": "runtime" },
         { "path": "assets/solver-samples/chemistry-structure-visualization.html", "role": "Reusable local chemistry structure document with three tabbed cases", "status": "runtime" },
-        { "path": "assets/chemistry-structure.png", "role": "Previous chemistry card preview retained for reference", "status": "source" },
         { "path": "assets/solver-samples/m-ethylaniline.png", "role": "Previous solved structure — (m)-Ethylaniline", "status": "source" },
         { "path": "assets/solver-samples/sf4-lewis-structure.png", "role": "Previous solved structure — SF4 Lewis structure", "status": "source" },
         { "path": "assets/solver-samples/2-isopropyloxolane.png", "role": "Previous solved structure — 2-Isopropyloxolane", "status": "source" },
