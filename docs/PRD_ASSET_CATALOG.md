@@ -78,16 +78,18 @@
 - 页面/模块：Study · Solver
 - 场景：化学结构可视化
 - 代码入口：`capabilityData.solver.examples[2]`
-- 当前实现：示例详情和 3 张化学结构图均已本地化；切换逻辑封装在本地 HTML 中
+- 当前实现：示例顺序为 Chemistry Gallery #33、#36、#32；原图均已本地化，#33 同时作为卡片封面，切换逻辑封装在本地 HTML 中
 
 | # | 索引文件 | 用途 | 状态 |
 |---:|---|---|---|
-| 12 | `assets/solver-chemistry-structure-cover.png` | 化学结构示例卡片封面 | `runtime` |
+| 12 | `assets/solver-samples/gallery-33-tyrosine.png` | Gallery #33：Tyrosine 结构图及当前卡片封面 | `runtime` |
 | 13 | `assets/solver-samples/chemistry-structure-visualization.html` | 可复用的本地化学结构详情文档，包含 3 个案例 Tab | `runtime` |
-| 14 | `assets/solver-samples/m-ethylaniline.png` | (m)-Ethylaniline 本地解答结构图 | `runtime` |
-| 15 | `assets/solver-samples/sf4-lewis-structure.png` | SF₄ Lewis structure 本地解答结构图 | `runtime` |
-| 16 | `assets/solver-samples/2-isopropyloxolane.png` | 2-Isopropyloxolane 本地解答结构图 | `runtime` |
-| 17 | `assets/chemistry-structure.png` | 原始紧凑版化学结构参考图 | `source` |
+| 14 | `assets/solver-samples/gallery-36-diaminopropanoic-acid.png` | Gallery #36：2,3-Diaminopropanoic acid 结构图 | `runtime` |
+| 15 | `assets/solver-samples/gallery-32-propionic-acid-lewis.png` | Gallery #32：Propionic acid Lewis structure | `runtime` |
+| 16 | `assets/chemistry-structure.png` | 上一版卡片封面，保留用于回滚 | `source` |
+| 17 | `assets/solver-samples/m-ethylaniline.png` | 上一版 (m)-Ethylaniline 结构图 | `source` |
+| 18 | `assets/solver-samples/sf4-lewis-structure.png` | 上一版 SF₄ Lewis structure | `source` |
+| 19 | `assets/solver-samples/2-isopropyloxolane.png` | 上一版 2-Isopropyloxolane 结构图 | `source` |
 
 ### 4.5 `study.solver.financial-analysis`
 
