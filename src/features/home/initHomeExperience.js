@@ -59,7 +59,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     const capabilityData = {
       solver: {
         label: 'Solver', icon: 'i-solver', action: 'Solve',
-        placeholder: 'Enter a problem, or upload a document or image to get a step-by-step solution',
+        placeholder: 'Enter a problem, or upload a document or image for a step-by-step solution',
         description: 'Get a checked answer with a clear, step-by-step explanation.',
         examples: [
           { tag: 'Geometry', title: 'Step-by-step solution', dialogTitle: 'Solve for r in Parallelogram LMNO', description: 'Follow each angle relationship and algebra step to reach the checked answer.', prompt: 'Given the diagram of parallelogram LMNO, solve for r.', preview: 'solver-step-solution', simulator: 'assets/solver-samples/step-by-step-solution.html', embedMode: 'solver-document', cta: 'View solution' },
@@ -74,7 +74,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       },
       graph: {
         label: 'Graph', icon: 'i-chart', action: 'Graph',
-        placeholder: 'Enter an equation, function, or graphing problem to generate an interactive graph',
+        placeholder: 'Enter an equation, function, or graphing problem to create an interactive graph',
         description: 'Turn equations and data into interactive visual explanations.',
         examples: [
           { tag: 'Geometry', title: 'Reflection over y-axis', description: 'Adjust triangle vertices and track their reflected coordinates.', prompt: 'Reflect triangle PQR over the y-axis and write the coordinates of P′, Q′, and R′.', preview: 'graph-reflection', simulator: 'assets/simulators/reflection-over-y-axis.html' },
@@ -84,7 +84,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       },
       video: {
         label: 'Video', icon: 'i-play', action: 'Create video',
-        placeholder: 'Enter a concept or problem, or upload study materials to generate an explainer video',
+        placeholder: 'Enter a concept or problem, or upload study materials to create an explainer video',
         description: 'Generate a short narrated walkthrough with diagrams and steps.',
         examples: [
           { tag: 'Physics', title: 'Velocity & Distance Analysis', description: 'Turn signed area under a velocity graph into total distance.', prompt: 'A car travels for 8 minutes with velocity shown on the graph. Find the total distance traveled, rounded to the nearest thousandth.', preview: 'video-physics', simulator: 'https://img.justsolvely.com/solvely-solve/html/2025_07_14_fd4e936d9081a1ec45b9g_1768557153773.html', embedMode: 'video-player' },
@@ -215,7 +215,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
       },
       podcast: {
         label: 'Podcast', icon: 'i-mic', action: 'Create podcast',
-        placeholder: 'Enter a topic, or upload notes or slides to generate a podcast episode',
+        placeholder: 'Enter a topic, or upload notes or slides to create a podcast episode',
         description: 'Listen to a conversational lesson generated from your materials.',
         examples: [
           { tag:'Math', title:'Defining and Calculating Unit Rates', description:'Compare prices, speeds, and ratios with unit rates.', prompt:'Create a conversational podcast explaining how to define and calculate unit rates.', preview:'podcast', theme:'math', duration:'2:48', durationSeconds:167.962, platform:'iOS', language:'English', podcastId:'76608', deckId:'1743856', speakers:['Lexie','Noah'], speakerAvatars:['assets/podcasts/hosts/lexie.webp','assets/podcasts/hosts/noah.webp'], audio:'assets/podcasts/01_defining_and_calculating_unit_rates.mp3', transcriptKey:'unitRates', topics:['Unit-rate definition','Denominator of 1','Price and speed comparisons','Everyday budgeting'] },
