@@ -105,7 +105,7 @@
           <div class="capability-strip" id="capabilityStrip" role="tablist" aria-label="Choose a learning capability"></div>
 
           <div class="composer-input-wrap">
-            <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Type or paste a problem to solve"></textarea>
+            <textarea class="composer-input" id="promptInput" aria-label="Tell Solvely what you want to learn" placeholder="Enter a problem, or upload a document or image to get a step-by-step solution"></textarea>
           </div>
           <div class="attachment-row" id="attachmentRow" role="list" aria-label="Attached sources"></div>
           <div class="writing-tool-options" id="writingToolOptions" hidden></div>
