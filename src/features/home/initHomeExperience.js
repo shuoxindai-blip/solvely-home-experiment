@@ -832,7 +832,7 @@ export function initHomeExperience({ onWorkspaceChange } = {}) {
     }
 
     function solverStepSolutionPreview() {
-      return `<div class="example-preview preview-step-solution">
+      return `<div class="example-preview preview-step-solution preview-cover-fill">
         <div class="preview-solution-sheet">
           <div class="preview-solution-answer-row"><span>Final Answer</span><strong>C. 30</strong></div>
           <div class="preview-step-flow" aria-hidden="true">
